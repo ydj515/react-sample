@@ -31,3 +31,29 @@ pnpm install
 ```
 pnpm run dev
 ```
+
+### vscode extension
+
+1. tailwindcss
+- `Tailwind CSS IntelliSense` 설치
+- `cmd⌘ + shift + p` 에서 `Open User Setting(Json)`을 연 후 `settings.json`에 아래의 내용 추가
+
+```json
+{
+  "files.associations": {
+    "*.css": "tailwindcss"
+  },
+  "editor.quickSuggestions": {
+    "strings": true
+  }
+}
+```
+
+2. import ts alias path
+- tsconfig.app.json 에서 설정한 alias path로 auto import 적용 하고 싶은 경우의 설정
+- `cmd⌘ + shift + p` > `Preferences: Open Workspace Settings (JSON)` 추가
+  ```
+  {
+    "typescript.preferences.importModuleSpecifier": "non-relative"
+  }
+  ```
