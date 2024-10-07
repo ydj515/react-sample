@@ -20,13 +20,13 @@ node version manager인 `nvm`을 설치한다.
     ```
 
 ## Project setup
-1. package install<br/> 
+1. `package install`<br/> 
 프로젝트에서 사용하는 전체 package install을 진행한다.
 ```sh
 pnpm install
 ```
 
-2. run server 
+2. `run server`<br/>
 서버를 실행한다.
 ```
 pnpm run dev
