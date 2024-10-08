@@ -4,6 +4,7 @@
 
 - [node 20.11.0](<(https://nodejs.org/en/download/package-manager)(https://nodejs.org/en/download/package-manager)>)
 - [react 18.3.1](https://legacy.reactjs.org/)
+- [tanstack](https://tanstack.com/)
 - [typestcript](https://www.typescriptlang.org/)
 - [vite](https://vite.dev/)
 - [tailwindcss 3.4](https://tailwindcss.com/)
@@ -41,8 +42,8 @@ pnpm run dev
 
 1. tailwindcss
 
-- `Tailwind CSS IntelliSense` 설치
-- `cmd⌘ + shift + p` 에서 `Open User Setting(Json)`을 연 후 `settings.json`에 아래의 내용 추가
+- `Tailwind CSS IntelliSense` 설치한다.
+- `cmd⌘ + shift + p` 에서 `Open User Setting(Json)`을 연 후 `settings.json`에 아래의 내용 추가한다.
 
 ```json
 {
@@ -57,8 +58,8 @@ pnpm run dev
 
 2. import ts alias path
 
-- tsconfig.app.json 에서 설정한 alias path로 auto import 적용 하고 싶은 경우의 설정
-- `cmd⌘ + shift + p` > `Preferences: Open Workspace Settings (JSON)` 추가
+- tsconfig.app.json 에서 설정한 alias path로 auto import 적용 하고 싶은 경우의 설정한다.
+- `cmd⌘ + shift + p` > `Preferences: Open Workspace Settings (JSON)` 추가한다.
   ```
   {
     "typescript.preferences.importModuleSpecifier": "non-relative"
