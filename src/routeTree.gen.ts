@@ -13,7 +13,7 @@
 import { Route as rootRoute } from './routes/__root'
 import { Route as DefaultLayoutImport } from './routes/_defaultLayout'
 import { Route as DefaultLayoutIndexImport } from './routes/_defaultLayout/index'
-import { Route as DefaultLayoutLoginIndexImport } from './routes/_defaultLayout/login/index'
+import { Route as DefaultLayoutSigninIndexImport } from './routes/_defaultLayout/signin/index'
 import { Route as DefaultLayoutAboutIndexImport } from './routes/_defaultLayout/about/index'
 
 // Create/Update Routes
@@ -28,8 +28,8 @@ const DefaultLayoutIndexRoute = DefaultLayoutIndexImport.update({
   getParentRoute: () => DefaultLayoutRoute,
 } as any)
 
-const DefaultLayoutLoginIndexRoute = DefaultLayoutLoginIndexImport.update({
-  path: '/login/',
+const DefaultLayoutSigninIndexRoute = DefaultLayoutSigninIndexImport.update({
+  path: '/signin/',
   getParentRoute: () => DefaultLayoutRoute,
 } as any)
 
@@ -63,11 +63,11 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DefaultLayoutAboutIndexImport
       parentRoute: typeof DefaultLayoutImport
     }
-    '/_defaultLayout/login/': {
-      id: '/_defaultLayout/login/'
-      path: '/login'
-      fullPath: '/login'
-      preLoaderRoute: typeof DefaultLayoutLoginIndexImport
+    '/_defaultLayout/signin/': {
+      id: '/_defaultLayout/signin/'
+      path: '/signin'
+      fullPath: '/signin'
+      preLoaderRoute: typeof DefaultLayoutSigninIndexImport
       parentRoute: typeof DefaultLayoutImport
     }
   }
@@ -78,13 +78,13 @@ declare module '@tanstack/react-router' {
 interface DefaultLayoutRouteChildren {
   DefaultLayoutIndexRoute: typeof DefaultLayoutIndexRoute
   DefaultLayoutAboutIndexRoute: typeof DefaultLayoutAboutIndexRoute
-  DefaultLayoutLoginIndexRoute: typeof DefaultLayoutLoginIndexRoute
+  DefaultLayoutSigninIndexRoute: typeof DefaultLayoutSigninIndexRoute
 }
 
 const DefaultLayoutRouteChildren: DefaultLayoutRouteChildren = {
   DefaultLayoutIndexRoute: DefaultLayoutIndexRoute,
   DefaultLayoutAboutIndexRoute: DefaultLayoutAboutIndexRoute,
-  DefaultLayoutLoginIndexRoute: DefaultLayoutLoginIndexRoute,
+  DefaultLayoutSigninIndexRoute: DefaultLayoutSigninIndexRoute,
 }
 
 const DefaultLayoutRouteWithChildren = DefaultLayoutRoute._addFileChildren(
@@ -95,13 +95,13 @@ export interface FileRoutesByFullPath {
   '': typeof DefaultLayoutRouteWithChildren
   '/': typeof DefaultLayoutIndexRoute
   '/about': typeof DefaultLayoutAboutIndexRoute
-  '/login': typeof DefaultLayoutLoginIndexRoute
+  '/signin': typeof DefaultLayoutSigninIndexRoute
 }
 
 export interface FileRoutesByTo {
   '/': typeof DefaultLayoutIndexRoute
   '/about': typeof DefaultLayoutAboutIndexRoute
-  '/login': typeof DefaultLayoutLoginIndexRoute
+  '/signin': typeof DefaultLayoutSigninIndexRoute
 }
 
 export interface FileRoutesById {
@@ -109,20 +109,20 @@ export interface FileRoutesById {
   '/_defaultLayout': typeof DefaultLayoutRouteWithChildren
   '/_defaultLayout/': typeof DefaultLayoutIndexRoute
   '/_defaultLayout/about/': typeof DefaultLayoutAboutIndexRoute
-  '/_defaultLayout/login/': typeof DefaultLayoutLoginIndexRoute
+  '/_defaultLayout/signin/': typeof DefaultLayoutSigninIndexRoute
 }
 
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: '' | '/' | '/about' | '/login'
+  fullPaths: '' | '/' | '/about' | '/signin'
   fileRoutesByTo: FileRoutesByTo
-  to: '/' | '/about' | '/login'
+  to: '/' | '/about' | '/signin'
   id:
     | '__root__'
     | '/_defaultLayout'
     | '/_defaultLayout/'
     | '/_defaultLayout/about/'
-    | '/_defaultLayout/login/'
+    | '/_defaultLayout/signin/'
   fileRoutesById: FileRoutesById
 }
 
@@ -154,7 +154,7 @@ export const routeTree = rootRoute
       "children": [
         "/_defaultLayout/",
         "/_defaultLayout/about/",
-        "/_defaultLayout/login/"
+        "/_defaultLayout/signin/"
       ]
     },
     "/_defaultLayout/": {
@@ -165,8 +165,8 @@ export const routeTree = rootRoute
       "filePath": "_defaultLayout/about/index.tsx",
       "parent": "/_defaultLayout"
     },
-    "/_defaultLayout/login/": {
-      "filePath": "_defaultLayout/login/index.tsx",
+    "/_defaultLayout/signin/": {
+      "filePath": "_defaultLayout/signin/index.tsx",
       "parent": "/_defaultLayout"
     }
   }
