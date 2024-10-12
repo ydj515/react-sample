@@ -106,14 +106,22 @@ function Login() {
             </div>
           </div>
 
-          <div>
-            <button className="flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-900 transition duration-300 hover:border-gray-400 focus:ring-4 focus:ring-gray-200">
+          <div className="flex justify-between">
+            <button className="flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-900 transition duration-300 hover:border-gray-400 focus:ring-gray-200">
               <img
                 className="mr-2 h-5"
                 src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/motion-tailwind/img/logos/logo-google.png"
                 alt=""
               />
               Google
+            </button>
+            <button className="flex w-full items-center justify-center rounded-lg border border-gray-300 bg-white px-4 py-2 text-sm font-medium text-gray-900 transition duration-300 hover:border-gray-400 focus:ring-gray-200">
+              <img
+                className="mr-2 h-5"
+                src="https://raw.githubusercontent.com/Loopple/loopple-public-assets/main/motion-tailwind/img/logos/logo-google.png"
+                alt=""
+              />
+              Github
             </button>
           </div>
 
