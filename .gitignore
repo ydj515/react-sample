@@ -12,6 +12,14 @@ dist
 dist-ssr
 *.local
 
+# Local agent artifacts
+.superpowers/
+.worktrees/
+
+# Test and build output
+coverage/
+*.tsbuildinfo
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
