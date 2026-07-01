@@ -17,5 +17,10 @@
     },
     "types": ["vitest/globals", "@testing-library/jest-dom"]
   },
-  "include": ["src/**/*.test.ts", "src/**/*.test.tsx", "src/test/**/*.ts"]
+  "include": [
+    "vitest.config.ts",
+    "src/**/*.test.ts",
+    "src/**/*.test.tsx",
+    "src/test/**/*.ts"
+  ]
 }
