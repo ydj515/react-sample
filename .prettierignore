@@ -12,4 +12,5 @@ docs/superpowers/
 playwright-report/
 test-results/
 pnpm-lock.yaml
+public/mockServiceWorker.js
 src/routeTree.gen.ts
