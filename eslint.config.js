@@ -11,6 +11,7 @@ export default tseslint.config(
       "dist",
       "coverage",
       ".superpowers",
+      "public/mockServiceWorker.js",
       "src/routeTree.gen.ts",
       "*.tsbuildinfo",
     ],
