@@ -1,0 +1,20 @@
+{
+  "name": "React Sample Dashboard",
+  "short_name": "React Sample",
+  "icons": [
+    {
+      "src": "/favicon.ico",
+      "sizes": "16x16 32x32 48x48",
+      "type": "image/x-icon"
+    },
+    {
+      "src": "/favicon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any"
+    }
+  ],
+  "theme_color": "#0f172a",
+  "background_color": "#f8fafc",
+  "display": "standalone"
+}
