@@ -6,7 +6,7 @@ export const Route = createFileRoute("/_defaultLayout")({
   component: DefaultLayoutComponent,
 });
 
-function DefaultLayoutComponent() {
+export function DefaultLayoutComponent() {
   return (
     <>
       <Header />
