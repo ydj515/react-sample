@@ -29,6 +29,14 @@ corepack enable
 pnpm install
 ```
 
+## Mise Tasks
+
+```bash
+mise tasks
+mise run dev
+mise run validate
+```
+
 ## Scripts
 
 ```bash
@@ -39,6 +47,19 @@ pnpm format:check
 pnpm test
 pnpm build
 pnpm validate
+```
+
+## Local Examples
+
+아래 URL은 Vite dev server가 `5174` 포트에서 실행 중인 경우를 기준으로 합니다.
+다른 포트로 실행되면 포트 번호만 바꿔서 확인하면 됩니다.
+
+```txt
+http://localhost:5174/                                      대시보드: TanStack Query로 mock project 데이터를 가져와 metric과 최근 프로젝트를 표시
+http://localhost:5174/projects                              프로젝트 목록: 필터, 정렬, React Hook Form + Zod 기반 생성 Dialog, mutation 흐름 확인
+http://localhost:5174/projects/project-design-system        프로젝트 상세: route params, detail query, 상태 badge, 날짜 format 유틸 확인
+http://localhost:5174/settings                              설정: Zustand client UI state 예제, density 설정 확인
+http://localhost:5174/signin                                로그인: 인증 구현 없이 AuthLayout, form field, shared UI 구성을 확인
 ```
 
 ## Structure
@@ -77,3 +98,9 @@ src/test       테스트 setup
 - Unit: schema, utility, store, test helper
 - Component: shared UI, layout, form dialog, dashboard/settings/signin page
 - Integration: MSW 기반 project API와 project creation flow
+
+## Documents
+
+- [Architecture](docs/architecture.md): 폴더 구조, 데이터 흐름, 상태 관리 경계
+- [Tech Stack](docs/tech-stack.md): 사용 기술의 역할과 선택 이유
+- [Testing](docs/testing.md): 테스트 계층, MSW 구성, 검증 명령

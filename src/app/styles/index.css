@@ -1,5 +1,8 @@
 @import "tailwindcss";
 
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+@custom-variant compact (&:where([data-density="compact"], [data-density="compact"] *));
+
 :root {
   color-scheme: light;
   font-family:
@@ -12,6 +15,10 @@
     sans-serif;
   background: #f8fafc;
   color: #0f172a;
+}
+
+[data-theme="dark"] {
+  color-scheme: dark;
 }
 
 * {
