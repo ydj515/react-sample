@@ -9,7 +9,7 @@ const defaultUiPreferences = {
   density: "comfortable",
 } as const satisfies Pick<UiState, "theme" | "density">;
 
-type UiState = {
+export type UiState = {
   sidebarOpen: boolean;
   theme: Theme;
   density: Density;
@@ -42,6 +42,7 @@ export const useUiStore = create<UiState>()(
     {
       name: "react-sample-ui",
       storage: createJSONStorage(() => localStorage),
+      version: 1,
       partialize: (state) => ({
         density: state.density,
         theme: state.theme,

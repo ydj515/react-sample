@@ -3,7 +3,7 @@ import type { ReactNode } from "react";
 
 export function AuthLayout({ children }: { children?: ReactNode }) {
   return (
-    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4">
+    <main className="flex min-h-screen items-center justify-center bg-slate-50 px-4 dark:bg-slate-950 dark:text-slate-100">
       {children ?? <Outlet />}
     </main>
   );

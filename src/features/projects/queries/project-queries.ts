@@ -64,9 +64,6 @@ export function useUpdateProjectStatusMutation(projectId: string) {
       updateProjectStatus(projectId, status),
     onSuccess: () => {
       void queryClient.invalidateQueries({ queryKey: projectKeys.all });
-      void queryClient.invalidateQueries({
-        queryKey: projectKeys.detail(projectId),
-      });
     },
   });
 }

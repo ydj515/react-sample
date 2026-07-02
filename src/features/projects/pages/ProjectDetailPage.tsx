@@ -15,9 +15,19 @@ export function ProjectDetailPage() {
     return <Skeleton className="h-48 w-full" aria-label="프로젝트 로딩 중" />;
   }
 
-  if (query.isError || !query.data) {
+  if (query.isError) {
     return (
-      <Card className="p-6 text-red-700">프로젝트를 찾을 수 없습니다.</Card>
+      <Card className="p-6 text-red-700 dark:text-red-400" role="alert">
+        프로젝트 정보를 불러오지 못했습니다.
+      </Card>
+    );
+  }
+
+  if (!query.data) {
+    return (
+      <Card className="p-6 text-red-700 dark:text-red-400">
+        프로젝트를 찾을 수 없습니다.
+      </Card>
     );
   }
 

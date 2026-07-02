@@ -1,3 +1,5 @@
+import type { CreateProjectFormValues } from "@/features/projects/model/project-schema";
+
 export const projectStatuses = ["active", "paused", "completed"] as const;
 
 export type ProjectStatus = (typeof projectStatuses)[number];
@@ -12,13 +14,7 @@ export type Project = {
   updatedAt: string;
 };
 
-export type CreateProjectInput = {
-  name: string;
-  owner: string;
-  status: ProjectStatus;
-  dueDate: string;
-  description: string;
-};
+export type CreateProjectInput = CreateProjectFormValues;
 
 export type ProjectFilters = {
   search: string;

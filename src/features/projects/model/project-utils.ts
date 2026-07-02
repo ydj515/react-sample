@@ -26,6 +26,10 @@ export function sortProjects(projects: Project[], sortKey: ProjectSortKey) {
       return a.name.localeCompare(b.name);
     }
 
+    if (sortKey === "updatedAt") {
+      return b.updatedAt.localeCompare(a.updatedAt);
+    }
+
     return a[sortKey].localeCompare(b[sortKey]);
   });
 }

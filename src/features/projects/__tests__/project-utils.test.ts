@@ -39,6 +39,10 @@ describe("project-utils", () => {
     expect(sortProjects(projects, "dueDate")[0]?.id).toBe("p-2");
   });
 
+  it("최근 수정일은 최신순으로 정렬한다", () => {
+    expect(sortProjects(projects, "updatedAt")[0]?.id).toBe("p-1");
+  });
+
   it("상태별 개수를 계산한다", () => {
     expect(getProjectStatusCounts(projects)).toEqual({
       active: 1,
