@@ -9,117 +9,156 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from "./routes/__root";
-import { Route as DefaultLayoutRouteImport } from "./routes/_defaultLayout";
-import { Route as DefaultLayoutIndexRouteImport } from "./routes/_defaultLayout/index";
-import { Route as DefaultLayoutSigninIndexRouteImport } from "./routes/_defaultLayout/signin/index";
-import { Route as DefaultLayoutAboutIndexRouteImport } from "./routes/_defaultLayout/about/index";
+import { Route as SigninRouteImport } from "./routes/signin";
+import { Route as DashboardRouteImport } from "./routes/_dashboard";
+import { Route as DashboardIndexRouteImport } from "./routes/_dashboard/index";
+import { Route as DashboardSettingsRouteImport } from "./routes/_dashboard/settings";
+import { Route as DashboardProjectsIndexRouteImport } from "./routes/_dashboard/projects.index";
+import { Route as DashboardProjectsProjectIdRouteImport } from "./routes/_dashboard/projects.$projectId";
 
-const DefaultLayoutRoute = DefaultLayoutRouteImport.update({
-  id: "/_defaultLayout",
+const SigninRoute = SigninRouteImport.update({
+  id: "/signin",
+  path: "/signin",
   getParentRoute: () => rootRouteImport,
 } as any);
-const DefaultLayoutIndexRoute = DefaultLayoutIndexRouteImport.update({
+const DashboardRoute = DashboardRouteImport.update({
+  id: "/_dashboard",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: "/",
   path: "/",
-  getParentRoute: () => DefaultLayoutRoute,
+  getParentRoute: () => DashboardRoute,
 } as any);
-const DefaultLayoutSigninIndexRoute =
-  DefaultLayoutSigninIndexRouteImport.update({
-    id: "/signin/",
-    path: "/signin/",
-    getParentRoute: () => DefaultLayoutRoute,
+const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
+  id: "/settings",
+  path: "/settings",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardProjectsIndexRoute = DashboardProjectsIndexRouteImport.update({
+  id: "/projects/",
+  path: "/projects/",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardProjectsProjectIdRoute =
+  DashboardProjectsProjectIdRouteImport.update({
+    id: "/projects/$projectId",
+    path: "/projects/$projectId",
+    getParentRoute: () => DashboardRoute,
   } as any);
-const DefaultLayoutAboutIndexRoute = DefaultLayoutAboutIndexRouteImport.update({
-  id: "/about/",
-  path: "/about/",
-  getParentRoute: () => DefaultLayoutRoute,
-} as any);
 
 export interface FileRoutesByFullPath {
-  "/": typeof DefaultLayoutIndexRoute;
-  "/about/": typeof DefaultLayoutAboutIndexRoute;
-  "/signin/": typeof DefaultLayoutSigninIndexRoute;
+  "/": typeof DashboardIndexRoute;
+  "/signin": typeof SigninRoute;
+  "/settings": typeof DashboardSettingsRoute;
+  "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
+  "/projects/": typeof DashboardProjectsIndexRoute;
 }
 export interface FileRoutesByTo {
-  "/": typeof DefaultLayoutIndexRoute;
-  "/about": typeof DefaultLayoutAboutIndexRoute;
-  "/signin": typeof DefaultLayoutSigninIndexRoute;
+  "/signin": typeof SigninRoute;
+  "/settings": typeof DashboardSettingsRoute;
+  "/": typeof DashboardIndexRoute;
+  "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
+  "/projects": typeof DashboardProjectsIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
-  "/_defaultLayout": typeof DefaultLayoutRouteWithChildren;
-  "/_defaultLayout/": typeof DefaultLayoutIndexRoute;
-  "/_defaultLayout/about/": typeof DefaultLayoutAboutIndexRoute;
-  "/_defaultLayout/signin/": typeof DefaultLayoutSigninIndexRoute;
+  "/_dashboard": typeof DashboardRouteWithChildren;
+  "/signin": typeof SigninRoute;
+  "/_dashboard/settings": typeof DashboardSettingsRoute;
+  "/_dashboard/": typeof DashboardIndexRoute;
+  "/_dashboard/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
+  "/_dashboard/projects/": typeof DashboardProjectsIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
-  fullPaths: "/" | "/about/" | "/signin/";
+  fullPaths:
+    "/" | "/signin" | "/settings" | "/projects/$projectId" | "/projects/";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/" | "/about" | "/signin";
+  to: "/signin" | "/settings" | "/" | "/projects/$projectId" | "/projects";
   id:
     | "__root__"
-    | "/_defaultLayout"
-    | "/_defaultLayout/"
-    | "/_defaultLayout/about/"
-    | "/_defaultLayout/signin/";
+    | "/_dashboard"
+    | "/signin"
+    | "/_dashboard/settings"
+    | "/_dashboard/"
+    | "/_dashboard/projects/$projectId"
+    | "/_dashboard/projects/";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
-  DefaultLayoutRoute: typeof DefaultLayoutRouteWithChildren;
+  DashboardRoute: typeof DashboardRouteWithChildren;
+  SigninRoute: typeof SigninRoute;
 }
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    "/_defaultLayout": {
-      id: "/_defaultLayout";
-      path: "";
-      fullPath: "/";
-      preLoaderRoute: typeof DefaultLayoutRouteImport;
+    "/signin": {
+      id: "/signin";
+      path: "/signin";
+      fullPath: "/signin";
+      preLoaderRoute: typeof SigninRouteImport;
       parentRoute: typeof rootRouteImport;
     };
-    "/_defaultLayout/": {
-      id: "/_defaultLayout/";
+    "/_dashboard": {
+      id: "/_dashboard";
+      path: "";
+      fullPath: "/";
+      preLoaderRoute: typeof DashboardRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/_dashboard/": {
+      id: "/_dashboard/";
       path: "/";
       fullPath: "/";
-      preLoaderRoute: typeof DefaultLayoutIndexRouteImport;
-      parentRoute: typeof DefaultLayoutRoute;
+      preLoaderRoute: typeof DashboardIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
     };
-    "/_defaultLayout/signin/": {
-      id: "/_defaultLayout/signin/";
-      path: "/signin";
-      fullPath: "/signin/";
-      preLoaderRoute: typeof DefaultLayoutSigninIndexRouteImport;
-      parentRoute: typeof DefaultLayoutRoute;
+    "/_dashboard/settings": {
+      id: "/_dashboard/settings";
+      path: "/settings";
+      fullPath: "/settings";
+      preLoaderRoute: typeof DashboardSettingsRouteImport;
+      parentRoute: typeof DashboardRoute;
     };
-    "/_defaultLayout/about/": {
-      id: "/_defaultLayout/about/";
-      path: "/about";
-      fullPath: "/about/";
-      preLoaderRoute: typeof DefaultLayoutAboutIndexRouteImport;
-      parentRoute: typeof DefaultLayoutRoute;
+    "/_dashboard/projects/": {
+      id: "/_dashboard/projects/";
+      path: "/projects";
+      fullPath: "/projects/";
+      preLoaderRoute: typeof DashboardProjectsIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/projects/$projectId": {
+      id: "/_dashboard/projects/$projectId";
+      path: "/projects/$projectId";
+      fullPath: "/projects/$projectId";
+      preLoaderRoute: typeof DashboardProjectsProjectIdRouteImport;
+      parentRoute: typeof DashboardRoute;
     };
   }
 }
 
-interface DefaultLayoutRouteChildren {
-  DefaultLayoutIndexRoute: typeof DefaultLayoutIndexRoute;
-  DefaultLayoutAboutIndexRoute: typeof DefaultLayoutAboutIndexRoute;
-  DefaultLayoutSigninIndexRoute: typeof DefaultLayoutSigninIndexRoute;
+interface DashboardRouteChildren {
+  DashboardSettingsRoute: typeof DashboardSettingsRoute;
+  DashboardIndexRoute: typeof DashboardIndexRoute;
+  DashboardProjectsProjectIdRoute: typeof DashboardProjectsProjectIdRoute;
+  DashboardProjectsIndexRoute: typeof DashboardProjectsIndexRoute;
 }
 
-const DefaultLayoutRouteChildren: DefaultLayoutRouteChildren = {
-  DefaultLayoutIndexRoute: DefaultLayoutIndexRoute,
-  DefaultLayoutAboutIndexRoute: DefaultLayoutAboutIndexRoute,
-  DefaultLayoutSigninIndexRoute: DefaultLayoutSigninIndexRoute,
+const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardIndexRoute: DashboardIndexRoute,
+  DashboardProjectsProjectIdRoute: DashboardProjectsProjectIdRoute,
+  DashboardProjectsIndexRoute: DashboardProjectsIndexRoute,
 };
 
-const DefaultLayoutRouteWithChildren = DefaultLayoutRoute._addFileChildren(
-  DefaultLayoutRouteChildren,
+const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
+  DashboardRouteChildren,
 );
 
 const rootRouteChildren: RootRouteChildren = {
-  DefaultLayoutRoute: DefaultLayoutRouteWithChildren,
+  DashboardRoute: DashboardRouteWithChildren,
+  SigninRoute: SigninRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
