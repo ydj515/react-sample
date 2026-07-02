@@ -1,7 +1,7 @@
 import { RotateCcw } from "lucide-react";
 
-import { Card } from "@/shared/ui/card";
 import { Button } from "@/shared/ui/button";
+import { Card } from "@/shared/ui/card";
 import { Label } from "@/shared/ui/label";
 import { Select } from "@/shared/ui/select";
 import { useUiStore } from "@/stores/ui-store";
@@ -47,7 +47,7 @@ export function SettingsPage() {
         <p className="rounded-md bg-slate-50 p-3 text-sm text-slate-600 dark:bg-slate-800 dark:text-slate-300">
           {densityDescriptions[density]}
         </p>
-        <div className="flex flex-col gap-3 border-t border-slate-200 pt-4 dark:border-slate-800 sm:flex-row sm:items-center sm:justify-between">
+        <div className="flex flex-col gap-3 border-t border-slate-200 pt-4 sm:flex-row sm:items-center sm:justify-between dark:border-slate-800">
           <p className="text-sm text-slate-500 dark:text-slate-400">
             이 설정은 브라우저에 저장됩니다.
           </p>
@@ -60,7 +60,8 @@ export function SettingsPage() {
             <RotateCcw className="size-4" aria-hidden="true" />
             설정 초기화
           </Button>
-        </div>      </Card>
+        </div>
+      </Card>
     </section>
   );
 }
