@@ -45,4 +45,21 @@ export default tseslint.config(
       "react-refresh/only-export-components": "off",
     },
   },
+  {
+    files: ["src/shared/ui/dialog.tsx"],
+    rules: {
+      "react-refresh/only-export-components": [
+        "warn",
+        {
+          allowExportNames: [
+            "Dialog",
+            "DialogClose",
+            "DialogDescription",
+            "DialogTitle",
+            "DialogTrigger",
+          ],
+        },
+      ],
+    },
+  },
 );
