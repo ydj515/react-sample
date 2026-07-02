@@ -36,15 +36,28 @@ export function CreateProjectDialog() {
     resolver: zodResolver(createProjectSchema),
     defaultValues,
   });
+  const errors = form.formState.errors;
+
+  function handleOpenChange(nextOpen: boolean) {
+    setOpen(nextOpen);
+
+    if (!nextOpen) {
+      form.reset(defaultValues);
+      mutation.reset();
+    }
+  }
 
   async function onSubmit(values: CreateProjectFormValues) {
-    await mutation.mutateAsync(values);
-    form.reset(defaultValues);
-    setOpen(false);
+    try {
+      await mutation.mutateAsync(values);
+      handleOpenChange(false);
+    } catch {
+      // mutation.isError가 inline 오류 메시지를 담당한다.
+    }
   }
 
   return (
-    <Dialog open={open} onOpenChange={setOpen}>
+    <Dialog open={open} onOpenChange={handleOpenChange}>
       <DialogTrigger asChild>
         <Button type="button">
           <Plus className="size-4" aria-hidden="true" />
@@ -62,45 +75,91 @@ export function CreateProjectDialog() {
         >
           <div className="grid gap-1.5">
             <Label htmlFor="name">프로젝트 이름</Label>
-            <Input id="name" {...form.register("name")} />
-            {form.formState.errors.name ? (
-              <p className="text-sm text-red-600" role="alert">
-                {form.formState.errors.name.message}
+            <Input
+              id="name"
+              {...form.register("name")}
+              aria-describedby={errors.name ? "name-error" : undefined}
+              aria-invalid={errors.name ? true : undefined}
+            />
+            {errors.name ? (
+              <p id="name-error" className="text-sm text-red-600" role="alert">
+                {errors.name.message}
               </p>
             ) : null}
           </div>
           <div className="grid gap-1.5">
             <Label htmlFor="owner">담당자</Label>
-            <Input id="owner" {...form.register("owner")} />
-            {form.formState.errors.owner ? (
-              <p className="text-sm text-red-600" role="alert">
-                {form.formState.errors.owner.message}
+            <Input
+              id="owner"
+              {...form.register("owner")}
+              aria-describedby={errors.owner ? "owner-error" : undefined}
+              aria-invalid={errors.owner ? true : undefined}
+            />
+            {errors.owner ? (
+              <p id="owner-error" className="text-sm text-red-600" role="alert">
+                {errors.owner.message}
               </p>
             ) : null}
           </div>
           <div className="grid gap-1.5">
             <Label htmlFor="status">상태</Label>
-            <Select id="status" className="w-full" {...form.register("status")}>
+            <Select
+              id="status"
+              className="w-full"
+              {...form.register("status")}
+              aria-describedby={errors.status ? "status-error" : undefined}
+              aria-invalid={errors.status ? true : undefined}
+            >
               <option value="active">진행 중</option>
               <option value="paused">일시 중지</option>
               <option value="completed">완료</option>
             </Select>
+            {errors.status ? (
+              <p
+                id="status-error"
+                className="text-sm text-red-600"
+                role="alert"
+              >
+                {errors.status.message}
+              </p>
+            ) : null}
           </div>
           <div className="grid gap-1.5">
             <Label htmlFor="dueDate">마감일</Label>
-            <Input id="dueDate" type="date" {...form.register("dueDate")} />
-            {form.formState.errors.dueDate ? (
-              <p className="text-sm text-red-600" role="alert">
-                {form.formState.errors.dueDate.message}
+            <Input
+              id="dueDate"
+              type="date"
+              {...form.register("dueDate")}
+              aria-describedby={errors.dueDate ? "dueDate-error" : undefined}
+              aria-invalid={errors.dueDate ? true : undefined}
+            />
+            {errors.dueDate ? (
+              <p
+                id="dueDate-error"
+                className="text-sm text-red-600"
+                role="alert"
+              >
+                {errors.dueDate.message}
               </p>
             ) : null}
           </div>
           <div className="grid gap-1.5">
             <Label htmlFor="description">설명</Label>
-            <Input id="description" {...form.register("description")} />
-            {form.formState.errors.description ? (
-              <p className="text-sm text-red-600" role="alert">
-                {form.formState.errors.description.message}
+            <Input
+              id="description"
+              {...form.register("description")}
+              aria-describedby={
+                errors.description ? "description-error" : undefined
+              }
+              aria-invalid={errors.description ? true : undefined}
+            />
+            {errors.description ? (
+              <p
+                id="description-error"
+                className="text-sm text-red-600"
+                role="alert"
+              >
+                {errors.description.message}
               </p>
             ) : null}
           </div>

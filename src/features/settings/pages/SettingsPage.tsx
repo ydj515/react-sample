@@ -4,7 +4,7 @@ import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { Label } from "@/shared/ui/label";
 import { Select } from "@/shared/ui/select";
-import { useUiStore } from "@/stores/ui-store";
+import { useUiStore, type UiState } from "@/stores/ui-store";
 
 const densityDescriptions = {
   comfortable:
@@ -36,7 +36,7 @@ export function SettingsPage() {
             id="density"
             value={density}
             onChange={(event) =>
-              setDensity(event.target.value as "comfortable" | "compact")
+              setDensity(event.target.value as UiState["density"])
             }
             className="w-full"
           >

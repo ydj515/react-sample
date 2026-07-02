@@ -1,5 +1,5 @@
 import { Link, Outlet } from "@tanstack/react-router";
-import { Menu } from "lucide-react";
+import { Menu, X } from "lucide-react";
 
 import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { cn } from "@/shared/lib/cn";
@@ -16,9 +16,16 @@ export function DashboardLayout() {
   const density = useUiStore((state) => state.density);
   const sidebarOpen = useUiStore((state) => state.sidebarOpen);
   const theme = useUiStore((state) => state.theme);
+  const setSidebarOpen = useUiStore((state) => state.setSidebarOpen);
   const toggleSidebar = useUiStore((state) => state.toggleSidebar);
   const sidebarId = "dashboard-sidebar";
   const isCompact = density === "compact";
+  const closeSidebar = () => setSidebarOpen(false);
+  const closeSidebarOnMobile = () => {
+    if (window.matchMedia("(max-width: 1023px)").matches) {
+      closeSidebar();
+    }
+  };
 
   return (
     <div
@@ -27,6 +34,14 @@ export function DashboardLayout() {
       data-theme={theme}
       className="min-h-screen bg-slate-50 text-slate-950 transition-colors dark:bg-slate-950 dark:text-slate-100"
     >
+      {sidebarOpen ? (
+        <button
+          aria-label="사이드바 배경 닫기"
+          className="fixed inset-0 z-20 bg-slate-950/40 lg:hidden"
+          type="button"
+          onClick={closeSidebar}
+        />
+      ) : null}
       <aside
         id={sidebarId}
         aria-label="사이드바"
@@ -38,11 +53,21 @@ export function DashboardLayout() {
       >
         <div
           className={cn(
-            "font-semibold",
+            "flex items-center justify-between font-semibold",
             isCompact ? "mb-6 text-base" : "mb-8 text-lg",
           )}
         >
-          ProjectHub
+          <span>ProjectHub</span>
+          <Button
+            aria-label="사이드바 닫기"
+            className="lg:hidden dark:text-slate-200 dark:hover:bg-slate-800"
+            size="icon"
+            type="button"
+            variant="ghost"
+            onClick={closeSidebar}
+          >
+            <X className="size-5" aria-hidden="true" />
+          </Button>
         </div>
         <nav
           aria-label="주요 메뉴"
@@ -60,6 +85,8 @@ export function DashboardLayout() {
                 className:
                   "bg-slate-950 text-white hover:bg-slate-950 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-100",
               }}
+              activeOptions={item.to === "/" ? { exact: true } : undefined}
+              onClick={closeSidebarOnMobile}
             >
               {item.label}
             </Link>

@@ -13,6 +13,14 @@ export function DashboardPage() {
     return <Skeleton className="h-48 w-full" aria-label="대시보드 로딩 중" />;
   }
 
+  if (query.isError) {
+    return (
+      <p role="alert" className="text-sm text-red-600 dark:text-red-400">
+        대시보드 데이터를 불러오지 못했습니다.
+      </p>
+    );
+  }
+
   const projects = query.data ?? [];
   const counts = getProjectStatusCounts(projects);
 
