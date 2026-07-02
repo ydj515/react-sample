@@ -2,7 +2,7 @@ import React from "react";
 
 const Header = () => {
   return (
-    <header className="relative z-50 w-full flex-none text-sm font-semibold leading-6 text-slate-900">
+    <header className="relative z-50 w-full flex-none text-sm leading-6 font-semibold text-slate-900">
       <nav
         aria-label="Global"
         className="max-w-container mx-auto px-4 sm:px-6 lg:px-8"

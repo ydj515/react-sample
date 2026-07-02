@@ -14,7 +14,7 @@ export const Route = createRootRoute({
   },
 });
 
-function RootComponent() {
+export function RootComponent() {
   return (
     <>
       <Outlet />

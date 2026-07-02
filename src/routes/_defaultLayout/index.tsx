@@ -4,7 +4,7 @@ export const Route = createFileRoute("/_defaultLayout/")({
   component: DefaultHome,
 });
 
-function DefaultHome() {
+export function DefaultHome() {
   return (
     <>
       <ModalExample />
