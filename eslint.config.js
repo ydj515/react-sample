@@ -39,4 +39,10 @@ export default tseslint.config(
     files: ["**/*.{test,spec}.{ts,tsx}"],
     ...testingLibrary.configs["flat/react"],
   },
+  {
+    files: ["src/shared/lib/test/**/*.{ts,tsx}", "src/test/**/*.{ts,tsx}"],
+    rules: {
+      "react-refresh/only-export-components": "off",
+    },
+  },
 );
