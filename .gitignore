@@ -36,6 +36,10 @@ playwright-report/
 test-results/
 *.tsbuildinfo
 
+# Storybook
+storybook-static/
+*.storybook.log
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json

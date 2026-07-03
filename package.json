@@ -23,6 +23,8 @@
     "test": "vitest run",
     "test:watch": "vitest",
     "test:coverage": "vitest run --coverage",
+    "storybook": "storybook dev -p 6006",
+    "build-storybook": "storybook build",
     "validate": "pnpm typecheck && pnpm lint && pnpm format:check && pnpm test && pnpm build"
   },
   "dependencies": {
@@ -44,6 +46,10 @@
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
+    "@storybook/addon-a11y": "10.4.6",
+    "@storybook/addon-docs": "10.4.6",
+    "@storybook/addon-themes": "10.4.6",
+    "@storybook/react-vite": "10.4.6",
     "@tailwindcss/vite": "^4.3.2",
     "@tanstack/router-cli": "^1.167.17",
     "@tanstack/router-devtools": "^1.62.1",
@@ -64,6 +70,7 @@
     "jsdom": "^29.1.1",
     "prettier": "^3.9.4",
     "prettier-plugin-tailwindcss": "^0.8.0",
+    "storybook": "10.4.6",
     "tailwindcss": "^4.3.2",
     "typescript": "^6.0.3",
     "typescript-eslint": "^8.62.1",
