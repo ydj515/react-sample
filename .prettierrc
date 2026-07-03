@@ -1,9 +1,12 @@
 {
-  "editor.formatOnSave": true,
-  "prettier.semi": true,
-  "prettier.javascriptEnable": ["javascript", "javascriptreact"],
-  "prettier.printWidth": 2,
-  "prettier.useTabs": false,
-  "prettier.tabWidth": 4,
+  "printWidth": 80,
+  "tabWidth": 2,
+  "useTabs": false,
+  "semi": true,
+  "singleQuote": false,
+  "trailingComma": "all",
+  "bracketSpacing": true,
+  "arrowParens": "always",
+  "endOfLine": "lf",
   "plugins": ["prettier-plugin-tailwindcss"]
 }

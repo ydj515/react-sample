@@ -12,6 +12,30 @@ dist
 dist-ssr
 *.local
 
+# Environment files
+.env
+.env.*
+!.env.example
+
+# Package manager caches
+.pnpm-store/
+.npm/
+.yarn/
+
+# Local agent artifacts
+.superpowers/
+.worktrees/
+
+# Test and build output
+coverage/
+.vite/
+.vitest/
+.cache/
+.turbo/
+playwright-report/
+test-results/
+*.tsbuildinfo
+
 # Editor directories and files
 .vscode/*
 !.vscode/extensions.json
