@@ -1,0 +1,16 @@
+node_modules/
+dist/
+dist-ssr/
+coverage/
+.superpowers/
+docs/superpowers/
+.worktrees/
+.vite/
+.vitest/
+.cache/
+.turbo/
+playwright-report/
+test-results/
+pnpm-lock.yaml
+public/mockServiceWorker.js
+src/routeTree.gen.ts
