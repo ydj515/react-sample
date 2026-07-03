@@ -53,6 +53,14 @@ run = "pnpm test:coverage"
 description = "Generate routes, typecheck, and build the production bundle."
 run = "pnpm build"
 
+[tasks.storybook]
+description = "Start the Storybook dev server on port 6006."
+run = "pnpm storybook"
+
+[tasks."build-storybook"]
+description = "Build the static Storybook site."
+run = "pnpm build-storybook"
+
 [tasks.validate]
 description = "Run the full local quality gate: typecheck, lint, format check, tests, and build."
 run = "pnpm validate"
