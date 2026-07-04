@@ -32,17 +32,19 @@
 | `@tanstack/router-cli`    | `pnpm generate-routes`에서 route tree 생성                 |
 
 라우트 파일은 `src/routes`에 있고, 생성 파일은 `src/routeTree.gen.ts`입니다.
+`beforeLoad` + 라우터 `context`로 보호 라우트(인증 가드)를 구성하고, 플러그인의 `autoCodeSplitting`으로 라우트별 코드 스플리팅을 적용합니다.
 
 ## Data And State
 
 | 기술           | 역할                                                                 |
 | -------------- | -------------------------------------------------------------------- |
 | TanStack Query | 서버 데이터 fetch, cache, loading/error state, mutation invalidation |
-| Zustand        | 사이드바, 테마, 밀도 같은 client UI state                            |
+| Zustand        | UI(사이드바/테마/밀도), 인증, 알림(toast) 같은 client 상태           |
 | MSW            | 개발/테스트 환경에서 mock API 제공                                   |
 
-서버 데이터와 클라이언트 UI 상태를 분리하는 것이 이 템플릿의 핵심 기준입니다.
-Zustand의 `theme`과 `density` preference는 localStorage key `react-sample-ui`에 저장합니다.
+서버 데이터와 클라이언트 상태를 분리하는 것이 이 템플릿의 핵심 기준입니다.
+Zustand store는 용도별로 나뉩니다: `ui-store`(테마/밀도 preference는 localStorage key `react-sample-ui`),
+`auth-store`(토큰/사용자, key `react-sample-auth`), `toast-store`(전역 알림, 비영속).
 
 ## Forms And Validation
 
@@ -52,7 +54,7 @@ Zustand의 `theme`과 `density` preference는 localStorage key `react-sample-ui`
 | Zod                   | form input schema와 runtime validation       |
 | `@hookform/resolvers` | Zod schema를 React Hook Form resolver로 연결 |
 
-프로젝트 생성 Dialog에서 form state, validation, mutation 흐름을 확인할 수 있습니다.
+프로젝트 생성 Dialog와 로그인 폼(`SignInPage`)에서 form state, validation, submit 흐름을 확인할 수 있습니다.
 
 ## Quality Tools
 
