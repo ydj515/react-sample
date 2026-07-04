@@ -18,16 +18,23 @@
 - Zod
 - Vitest
 - Testing Library
+- Storybook
+- Playwright (E2E)
 - ESLint
 - Prettier
+- lefthook (git hooks)
+- GitHub Actions (CI)
 
 ## Setup
 
 ```bash
 mise install
 corepack enable
-pnpm install
+pnpm install          # lefthook git hook이 자동 설치됩니다
+cp .env.example .env.local   # 환경변수(선택)
 ```
+
+환경변수는 `src/shared/config/env.ts`에서 Zod로 검증합니다.
 
 ## Mise Tasks
 
@@ -45,6 +52,8 @@ pnpm typecheck
 pnpm lint
 pnpm format:check
 pnpm test
+pnpm test:e2e         # Playwright E2E
+pnpm storybook        # 컴포넌트 카탈로그 (:6006)
 pnpm build
 pnpm validate
 ```
@@ -104,3 +113,4 @@ src/test       테스트 setup
 - [Architecture](docs/architecture.md): 폴더 구조, 데이터 흐름, 상태 관리 경계
 - [Tech Stack](docs/tech-stack.md): 사용 기술의 역할과 선택 이유
 - [Testing](docs/testing.md): 테스트 계층, MSW 구성, 검증 명령
+- [Contributing](CONTRIBUTING.md): 개발 워크플로, 커밋 규칙, git hook
