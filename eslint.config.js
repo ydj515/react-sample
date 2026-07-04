@@ -47,6 +47,13 @@ export default tseslint.config(
     },
   },
   {
+    // Storybook 설정은 globalTypes/preview 등 컴포넌트가 아닌 export가 필요하다.
+    files: [".storybook/**/*.{ts,tsx}"],
+    rules: {
+      "react-refresh/only-export-components": "off",
+    },
+  },
+  {
     files: ["src/shared/ui/dialog.tsx"],
     rules: {
       "react-refresh/only-export-components": [

@@ -12,6 +12,22 @@ const config: StorybookConfig = {
     name: "@storybook/react-vite",
     options: {},
   },
+  viteFinal(viteConfig) {
+    // 앱 전용 TanStack Router 플러그인(라우트 생성/HMR)은 Storybook에 불필요하다.
+    // 세 플러그인 모두 "tanstack" 접두사를 쓰므로 이름으로 걸러 빌드 부하를 줄인다.
+    const isTanstackRouterPlugin = (plugin: unknown): boolean =>
+      typeof plugin === "object" &&
+      plugin !== null &&
+      "name" in plugin &&
+      typeof (plugin as { name: unknown }).name === "string" &&
+      (plugin as { name: string }).name.includes("tanstack");
+
+    viteConfig.plugins = (viteConfig.plugins ?? [])
+      .flat(Infinity)
+      .filter((plugin) => !isTanstackRouterPlugin(plugin));
+
+    return viteConfig;
+  },
 };
 
 export default config;
