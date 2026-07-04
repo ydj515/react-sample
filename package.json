@@ -10,6 +10,7 @@
   },
   "scripts": {
     "preinstall": "npx only-allow pnpm",
+    "prepare": "lefthook install",
     "dev": "pnpm generate-routes && vite",
     "build": "pnpm generate-routes && tsc -b && vite build",
     "preview": "vite preview",
@@ -68,6 +69,7 @@
     "eslint-plugin-testing-library": "^7.16.2",
     "globals": "^17.7.0",
     "jsdom": "^29.1.1",
+    "lefthook": "^2.1.9",
     "prettier": "^3.9.4",
     "prettier-plugin-tailwindcss": "^0.8.0",
     "storybook": "10.4.6",
