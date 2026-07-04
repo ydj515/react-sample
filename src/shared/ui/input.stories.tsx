@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, userEvent, within } from "storybook/test";
 
 import { Input } from "./input";
 import { Label } from "./label";
@@ -26,6 +27,17 @@ export const Default: Story = {};
 
 export const Disabled: Story = {
   args: { disabled: true, value: "Disabled" },
+};
+
+// 인터랙션 테스트: 입력한 값이 반영되는지 검증한다.
+export const Typing: Story = {
+  args: { placeholder: "Type here" },
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    const input = canvas.getByPlaceholderText("Type here");
+    await userEvent.type(input, "hello");
+    await expect(input).toHaveValue("hello");
+  },
 };
 
 export const WithLabel: Story = {
