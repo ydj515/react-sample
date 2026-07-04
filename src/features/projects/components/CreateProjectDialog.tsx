@@ -20,6 +20,7 @@ import {
 import { Input } from "@/shared/ui/input";
 import { Label } from "@/shared/ui/label";
 import { Select } from "@/shared/ui/select";
+import { toast } from "@/stores/toast-store";
 
 const defaultValues: CreateProjectFormValues = {
   name: "",
@@ -50,9 +51,11 @@ export function CreateProjectDialog() {
   async function onSubmit(values: CreateProjectFormValues) {
     try {
       await mutation.mutateAsync(values);
+      toast.success("프로젝트가 생성되었습니다.");
       handleOpenChange(false);
     } catch {
-      // mutation.isError가 inline 오류 메시지를 담당한다.
+      // inline 오류 메시지(mutation.isError)와 함께 전역 토스트로도 알린다.
+      toast.error("프로젝트를 생성하지 못했습니다.");
     }
   }
 

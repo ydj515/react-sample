@@ -1,6 +1,7 @@
 import { useEffect, type ReactNode } from "react";
 
 import { QueryProvider } from "@/app/providers/QueryProvider";
+import { Toaster } from "@/shared/ui/toast";
 import { useUiStore } from "@/stores/ui-store";
 
 export function AppProviders({ children }: { children: ReactNode }) {
@@ -12,5 +13,10 @@ export function AppProviders({ children }: { children: ReactNode }) {
     document.documentElement.dataset.theme = theme;
   }, [density, theme]);
 
-  return <QueryProvider>{children}</QueryProvider>;
+  return (
+    <QueryProvider>
+      {children}
+      <Toaster />
+    </QueryProvider>
+  );
 }
