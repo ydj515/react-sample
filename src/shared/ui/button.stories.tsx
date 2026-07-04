@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, fn, userEvent, within } from "storybook/test";
 
 import { Button } from "./button";
 
@@ -55,6 +56,16 @@ export const AllVariants: Story = {
       <Button variant="danger">Danger</Button>
     </div>
   ),
+};
+
+// 인터랙션 테스트: 클릭 시 onClick 핸들러가 호출되는지 검증한다.
+export const Clickable: Story = {
+  args: { children: "Click me", onClick: fn() },
+  play: async ({ args, canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("button", { name: "Click me" }));
+    await expect(args.onClick).toHaveBeenCalledOnce();
+  },
 };
 
 // 모든 size를 한눈에 비교한다.

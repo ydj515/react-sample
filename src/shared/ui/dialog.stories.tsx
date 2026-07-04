@@ -1,4 +1,5 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
+import { expect, screen, userEvent, within } from "storybook/test";
 
 import { Button } from "./button";
 import {
@@ -47,4 +48,13 @@ export const Default: Story = {
       </DialogContent>
     </Dialog>
   ),
+  // 인터랙션 테스트: 트리거로 모달을 열고 내용 노출 후 닫는다.
+  // DialogContent는 포털로 body에 렌더되므로 screen으로 조회한다.
+  play: async ({ canvasElement }) => {
+    const canvas = within(canvasElement);
+    await userEvent.click(canvas.getByRole("button", { name: "Open dialog" }));
+    await expect(await screen.findByText("Delete project")).toBeVisible();
+    await userEvent.click(screen.getByRole("button", { name: "Cancel" }));
+    await expect(screen.queryByText("Delete project")).not.toBeInTheDocument();
+  },
 };
