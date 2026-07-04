@@ -2,3 +2,11 @@ allowBuilds:
   esbuild: true
   lefthook: true
   msw: true
+
+# Dependabot 보안 경보 대응: 취약한 transitive 의존성의 최소 안전 버전을 강제한다.
+# major 점프를 피하려고 caret 범위로 고정한다.
+overrides:
+  rollup: "^4.59.0"
+  flatted: "^3.4.2"
+  esbuild: "^0.25.0"
+  "@babel/core": "^7.29.6"
