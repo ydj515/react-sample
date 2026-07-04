@@ -71,3 +71,39 @@ jobs:
           name: playwright-report
           path: playwright-report/
           retention-days: 7
+
+  audit:
+    name: Security audit (pnpm)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+      - uses: actions/setup-node@v6
+        with:
+          node-version-file: .nvmrc
+          cache: pnpm
+      - run: pnpm install --frozen-lockfile
+      # 전체 취약점을 Actions 실행 요약(Summary)에 표로 남긴다.
+      - name: Audit report to job summary
+        if: always()
+        run: |
+          {
+            echo "## pnpm audit report"
+            echo ""
+            echo '```'
+            pnpm audit || true
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+      # JSON 리포트를 아티팩트로 보관한다.
+      - name: Save audit JSON report
+        if: always()
+        run: pnpm audit --json > pnpm-audit.json || true
+      - uses: actions/upload-artifact@v7
+        if: always()
+        with:
+          name: pnpm-audit-report
+          path: pnpm-audit.json
+          retention-days: 7
+      # high/critical 취약점이 있을 때만 실패시킨다(moderate/low는 리포트만).
+      - name: Fail on high or critical vulnerabilities
+        run: pnpm audit --audit-level high
