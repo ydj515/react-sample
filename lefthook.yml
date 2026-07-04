@@ -1,0 +1,19 @@
+# Git hooks managed by lefthook. Runs automatically after `pnpm install`
+# (prepare script) so every contributor shares the same local quality gate.
+
+pre-commit:
+  parallel: true
+  commands:
+    format:
+      glob: "*.{ts,tsx,js,jsx,json,css,md,yml,yaml}"
+      run: pnpm prettier --write {staged_files}
+      stage_fixed: true
+    lint:
+      glob: "*.{ts,tsx}"
+      run: pnpm eslint --fix {staged_files}
+      stage_fixed: true
+
+pre-push:
+  commands:
+    typecheck:
+      run: pnpm typecheck
