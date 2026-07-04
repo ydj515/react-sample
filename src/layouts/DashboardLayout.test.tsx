@@ -43,6 +43,7 @@ vi.mock("@tanstack/react-router", () => ({
     );
   },
   Outlet: () => <div data-testid="outlet" />,
+  useNavigate: () => vi.fn(),
 }));
 
 function mockDesktopViewport() {

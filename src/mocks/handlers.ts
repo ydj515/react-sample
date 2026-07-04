@@ -14,6 +14,26 @@ export function resetProjectsMockData() {
 }
 
 export const handlers = [
+  http.post("/api/login", async ({ request }) => {
+    const body = (await request.json()) as {
+      email?: string;
+      password?: string;
+    };
+
+    // 데모용 목: 이메일과 비밀번호가 있으면 토큰을 발급한다.
+    if (!body.email || !body.password) {
+      return HttpResponse.json(
+        { message: "이메일과 비밀번호를 입력해주세요." },
+        { status: 401 },
+      );
+    }
+
+    return HttpResponse.json({
+      token: `demo-token-${crypto.randomUUID()}`,
+      user: { email: body.email },
+    });
+  }),
+
   http.get("/api/projects", () => {
     return HttpResponse.json(projects);
   }),

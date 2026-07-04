@@ -1,9 +1,10 @@
-import { Link, Outlet } from "@tanstack/react-router";
-import { Menu, X } from "lucide-react";
+import { Link, Outlet, useNavigate } from "@tanstack/react-router";
+import { LogOut, Menu, X } from "lucide-react";
 
 import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { cn } from "@/shared/lib/cn";
 import { Button } from "@/shared/ui/button";
+import { useAuthStore } from "@/stores/auth-store";
 import { useUiStore } from "@/stores/ui-store";
 
 const navItems = [
@@ -18,9 +19,15 @@ export function DashboardLayout() {
   const theme = useUiStore((state) => state.theme);
   const setSidebarOpen = useUiStore((state) => state.setSidebarOpen);
   const toggleSidebar = useUiStore((state) => state.toggleSidebar);
+  const signOut = useAuthStore((state) => state.signOut);
+  const navigate = useNavigate();
   const sidebarId = "dashboard-sidebar";
   const isCompact = density === "compact";
   const closeSidebar = () => setSidebarOpen(false);
+  const handleSignOut = () => {
+    signOut();
+    void navigate({ to: "/signin" });
+  };
   const closeSidebarOnMobile = () => {
     if (window.matchMedia("(max-width: 1023px)").matches) {
       closeSidebar();
@@ -123,6 +130,16 @@ export function DashboardLayout() {
               React Sample Dashboard
             </div>
             <ThemeToggle />
+            <Button
+              aria-label="로그아웃"
+              className="dark:text-slate-200 dark:hover:bg-slate-800"
+              size="icon"
+              type="button"
+              variant="ghost"
+              onClick={handleSignOut}
+            >
+              <LogOut className="size-5" aria-hidden="true" />
+            </Button>
           </div>
         </header>
         <main
