@@ -47,8 +47,11 @@ export default tseslint.config(
     },
   },
   {
-    // Storybook 설정은 globalTypes/preview 등 컴포넌트가 아닌 export가 필요하다.
-    files: [".storybook/**/*.{ts,tsx}"],
+    // Storybook 설정/데코레이터는 컴포넌트가 아닌 export가 필요하다.
+    files: [
+      ".storybook/**/*.{ts,tsx}",
+      "src/shared/lib/storybook/**/*.{ts,tsx}",
+    ],
     rules: {
       "react-refresh/only-export-components": "off",
     },
