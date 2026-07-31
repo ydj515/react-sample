@@ -9,20 +9,20 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from "./routes/__root";
-import { Route as SigninRouteImport } from "./routes/signin";
 import { Route as DashboardRouteImport } from "./routes/_dashboard";
+import { Route as SigninRouteImport } from "./routes/signin";
 import { Route as DashboardIndexRouteImport } from "./routes/_dashboard/index";
 import { Route as DashboardSettingsRouteImport } from "./routes/_dashboard/settings";
 import { Route as DashboardProjectsIndexRouteImport } from "./routes/_dashboard/projects.index";
 import { Route as DashboardProjectsProjectIdRouteImport } from "./routes/_dashboard/projects.$projectId";
 
+const DashboardRoute = DashboardRouteImport.update({
+  id: "/_dashboard",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const SigninRoute = SigninRouteImport.update({
   id: "/signin",
   path: "/signin",
-  getParentRoute: () => rootRouteImport,
-} as any);
-const DashboardRoute = DashboardRouteImport.update({
-  id: "/_dashboard",
   getParentRoute: () => rootRouteImport,
 } as any);
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
@@ -93,18 +93,18 @@ export interface RootRouteChildren {
 
 declare module "@tanstack/react-router" {
   interface FileRoutesByPath {
-    "/signin": {
-      id: "/signin";
-      path: "/signin";
-      fullPath: "/signin";
-      preLoaderRoute: typeof SigninRouteImport;
-      parentRoute: typeof rootRouteImport;
-    };
     "/_dashboard": {
       id: "/_dashboard";
       path: "";
       fullPath: "/";
       preLoaderRoute: typeof DashboardRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/signin": {
+      id: "/signin";
+      path: "/signin";
+      fullPath: "/signin";
+      preLoaderRoute: typeof SigninRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/_dashboard/": {
