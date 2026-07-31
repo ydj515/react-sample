@@ -1,6 +1,19 @@
 import { z } from "zod";
 
-import { projectStatuses } from "@/features/projects/model/project-types";
+import {
+  projectStatuses,
+  type Project,
+} from "@/features/projects/model/project-types";
+
+export const projectSchema: z.ZodType<Project> = z.object({
+  id: z.string().min(1),
+  name: z.string().min(1),
+  owner: z.string().min(1),
+  status: z.enum(projectStatuses),
+  dueDate: z.iso.date(),
+  description: z.string(),
+  updatedAt: z.iso.datetime(),
+});
 
 export const createProjectSchema = z.object({
   name: z.string().trim().min(2, "프로젝트 이름은 2자 이상이어야 합니다."),

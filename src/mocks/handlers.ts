@@ -5,6 +5,7 @@ import type {
   Project,
   ProjectStatus,
 } from "@/features/projects/model/project-types";
+import { createMockApiError } from "@/mocks/api-error";
 import { projectsFixture } from "@/mocks/data/projects";
 
 let projects: Project[] = structuredClone(projectsFixture);
@@ -22,10 +23,12 @@ export const handlers = [
 
     // 데모용 목: 이메일과 비밀번호가 있으면 토큰을 발급한다.
     if (!body.email || !body.password) {
-      return HttpResponse.json(
-        { message: "이메일과 비밀번호를 입력해주세요." },
-        { status: 401 },
-      );
+      return createMockApiError({
+        status: 401,
+        code: "AUTH_INPUT_REQUIRED",
+        message: "이메일과 비밀번호를 입력해주세요.",
+        path: "/api/login",
+      });
     }
 
     return HttpResponse.json({
@@ -42,10 +45,12 @@ export const handlers = [
     const project = projects.find((item) => item.id === params.projectId);
 
     if (!project) {
-      return HttpResponse.json(
-        { message: "프로젝트를 찾을 수 없습니다." },
-        { status: 404 },
-      );
+      return createMockApiError({
+        status: 404,
+        code: "PROJECT_NOT_FOUND",
+        message: "프로젝트를 찾을 수 없습니다.",
+        path: `/api/projects/${String(params.projectId)}`,
+      });
     }
 
     return HttpResponse.json(project);
@@ -69,10 +74,12 @@ export const handlers = [
     const project = projects.find((item) => item.id === params.projectId);
 
     if (!project) {
-      return HttpResponse.json(
-        { message: "프로젝트를 찾을 수 없습니다." },
-        { status: 404 },
-      );
+      return createMockApiError({
+        status: 404,
+        code: "PROJECT_NOT_FOUND",
+        message: "프로젝트를 찾을 수 없습니다.",
+        path: `/api/projects/${String(params.projectId)}/status`,
+      });
     }
 
     const updated: Project = {

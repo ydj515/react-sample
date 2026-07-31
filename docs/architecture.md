@@ -68,6 +68,7 @@ features/auth/api           로그인 요청 wrapper (signInRequest)
 
 - feature에 종속되지 않는 UI primitive와 유틸을 둔다.
 - `shared/ui`는 Button, Card, Dialog, Input, Select, `Toaster` 같은 재사용 컴포넌트다.
+- `shared/api`는 공통 `apiRequest`와 `ApiError`로 HTTP 오류와 성공 응답 검증을 담당한다.
 - `shared/lib`는 `cn`, `formatDate`, test helper처럼 도메인과 무관한 함수를 둔다.
 - `shared/config/env.ts`는 `import.meta.env`를 Zod로 검증한 타입 안전 환경변수를 제공한다.
 
@@ -84,6 +85,7 @@ features/auth/api           로그인 요청 wrapper (signInRequest)
 - MSW handler와 fixture를 둔다.
 - 개발 환경에서는 browser worker가 `/api/projects`, `/api/login` 등 요청을 가로챈다.
 - 테스트 환경에서는 server setup이 같은 handler를 사용한다.
+- 실패 handler는 공통 error helper로 body와 `X-Trace-Id`에 같은 trace ID를 제공한다.
 
 ## 데이터 흐름
 
@@ -92,10 +94,29 @@ route file
   -> page component
   -> query hook / mutation hook
   -> API function
+  -> apiRequest("/api/...", { schema })
   -> fetch("/api/...")
   -> MSW handler
-  -> fixture data
+  -> JSON
+  -> Zod response schema
+  -> typed feature data
 ```
+
+HTTP 실패는 `ApiError(status, code, message, path, traceId)`로 정규화합니다.
+성공 응답이 JSON 또는 feature schema를 위반하면 `INVALID_RESPONSE`, 네트워크
+요청 자체가 실패하면 `NETWORK_ERROR`로 구분합니다. 원본 오류 body나 인증
+정보는 오류 객체에 저장하지 않습니다.
+
+## 의존 방향
+
+- `shared`는 feature, route, page, layout, app을 알지 않는다.
+- feature의 `api`, `model`, `queries`는 route, page, layout, app, store를 알지 않는다.
+- route는 URL과 page 연결을 담당하고 비즈니스 로직을 직접 구현하지 않는다.
+- 현재 dashboard가 projects의 조회 모델과 UI를 조합하는 방향은 허용한다.
+
+최소 의존 방향은 ESLint `no-restricted-imports`로 검증합니다. feature 간
+전면 격리는 현재 템플릿 범위가 아니며, 필요한 경우 public API 또는 별도
+composition 계층을 먼저 설계합니다.
 
 클라이언트 UI 상태는 별도 흐름을 사용합니다.
 
@@ -140,6 +161,7 @@ mutation onSuccess / onError 등 어디서든
 - 클라이언트 UI 상태 / 인증 / 알림: Zustand (`ui-store`, `auth-store`, `toast-store`)
 - 폼 상태: React Hook Form
 - 입력 검증: Zod
+- API 성공 응답 검증: Zod + `apiRequest`
 - API mocking: MSW
 
 ## 새 기능 추가 기준
@@ -149,3 +171,4 @@ mutation onSuccess / onError 등 어디서든
 - 여러 기능에서 재사용되면 `src/shared`로 이동한다.
 - 서버 데이터 cache나 mutation은 TanStack Query를 우선 사용한다.
 - 단순 UI preference나 shell 상태는 Zustand store에 둔다.
+- 새 기능 완료 전 [기능 추가 체크리스트](./feature-addition-checklist.md)를 확인한다.

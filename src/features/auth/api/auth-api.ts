@@ -1,33 +1,31 @@
-import type { AuthUser } from "@/stores/auth-store";
+import { z } from "zod";
+
+import { apiRequest } from "@/shared/api/http-client";
 
 export type SignInInput = {
   email: string;
   password: string;
 };
 
-export type SignInResponse = {
-  token: string;
-  user: AuthUser;
-};
+export const signInResponseSchema = z.object({
+  token: z.string().min(1),
+  user: z.object({
+    email: z.email(),
+  }),
+});
+
+export type SignInResponse = z.infer<typeof signInResponseSchema>;
 
 export async function signInRequest(
   input: SignInInput,
 ): Promise<SignInResponse> {
-  const response = await fetch("/api/login", {
+  return apiRequest("/api/login", {
+    schema: signInResponseSchema,
+    fallbackErrorMessage: "로그인에 실패했습니다.",
     method: "POST",
     headers: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify(input),
   });
-
-  if (!response.ok) {
-    const error = (await response.json().catch(() => null)) as {
-      message?: string;
-    } | null;
-
-    throw new Error(error?.message ?? "로그인에 실패했습니다.");
-  }
-
-  return response.json() as Promise<SignInResponse>;
 }

@@ -10,6 +10,9 @@ export default tseslint.config(
     ignores: [
       "dist",
       "coverage",
+      "storybook-static",
+      "playwright-report",
+      "test-results",
       ".superpowers",
       "public/mockServiceWorker.js",
       "src/routeTree.gen.ts",
@@ -33,6 +36,52 @@ export default tseslint.config(
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true, allowExportNames: ["Route"] },
+      ],
+    },
+  },
+  {
+    files: ["src/shared/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: [
+                "@/features/**",
+                "@/routes/**",
+                "@/pages/**",
+                "@/layouts/**",
+                "@/app/**",
+              ],
+              message:
+                "Shared modules cannot depend on application or feature layers.",
+            },
+          ],
+        },
+      ],
+    },
+  },
+  {
+    files: ["src/features/*/{api,model,queries}/**/*.{ts,tsx}"],
+    rules: {
+      "no-restricted-imports": [
+        "error",
+        {
+          patterns: [
+            {
+              group: [
+                "@/app/**",
+                "@/routes/**",
+                "@/pages/**",
+                "@/layouts/**",
+                "@/stores/**",
+              ],
+              message:
+                "Feature data layers cannot depend on UI or global store layers.",
+            },
+          ],
+        },
       ],
     },
   },

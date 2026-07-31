@@ -42,6 +42,7 @@ cp .env.example .env.local   # 환경변수(선택)
 mise tasks
 mise run dev
 mise run validate
+mise run verify
 ```
 
 ## Scripts
@@ -52,10 +53,13 @@ pnpm typecheck
 pnpm lint
 pnpm format:check
 pnpm test
+pnpm test:coverage    # coverage 임계값 포함
 pnpm test:e2e         # Playwright E2E
 pnpm storybook        # 컴포넌트 카탈로그 (:6006)
+pnpm build-storybook
 pnpm build
-pnpm validate
+pnpm validate         # typecheck + lint + format + coverage + build
+pnpm verify           # validate + Storybook build + E2E
 ```
 
 ## Local Examples
@@ -116,6 +120,12 @@ src/test       테스트 setup
 
 - `vite.config.ts`의 TanStack Router 플러그인 `autoCodeSplitting`으로 각 라우트 컴포넌트가 별도 청크로 분리되어 초기 번들이 작아집니다.
 
+### API 경계
+
+- `src/shared/api/http-client.ts`의 `apiRequest`가 성공 응답을 feature별 Zod schema로 검증합니다.
+- HTTP 오류는 `ApiError`로 정규화해 `status`, `code`, `path`, `traceId`를 보존합니다.
+- MSW 실패 응답도 같은 오류 형식과 `X-Trace-Id` 헤더를 사용합니다.
+
 ## 상태 관리 기준
 
 - 서버 데이터: TanStack Query
@@ -129,10 +139,14 @@ src/test       테스트 setup
 - Unit: schema, utility, store, test helper
 - Component: shared UI, layout, form dialog, dashboard/settings/signin page
 - Integration: MSW 기반 project API와 project creation flow
+- Contract: API 성공 응답 schema와 공통 오류/trace ID
+- E2E: Playwright 기반 인증, dashboard, route 흐름
 
 ## Documents
 
+- [Documents](docs/README.md): 문서 읽기 순서와 목적별 안내
 - [Architecture](docs/architecture.md): 폴더 구조, 데이터 흐름, 상태 관리 경계
 - [Tech Stack](docs/tech-stack.md): 사용 기술의 역할과 선택 이유
 - [Testing](docs/testing.md): 테스트 계층, MSW 구성, 검증 명령
+- [Feature Checklist](docs/feature-addition-checklist.md): 새 기능의 배치와 검증 체크리스트
 - [Contributing](CONTRIBUTING.md): 개발 워크플로, 커밋 규칙, git hook
