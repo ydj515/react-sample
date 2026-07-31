@@ -9,6 +9,8 @@ const eslint = new ESLint({ cwd: repositoryRoot });
 
 describe("tooling configuration", () => {
   it.each([
+    "dist/index.js",
+    "coverage/index.html",
     "storybook-static/assets/story.js",
     "playwright-report/index.html",
     "test-results/results.json",
@@ -23,6 +25,8 @@ describe("tooling configuration", () => {
 
     expect(content.split(/\r?\n/u)).toEqual(
       expect.arrayContaining([
+        "dist/",
+        "coverage/",
         "storybook-static/",
         "playwright-report/",
         "test-results/",
@@ -39,28 +43,63 @@ describe("tooling configuration", () => {
     expect(packageJson.msw?.workerDirectory).toEqual(["public"]);
   });
 
-  it("rejects upward imports from shared code", async () => {
-    const [result] = await eslint.lintText(
-      'import "@/features/projects/api/project-api";\n',
-      { filePath: `${repositoryRoot}/src/shared/lib/invalid-boundary.ts` },
-    );
+  it.each([
+    ["aliased static import", 'import "@/features/projects/api/project-api";'],
+    [
+      "relative static import",
+      'import "../../features/projects/api/project-api";',
+    ],
+    [
+      "aliased dynamic import",
+      'void import("@/features/projects/api/project-api");',
+    ],
+    [
+      "relative dynamic import",
+      'void import("../../features/projects/api/project-api");',
+    ],
+    ["aliased require", 'require("@/features/projects/api/project-api");'],
+    ["relative require", 'require("../../features/projects/api/project-api");'],
+  ])("rejects %s from shared code", async (_case, source) => {
+    const [result] = await eslint.lintText(`${source}\n`, {
+      filePath: `${repositoryRoot}/src/shared/lib/invalid-boundary.ts`,
+    });
 
     expect(result?.messages).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ ruleId: "no-restricted-imports" }),
+        expect.objectContaining({ ruleId: "architecture/layer-boundaries" }),
       ]),
     );
   });
 
-  it("rejects store imports from feature API code", async () => {
-    const [result] = await eslint.lintText('import "@/stores/auth-store";\n', {
+  it.each([
+    ["aliased static import", 'import "@/stores/auth-store";'],
+    ["relative static import", 'import "../../../stores/auth-store";'],
+    ["aliased dynamic import", 'void import("@/stores/auth-store");'],
+    ["relative dynamic import", 'void import("../../../stores/auth-store");'],
+    ["aliased require", 'require("@/stores/auth-store");'],
+    ["relative require", 'require("../../../stores/auth-store");'],
+  ])("rejects %s from feature API code", async (_case, source) => {
+    const [result] = await eslint.lintText(`${source}\n`, {
       filePath: `${repositoryRoot}/src/features/auth/api/invalid-boundary.ts`,
     });
 
     expect(result?.messages).toEqual(
       expect.arrayContaining([
-        expect.objectContaining({ ruleId: "no-restricted-imports" }),
+        expect.objectContaining({ ruleId: "architecture/layer-boundaries" }),
       ]),
     );
+  });
+
+  it("allows relative imports that stay inside the shared layer", async () => {
+    const [result] = await eslint.lintText(
+      'import "../api/api-error";\nvoid import("./local-module");\n',
+      { filePath: `${repositoryRoot}/src/shared/lib/valid-boundary.ts` },
+    );
+
+    expect(
+      result?.messages.filter(
+        (message) => message.ruleId === "architecture/layer-boundaries",
+      ),
+    ).toEqual([]);
   });
 });

@@ -11,9 +11,11 @@
 mise install
 corepack enable
 pnpm install
+pnpm exec playwright install chromium
 ```
 
 `pnpm install` 시 lefthook git hook이 자동으로 설치됩니다(pre-commit: format/lint, pre-push: typecheck).
+Playwright Chromium 설치는 최초 1회만 필요합니다.
 
 ## 개발 워크플로
 

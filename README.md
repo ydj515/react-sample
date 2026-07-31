@@ -31,6 +31,7 @@
 mise install
 corepack enable
 pnpm install          # lefthook git hook이 자동 설치됩니다
+pnpm exec playwright install chromium # E2E 브라우저 최초 1회 설치
 cp .env.example .env.local   # 환경변수(선택)
 ```
 
@@ -58,7 +59,7 @@ pnpm test:e2e         # Playwright E2E
 pnpm storybook        # 컴포넌트 카탈로그 (:6006)
 pnpm build-storybook
 pnpm build
-pnpm validate         # typecheck + lint + format + coverage + build
+pnpm validate         # typecheck + lint + format:check + coverage + build
 pnpm verify           # validate + Storybook build + E2E
 ```
 

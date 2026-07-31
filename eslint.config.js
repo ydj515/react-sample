@@ -1,9 +1,116 @@
+import path from "node:path";
+import { fileURLToPath } from "node:url";
+
 import js from "@eslint/js";
 import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import testingLibrary from "eslint-plugin-testing-library";
 import globals from "globals";
 import tseslint from "typescript-eslint";
+
+const repositoryRoot = path.dirname(fileURLToPath(import.meta.url));
+const sourceRoot = path.join(repositoryRoot, "src");
+
+function resolveSourceImport(filename, specifier) {
+  if (specifier.startsWith("@/")) {
+    return path.resolve(sourceRoot, specifier.slice(2));
+  }
+
+  if (specifier.startsWith(".")) {
+    return path.resolve(path.dirname(filename), specifier);
+  }
+
+  return undefined;
+}
+
+const architecturePlugin = {
+  rules: {
+    "layer-boundaries": {
+      meta: {
+        type: "problem",
+        schema: [
+          {
+            type: "object",
+            properties: {
+              restrictedLayers: {
+                type: "array",
+                items: { type: "string" },
+                uniqueItems: true,
+              },
+              message: { type: "string" },
+            },
+            required: ["restrictedLayers", "message"],
+            additionalProperties: false,
+          },
+        ],
+        messages: {
+          restrictedLayer: "{{message}}",
+        },
+      },
+      create(context) {
+        const [{ restrictedLayers, message }] = context.options;
+        const restrictedLayerSet = new Set(restrictedLayers);
+
+        function checkSource(sourceNode) {
+          const specifier = sourceNode?.value;
+
+          if (typeof specifier !== "string") {
+            return;
+          }
+
+          const targetPath = resolveSourceImport(context.filename, specifier);
+
+          if (!targetPath) {
+            return;
+          }
+
+          const relativeTarget = path.relative(sourceRoot, targetPath);
+
+          if (
+            path.isAbsolute(relativeTarget) ||
+            relativeTarget === ".." ||
+            relativeTarget.startsWith(`..${path.sep}`)
+          ) {
+            return;
+          }
+
+          const [targetLayer] = relativeTarget.split(path.sep);
+
+          if (targetLayer && restrictedLayerSet.has(targetLayer)) {
+            context.report({
+              node: sourceNode,
+              messageId: "restrictedLayer",
+              data: { message },
+            });
+          }
+        }
+
+        return {
+          ImportDeclaration(node) {
+            checkSource(node.source);
+          },
+          ExportNamedDeclaration(node) {
+            checkSource(node.source);
+          },
+          ExportAllDeclaration(node) {
+            checkSource(node.source);
+          },
+          ImportExpression(node) {
+            checkSource(node.source);
+          },
+          CallExpression(node) {
+            if (
+              node.callee.type === "Identifier" &&
+              node.callee.name === "require"
+            ) {
+              checkSource(node.arguments[0]);
+            }
+          },
+        };
+      },
+    },
+  },
+};
 
 export default tseslint.config(
   {
@@ -18,6 +125,12 @@ export default tseslint.config(
       "src/routeTree.gen.ts",
       "*.tsbuildinfo",
     ],
+  },
+  {
+    files: ["src/**/*.{ts,tsx}"],
+    plugins: {
+      architecture: architecturePlugin,
+    },
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,
@@ -42,22 +155,12 @@ export default tseslint.config(
   {
     files: ["src/shared/**/*.{ts,tsx}"],
     rules: {
-      "no-restricted-imports": [
+      "architecture/layer-boundaries": [
         "error",
         {
-          patterns: [
-            {
-              group: [
-                "@/features/**",
-                "@/routes/**",
-                "@/pages/**",
-                "@/layouts/**",
-                "@/app/**",
-              ],
-              message:
-                "Shared modules cannot depend on application or feature layers.",
-            },
-          ],
+          restrictedLayers: ["features", "routes", "pages", "layouts", "app"],
+          message:
+            "Shared modules cannot depend on application or feature layers.",
         },
       ],
     },
@@ -65,22 +168,12 @@ export default tseslint.config(
   {
     files: ["src/features/*/{api,model,queries}/**/*.{ts,tsx}"],
     rules: {
-      "no-restricted-imports": [
+      "architecture/layer-boundaries": [
         "error",
         {
-          patterns: [
-            {
-              group: [
-                "@/app/**",
-                "@/routes/**",
-                "@/pages/**",
-                "@/layouts/**",
-                "@/stores/**",
-              ],
-              message:
-                "Feature data layers cannot depend on UI or global store layers.",
-            },
-          ],
+          restrictedLayers: ["app", "routes", "pages", "layouts", "stores"],
+          message:
+            "Feature data layers cannot depend on UI or global store layers.",
         },
       ],
     },

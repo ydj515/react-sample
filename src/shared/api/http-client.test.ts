@@ -68,6 +68,21 @@ describe("apiRequest", () => {
     ).rejects.toMatchObject({ traceId: "trace-header-1" });
   });
 
+  it("uses the fallback message when the error body message is empty", async () => {
+    server.use(
+      http.get("/api/http-client/empty-message", () =>
+        HttpResponse.json({ code: "FAILED", message: "" }, { status: 500 }),
+      ),
+    );
+
+    await expect(
+      apiRequest("/api/http-client/empty-message", {
+        schema: responseSchema,
+        fallbackErrorMessage: "요청에 실패했습니다.",
+      }),
+    ).rejects.toMatchObject({ message: "요청에 실패했습니다." });
+  });
+
   it.each([
     ["invalid JSON", new HttpResponse("not-json", { status: 200 })],
     ["schema mismatch", HttpResponse.json({ id: 123 })],

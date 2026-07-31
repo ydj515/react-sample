@@ -57,7 +57,7 @@ export async function apiRequest<T>(
     const parsedError = apiErrorResponseSchema.safeParse(body);
     const error = parsedError.success ? parsedError.data : undefined;
 
-    throw new ApiError(error?.message ?? fallbackErrorMessage, {
+    throw new ApiError(error?.message || fallbackErrorMessage, {
       status: response.status,
       code: error?.code ?? `HTTP_${response.status}`,
       path: error?.path,

@@ -62,4 +62,9 @@
 - [ ] 브라우저 흐름 변경 시 `pnpm test:e2e`가 통과한다.
 - [ ] 전체 handoff 전 `pnpm verify`가 통과한다.
 - [ ] README, architecture, testing 문서와 실제 명령이 일치한다.
-- [ ] 생성 파일과 생성물 디렉터리를 직접 수정하거나 커밋하지 않았다.
+- [ ] `dist`, `coverage`, `storybook-static`, 테스트 결과 같은 생성물은
+      커밋하지 않았다.
+- [ ] 버전 관리되는 생성 런타임 자산은 생성 명령으로 갱신했다.
+      `public/mockServiceWorker.js`는 `pnpm exec msw init public --save`로
+      재생성하고 `PACKAGE_VERSION`이나 `INTEGRITY_CHECKSUM`을 직접 수정하지
+      않았다.
