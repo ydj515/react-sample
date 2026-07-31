@@ -61,6 +61,14 @@ run = "pnpm storybook"
 description = "Build the static Storybook site."
 run = "pnpm build-storybook"
 
+[tasks."test-e2e"]
+description = "Run the Playwright end-to-end test suite."
+run = "pnpm test:e2e"
+
 [tasks.validate]
-description = "Run the full local quality gate: typecheck, lint, format check, tests, and build."
+description = "Run the standard quality gate: typecheck, lint, format check, coverage tests, and build."
 run = "pnpm validate"
+
+[tasks.verify]
+description = "Run validate, build Storybook, and execute the Playwright end-to-end suite."
+run = "pnpm verify"

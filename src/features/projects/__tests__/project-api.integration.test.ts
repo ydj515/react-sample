@@ -1,3 +1,4 @@
+import { http, HttpResponse } from "msw";
 import { describe, expect, it } from "vitest";
 
 import {
@@ -6,6 +7,7 @@ import {
   getProjects,
   updateProjectStatus,
 } from "@/features/projects/api/project-api";
+import { server } from "@/mocks/server";
 
 describe("project-api", () => {
   it("프로젝트 목록을 HTTP boundary를 통해 가져온다", async () => {
@@ -36,5 +38,29 @@ describe("project-api", () => {
     );
 
     expect(updated.status).toBe("paused");
+  });
+
+  it("런타임 스키마를 위반한 프로젝트 응답을 거부한다", async () => {
+    server.use(
+      http.get("/api/projects", () =>
+        HttpResponse.json([{ id: "project-without-required-fields" }]),
+      ),
+    );
+
+    await expect(getProjects()).rejects.toMatchObject({
+      code: "INVALID_RESPONSE",
+    });
+  });
+
+  it("mock 오류 본문과 헤더에 같은 trace ID를 반환한다", async () => {
+    const response = await fetch("/api/projects/missing-project");
+    const body = (await response.json()) as {
+      code: string;
+      traceId: string;
+    };
+
+    expect(response.status).toBe(404);
+    expect(body.code).toBe("PROJECT_NOT_FOUND");
+    expect(response.headers.get("X-Trace-Id")).toBe(body.traceId);
   });
 });
