@@ -3,9 +3,9 @@ allowBuilds:
   lefthook: true
   msw: true
 
-# GHSA-mh99-v99m-4gvg 대응: 새 패치 버전만 최소 릴리스 경과 정책에서 제외한다.
+# GHSA-rgw5-rvv9-x895 대응: 새 패치 버전만 최소 릴리스 경과 정책에서 제외한다.
 minimumReleaseAgeExclude:
-  - brace-expansion@5.0.8
+  - brace-expansion@5.0.9
 
 # Dependabot 보안 경보 대응: 취약한 transitive 의존성의 최소 안전 버전을 강제한다.
 # major 점프를 피하려고 caret 범위로 고정한다.
