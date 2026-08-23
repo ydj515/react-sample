@@ -6,8 +6,8 @@
 
 | 기술            | 역할                                   |
 | --------------- | -------------------------------------- |
-| Node.js 24.13.0 | 로컬 개발, 빌드, 테스트 실행 런타임    |
-| pnpm            | 패키지 설치와 script 실행              |
+| Node.js 24.19.0 | 로컬 개발, 빌드, 테스트 실행 런타임    |
+| pnpm 11.22.0    | 패키지 설치와 script 실행              |
 | mise            | Node 버전과 반복 task 실행 진입점 관리 |
 | Vite            | 개발 서버, HMR, production bundle 생성 |
 | TypeScript      | 정적 타입 검사와 editor tooling        |

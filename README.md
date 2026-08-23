@@ -4,8 +4,8 @@
 
 ## Stack
 
-- Node.js 24.13.0
-- pnpm
+- Node.js 24.19.0
+- pnpm 11.22.0
 - React 19
 - Vite
 - TypeScript
