@@ -69,7 +69,7 @@ export function CreateProjectDialog() {
       </DialogTrigger>
       <DialogContent>
         <DialogTitle>프로젝트 생성</DialogTitle>
-        <DialogDescription className="mt-1 text-sm text-slate-500">
+        <DialogDescription className="text-ink-subtle mt-1 text-sm">
           샘플 mutation과 form validation을 확인할 수 있습니다.
         </DialogDescription>
         <form
@@ -85,7 +85,7 @@ export function CreateProjectDialog() {
               aria-invalid={errors.name ? true : undefined}
             />
             {errors.name ? (
-              <p id="name-error" className="text-sm text-red-600" role="alert">
+              <p id="name-error" className="text-negative text-sm" role="alert">
                 {errors.name.message}
               </p>
             ) : null}
@@ -99,7 +99,11 @@ export function CreateProjectDialog() {
               aria-invalid={errors.owner ? true : undefined}
             />
             {errors.owner ? (
-              <p id="owner-error" className="text-sm text-red-600" role="alert">
+              <p
+                id="owner-error"
+                className="text-negative text-sm"
+                role="alert"
+              >
                 {errors.owner.message}
               </p>
             ) : null}
@@ -120,7 +124,7 @@ export function CreateProjectDialog() {
             {errors.status ? (
               <p
                 id="status-error"
-                className="text-sm text-red-600"
+                className="text-negative text-sm"
                 role="alert"
               >
                 {errors.status.message}
@@ -139,7 +143,7 @@ export function CreateProjectDialog() {
             {errors.dueDate ? (
               <p
                 id="dueDate-error"
-                className="text-sm text-red-600"
+                className="text-negative text-sm"
                 role="alert"
               >
                 {errors.dueDate.message}
@@ -159,7 +163,7 @@ export function CreateProjectDialog() {
             {errors.description ? (
               <p
                 id="description-error"
-                className="text-sm text-red-600"
+                className="text-negative text-sm"
                 role="alert"
               >
                 {errors.description.message}
@@ -167,7 +171,7 @@ export function CreateProjectDialog() {
             ) : null}
           </div>
           {mutation.isError ? (
-            <p className="text-sm text-red-600" role="alert">
+            <p className="text-negative text-sm" role="alert">
               프로젝트를 생성하지 못했습니다.
             </p>
           ) : null}

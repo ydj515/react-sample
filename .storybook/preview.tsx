@@ -65,7 +65,7 @@ const preview: Preview = {
     // 다크 테마 대비를 위해 캔버스 배경 옵션을 제공한다.
     backgrounds: {
       options: {
-        light: { name: "light", value: "#f8fafc" },
+        light: { name: "light", value: "#f1f5f9" },
         dark: { name: "dark", value: "#0f172a" },
       },
     },

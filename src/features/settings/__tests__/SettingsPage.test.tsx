@@ -10,7 +10,6 @@ describe("SettingsPage", () => {
   beforeEach(() => {
     useUiStore.setState({
       density: "comfortable",
-      sidebarOpen: true,
       theme: "light",
     });
   });

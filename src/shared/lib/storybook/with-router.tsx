@@ -12,10 +12,20 @@ import { useState, type ComponentType } from "react";
 // 앱에서 <Link>가 참조하는 경로들. 이 경로가 라우트 트리에 있어야
 // Storybook에서 Link가 에러 없이 href를 만든다.
 const linkedPaths = [
+  "/operations",
+  "/reports",
   "/projects",
   "/projects/$projectId",
   "/settings",
   "/signin",
+  "/users",
+  "/users/$userId",
+  "/orders",
+  "/orders/$orderId",
+  "/products",
+  "/products/new",
+  "/products/$productId",
+  "/products/$productId/edit",
 ];
 
 function RouterStory({ Story }: { Story: ComponentType }) {

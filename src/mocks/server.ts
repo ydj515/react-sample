@@ -5,3 +5,5 @@ import { handlers, resetProjectsMockData } from "@/mocks/handlers";
 export const server = setupServer(...handlers);
 
 export { resetProjectsMockData };
+
+export { resetManagementMockData } from "./data/management";

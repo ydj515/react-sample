@@ -7,15 +7,8 @@ describe("useUiStore", () => {
     localStorage.clear();
     useUiStore.setState({
       density: "comfortable",
-      sidebarOpen: true,
       theme: "light",
     });
-  });
-
-  it("sidebar open 상태를 toggle한다", () => {
-    useUiStore.getState().toggleSidebar();
-
-    expect(useUiStore.getState().sidebarOpen).toBe(false);
   });
 
   it("theme과 density를 설정한다", () => {
@@ -39,7 +32,6 @@ describe("useUiStore", () => {
   it("theme과 density 선호값만 localStorage에 저장한다", () => {
     useUiStore.getState().setTheme("dark");
     useUiStore.getState().setDensity("compact");
-    useUiStore.getState().setSidebarOpen(false);
 
     const persistedValue = localStorage.getItem("react-sample-ui");
 

@@ -14,13 +14,11 @@ export function RecentProjects({ projects }: { projects: Project[] }) {
         {recentProjects.map((project) => (
           <div
             key={project.id}
-            className="flex items-center justify-between gap-4 rounded-md border border-slate-100 p-3 dark:border-slate-800"
+            className="rounded-control border-line flex items-center justify-between gap-4 border p-3"
           >
             <div>
-              <p className="font-medium text-slate-950 dark:text-slate-100">
-                {project.name}
-              </p>
-              <p className="text-sm text-slate-500">{project.owner}</p>
+              <p className="text-ink font-medium">{project.name}</p>
+              <p className="text-ink-subtle text-sm">{project.owner}</p>
             </div>
             <ProjectStatusBadge status={project.status} />
           </div>

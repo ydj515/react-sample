@@ -13,22 +13,22 @@ export function ProjectCard({ project }: { project: Project }) {
           <Link
             to="/projects/$projectId"
             params={{ projectId: project.id }}
-            className="text-base font-semibold text-slate-950 hover:underline"
+            className="text-ink text-base font-semibold hover:underline"
           >
             {project.name}
           </Link>
-          <p className="mt-1 text-sm text-slate-500">{project.description}</p>
+          <p className="text-ink-subtle mt-1 text-sm">{project.description}</p>
         </div>
         <ProjectStatusBadge status={project.status} />
       </div>
       <dl className="mt-4 grid grid-cols-2 gap-3 text-sm">
         <div>
-          <dt className="text-slate-500">담당자</dt>
-          <dd className="font-medium text-slate-900">{project.owner}</dd>
+          <dt className="text-ink-subtle">담당자</dt>
+          <dd className="text-ink font-medium">{project.owner}</dd>
         </div>
         <div>
-          <dt className="text-slate-500">마감일</dt>
-          <dd className="font-medium text-slate-900">
+          <dt className="text-ink-subtle">마감일</dt>
+          <dd className="text-ink font-medium">
             {formatDate(project.dueDate)}
           </dd>
         </div>

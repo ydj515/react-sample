@@ -7,11 +7,9 @@ import { useToastStore, type Toast } from "@/stores/toast-store";
 const AUTO_DISMISS_MS = 4000;
 
 const variantStyles: Record<Toast["variant"], string> = {
-  success:
-    "border-emerald-200 bg-emerald-50 text-emerald-800 dark:border-emerald-900 dark:bg-emerald-950 dark:text-emerald-200",
-  error:
-    "border-red-200 bg-red-50 text-red-800 dark:border-red-900 dark:bg-red-950 dark:text-red-200",
-  info: "border-slate-200 bg-white text-slate-800 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100",
+  success: "border-positive-soft bg-positive-soft text-positive",
+  error: "border-negative-soft bg-negative-soft text-negative",
+  info: "border-line bg-surface text-ink",
 };
 
 function ToastItem({ toast }: { toast: Toast }) {
@@ -26,7 +24,7 @@ function ToastItem({ toast }: { toast: Toast }) {
     <div
       role="status"
       className={cn(
-        "flex items-center gap-3 rounded-md border px-4 py-3 text-sm shadow-lg",
+        "rounded-control flex items-center gap-3 border px-4 py-3 text-sm shadow-lg",
         variantStyles[toast.variant],
       )}
     >
@@ -57,7 +55,7 @@ export function Toaster() {
   return (
     <div
       aria-live="polite"
-      className="fixed right-4 bottom-4 z-50 flex w-full max-w-sm flex-col gap-2"
+      className="fixed right-4 bottom-[calc(5rem+env(safe-area-inset-bottom))] z-50 flex w-[calc(100%-2rem)] max-w-sm flex-col gap-2 lg:bottom-4"
     >
       {toasts.map((toast) => (
         <ToastItem key={toast.id} toast={toast} />

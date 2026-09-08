@@ -8,6 +8,7 @@ const config: StorybookConfig = {
     "@storybook/addon-a11y", // 접근성 검사
     "@storybook/addon-themes", // 라이트/다크 테마 토글
   ],
+  staticDirs: ["../public"],
   framework: {
     name: "@storybook/react-vite",
     options: {},

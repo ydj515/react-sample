@@ -6,7 +6,13 @@ import type {
   ProjectStatus,
 } from "@/features/projects/model/project-types";
 import { createMockApiError } from "@/mocks/api-error";
+import { dashboardAsOf, dashboardTasks } from "@/mocks/data/dashboard";
+import { commerceFixture } from "@/mocks/data/commerce";
 import { projectsFixture } from "@/mocks/data/projects";
+
+import { managementHandlers } from "./management-handlers";
+import { managementData } from "./data/management";
+import { orderSchema } from "@/features/orders/model/order-schema";
 
 let projects: Project[] = structuredClone(projectsFixture);
 
@@ -15,6 +21,16 @@ export function resetProjectsMockData() {
 }
 
 export const handlers = [
+  ...managementHandlers,
+  http.get("/api/dashboard/commerce", () =>
+    HttpResponse.json({
+      ...commerceFixture,
+      orders: orderSchema.array().parse(managementData.orders),
+    }),
+  ),
+  http.get("/api/dashboard", () =>
+    HttpResponse.json({ asOf: dashboardAsOf, projects, tasks: dashboardTasks }),
+  ),
   http.post("/api/login", async ({ request }) => {
     const body = (await request.json()) as {
       email?: string;

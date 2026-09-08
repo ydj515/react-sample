@@ -3,16 +3,19 @@ import { Card } from "@/shared/ui/card";
 export function MetricCard({
   label,
   value,
+  note,
 }: {
   label: string;
   value: string | number;
+  note?: string;
 }) {
   return (
-    <Card className="p-5">
-      <p className="text-sm text-slate-500">{label}</p>
-      <p className="mt-2 text-2xl font-semibold text-slate-950 dark:text-slate-50">
+    <Card className="compact:p-4 p-5">
+      <p className="text-ink-subtle text-sm">{label}</p>
+      <p className="text-ink mt-2 text-[28px] font-semibold tracking-tight tabular-nums">
         {value}
       </p>
+      {note ? <p className="text-ink-subtle mt-2 text-xs">{note}</p> : null}
     </Card>
   );
 }

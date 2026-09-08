@@ -5,18 +5,18 @@ import type { ButtonHTMLAttributes } from "react";
 import { cn } from "@/shared/lib/cn";
 
 const buttonVariants = cva(
-  "inline-flex h-10 items-center justify-center gap-2 rounded-md px-4 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50 compact:h-9 compact:px-3 compact:text-xs",
+  "inline-flex h-10 items-center justify-center gap-2 rounded-control px-4 text-sm font-medium transition-colors focus-visible:outline-2 focus-visible:outline-offset-2 disabled:pointer-events-none disabled:opacity-50 compact:h-9 compact:px-3 compact:text-sm",
   {
     variants: {
       variant: {
         primary:
-          "bg-slate-950 text-white hover:bg-slate-800 focus-visible:outline-slate-950 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-white dark:focus-visible:outline-slate-300",
+          "bg-brand text-on-brand hover:bg-brand-hover focus-visible:outline-brand",
         secondary:
-          "bg-slate-100 text-slate-950 hover:bg-slate-200 focus-visible:outline-slate-400 dark:bg-slate-800 dark:text-slate-100 dark:hover:bg-slate-700 dark:focus-visible:outline-slate-500",
+          "border border-line-strong bg-surface text-ink-muted hover:bg-surface-muted focus-visible:outline-brand",
         ghost:
-          "text-slate-700 hover:bg-slate-100 focus-visible:outline-slate-400 dark:text-slate-200 dark:hover:bg-slate-800 dark:focus-visible:outline-slate-500",
+          "text-ink-muted hover:bg-surface-muted focus-visible:outline-brand",
         danger:
-          "bg-red-600 text-white hover:bg-red-700 focus-visible:outline-red-600",
+          "bg-negative-soft text-negative hover:bg-negative/15 focus-visible:outline-negative",
       },
       size: {
         sm: "h-8 px-3 text-xs compact:h-7 compact:px-2.5",

@@ -16,7 +16,7 @@ type Story = StoryObj<typeof meta>;
 export const Default: Story = {
   render: () => (
     <Card className="w-80 p-6">
-      <p className="text-sm text-slate-600 dark:text-slate-300">
+      <p className="text-ink-muted text-sm">
         기본 카드 컨테이너입니다. 내부 콘텐츠는 자유롭게 구성합니다.
       </p>
     </Card>
@@ -29,12 +29,8 @@ export const ProjectSummary: Story = {
     <Card className="w-80 p-6">
       <div className="flex items-start justify-between">
         <div>
-          <h3 className="text-base font-semibold text-slate-950 dark:text-slate-50">
-            Acme Redesign
-          </h3>
-          <p className="mt-1 text-sm text-slate-500 dark:text-slate-400">
-            12 tasks remaining
-          </p>
+          <h3 className="text-ink text-base font-semibold">Acme Redesign</h3>
+          <p className="text-ink-subtle mt-1 text-sm">12 tasks remaining</p>
         </div>
         <Badge variant="success">Active</Badge>
       </div>

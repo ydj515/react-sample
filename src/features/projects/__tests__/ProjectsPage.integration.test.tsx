@@ -31,6 +31,20 @@ describe("ProjectsPage", () => {
     expect(screen.getByText("Dashboard Refresh")).toBeInTheDocument();
   });
 
+  it("공통 빈 상태와 페이지 표시에서 필터를 초기화한다", async () => {
+    const user = userEvent.setup();
+    renderWithProviders(<ProjectsPage />);
+    await screen.findByText("Design System");
+    await user.type(screen.getByLabelText("검색"), "없는 프로젝트");
+    expect(screen.getByRole("status")).toHaveTextContent(
+      "조건에 맞는 프로젝트가 없습니다.",
+    );
+    expect(screen.getByText("0–0 / 0건")).toBeInTheDocument();
+    await user.click(screen.getByRole("button", { name: "필터 초기화" }));
+    expect(screen.getByLabelText("검색")).toHaveValue("");
+    expect(screen.getByText("Design System")).toBeInTheDocument();
+  });
+
   it("사용자 입력으로 프로젝트를 생성하고 목록에 반영한다", async () => {
     const user = userEvent.setup();
 

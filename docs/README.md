@@ -13,6 +13,9 @@
 4. [새 기능 추가 체크리스트](./feature-addition-checklist.md)
 5. [pnpm 명령](./PNPM_COMMAND.md)
 6. [기여 가이드](../CONTRIBUTING.md)
+7. [대시보드 예제와 집계 기준](./dashboard-examples.md)
+8. [디자인 시스템](./design-system.md)
+9. [사용자·주문·상품 관리 예제](./management-examples.md)
 
 ## 목적별 문서
 
