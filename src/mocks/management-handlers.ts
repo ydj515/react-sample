@@ -4,6 +4,7 @@ import {
   userProfileSchema,
   roleLabels,
   userStatusLabels,
+  permissionLabels,
 } from "@/features/users/model/user-schema";
 import {
   orderNoteInputSchema,
@@ -99,17 +100,30 @@ export const managementHandlers = [
         "INVALID_USER_ACCESS",
         "역할과 상태를 확인하세요.",
       );
-    if (
-      parsed.data.role !== user.role ||
-      parsed.data.status !== user.status ||
-      (parsed.data.permissions &&
-        JSON.stringify(parsed.data.permissions) !==
-          JSON.stringify(user.permissions))
-    ) {
+    const changes: string[] = [];
+    if (parsed.data.role !== user.role || parsed.data.status !== user.status) {
+      changes.push(
+        `${roleLabels[user.role]} · ${userStatusLabels[user.status]} → ${roleLabels[parsed.data.role]} · ${userStatusLabels[parsed.data.status]}`,
+      );
+    }
+    if (parsed.data.permissions) {
+      for (const key of Object.keys(permissionLabels) as Array<
+        keyof typeof permissionLabels
+      >) {
+        const before = user.permissions[key];
+        const after = parsed.data.permissions[key];
+        if (before !== after) {
+          changes.push(
+            `${permissionLabels[key][0]}: ${before ? "활성" : "비활성"} → ${after ? "활성" : "비활성"}`,
+          );
+        }
+      }
+    }
+    if (changes.length > 0) {
       user.activity.unshift({
         id: crypto.randomUUID(),
         at: new Date().toISOString(),
-        text: `권한 설정: ${roleLabels[user.role]} · ${userStatusLabels[user.status]} → ${roleLabels[parsed.data.role]} · ${userStatusLabels[parsed.data.status]}(으)로 변경되었습니다.`,
+        text: `권한 설정: ${changes.join("; ")}`,
       });
       Object.assign(user, parsed.data);
     }

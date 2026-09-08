@@ -6,30 +6,9 @@ import {
 } from "@/features/products/model/product-schema";
 import { commerceFixture } from "./commerce";
 
+// 주문 고객과 회원을 같은 이름 목록에서 생성해 잘못된 회원 연결을 방지한다.
 const names = [
-  "김민준",
-  "이서연",
-  "박지호",
-  "최수아",
-  "정현우",
-  "한소민",
-  "오승환",
-  "윤서준",
-  "강지윤",
-  "임도현",
-  "서하린",
-  "송예준",
-  "홍수빈",
-  "장우진",
-  "유채원",
-  "문시우",
-  "신예린",
-  "배준서",
-  "조다은",
-  "백현서",
-  "노지안",
-  "양태윤",
-  "남서현",
+  ...new Set(commerceFixture.orders.map((order) => order.customer)),
   "심지후",
 ];
 const users: ManagedUser[] = names.map((name, i) => ({
@@ -65,59 +44,62 @@ const users: ManagedUser[] = names.map((name, i) => ({
     },
   ],
 }));
-const orders: ManagedOrder[] = commerceFixture.orders.map((order, i) => ({
-  ...order,
-  customerId:
-    users.find((user) => user.name === order.customer)?.id ?? users[i % 6]!.id,
-  email:
-    users.find((user) => user.name === order.customer)?.email ??
-    users[i % 6]!.email,
-  phone: "010-0000-0000",
-  grade: "Gold",
-  deliveryRequest: "부재 시 문 앞에 놓아주세요.",
-  carrier: "CJ대한통운",
-  trackingNumber: order.status === "대기" ? "" : `DEMO-${2047 - i}`,
-  paidAt: `${order.date}T09:00:00Z`,
-  approvalNumber: `SAMPLE-${2047 - i}`,
-  discount: 10000,
-  shippingFee: 0,
-  pointsUsed: 1000,
-  items: [
-    {
-      productId: `product-${i + 1}`,
-      name: order.product,
-      image:
-        productImages[
-          ["신발", "의류", "액세서리", "기타"].indexOf(order.category)
-        ] ?? productImages[3],
-      color: "기본",
-      size: order.category === "신발" ? "270" : "FREE",
-      quantity: 1,
-      unitPrice: order.amount + 11000,
-    },
-  ],
-  address: `서울특별시 샘플로 ${10 + i} (예시 주소)`,
-  paymentMethod: i % 2 ? "간편 결제" : "카드 결제",
-  timeline: [
-    {
-      id: `${order.id}-received`,
-      status: "대기",
-      text: "주문이 접수되었습니다.",
-      at: `${order.date}T09:00:00Z`,
-    },
-    ...(order.status === "대기"
-      ? []
-      : [
-          {
-            id: `${order.id}-current`,
-            status: order.status,
-            text: `${order.status} 상태로 처리되었습니다.`,
-            at: `${order.date}T12:00:00Z`,
-          },
-        ]),
-  ],
-  notes: [],
-}));
+const usersByName = new Map(users.map((user) => [user.name, user]));
+const orders: ManagedOrder[] = commerceFixture.orders.map((order, i) => {
+  const customer = usersByName.get(order.customer);
+  if (!customer)
+    throw new Error(`Missing customer fixture for order ${order.id}`);
+  return {
+    ...order,
+    customerId: customer.id,
+    email: customer.email,
+    phone: "010-0000-0000",
+    grade: "Gold",
+    deliveryRequest: "부재 시 문 앞에 놓아주세요.",
+    carrier: "CJ대한통운",
+    trackingNumber: order.status === "대기" ? "" : `DEMO-${2047 - i}`,
+    paidAt: `${order.date}T09:00:00Z`,
+    approvalNumber: `SAMPLE-${2047 - i}`,
+    discount: 10000,
+    shippingFee: 0,
+    pointsUsed: 1000,
+    items: [
+      {
+        productId: `product-${i + 1}`,
+        name: order.product,
+        image:
+          productImages[
+            ["신발", "의류", "액세서리", "기타"].indexOf(order.category)
+          ] ?? productImages[3],
+        color: "기본",
+        size: order.category === "신발" ? "270" : "FREE",
+        quantity: 1,
+        unitPrice: order.amount + 11000,
+      },
+    ],
+    address: `서울특별시 샘플로 ${10 + i} (예시 주소)`,
+    paymentMethod: i % 2 ? "간편 결제" : "카드 결제",
+    timeline: [
+      {
+        id: `${order.id}-received`,
+        status: "대기",
+        text: "주문이 접수되었습니다.",
+        at: `${order.date}T09:00:00Z`,
+      },
+      ...(order.status === "대기"
+        ? []
+        : [
+            {
+              id: `${order.id}-current`,
+              status: order.status,
+              text: `${order.status} 상태로 처리되었습니다.`,
+              at: `${order.date}T12:00:00Z`,
+            },
+          ]),
+    ],
+    notes: [],
+  };
+});
 const uniqueProducts = [
   ...new Map(
     commerceFixture.orders.map((order) => [order.product, order]),

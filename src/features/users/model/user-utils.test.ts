@@ -20,7 +20,7 @@ describe("user filters", () => {
       const before = [...items];
       const result = selectUsers(items, usersSearchSchema.parse({ sort }));
       expect(result.items[0]?.id).toBe(
-        sort === "newest" ? "user-24" : sort === "name" ? "user-9" : "user-1",
+        sort === "newest" ? "user-24" : sort === "name" ? "user-10" : "user-1",
       );
       expect(items).toEqual(before);
     },

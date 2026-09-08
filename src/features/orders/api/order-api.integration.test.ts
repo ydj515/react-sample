@@ -7,6 +7,7 @@ import {
   updateOrderStatus,
   addOrderNote,
 } from "./order-api";
+import { getUsers } from "@/features/users/api/user-api";
 import { getCommerceDashboard } from "@/features/dashboard/api/commerce-api";
 
 describe("order management API", () => {
@@ -46,4 +47,20 @@ it("동일한 상태 재요청은 처리 이력을 중복 생성하지 않는다
   const before = await getOrder("#2046");
   const same = await updateOrderStatus(before.id, before.status);
   expect(same.timeline).toEqual(before.timeline);
+});
+
+it("모든 주문을 실제 고객의 회원 ID와 이메일에 연결한다", async () => {
+  const users = await getUsers();
+  const orders = await getOrders();
+  for (const order of orders) {
+    const customer = users.find((user) => user.id === order.customerId);
+    expect(customer, order.id).toMatchObject({
+      name: order.customer,
+      email: order.email,
+    });
+  }
+  const order = await getOrder("#2045");
+  expect(users.find((user) => user.id === order.customerId)?.name).toBe(
+    "박지훈",
+  );
 });
