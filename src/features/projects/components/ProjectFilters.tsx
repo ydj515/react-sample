@@ -3,8 +3,9 @@ import type {
   ProjectSortKey,
   ProjectStatus,
 } from "@/features/projects/model/project-types";
-import { Input } from "@/shared/ui/input";
-import { Label } from "@/shared/ui/label";
+import { SearchInput } from "@/shared/ui/search-input";
+import { FilterBar, FilterField } from "@/shared/ui/filter-bar";
+import { Button } from "@/shared/ui/button";
 import { Select } from "@/shared/ui/select";
 
 type ProjectFiltersProps = {
@@ -21,10 +22,9 @@ export function ProjectFilters({
   sortKey,
 }: ProjectFiltersProps) {
   return (
-    <div className="grid gap-3 rounded-lg border border-slate-200 bg-white p-4 md:grid-cols-[1fr_180px_180px]">
-      <div>
-        <Label htmlFor="project-search">검색</Label>
-        <Input
+    <FilterBar>
+      <FilterField label="검색" grow>
+        <SearchInput
           id="project-search"
           value={filters.search}
           onChange={(event) =>
@@ -32,9 +32,8 @@ export function ProjectFilters({
           }
           placeholder="프로젝트 또는 담당자 검색"
         />
-      </div>
-      <div>
-        <Label htmlFor="project-status">프로젝트 상태</Label>
+      </FilterField>
+      <FilterField label="프로젝트 상태">
         <Select
           id="project-status"
           value={filters.status}
@@ -51,9 +50,8 @@ export function ProjectFilters({
           <option value="paused">일시 중지</option>
           <option value="completed">완료</option>
         </Select>
-      </div>
-      <div>
-        <Label htmlFor="project-sort">정렬 기준</Label>
+      </FilterField>
+      <FilterField label="정렬 기준">
         <Select
           id="project-sort"
           value={sortKey}
@@ -66,7 +64,17 @@ export function ProjectFilters({
           <option value="updatedAt">최근 수정</option>
           <option value="name">이름</option>
         </Select>
-      </div>
-    </div>
+      </FilterField>
+      <Button
+        type="button"
+        variant="secondary"
+        onClick={() => {
+          onFiltersChange({ search: "", status: "all" });
+          onSortKeyChange("dueDate");
+        }}
+      >
+        초기화
+      </Button>
+    </FilterBar>
   );
 }

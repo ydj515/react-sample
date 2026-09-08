@@ -1,3 +1,4 @@
+import { PageHeader } from "@/shared/ui/page-header";
 import { RotateCcw } from "lucide-react";
 
 import { Button } from "@/shared/ui/button";
@@ -23,12 +24,10 @@ export function SettingsPage() {
     <section
       className={isCompact ? "grid max-w-2xl gap-4" : "grid max-w-2xl gap-6"}
     >
-      <div>
-        <h1 className="text-2xl font-semibold tracking-tight">설정</h1>
-        <p className="mt-1 text-sm text-slate-500">
-          Zustand가 담당하는 클라이언트 UI 상태 예제입니다.
-        </p>
-      </div>
+      <PageHeader
+        title="설정"
+        description="화면의 정보 밀도를 원하는 작업 방식에 맞춰 설정하세요."
+      />
       <Card className={isCompact ? "grid gap-3 p-4" : "grid gap-4 p-6"}>
         <div className="grid gap-1.5">
           <Label htmlFor="density">밀도</Label>
@@ -44,11 +43,11 @@ export function SettingsPage() {
             <option value="compact">Compact</option>
           </Select>
         </div>
-        <p className="rounded-md bg-slate-50 p-3 text-sm text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+        <p className="rounded-control bg-surface-muted text-ink-muted p-3 text-sm">
           {densityDescriptions[density]}
         </p>
-        <div className="flex flex-col gap-3 border-t border-slate-200 pt-4 sm:flex-row sm:items-center sm:justify-between dark:border-slate-800">
-          <p className="text-sm text-slate-500 dark:text-slate-400">
+        <div className="border-line flex flex-col gap-3 border-t pt-4 sm:flex-row sm:items-center sm:justify-between">
+          <p className="text-ink-subtle text-sm">
             이 설정은 브라우저에 저장됩니다.
           </p>
           <Button

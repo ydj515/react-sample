@@ -12,9 +12,19 @@ import { Route as rootRouteImport } from "./routes/__root";
 import { Route as DashboardRouteImport } from "./routes/_dashboard";
 import { Route as SigninRouteImport } from "./routes/signin";
 import { Route as DashboardIndexRouteImport } from "./routes/_dashboard/index";
+import { Route as DashboardOperationsRouteImport } from "./routes/_dashboard/operations";
+import { Route as DashboardReportsRouteImport } from "./routes/_dashboard/reports";
 import { Route as DashboardSettingsRouteImport } from "./routes/_dashboard/settings";
+import { Route as DashboardOrdersIndexRouteImport } from "./routes/_dashboard/orders.index";
+import { Route as DashboardOrdersOrderIdRouteImport } from "./routes/_dashboard/orders.$orderId";
+import { Route as DashboardProductsIndexRouteImport } from "./routes/_dashboard/products.index";
+import { Route as DashboardProductsNewRouteImport } from "./routes/_dashboard/products.new";
 import { Route as DashboardProjectsIndexRouteImport } from "./routes/_dashboard/projects.index";
 import { Route as DashboardProjectsProjectIdRouteImport } from "./routes/_dashboard/projects.$projectId";
+import { Route as DashboardUsersIndexRouteImport } from "./routes/_dashboard/users.index";
+import { Route as DashboardUsersUserIdRouteImport } from "./routes/_dashboard/users.$userId";
+import { Route as DashboardProductsProductIdIndexRouteImport } from "./routes/_dashboard/products.$productId.index";
+import { Route as DashboardProductsProductIdEditRouteImport } from "./routes/_dashboard/products.$productId.edit";
 
 const DashboardRoute = DashboardRouteImport.update({
   id: "/_dashboard",
@@ -30,9 +40,39 @@ const DashboardIndexRoute = DashboardIndexRouteImport.update({
   path: "/",
   getParentRoute: () => DashboardRoute,
 } as any);
+const DashboardOperationsRoute = DashboardOperationsRouteImport.update({
+  id: "/operations",
+  path: "/operations",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardReportsRoute = DashboardReportsRouteImport.update({
+  id: "/reports",
+  path: "/reports",
+  getParentRoute: () => DashboardRoute,
+} as any);
 const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
   id: "/settings",
   path: "/settings",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardOrdersIndexRoute = DashboardOrdersIndexRouteImport.update({
+  id: "/orders/",
+  path: "/orders/",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardOrdersOrderIdRoute = DashboardOrdersOrderIdRouteImport.update({
+  id: "/orders/$orderId",
+  path: "/orders/$orderId",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardProductsIndexRoute = DashboardProductsIndexRouteImport.update({
+  id: "/products/",
+  path: "/products/",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardProductsNewRoute = DashboardProductsNewRouteImport.update({
+  id: "/products/new",
+  path: "/products/new",
   getParentRoute: () => DashboardRoute,
 } as any);
 const DashboardProjectsIndexRoute = DashboardProjectsIndexRouteImport.update({
@@ -46,44 +86,135 @@ const DashboardProjectsProjectIdRoute =
     path: "/projects/$projectId",
     getParentRoute: () => DashboardRoute,
   } as any);
+const DashboardUsersIndexRoute = DashboardUsersIndexRouteImport.update({
+  id: "/users/",
+  path: "/users/",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardUsersUserIdRoute = DashboardUsersUserIdRouteImport.update({
+  id: "/users/$userId",
+  path: "/users/$userId",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardProductsProductIdIndexRoute =
+  DashboardProductsProductIdIndexRouteImport.update({
+    id: "/products/$productId/",
+    path: "/products/$productId/",
+    getParentRoute: () => DashboardRoute,
+  } as any);
+const DashboardProductsProductIdEditRoute =
+  DashboardProductsProductIdEditRouteImport.update({
+    id: "/products/$productId/edit",
+    path: "/products/$productId/edit",
+    getParentRoute: () => DashboardRoute,
+  } as any);
 
 export interface FileRoutesByFullPath {
   "/": typeof DashboardIndexRoute;
   "/signin": typeof SigninRoute;
+  "/operations": typeof DashboardOperationsRoute;
+  "/reports": typeof DashboardReportsRoute;
   "/settings": typeof DashboardSettingsRoute;
+  "/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
+  "/products/new": typeof DashboardProductsNewRoute;
   "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
+  "/users/$userId": typeof DashboardUsersUserIdRoute;
+  "/orders/": typeof DashboardOrdersIndexRoute;
+  "/products/": typeof DashboardProductsIndexRoute;
   "/projects/": typeof DashboardProjectsIndexRoute;
+  "/users/": typeof DashboardUsersIndexRoute;
+  "/products/$productId/edit": typeof DashboardProductsProductIdEditRoute;
+  "/products/$productId/": typeof DashboardProductsProductIdIndexRoute;
 }
 export interface FileRoutesByTo {
   "/signin": typeof SigninRoute;
+  "/operations": typeof DashboardOperationsRoute;
+  "/reports": typeof DashboardReportsRoute;
   "/settings": typeof DashboardSettingsRoute;
   "/": typeof DashboardIndexRoute;
+  "/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
+  "/products/new": typeof DashboardProductsNewRoute;
   "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
+  "/users/$userId": typeof DashboardUsersUserIdRoute;
+  "/orders": typeof DashboardOrdersIndexRoute;
+  "/products": typeof DashboardProductsIndexRoute;
   "/projects": typeof DashboardProjectsIndexRoute;
+  "/users": typeof DashboardUsersIndexRoute;
+  "/products/$productId/edit": typeof DashboardProductsProductIdEditRoute;
+  "/products/$productId": typeof DashboardProductsProductIdIndexRoute;
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   "/_dashboard": typeof DashboardRouteWithChildren;
   "/signin": typeof SigninRoute;
+  "/_dashboard/operations": typeof DashboardOperationsRoute;
+  "/_dashboard/reports": typeof DashboardReportsRoute;
   "/_dashboard/settings": typeof DashboardSettingsRoute;
   "/_dashboard/": typeof DashboardIndexRoute;
+  "/_dashboard/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
+  "/_dashboard/products/new": typeof DashboardProductsNewRoute;
   "/_dashboard/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
+  "/_dashboard/users/$userId": typeof DashboardUsersUserIdRoute;
+  "/_dashboard/orders/": typeof DashboardOrdersIndexRoute;
+  "/_dashboard/products/": typeof DashboardProductsIndexRoute;
   "/_dashboard/projects/": typeof DashboardProjectsIndexRoute;
+  "/_dashboard/users/": typeof DashboardUsersIndexRoute;
+  "/_dashboard/products/$productId/edit": typeof DashboardProductsProductIdEditRoute;
+  "/_dashboard/products/$productId/": typeof DashboardProductsProductIdIndexRoute;
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
-    "/" | "/signin" | "/settings" | "/projects/$projectId" | "/projects/";
+    | "/"
+    | "/signin"
+    | "/operations"
+    | "/reports"
+    | "/settings"
+    | "/orders/$orderId"
+    | "/products/new"
+    | "/projects/$projectId"
+    | "/users/$userId"
+    | "/orders/"
+    | "/products/"
+    | "/projects/"
+    | "/users/"
+    | "/products/$productId/edit"
+    | "/products/$productId/";
   fileRoutesByTo: FileRoutesByTo;
-  to: "/signin" | "/settings" | "/" | "/projects/$projectId" | "/projects";
+  to:
+    | "/signin"
+    | "/operations"
+    | "/reports"
+    | "/settings"
+    | "/"
+    | "/orders/$orderId"
+    | "/products/new"
+    | "/projects/$projectId"
+    | "/users/$userId"
+    | "/orders"
+    | "/products"
+    | "/projects"
+    | "/users"
+    | "/products/$productId/edit"
+    | "/products/$productId";
   id:
     | "__root__"
     | "/_dashboard"
     | "/signin"
+    | "/_dashboard/operations"
+    | "/_dashboard/reports"
     | "/_dashboard/settings"
     | "/_dashboard/"
+    | "/_dashboard/orders/$orderId"
+    | "/_dashboard/products/new"
     | "/_dashboard/projects/$projectId"
-    | "/_dashboard/projects/";
+    | "/_dashboard/users/$userId"
+    | "/_dashboard/orders/"
+    | "/_dashboard/products/"
+    | "/_dashboard/projects/"
+    | "/_dashboard/users/"
+    | "/_dashboard/products/$productId/edit"
+    | "/_dashboard/products/$productId/";
   fileRoutesById: FileRoutesById;
 }
 export interface RootRouteChildren {
@@ -114,11 +245,53 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardIndexRouteImport;
       parentRoute: typeof DashboardRoute;
     };
+    "/_dashboard/operations": {
+      id: "/_dashboard/operations";
+      path: "/operations";
+      fullPath: "/operations";
+      preLoaderRoute: typeof DashboardOperationsRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/reports": {
+      id: "/_dashboard/reports";
+      path: "/reports";
+      fullPath: "/reports";
+      preLoaderRoute: typeof DashboardReportsRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
     "/_dashboard/settings": {
       id: "/_dashboard/settings";
       path: "/settings";
       fullPath: "/settings";
       preLoaderRoute: typeof DashboardSettingsRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/orders/": {
+      id: "/_dashboard/orders/";
+      path: "/orders";
+      fullPath: "/orders/";
+      preLoaderRoute: typeof DashboardOrdersIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/orders/$orderId": {
+      id: "/_dashboard/orders/$orderId";
+      path: "/orders/$orderId";
+      fullPath: "/orders/$orderId";
+      preLoaderRoute: typeof DashboardOrdersOrderIdRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/products/": {
+      id: "/_dashboard/products/";
+      path: "/products";
+      fullPath: "/products/";
+      preLoaderRoute: typeof DashboardProductsIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/products/new": {
+      id: "/_dashboard/products/new";
+      path: "/products/new";
+      fullPath: "/products/new";
+      preLoaderRoute: typeof DashboardProductsNewRouteImport;
       parentRoute: typeof DashboardRoute;
     };
     "/_dashboard/projects/": {
@@ -135,21 +308,69 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardProjectsProjectIdRouteImport;
       parentRoute: typeof DashboardRoute;
     };
+    "/_dashboard/users/": {
+      id: "/_dashboard/users/";
+      path: "/users";
+      fullPath: "/users/";
+      preLoaderRoute: typeof DashboardUsersIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/users/$userId": {
+      id: "/_dashboard/users/$userId";
+      path: "/users/$userId";
+      fullPath: "/users/$userId";
+      preLoaderRoute: typeof DashboardUsersUserIdRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/products/$productId/": {
+      id: "/_dashboard/products/$productId/";
+      path: "/products/$productId";
+      fullPath: "/products/$productId/";
+      preLoaderRoute: typeof DashboardProductsProductIdIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/products/$productId/edit": {
+      id: "/_dashboard/products/$productId/edit";
+      path: "/products/$productId/edit";
+      fullPath: "/products/$productId/edit";
+      preLoaderRoute: typeof DashboardProductsProductIdEditRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
   }
 }
 
 interface DashboardRouteChildren {
+  DashboardOperationsRoute: typeof DashboardOperationsRoute;
+  DashboardReportsRoute: typeof DashboardReportsRoute;
   DashboardSettingsRoute: typeof DashboardSettingsRoute;
   DashboardIndexRoute: typeof DashboardIndexRoute;
+  DashboardOrdersOrderIdRoute: typeof DashboardOrdersOrderIdRoute;
+  DashboardProductsNewRoute: typeof DashboardProductsNewRoute;
   DashboardProjectsProjectIdRoute: typeof DashboardProjectsProjectIdRoute;
+  DashboardUsersUserIdRoute: typeof DashboardUsersUserIdRoute;
+  DashboardOrdersIndexRoute: typeof DashboardOrdersIndexRoute;
+  DashboardProductsIndexRoute: typeof DashboardProductsIndexRoute;
   DashboardProjectsIndexRoute: typeof DashboardProjectsIndexRoute;
+  DashboardUsersIndexRoute: typeof DashboardUsersIndexRoute;
+  DashboardProductsProductIdEditRoute: typeof DashboardProductsProductIdEditRoute;
+  DashboardProductsProductIdIndexRoute: typeof DashboardProductsProductIdIndexRoute;
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardOperationsRoute: DashboardOperationsRoute,
+  DashboardReportsRoute: DashboardReportsRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardOrdersOrderIdRoute: DashboardOrdersOrderIdRoute,
+  DashboardProductsNewRoute: DashboardProductsNewRoute,
   DashboardProjectsProjectIdRoute: DashboardProjectsProjectIdRoute,
+  DashboardUsersUserIdRoute: DashboardUsersUserIdRoute,
+  DashboardOrdersIndexRoute: DashboardOrdersIndexRoute,
+  DashboardProductsIndexRoute: DashboardProductsIndexRoute,
   DashboardProjectsIndexRoute: DashboardProjectsIndexRoute,
+  DashboardUsersIndexRoute: DashboardUsersIndexRoute,
+  DashboardProductsProductIdEditRoute: DashboardProductsProductIdEditRoute,
+  DashboardProductsProductIdIndexRoute: DashboardProductsProductIdIndexRoute,
 };
 
 const DashboardRouteWithChildren = DashboardRoute._addFileChildren(

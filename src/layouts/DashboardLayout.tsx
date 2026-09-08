@@ -1,157 +1,194 @@
-import { Link, Outlet, useNavigate } from "@tanstack/react-router";
+import { Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { LogOut, Menu, X } from "lucide-react";
+import { useRef, useState, useSyncExternalStore } from "react";
 
+import { AppFooter } from "@/layouts/AppFooter";
+import { MobileBottomNavigation } from "@/layouts/MobileBottomNavigation";
+import { BreadcrumbBar } from "@/layouts/BreadcrumbBar";
+import { GlobalSearch } from "@/layouts/GlobalSearch";
+import { currentNavigation } from "@/layouts/navigation";
+import { SidebarBrand, SidebarNavigation } from "@/layouts/SidebarNavigation";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { cn } from "@/shared/lib/cn";
 import { Button } from "@/shared/ui/button";
+import {
+  Dialog,
+  DialogContent,
+  DialogDescription,
+  DialogTitle,
+} from "@/shared/ui/dialog";
 import { useAuthStore } from "@/stores/auth-store";
 import { useUiStore } from "@/stores/ui-store";
 
-const navItems = [
-  { to: "/", label: "대시보드" },
-  { to: "/projects", label: "프로젝트" },
-  { to: "/settings", label: "설정" },
-] as const;
+function subscribeMobile(callback: () => void) {
+  const media = window.matchMedia("(max-width: 1023px)");
+  media.addEventListener("change", callback);
+  return () => media.removeEventListener("change", callback);
+}
+function getMobile() {
+  return window.matchMedia("(max-width: 1023px)").matches;
+}
 
 export function DashboardLayout() {
   const density = useUiStore((state) => state.density);
-  const sidebarOpen = useUiStore((state) => state.sidebarOpen);
   const theme = useUiStore((state) => state.theme);
-  const setSidebarOpen = useUiStore((state) => state.setSidebarOpen);
-  const toggleSidebar = useUiStore((state) => state.toggleSidebar);
   const signOut = useAuthStore((state) => state.signOut);
+  const user = useAuthStore((state) => state.user);
   const navigate = useNavigate();
-  const sidebarId = "dashboard-sidebar";
+  const { pathname } = useLocation();
+  const mobile = useSyncExternalStore(subscribeMobile, getMobile, () => false);
+  const [mobileOpen, setMobileOpen] = useState(false);
+  const menuRef = useRef<HTMLButtonElement>(null);
   const isCompact = density === "compact";
-  const closeSidebar = () => setSidebarOpen(false);
-  const handleSignOut = () => {
-    signOut();
-    void navigate({ to: "/signin" });
-  };
-  const closeSidebarOnMobile = () => {
-    if (window.matchMedia("(max-width: 1023px)").matches) {
-      closeSidebar();
-    }
-  };
-
+  const activeGroup = currentNavigation(pathname)?.group ?? "대시보드";
+  // 데스크톱으로 전환했다가 돌아와도 모바일 서랍은 닫힌 상태로 시작한다.
+  if (!mobile && mobileOpen) setMobileOpen(false);
+  const email = user?.email ?? "데모 계정";
+  const userName = email.split("@")[0] || "사용자";
   return (
     <div
       data-density={density}
       data-testid="dashboard-shell"
       data-theme={theme}
-      className="min-h-screen bg-slate-50 text-slate-950 transition-colors dark:bg-slate-950 dark:text-slate-100"
+      className="bg-canvas text-ink min-h-screen transition-colors"
     >
-      {sidebarOpen ? (
-        <button
-          aria-label="사이드바 배경 닫기"
-          className="fixed inset-0 z-20 bg-slate-950/40 lg:hidden"
-          type="button"
-          onClick={closeSidebar}
-        />
-      ) : null}
-      <aside
-        id={sidebarId}
-        aria-label="사이드바"
-        className={cn(
-          "fixed inset-y-0 left-0 z-30 w-64 border-r border-slate-200 bg-white transition-transform dark:border-slate-800 dark:bg-slate-950",
-          isCompact ? "p-3" : "p-4",
-          sidebarOpen ? "translate-x-0" : "-translate-x-full",
-        )}
-      >
-        <div
-          className={cn(
-            "flex items-center justify-between font-semibold",
-            isCompact ? "mb-6 text-base" : "mb-8 text-lg",
-          )}
+      {!mobile ? (
+        <aside
+          id="dashboard-sidebar"
+          aria-label="사이드바"
+          className="border-line bg-surface text-ink fixed inset-y-0 left-0 z-30 flex w-64 flex-col border-r"
         >
-          <span>ProjectHub</span>
-          <Button
-            aria-label="사이드바 닫기"
-            className="lg:hidden dark:text-slate-200 dark:hover:bg-slate-800"
-            size="icon"
-            type="button"
-            variant="ghost"
-            onClick={closeSidebar}
+          <div
+            className={cn(
+              "border-line flex shrink-0 items-center border-b px-5",
+              isCompact ? "h-14" : "h-16",
+            )}
           >
-            <X className="size-5" aria-hidden="true" />
-          </Button>
-        </div>
-        <nav
-          aria-label="주요 메뉴"
-          className={cn("grid", isCompact ? "gap-0.5" : "gap-1")}
-        >
-          {navItems.map((item) => (
-            <Link
-              key={item.to}
-              to={item.to}
-              className={cn(
-                "rounded-md text-sm font-medium text-slate-700 hover:bg-slate-100 dark:text-slate-300 dark:hover:bg-slate-800",
-                isCompact ? "px-2.5 py-1.5" : "px-3 py-2",
-              )}
-              activeProps={{
-                className:
-                  "bg-slate-950 text-white hover:bg-slate-950 dark:bg-slate-100 dark:text-slate-950 dark:hover:bg-slate-100",
-              }}
-              activeOptions={item.to === "/" ? { exact: true } : undefined}
-              onClick={closeSidebarOnMobile}
-            >
-              {item.label}
-            </Link>
-          ))}
-        </nav>
-      </aside>
+            <SidebarBrand />
+          </div>
+          <SidebarNavigation
+            key={pathname}
+            activeGroup={activeGroup}
+            compact={isCompact}
+          />
+          <div className="border-line border-t px-5 py-4">
+            <p className="text-ink-subtle text-xs font-semibold tracking-wide">
+              PROJECTHUB WORKSPACE
+            </p>
+            <p className="text-ink-subtle mt-1.5 text-xs">
+              프로젝트와 업무를 한곳에서
+            </p>
+          </div>
+        </aside>
+      ) : null}
+      {mobile ? (
+        <Dialog open={mobileOpen} onOpenChange={setMobileOpen}>
+          <DialogContent
+            id="dashboard-mobile-sidebar"
+            className="bg-surface text-ink top-0 left-0 flex h-dvh w-72 max-w-[calc(100vw-2rem)] translate-x-0 translate-y-0 flex-col rounded-none p-0"
+            onCloseAutoFocus={(event) => {
+              event.preventDefault();
+              menuRef.current?.focus();
+            }}
+          >
+            <DialogTitle className="sr-only">전체 메뉴</DialogTitle>
+            <DialogDescription className="sr-only">
+              이동할 메뉴를 선택하세요.
+            </DialogDescription>
+            <div className="border-line flex items-center justify-between gap-2 border-b px-4 py-3">
+              <SidebarBrand />
+              <button
+                type="button"
+                aria-label="사이드바 닫기"
+                className="rounded-control text-ink-subtle hover:bg-surface-muted focus-visible:outline-brand grid size-9 shrink-0 place-items-center focus-visible:outline-2"
+                onClick={() => setMobileOpen(false)}
+              >
+                <X className="size-4" aria-hidden />
+              </button>
+            </div>
+            <SidebarNavigation
+              key={pathname}
+              activeGroup={activeGroup}
+              compact={false}
+              onNavigate={() => setMobileOpen(false)}
+            />
+          </DialogContent>
+        </Dialog>
+      ) : null}
       <div
         data-testid="dashboard-content-shell"
-        className={cn(
-          "transition-[padding] duration-200",
-          sidebarOpen ? "lg:pl-64" : "lg:pl-0",
-        )}
+        className="flex min-h-screen min-w-0 flex-col pb-[calc(4rem+env(safe-area-inset-bottom))] lg:pb-0 lg:pl-64"
       >
         <header
+          aria-label="앱 도구 모음"
           className={cn(
-            "sticky top-0 z-20 flex items-center justify-between border-b border-slate-200 bg-white/90 backdrop-blur dark:border-slate-800 dark:bg-slate-950/90",
-            isCompact ? "h-14 px-3" : "h-16 px-4",
+            "border-line bg-surface sticky top-0 z-20 grid min-w-0 grid-cols-[auto_minmax(0,1fr)_auto] items-center gap-3 border-b px-3 sm:gap-5 sm:px-6 lg:grid-cols-[minmax(0,1fr)_auto]",
+            isCompact ? "h-14" : "h-16",
           )}
         >
-          <Button
-            aria-controls={sidebarId}
-            aria-expanded={sidebarOpen}
-            aria-label={sidebarOpen ? "사이드바 닫기" : "사이드바 열기"}
-            className="dark:text-slate-200 dark:hover:bg-slate-800"
-            size="icon"
-            type="button"
-            variant="ghost"
-            onClick={toggleSidebar}
-          >
-            <Menu className="size-5" aria-hidden="true" />
-          </Button>
-          <div className="flex items-center gap-3">
-            <div className="text-sm text-slate-500 dark:text-slate-400">
-              React Sample Dashboard
-            </div>
+          <div className="min-w-0 lg:hidden">
+            {mobile ? (
+              <button
+                ref={menuRef}
+                type="button"
+                aria-controls="dashboard-mobile-sidebar"
+                aria-expanded={mobileOpen}
+                aria-label={mobileOpen ? "사이드바 닫기" : "사이드바 열기"}
+                onClick={() => setMobileOpen(!mobileOpen)}
+                className="rounded-control text-ink-subtle hover:bg-surface-muted focus-visible:outline-brand grid size-10 place-items-center focus-visible:outline-2"
+              >
+                <Menu className="size-5" aria-hidden />
+              </button>
+            ) : null}
+          </div>
+          <div className="w-full max-w-lg min-w-0">
+            <GlobalSearch />
+          </div>
+          <div className="flex min-w-0 items-center justify-end gap-2 sm:gap-3">
             <ThemeToggle />
+            <div
+              role="group"
+              aria-label="로그인 사용자"
+              className="border-line flex min-w-0 items-center gap-2 border-l pl-2 sm:pl-3"
+            >
+              <span
+                title={email}
+                className="bg-brand-soft text-brand grid size-9 shrink-0 place-items-center rounded-full text-sm font-semibold"
+              >
+                {userName.charAt(0).toUpperCase()}
+              </span>
+              <div className="hidden max-w-36 min-w-0 lg:block">
+                <p className="truncate text-sm font-medium">{userName}</p>
+                <p className="text-ink-subtle mt-0.5 truncate text-xs">
+                  {email}
+                </p>
+              </div>
+              <span className="sr-only lg:hidden">{email}</span>
+            </div>
             <Button
               aria-label="로그아웃"
-              className="dark:text-slate-200 dark:hover:bg-slate-800"
+              className="shrink-0"
               size="icon"
-              type="button"
               variant="ghost"
-              onClick={handleSignOut}
+              onClick={() => {
+                signOut();
+                void navigate({ to: "/signin" });
+              }}
             >
-              <LogOut className="size-5" aria-hidden="true" />
+              <LogOut className="size-4" aria-hidden />
             </Button>
           </div>
         </header>
+        <BreadcrumbBar pathname={pathname} />
         <main
           className={cn(
-            "mx-auto w-full max-w-7xl",
-            isCompact
-              ? "px-3 py-4 sm:px-4 lg:px-6"
-              : "px-4 py-6 sm:px-6 lg:px-8",
+            "mx-auto w-full max-w-7xl min-w-0 flex-1",
+            isCompact ? "px-3 py-4 sm:px-4 lg:px-6" : "px-4 py-6 sm:px-6",
           )}
         >
           <Outlet />
         </main>
+        {mobile ? <MobileBottomNavigation /> : <AppFooter />}
       </div>
     </div>
   );

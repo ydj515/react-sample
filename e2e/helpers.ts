@@ -6,5 +6,7 @@ export async function login(page: Page) {
   await page.getByLabel("이메일").fill("demo@example.com");
   await page.getByLabel("비밀번호").fill("password");
   await page.getByRole("button", { name: "로그인" }).click();
-  await expect(page.getByRole("heading", { name: "대시보드" })).toBeVisible();
+  await expect(
+    page.getByRole("heading", { name: "종합 대시보드" }),
+  ).toBeVisible();
 }

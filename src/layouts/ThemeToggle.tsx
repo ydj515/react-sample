@@ -7,20 +7,23 @@ export function ThemeToggle() {
   const theme = useUiStore((state) => state.theme);
   const toggleTheme = useUiStore((state) => state.toggleTheme);
   const isDark = theme === "dark";
+  const label = isDark ? "라이트 모드로 전환" : "다크 모드로 전환";
 
   return (
     <Button
-      aria-label={isDark ? "라이트 모드로 전환" : "다크 모드로 전환"}
-      className="rounded-full border border-slate-200 bg-white text-slate-700 shadow-sm hover:bg-slate-100 dark:border-slate-700 dark:bg-slate-900 dark:text-slate-100 dark:hover:bg-slate-800"
+      aria-label={label}
+      aria-pressed={isDark}
+      title={label}
+      className="text-ink-subtle hover:bg-surface-muted hover:text-ink shrink-0 border border-transparent bg-transparent"
       size="icon"
       type="button"
       variant="ghost"
       onClick={toggleTheme}
     >
       {isDark ? (
-        <Sun className="size-5" aria-hidden="true" />
+        <Sun className="size-[18px]" aria-hidden="true" />
       ) : (
-        <Moon className="size-5" aria-hidden="true" />
+        <Moon className="size-[18px] fill-current" aria-hidden="true" />
       )}
     </Button>
   );

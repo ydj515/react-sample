@@ -52,7 +52,7 @@ export function SignInPage() {
     <AuthLayout>
       <Card className="w-full max-w-sm p-6">
         <h1 className="text-xl font-semibold">로그인</h1>
-        <p className="mt-1 text-sm text-slate-500">
+        <p className="text-ink-subtle mt-1 text-sm">
           데모 인증입니다. 아무 이메일과 비밀번호로 로그인할 수 있습니다.
         </p>
         <form
@@ -70,7 +70,11 @@ export function SignInPage() {
               aria-invalid={errors.email ? true : undefined}
             />
             {errors.email ? (
-              <p id="email-error" className="text-sm text-red-600" role="alert">
+              <p
+                id="email-error"
+                className="text-negative text-sm"
+                role="alert"
+              >
                 {errors.email.message}
               </p>
             ) : null}
@@ -88,7 +92,7 @@ export function SignInPage() {
             {errors.password ? (
               <p
                 id="password-error"
-                className="text-sm text-red-600"
+                className="text-negative text-sm"
                 role="alert"
               >
                 {errors.password.message}
@@ -96,7 +100,7 @@ export function SignInPage() {
             ) : null}
           </div>
           {submitError ? (
-            <p className="text-sm text-red-600" role="alert">
+            <p className="text-negative text-sm" role="alert">
               {submitError}
             </p>
           ) : null}
