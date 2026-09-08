@@ -58,3 +58,24 @@ export const Default: Story = {
     await expect(screen.queryByText("Delete project")).not.toBeInTheDocument();
   },
 };
+
+export const SquareDrawer: Story = {
+  render: () => (
+    <Dialog>
+      <DialogTrigger asChild>
+        <Button>Open drawer</Button>
+      </DialogTrigger>
+      <DialogContent className="top-0 left-0 h-dvh w-72 translate-x-0 translate-y-0 rounded-none">
+        <DialogTitle className="text-lg font-semibold">전체 메뉴</DialogTitle>
+        <DialogDescription className="text-ink-subtle mt-2 text-sm">
+          화면 가장자리에 붙는 서랍은 모서리를 둥글게 처리하지 않습니다.
+        </DialogDescription>
+        <DialogClose asChild>
+          <Button className="mt-4" variant="secondary">
+            닫기
+          </Button>
+        </DialogClose>
+      </DialogContent>
+    </Dialog>
+  ),
+};

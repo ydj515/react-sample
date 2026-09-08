@@ -3,8 +3,64 @@
 @custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
 @custom-variant compact (&:where([data-density="compact"], [data-density="compact"] *));
 
+@theme inline {
+  --color-canvas: var(--ui-canvas);
+  --color-surface: var(--ui-surface);
+  --color-surface-muted: var(--ui-surface-muted);
+  --color-surface-hover: var(--ui-surface-hover);
+  --color-line: var(--ui-line);
+  --color-line-strong: var(--ui-line-strong);
+  --color-ink: var(--ui-ink);
+  --color-ink-muted: var(--ui-ink-muted);
+  --color-ink-subtle: var(--ui-ink-subtle);
+  --color-brand: var(--ui-brand);
+  --color-brand-hover: var(--ui-brand-hover);
+  --color-brand-soft: var(--ui-brand-soft);
+  --color-on-brand: var(--ui-on-brand);
+  --color-positive: var(--ui-positive);
+  --color-positive-soft: var(--ui-positive-soft);
+  --color-caution: var(--ui-caution);
+  --color-caution-soft: var(--ui-caution-soft);
+  --color-negative: var(--ui-negative);
+  --color-negative-soft: var(--ui-negative-soft);
+  --color-info: var(--ui-info);
+  --color-info-soft: var(--ui-info-soft);
+  --color-chart-positive: var(--ui-chart-positive);
+  --color-chart-caution: var(--ui-chart-caution);
+  --color-chart-negative: var(--ui-chart-negative);
+  --shadow-panel: var(--ui-shadow-panel);
+  --radius-control: 0.5rem;
+  --radius-panel: 0.75rem;
+}
+
 :root {
   color-scheme: light;
+  --ui-canvas: #f1f5f9;
+  --ui-surface: #ffffff;
+  --ui-surface-muted: #f8fafc;
+  --ui-surface-hover: #eef2f7;
+  --ui-line: #e2e8f0;
+  --ui-line-strong: #cbd5e1;
+  --ui-ink: #0f172a;
+  --ui-ink-muted: #475569;
+  --ui-ink-subtle: #5f6f86;
+  --ui-brand: #4f46e5;
+  --ui-brand-hover: #4338ca;
+  --ui-brand-soft: #eef2ff;
+  --ui-on-brand: #ffffff;
+  --ui-chart-positive: #10b981;
+  --ui-chart-caution: #f59e0b;
+  --ui-chart-negative: #ef4444;
+  --ui-shadow-panel:
+    0 1px 3px rgb(15 23 42 / 0.06), 0 1px 2px rgb(15 23 42 / 0.04);
+  --ui-positive: #047857;
+  --ui-positive-soft: #ecfdf5;
+  --ui-caution: #a16207;
+  --ui-caution-soft: #fffbeb;
+  --ui-negative: #b91c1c;
+  --ui-negative-soft: #fef2f2;
+  --ui-info: #0369a1;
+  --ui-info-soft: #f0f9ff;
   font-family:
     Inter,
     ui-sans-serif,
@@ -13,27 +69,84 @@
     BlinkMacSystemFont,
     "Segoe UI",
     sans-serif;
-  background: #f8fafc;
-  color: #0f172a;
+  background: var(--ui-canvas);
+  color: var(--ui-ink);
 }
 
 [data-theme="dark"] {
   color-scheme: dark;
+  --ui-canvas: #0f172a;
+  --ui-surface: #1e293b;
+  --ui-surface-muted: #334155;
+  --ui-surface-hover: #28364d;
+  --ui-line: #334155;
+  --ui-line-strong: #475569;
+  --ui-ink: #f1f5f9;
+  --ui-ink-muted: #cbd5e1;
+  --ui-ink-subtle: #94a3b8;
+  --ui-brand: #a5b4fc;
+  --ui-brand-hover: #c7d2fe;
+  --ui-brand-soft: #252d54;
+  --ui-on-brand: #172044;
+  --ui-chart-positive: #34d399;
+  --ui-chart-caution: #fbbf24;
+  --ui-chart-negative: #f87171;
+  --ui-shadow-panel: 0 1px 3px rgb(0 0 0 / 0.2);
+  --ui-positive: #6ee7b7;
+  --ui-positive-soft: #153c35;
+  --ui-caution: #fcd34d;
+  --ui-caution-soft: #3d321e;
+  --ui-negative: #fca5a5;
+  --ui-negative-soft: #42272f;
+  --ui-info: #7dd3fc;
+  --ui-info-soft: #19364c;
 }
 
 * {
   box-sizing: border-box;
 }
-
 body {
   min-width: 320px;
   min-height: 100vh;
   margin: 0;
 }
-
 button,
 input,
 select,
 textarea {
-  font: inherit;
+  font-family: inherit;
+}
+input[type="checkbox"],
+input[type="radio"] {
+  accent-color: var(--ui-brand);
+}
+
+@layer components {
+  .progress-meter {
+    appearance: none;
+    height: 0.5rem;
+    overflow: hidden;
+    border: 0;
+    border-radius: var(--radius-control);
+    background: var(--ui-surface-muted);
+    color: var(--ui-brand);
+  }
+  .progress-meter::-webkit-progress-bar {
+    border-radius: inherit;
+    background: var(--ui-surface-muted);
+  }
+  .progress-meter::-webkit-progress-value {
+    border-radius: inherit;
+    background: var(--ui-brand);
+  }
+  .progress-meter::-moz-progress-bar {
+    border-radius: inherit;
+    background: var(--ui-brand);
+  }
+}
+
+@media (max-width: 1023px) {
+  html {
+    scroll-padding-bottom: calc(5rem + env(safe-area-inset-bottom));
+  }
 }
