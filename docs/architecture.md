@@ -75,7 +75,7 @@ features/auth/api           로그인 요청 wrapper (signInRequest)
 ### `src/stores`
 
 - Zustand 기반 client 상태를 둔다.
-- `ui-store`는 `sidebarOpen`, `theme`, `density`를 관리한다. `theme`/`density`는 localStorage key `react-sample-ui`에 저장하고, `sidebarOpen`은 일시적 shell 상태라 저장 대상에서 제외한다.
+- `ui-store`는 `theme`, `density`를 관리하고 localStorage key `react-sample-ui`에 저장한다. 모바일 메뉴 열림 여부는 `DashboardLayout`의 지역 상태이며, 데스크톱 사이드바는 고정 표시한다.
 - `auth-store`는 `token`, `user`, `isAuthenticated`를 관리하며 localStorage key `react-sample-auth`에 저장한다. 라우터 context로 주입되어 `beforeLoad` 가드가 이 상태를 읽는다.
 - `toast-store`는 전역 알림 목록과 `toast.success/error/info` 헬퍼를 제공한다(영속화하지 않음).
 - 서버에서 가져오는 프로젝트 데이터는 이곳에 두지 않고 TanStack Query에 맡긴다.
@@ -112,7 +112,12 @@ HTTP 실패는 `ApiError(status, code, message, path, traceId)`로 정규화합�
 - `shared`는 feature, route, page, layout, app을 알지 않는다.
 - feature의 `api`, `model`, `queries`는 route, page, layout, app, store를 알지 않는다.
 - route는 URL과 page 연결을 담당하고 비즈니스 로직을 직접 구현하지 않는다.
-- 현재 dashboard가 projects의 조회 모델과 UI를 조합하는 방향은 허용한다.
+- dashboard의 종합 화면은 매출·주문 snapshot API와 검색 모델을 사용한다. 프로젝트 운영·분석 리포트는 프로젝트 snapshot API와 집계 모델을 사용하며 projects의 타입·query key·UI를 재사용한다. 상세 기준은 [대시보드 예제](./dashboard-examples.md)를 따른다.
+
+사용자·주문·상품 관리 기능은 각각 `features/users`, `features/orders`,
+`features/products`에 둡니다. 공통 주문 응답 타입은 orders 모델이 소유하며,
+주문 변경 시 종합 대시보드 query도 갱신합니다. 흐름과 mock 범위는
+[관리 화면 예제](./management-examples.md)를 참고하세요.
 
 최소 의존 방향은 ESLint `no-restricted-imports`로 검증합니다. feature 간
 전면 격리는 현재 템플릿 범위가 아니며, 필요한 경우 public API 또는 별도

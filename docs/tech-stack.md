@@ -39,7 +39,7 @@
 | 기술           | 역할                                                                 |
 | -------------- | -------------------------------------------------------------------- |
 | TanStack Query | 서버 데이터 fetch, cache, loading/error state, mutation invalidation |
-| Zustand        | UI(사이드바/테마/밀도), 인증, 알림(toast) 같은 client 상태           |
+| Zustand        | UI(테마/밀도), 인증, 알림(toast) 같은 client 상태                    |
 | MSW            | 개발/테스트 환경에서 mock API 제공                                   |
 
 서버 데이터와 클라이언트 상태를 분리하는 것이 이 템플릿의 핵심 기준입니다.

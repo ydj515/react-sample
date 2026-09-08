@@ -6,6 +6,14 @@ const meta = {
   title: "Layouts/ThemeToggle",
   component: ThemeToggle,
   tags: ["autodocs"],
+  parameters: {
+    docs: {
+      description: {
+        component:
+          "투명 배경의 아이콘 버튼. 달은 채움, 해는 선으로 표시하며 현재 다크 모드 여부를 aria-pressed로 제공한다.",
+      },
+    },
+  },
 } satisfies Meta<typeof ThemeToggle>;
 
 export default meta;
