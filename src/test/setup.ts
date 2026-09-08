@@ -1,7 +1,11 @@
 import "@testing-library/jest-dom/vitest";
 import { afterAll, afterEach, beforeAll } from "vitest";
 
-import { resetProjectsMockData, server } from "@/mocks/server";
+import {
+  resetProjectsMockData,
+  resetManagementMockData,
+  server,
+} from "@/mocks/server";
 
 beforeAll(() => {
   server.listen({ onUnhandledRequest: "error" });
@@ -10,6 +14,7 @@ beforeAll(() => {
 afterEach(() => {
   server.resetHandlers();
   resetProjectsMockData();
+  resetManagementMockData();
 });
 
 afterAll(() => {
