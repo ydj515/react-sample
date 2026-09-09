@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { GlobalSearch } from "@/layouts/GlobalSearch";
+import { GlobalSearch } from "./GlobalSearch";
 import { withRouter } from "@/shared/lib/storybook/with-router";
 
 const meta = {

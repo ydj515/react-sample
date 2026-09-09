@@ -8,7 +8,7 @@ import {
 } from "@/mocks/storybook/with-management-api";
 import { useQuery } from "@tanstack/react-query";
 import { Card } from "@/shared/ui/card";
-import { orderQueryOptions } from "../queries/order-queries";
+import { orderQueryOptions } from "@/features/orders/queries/order-queries";
 import { OrderStatusForm } from "./OrderActions";
 
 const shipping = managementFixture.orders.find(

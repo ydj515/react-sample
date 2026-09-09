@@ -7,10 +7,10 @@ import {
   ArrowRight,
 } from "lucide-react";
 import { Button } from "@/shared/ui/button";
-import { LandingPage } from "../../components/LandingPage";
-import { LandingSection } from "../../components/LandingSection";
-import { LandingContainer } from "../../components/LandingContainer";
-import { LandingFaq } from "../../components/LandingFaq";
+import { LandingPage } from "@/features/landing/components/LandingPage";
+import { LandingSection } from "@/features/landing/components/LandingSection";
+import { LandingContainer } from "@/features/landing/components/LandingContainer";
+import { LandingFaq } from "@/features/landing/components/LandingFaq";
 import { SaasHeader } from "./SaasHeader";
 import { SaasHero } from "./SaasHero";
 import { SaasPricing } from "./SaasPricing";

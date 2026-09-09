@@ -1,16 +1,16 @@
-import { landingImages } from "../../model/images";
+import { landingImages } from "@/features/landing/model/images";
 import { Link } from "@tanstack/react-router";
 import { ArrowDown, Leaf, Sunrise, Coffee } from "lucide-react";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { Button } from "@/shared/ui/button";
-import { LandingPage } from "../../components/LandingPage";
-import { LandingContainer } from "../../components/LandingContainer";
-import { LandingSection } from "../../components/LandingSection";
-import { LandingMenu } from "../../components/LandingMenu";
-import { LandingFaq } from "../../components/LandingFaq";
+import { LandingPage } from "@/features/landing/components/LandingPage";
+import { LandingContainer } from "@/features/landing/components/LandingContainer";
+import { LandingSection } from "@/features/landing/components/LandingSection";
+import { LandingMenu } from "@/features/landing/components/LandingMenu";
+import { LandingFaq } from "@/features/landing/components/LandingFaq";
 import { StayRooms } from "./StayRooms";
 import { StayPlanner } from "./StayPlanner";
-import "../experience.css";
+import "@/features/landing/pages/experience.css";
 
 const links = [
   { href: "#story", label: "우리의 공간" },

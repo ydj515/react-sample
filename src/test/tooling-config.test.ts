@@ -126,3 +126,28 @@ describe("import block spacing", () => {
     );
   });
 });
+
+describe("colocated import paths", () => {
+  it.each([
+    ['import "../api/client";', 'import "@/features/example/api/client";'],
+    [
+      'export * from "./child/module";',
+      'export * from "@/features/example/model/child/module";',
+    ],
+    [
+      'void import("@/features/example/model/local");',
+      'void import("./local");',
+    ],
+    [
+      'import type { Value } from "./local";',
+      'import type { Value } from "./local";',
+    ],
+    ['import "react";', 'import "react";'],
+  ])("normalizes %s", async (input, expected) => {
+    const fixer = new ESLint({ cwd: repositoryRoot, fix: true });
+    const [result] = await fixer.lintText(input + "\n", {
+      filePath: `${repositoryRoot}/src/features/example/model/example.ts`,
+    });
+    expect(result?.output ?? input + "\n").toBe(expected + "\n");
+  });
+});

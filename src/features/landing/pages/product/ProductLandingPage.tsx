@@ -1,16 +1,16 @@
-import { landingImages } from "../../model/images";
+import { landingImages } from "@/features/landing/model/images";
 import { Link } from "@tanstack/react-router";
 import { ArrowDownRight, ArrowUpRight, AudioLines } from "lucide-react";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { Button } from "@/shared/ui/button";
-import { LandingPage } from "../../components/LandingPage";
-import { LandingContainer } from "../../components/LandingContainer";
-import { LandingSection } from "../../components/LandingSection";
-import { LandingMenu } from "../../components/LandingMenu";
-import { LandingFaq } from "../../components/LandingFaq";
+import { LandingPage } from "@/features/landing/components/LandingPage";
+import { LandingContainer } from "@/features/landing/components/LandingContainer";
+import { LandingSection } from "@/features/landing/components/LandingSection";
+import { LandingMenu } from "@/features/landing/components/LandingMenu";
+import { LandingFaq } from "@/features/landing/components/LandingFaq";
 import { ProductDetails } from "./ProductDetails";
 import { ProductConfigurator } from "./ProductConfigurator";
-import "../experience.css";
+import "@/features/landing/pages/experience.css";
 
 const links = [
   { href: "#details", label: "디테일" },

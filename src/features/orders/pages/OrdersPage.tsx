@@ -1,9 +1,12 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
-import { ordersQueryOptions } from "../queries/order-queries";
-import { ordersSearchSchema, orderStatuses } from "../model/order-schema";
-import { selectOrders } from "../model/order-utils";
-import { OrderStatusBadge } from "../components/OrderStatusBadge";
+import { ordersQueryOptions } from "@/features/orders/queries/order-queries";
+import {
+  ordersSearchSchema,
+  orderStatuses,
+} from "@/features/orders/model/order-schema";
+import { selectOrders } from "@/features/orders/model/order-utils";
+import { OrderStatusBadge } from "@/features/orders/components/OrderStatusBadge";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { CollectionTable } from "@/shared/ui/collection-table";

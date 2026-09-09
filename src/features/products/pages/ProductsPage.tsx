@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
-import { productsQueryOptions } from "../queries/product-queries";
+import { productsQueryOptions } from "@/features/products/queries/product-queries";
 import {
   productsSearchSchema,
   productStatuses,
   productStatusLabels,
-} from "../model/product-schema";
-import { selectProducts } from "../model/product-utils";
-import { ProductImage } from "../components/ProductImage";
+} from "@/features/products/model/product-schema";
+import { selectProducts } from "@/features/products/model/product-utils";
+import { ProductImage } from "@/features/products/components/ProductImage";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";

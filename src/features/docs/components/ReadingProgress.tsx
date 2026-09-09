@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { readingProgress } from "../model/reading-progress";
+import { readingProgress } from "@/features/docs/model/reading-progress";
 
 export function ReadingProgress() {
   const [value, setValue] = useState(0);

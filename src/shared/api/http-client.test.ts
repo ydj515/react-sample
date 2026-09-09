@@ -3,8 +3,8 @@ import { describe, expect, it } from "vitest";
 import { z } from "zod";
 
 import { server } from "@/mocks/server";
-import { ApiError } from "@/shared/api/api-error";
-import { apiRequest } from "@/shared/api/http-client";
+import { ApiError } from "./api-error";
+import { apiRequest } from "./http-client";
 
 const responseSchema = z.object({ id: z.string() });
 

@@ -1,5 +1,5 @@
 import { useState } from "react";
-import type { Product } from "../model/product-schema";
+import type { Product } from "@/features/products/model/product-schema";
 import { Card } from "@/shared/ui/card";
 import { Input } from "@/shared/ui/input";
 import { Button } from "@/shared/ui/button";

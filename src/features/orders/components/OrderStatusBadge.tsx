@@ -1,5 +1,5 @@
 import { Badge } from "@/shared/ui/badge";
-import type { Order } from "../model/order-schema";
+import type { Order } from "@/features/orders/model/order-schema";
 
 const variants = {
   완료: "success",

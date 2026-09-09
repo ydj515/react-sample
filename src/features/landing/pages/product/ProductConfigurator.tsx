@@ -2,8 +2,11 @@ import { useState } from "react";
 import { Check } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import { Select } from "@/shared/ui/select";
-import { InquiryDialog } from "../../components/InquiryDialog";
-import { productBundles, getProductTotal } from "../../model/experience";
+import { InquiryDialog } from "@/features/landing/components/InquiryDialog";
+import {
+  productBundles,
+  getProductTotal,
+} from "@/features/landing/model/experience";
 
 export function ProductConfigurator() {
   const [bundle, setBundle] = useState<keyof typeof productBundles>("solo");

@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { useState } from "react";
 import { SearchInput } from "@/shared/ui/search-input";
 import { Button } from "@/shared/ui/button";
-import { searchDocuments } from "../model/documents";
+import { searchDocuments } from "@/features/docs/model/documents";
 
 export function DocsSearch() {
   const [query, setQuery] = useState("");

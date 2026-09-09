@@ -7,7 +7,7 @@ import {
   getProducts,
   updateProduct,
 } from "./product-api";
-import type { ProductInput } from "../model/product-schema";
+import type { ProductInput } from "@/features/products/model/product-schema";
 
 const input: ProductInput = {
   name: "Canvas Tote",

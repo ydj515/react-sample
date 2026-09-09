@@ -1,8 +1,8 @@
-import { landingImages } from "../../model/images";
+import { landingImages } from "@/features/landing/model/images";
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/shared/ui/button";
-import { rooms } from "../../model/experience";
+import { rooms } from "@/features/landing/model/experience";
 
 export function StayRooms() {
   const [room, setRoom] = useState<keyof typeof rooms>("forest");

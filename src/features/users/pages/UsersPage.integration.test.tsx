@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { http, HttpResponse } from "msw";
 import { describe, it, expect } from "vitest";
 import { renderManagement } from "@/test/render-management";
-import { getUser } from "../api/user-api";
+import { getUser } from "@/features/users/api/user-api";
 import { server } from "@/mocks/server";
 
 describe("user management", () => {

@@ -1,8 +1,11 @@
 import { useState } from "react";
 import { Check } from "lucide-react";
 import { Button } from "@/shared/ui/button";
-import { InquiryDialog } from "../../components/InquiryDialog";
-import { getPlanPrice, type BillingCycle } from "../../model/landing";
+import { InquiryDialog } from "@/features/landing/components/InquiryDialog";
+import {
+  getPlanPrice,
+  type BillingCycle,
+} from "@/features/landing/model/landing";
 
 export function SaasPricing() {
   const [cycle, setCycle] = useState<BillingCycle>("monthly");

@@ -1,5 +1,8 @@
 import { Badge } from "@/shared/ui/badge";
-import { userStatusLabels, type ManagedUser } from "../model/user-schema";
+import {
+  userStatusLabels,
+  type ManagedUser,
+} from "@/features/users/model/user-schema";
 
 const variants = {
   active: "success",

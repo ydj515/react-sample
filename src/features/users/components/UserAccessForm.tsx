@@ -9,8 +9,8 @@ import {
   userStatusLabels,
   type ManagedUser,
   type UserAccess,
-} from "../model/user-schema";
-import { useUpdateUserAccessMutation } from "../queries/user-queries";
+} from "@/features/users/model/user-schema";
+import { useUpdateUserAccessMutation } from "@/features/users/queries/user-queries";
 import { Button } from "@/shared/ui/button";
 import { Select } from "@/shared/ui/select";
 import { toast } from "@/stores/toast-store";

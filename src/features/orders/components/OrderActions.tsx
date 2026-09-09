@@ -3,14 +3,14 @@ import { useForm } from "react-hook-form";
 import {
   useUpdateOrderStatusMutation,
   useAddOrderNoteMutation,
-} from "../queries/order-queries";
+} from "@/features/orders/queries/order-queries";
 import {
   orderTransitions,
   orderStatusInputSchema,
   orderNoteInputSchema,
   type ManagedOrder,
   type Order,
-} from "../model/order-schema";
+} from "@/features/orders/model/order-schema";
 import { Button } from "@/shared/ui/button";
 import { Select } from "@/shared/ui/select";
 import { Textarea } from "@/shared/ui/textarea";

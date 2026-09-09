@@ -5,8 +5,8 @@ import {
   membershipGrades,
   type ManagedUser,
   type UserProfile,
-} from "../model/user-schema";
-import { useUpdateUserProfileMutation } from "../queries/user-queries";
+} from "@/features/users/model/user-schema";
+import { useUpdateUserProfileMutation } from "@/features/users/queries/user-queries";
 import { Input } from "@/shared/ui/input";
 import { Select } from "@/shared/ui/select";
 import { Textarea } from "@/shared/ui/textarea";

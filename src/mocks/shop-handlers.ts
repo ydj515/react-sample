@@ -1,6 +1,6 @@
 import { http, HttpResponse } from "msw";
 import { checkoutSchema, resolveCart } from "@/features/shop/model/shop";
-import { managementData } from "./data/management";
+import { managementData } from "@/mocks/data/management";
 import { createMockApiError } from "./api-error";
 
 export const shopHandlers = [

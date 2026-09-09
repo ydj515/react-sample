@@ -2,7 +2,7 @@ import { type QueryClient, useQueryClient } from "@tanstack/react-query";
 import { screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { renderWithProviders } from "@/shared/lib/test/render-with-providers";
+import { renderWithProviders } from "./render-with-providers";
 
 function QueryClientProbe() {
   const queryClient = useQueryClient();

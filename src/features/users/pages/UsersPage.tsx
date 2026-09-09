@@ -1,15 +1,15 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
-import { usersQueryOptions } from "../queries/user-queries";
+import { usersQueryOptions } from "@/features/users/queries/user-queries";
 import {
   usersSearchSchema,
   userRoles,
   userStatuses,
   roleLabels,
   userStatusLabels,
-} from "../model/user-schema";
-import { selectUsers } from "../model/user-utils";
-import { UserStatusBadge } from "../components/UserStatusBadge";
+} from "@/features/users/model/user-schema";
+import { selectUsers } from "@/features/users/model/user-utils";
+import { UserStatusBadge } from "@/features/users/components/UserStatusBadge";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { CollectionTable } from "@/shared/ui/collection-table";

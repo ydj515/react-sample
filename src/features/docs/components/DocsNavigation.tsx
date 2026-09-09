@@ -1,5 +1,5 @@
 import { Link } from "@tanstack/react-router";
-import { documents } from "../model/documents";
+import { documents } from "@/features/docs/model/documents";
 import { cn } from "@/shared/lib/cn";
 
 export function DocsNavigation({

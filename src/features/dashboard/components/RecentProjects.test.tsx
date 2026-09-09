@@ -1,7 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
-import { RecentProjects } from "@/features/dashboard/components/RecentProjects";
+import { RecentProjects } from "./RecentProjects";
 import type { Project } from "@/features/projects/model/project-types";
 
 const projects: Project[] = [

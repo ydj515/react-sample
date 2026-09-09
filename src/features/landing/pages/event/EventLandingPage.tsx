@@ -2,13 +2,13 @@ import { Link } from "@tanstack/react-router";
 import { ArrowDownRight, ArrowUpRight, Asterisk } from "lucide-react";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { Button } from "@/shared/ui/button";
-import { LandingPage } from "../../components/LandingPage";
-import { LandingContainer } from "../../components/LandingContainer";
-import { LandingSection } from "../../components/LandingSection";
-import { LandingMenu } from "../../components/LandingMenu";
-import { InquiryDialog } from "../../components/InquiryDialog";
+import { LandingPage } from "@/features/landing/components/LandingPage";
+import { LandingContainer } from "@/features/landing/components/LandingContainer";
+import { LandingSection } from "@/features/landing/components/LandingSection";
+import { LandingMenu } from "@/features/landing/components/LandingMenu";
+import { InquiryDialog } from "@/features/landing/components/InquiryDialog";
 import { EventSchedule } from "./EventSchedule";
-import "../experience.css";
+import "@/features/landing/pages/experience.css";
 
 const links = [
   { href: "#about", label: "컨퍼런스" },

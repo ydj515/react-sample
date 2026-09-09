@@ -1,4 +1,4 @@
-import { landingImages } from "../../model/images";
+import { landingImages } from "@/features/landing/model/images";
 import { useState } from "react";
 import { SlidersHorizontal, AudioLines, Feather } from "lucide-react";
 import { Button } from "@/shared/ui/button";

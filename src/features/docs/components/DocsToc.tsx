@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { cn } from "@/shared/lib/cn";
-import type { DocSection } from "../model/documents";
+import type { DocSection } from "@/features/docs/model/documents";
 
 export function DocsToc({ sections }: { sections: DocSection[] }) {
   const [active, setActive] = useState(sections[0]?.id);

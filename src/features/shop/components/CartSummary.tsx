@@ -1,4 +1,4 @@
-import { shopMoney } from "../model/shop";
+import { shopMoney } from "@/features/shop/model/shop";
 
 export function CartSummary({
   subtotal,

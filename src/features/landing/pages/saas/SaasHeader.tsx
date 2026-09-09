@@ -2,8 +2,8 @@ import { Link } from "@tanstack/react-router";
 import { Layers3 } from "lucide-react";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { Button } from "@/shared/ui/button";
-import { LandingContainer } from "../../components/LandingContainer";
-import { LandingMenu } from "../../components/LandingMenu";
+import { LandingContainer } from "@/features/landing/components/LandingContainer";
+import { LandingMenu } from "@/features/landing/components/LandingMenu";
 
 const items = [
   { href: "#features", label: "제품" },

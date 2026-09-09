@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 
-import { SidebarBrand, SidebarNavigation } from "@/layouts/SidebarNavigation";
+import { SidebarBrand, SidebarNavigation } from "./SidebarNavigation";
 import { withRouter } from "@/shared/lib/storybook/with-router";
 
 const meta = {

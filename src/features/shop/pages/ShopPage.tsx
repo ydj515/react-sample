@@ -27,9 +27,9 @@ import {
   shopSearchSchema,
   selectShopProducts,
   type ShopSearch,
-} from "../model/shop";
-import { ShopProductCard } from "../components/ShopProductCard";
-import { ShopFilters } from "../components/ShopFilters";
+} from "@/features/shop/model/shop";
+import { ShopProductCard } from "@/features/shop/components/ShopProductCard";
+import { ShopFilters } from "@/features/shop/components/ShopFilters";
 
 export function ShopPage() {
   const search = shopSearchSchema.parse(useSearch({ strict: false }));

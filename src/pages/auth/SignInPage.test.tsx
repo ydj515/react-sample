@@ -2,7 +2,7 @@ import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 
-import { SignInPage } from "@/pages/auth/SignInPage";
+import { SignInPage } from "./SignInPage";
 import { renderWithProviders } from "@/shared/lib/test/render-with-providers";
 import { useAuthStore } from "@/stores/auth-store";
 

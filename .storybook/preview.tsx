@@ -3,7 +3,7 @@ import type { Decorator, Preview } from "@storybook/react-vite";
 import { useEffect, type ReactNode } from "react";
 
 // Tailwind v4 전역 스타일을 스토리에도 그대로 적용한다.
-import "../src/app/styles/index.css";
+import "@/app/styles/index.css";
 
 // html 요소의 data-density 속성을 토글하는 내부 컴포넌트.
 // 훅은 컴포넌트 안에서만 호출할 수 있어 데코레이터와 분리한다.

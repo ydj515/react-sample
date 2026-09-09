@@ -14,7 +14,7 @@ import {
 } from "@/features/orders/model/order-schema";
 import { productInputSchema } from "@/features/products/model/product-schema";
 import { createMockApiError } from "./api-error";
-import { managementData as data } from "./data/management";
+import { managementData as data } from "@/mocks/data/management";
 
 function error(
   request: Request,

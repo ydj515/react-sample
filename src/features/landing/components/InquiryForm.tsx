@@ -5,7 +5,7 @@ import { CheckCircle2 } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Textarea } from "@/shared/ui/textarea";
-import { inquirySchema, type Inquiry } from "../model/landing";
+import { inquirySchema, type Inquiry } from "@/features/landing/model/landing";
 
 export function InquiryForm({ context }: { context: string }) {
   const id = useId();

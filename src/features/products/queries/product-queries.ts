@@ -1,4 +1,7 @@
-import type { Product, ProductInput } from "../model/product-schema";
+import type {
+  Product,
+  ProductInput,
+} from "@/features/products/model/product-schema";
 import {
   queryOptions,
   useMutation,

@@ -5,14 +5,14 @@ import type {
   Project,
   ProjectStatus,
 } from "@/features/projects/model/project-types";
-import { createMockApiError } from "@/mocks/api-error";
+import { createMockApiError } from "./api-error";
 import { dashboardAsOf, dashboardTasks } from "@/mocks/data/dashboard";
 import { commerceFixture } from "@/mocks/data/commerce";
 import { projectsFixture } from "@/mocks/data/projects";
 
 import { shopHandlers } from "./shop-handlers";
 import { managementHandlers } from "./management-handlers";
-import { managementData } from "./data/management";
+import { managementData } from "@/mocks/data/management";
 import { orderSchema } from "@/features/orders/model/order-schema";
 
 let projects: Project[] = structuredClone(projectsFixture);

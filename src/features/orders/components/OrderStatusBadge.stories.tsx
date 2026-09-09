@@ -1,6 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { OrderStatusBadge } from "./OrderStatusBadge";
-import { orderStatuses } from "../model/order-schema";
+import { orderStatuses } from "@/features/orders/model/order-schema";
 
 const meta = {
   title: "Features/Orders/StatusBadge",

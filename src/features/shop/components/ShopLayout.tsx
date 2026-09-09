@@ -3,7 +3,7 @@ import { Link, Outlet } from "@tanstack/react-router";
 import { ShoppingBag, Heart, ArrowUpRight } from "lucide-react";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { useShopStore } from "@/stores/shop-store";
-import { shopSearchSchema } from "../model/shop";
+import { shopSearchSchema } from "@/features/shop/model/shop";
 
 export function ShopLayout() {
   useEffect(() => {

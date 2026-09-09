@@ -19,9 +19,9 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/shared/ui/dialog";
-import { shopMoney, shopSearchSchema } from "../model/shop";
-import { ProductPurchase } from "../components/ProductPurchase";
-import { ShopProductCard } from "../components/ShopProductCard";
+import { shopMoney, shopSearchSchema } from "@/features/shop/model/shop";
+import { ProductPurchase } from "@/features/shop/components/ProductPurchase";
+import { ShopProductCard } from "@/features/shop/components/ShopProductCard";
 
 export function ShopDetailPage({ productId }: { productId: string }) {
   const query = useQuery(productQueryOptions(productId));

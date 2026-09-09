@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ChevronRight, Home } from "lucide-react";
 
-import { currentNavigation } from "@/layouts/navigation";
+import { currentNavigation } from "./navigation";
 
 export function BreadcrumbBar({ pathname }: { pathname: string }) {
   const current = currentNavigation(pathname);

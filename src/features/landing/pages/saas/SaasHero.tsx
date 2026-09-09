@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Circle, MoreHorizontal, Plus } from "lucide-react";
 import { Button } from "@/shared/ui/button";
-import { LandingContainer } from "../../components/LandingContainer";
+import { LandingContainer } from "@/features/landing/components/LandingContainer";
 
 export function SaasHero() {
   return (

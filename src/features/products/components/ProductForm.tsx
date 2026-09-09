@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link } from "@tanstack/react-router";
 import { useId } from "react";
-import { productsQueryOptions } from "../queries/product-queries";
-import { productsSearchSchema } from "../model/product-schema";
+import { productsQueryOptions } from "@/features/products/queries/product-queries";
+import { productsSearchSchema } from "@/features/products/model/product-schema";
 import { ProductInsights } from "./ProductInsights";
 import { ProductInventory } from "./ProductInventory";
 import { DetailTabs } from "@/shared/ui/detail-tabs";
@@ -15,7 +15,7 @@ import {
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useEffect, useRef, useState } from "react";
 import { useForm, useWatch } from "react-hook-form";
-import { useSaveProductMutation } from "../queries/product-queries";
+import { useSaveProductMutation } from "@/features/products/queries/product-queries";
 import {
   productInputSchema,
   productImages,
@@ -24,8 +24,8 @@ import {
   productStatusLabels,
   type ProductInput,
   type Product,
-} from "../model/product-schema";
-import { readProductImage } from "../model/product-image";
+} from "@/features/products/model/product-schema";
+import { readProductImage } from "@/features/products/model/product-image";
 import { ProductImage } from "./ProductImage";
 import { Badge } from "@/shared/ui/badge";
 import { Button } from "@/shared/ui/button";

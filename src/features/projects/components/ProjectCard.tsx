@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-import { ProjectStatusBadge } from "@/features/projects/components/ProjectStatusBadge";
+import { ProjectStatusBadge } from "./ProjectStatusBadge";
 import type { Project } from "@/features/projects/model/project-types";
 import { formatDate } from "@/shared/lib/format-date";
 import { Card } from "@/shared/ui/card";

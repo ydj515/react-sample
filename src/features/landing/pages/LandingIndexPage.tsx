@@ -1,11 +1,11 @@
-import { landingImages } from "../model/images";
+import { landingImages } from "@/features/landing/model/images";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, LayoutTemplate } from "lucide-react";
 import { shopSearchSchema } from "@/features/shop/model/shop";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
-import { LandingPage } from "../components/LandingPage";
-import { LandingContainer } from "../components/LandingContainer";
-import { landingSamples } from "../model/landing";
+import { LandingPage } from "@/features/landing/components/LandingPage";
+import { LandingContainer } from "@/features/landing/components/LandingContainer";
+import { landingSamples } from "@/features/landing/model/landing";
 
 export function LandingIndexPage() {
   return (

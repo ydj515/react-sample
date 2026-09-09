@@ -1,4 +1,4 @@
-import type { CreateProjectFormValues } from "@/features/projects/model/project-schema";
+import type { CreateProjectFormValues } from "./project-schema";
 
 export const projectStatuses = ["active", "paused", "completed"] as const;
 

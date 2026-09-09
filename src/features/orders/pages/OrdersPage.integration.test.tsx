@@ -3,7 +3,7 @@ import userEvent from "@testing-library/user-event";
 import { http, HttpResponse } from "msw";
 import { describe, it, expect } from "vitest";
 import { renderManagement } from "@/test/render-management";
-import { getOrder } from "../api/order-api";
+import { getOrder } from "@/features/orders/api/order-api";
 import { server } from "@/mocks/server";
 
 describe("order management", () => {

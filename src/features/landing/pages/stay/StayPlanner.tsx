@@ -11,7 +11,7 @@ import {
   localDateString,
   rooms,
   type StayValues,
-} from "../../model/experience";
+} from "@/features/landing/model/experience";
 
 export function StayPlanner() {
   const id = useId();

@@ -1,7 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { EventSchedule } from "./EventSchedule";
-import "../experience.css";
+import "@/features/landing/pages/experience.css";
 
 const meta = {
   title: "Features/Landing/EventSchedule",

@@ -9,9 +9,9 @@ import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, it } from "vitest";
 import { LandingIndexPage } from "./LandingIndexPage";
-import { SaasLandingPage } from "./saas/SaasLandingPage";
-import { CourseLandingPage } from "./course/CourseLandingPage";
-import { AgencyLandingPage } from "./agency/AgencyLandingPage";
+import { SaasLandingPage } from "@/features/landing/pages/saas/SaasLandingPage";
+import { CourseLandingPage } from "@/features/landing/pages/course/CourseLandingPage";
+import { AgencyLandingPage } from "@/features/landing/pages/agency/AgencyLandingPage";
 
 function renderLanding(path = "/landing") {
   const root = createRootRoute();

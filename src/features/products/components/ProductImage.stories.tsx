@@ -1,6 +1,9 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { ProductImage } from "./ProductImage";
-import { productImages, productCategories } from "../model/product-schema";
+import {
+  productImages,
+  productCategories,
+} from "@/features/products/model/product-schema";
 
 const meta = {
   title: "Features/Products/Image",

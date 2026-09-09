@@ -9,12 +9,12 @@ import {
 } from "lucide-react";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { Button } from "@/shared/ui/button";
-import { LandingPage } from "../../components/LandingPage";
-import { LandingSection } from "../../components/LandingSection";
-import { LandingContainer } from "../../components/LandingContainer";
-import { LandingMenu } from "../../components/LandingMenu";
-import { LandingFaq } from "../../components/LandingFaq";
-import { InquiryDialog } from "../../components/InquiryDialog";
+import { LandingPage } from "@/features/landing/components/LandingPage";
+import { LandingSection } from "@/features/landing/components/LandingSection";
+import { LandingContainer } from "@/features/landing/components/LandingContainer";
+import { LandingMenu } from "@/features/landing/components/LandingMenu";
+import { LandingFaq } from "@/features/landing/components/LandingFaq";
+import { InquiryDialog } from "@/features/landing/components/InquiryDialog";
 import { CoursePreview } from "./CoursePreview";
 
 const items = [

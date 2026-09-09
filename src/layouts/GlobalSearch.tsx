@@ -2,7 +2,7 @@ import { useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Search, X } from "lucide-react";
 import { useCallback, useEffect, useId, useRef, useState } from "react";
 
-import { searchNavigation } from "@/layouts/navigation";
+import { searchNavigation } from "./navigation";
 import { Button } from "@/shared/ui/button";
 import {
   Dialog,

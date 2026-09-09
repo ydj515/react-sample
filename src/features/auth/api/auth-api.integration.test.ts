@@ -1,7 +1,7 @@
 import { http, HttpResponse } from "msw";
 import { describe, expect, it } from "vitest";
 
-import { signInRequest } from "@/features/auth/api/auth-api";
+import { signInRequest } from "./auth-api";
 import { server } from "@/mocks/server";
 
 describe("auth-api", () => {

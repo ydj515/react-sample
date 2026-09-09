@@ -2,7 +2,7 @@ import { expect, it } from "vitest";
 import { http, HttpResponse } from "msw";
 import { server } from "@/mocks/server";
 import { managementData, managementFixture } from "@/mocks/data/management";
-import { resolveCart } from "../model/shop";
+import { resolveCart } from "@/features/shop/model/shop";
 import { createShopOrder } from "./shop-api";
 
 const product = managementFixture.products[0]!;

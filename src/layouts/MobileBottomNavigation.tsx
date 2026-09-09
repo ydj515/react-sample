@@ -1,6 +1,6 @@
 import { Link } from "@tanstack/react-router";
 
-import { navigationCommands, type NavigationItem } from "@/layouts/navigation";
+import { navigationCommands, type NavigationItem } from "./navigation";
 import { cn } from "@/shared/lib/cn";
 
 const shortLabels: Partial<Record<NavigationItem["to"], string>> = {

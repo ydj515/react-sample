@@ -1,8 +1,8 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
-import { productQueryOptions } from "../queries/product-queries";
-import { productsSearchSchema } from "../model/product-schema";
-import { ProductForm } from "../components/ProductForm";
+import { productQueryOptions } from "@/features/products/queries/product-queries";
+import { productsSearchSchema } from "@/features/products/model/product-schema";
+import { ProductForm } from "@/features/products/components/ProductForm";
 import { Button } from "@/shared/ui/button";
 import { PageHeader } from "@/shared/ui/page-header";
 import { QueryFeedback } from "@/shared/ui/query-feedback";

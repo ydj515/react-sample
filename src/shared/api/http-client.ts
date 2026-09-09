@@ -1,6 +1,6 @@
 import { z } from "zod";
 
-import { ApiError } from "@/shared/api/api-error";
+import { ApiError } from "./api-error";
 
 const apiErrorResponseSchema = z.object({
   code: z.string().optional(),

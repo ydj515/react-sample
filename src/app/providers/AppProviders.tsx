@@ -1,6 +1,6 @@
 import { useEffect, type ReactNode } from "react";
 
-import { QueryProvider } from "@/app/providers/QueryProvider";
+import { QueryProvider } from "./QueryProvider";
 import { Toaster } from "@/shared/ui/toast";
 import { useUiStore } from "@/stores/ui-store";
 

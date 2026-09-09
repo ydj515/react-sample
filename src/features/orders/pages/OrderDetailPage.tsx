@@ -10,11 +10,14 @@ import {
 import {
   orderQueryOptions,
   ordersQueryOptions,
-} from "../queries/order-queries";
-import { ordersSearchSchema } from "../model/order-schema";
-import { OrderStatusBadge } from "../components/OrderStatusBadge";
-import { OrderNoteForm, OrderStatusForm } from "../components/OrderActions";
-import { OrderShippingForm } from "../components/OrderShippingForm";
+} from "@/features/orders/queries/order-queries";
+import { ordersSearchSchema } from "@/features/orders/model/order-schema";
+import { OrderStatusBadge } from "@/features/orders/components/OrderStatusBadge";
+import {
+  OrderNoteForm,
+  OrderStatusForm,
+} from "@/features/orders/components/OrderActions";
+import { OrderShippingForm } from "@/features/orders/components/OrderShippingForm";
 import { ProductImage } from "@/features/products/components/ProductImage";
 import { productsSearchSchema } from "@/features/products/model/product-schema";
 import { userDetailSearchSchema } from "@/features/users/model/user-schema";

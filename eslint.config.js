@@ -78,6 +78,52 @@ const architecturePlugin = {
         };
       },
     },
+    "colocated-imports": {
+      meta: {
+        type: "suggestion",
+        fixable: "code",
+        schema: [],
+        messages: {
+          path: "Use {{expected}}: only colocated modules use ./; other source modules use @/.",
+        },
+      },
+      create(context) {
+        function check(source) {
+          if (typeof source?.value !== "string") return;
+          const target = resolveSourceImport(context.filename, source.value);
+          if (!target) return;
+          const relative = path.relative(sourceRoot, target);
+          if (relative.startsWith("..") || path.isAbsolute(relative)) return;
+          const expected =
+            path.dirname(target) === path.dirname(context.filename)
+              ? `./${path.basename(target)}`
+              : `@/${relative.split(path.sep).join("/")}`;
+          if (source.value === expected) return;
+          context.report({
+            node: source,
+            messageId: "path",
+            data: { expected },
+            fix: (fixer) => fixer.replaceText(source, JSON.stringify(expected)),
+          });
+        }
+        return {
+          ImportDeclaration: (node) => check(node.source),
+          ExportNamedDeclaration: (node) => check(node.source),
+          ExportAllDeclaration: (node) => check(node.source),
+          ImportExpression: (node) => check(node.source),
+          TSImportType: (node) => check(node.argument ?? node.parameter),
+          TSImportEqualsDeclaration: (node) =>
+            check(node.moduleReference.expression),
+          CallExpression(node) {
+            if (
+              node.callee.type === "Identifier" &&
+              node.callee.name === "require"
+            )
+              check(node.arguments[0]);
+          },
+        };
+      },
+    },
     "layer-boundaries": {
       meta: {
         type: "problem",
@@ -185,6 +231,10 @@ export default tseslint.config(
     plugins: {
       architecture: architecturePlugin,
     },
+  },
+  {
+    files: ["src/**/*.{ts,tsx}", ".storybook/**/*.{ts,tsx}"],
+    rules: { "architecture/colocated-imports": "error" },
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

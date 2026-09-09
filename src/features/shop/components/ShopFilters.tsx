@@ -2,7 +2,7 @@ import { productCategories } from "@/features/products/model/product-schema";
 import { Button } from "@/shared/ui/button";
 import { Select } from "@/shared/ui/select";
 import { FilterField } from "@/shared/ui/filter-bar";
-import { shopSearchSchema, type ShopSearch } from "../model/shop";
+import { shopSearchSchema, type ShopSearch } from "@/features/shop/model/shop";
 
 export function ShopFilters({
   search,

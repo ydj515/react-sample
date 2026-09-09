@@ -6,7 +6,7 @@ import {
 } from "@testing-library/react";
 import { useState, type ReactElement, type ReactNode } from "react";
 
-import { createTestQueryClient } from "@/shared/lib/test/test-query-client";
+import { createTestQueryClient } from "./test-query-client";
 
 function TestProviders({ children }: { children: ReactNode }) {
   const [queryClient] = useState(() => createTestQueryClient());

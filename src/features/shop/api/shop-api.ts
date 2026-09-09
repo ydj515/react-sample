@@ -1,5 +1,5 @@
 import { apiRequest } from "@/shared/api/http-client";
-import { receiptSchema, type CheckoutInput } from "../model/shop";
+import { receiptSchema, type CheckoutInput } from "@/features/shop/model/shop";
 
 export function createShopOrder(input: CheckoutInput) {
   return apiRequest("/api/shop/orders", {

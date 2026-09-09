@@ -8,9 +8,9 @@ import {
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, it } from "vitest";
-import { EventLandingPage } from "./event/EventLandingPage";
-import { StayLandingPage } from "./stay/StayLandingPage";
-import { ProductLandingPage } from "./product/ProductLandingPage";
+import { EventLandingPage } from "@/features/landing/pages/event/EventLandingPage";
+import { StayLandingPage } from "@/features/landing/pages/stay/StayLandingPage";
+import { ProductLandingPage } from "@/features/landing/pages/product/ProductLandingPage";
 
 function renderExperience(path: string) {
   const root = createRootRoute();

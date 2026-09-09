@@ -1,7 +1,7 @@
 import { waitFor } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
 
-import { bootstrapApp } from "@/app/bootstrap";
+import { bootstrapApp } from "./bootstrap";
 
 describe("bootstrapApp", () => {
   it("mock worker 시작이 실패해도 앱 렌더링을 계속한다", async () => {

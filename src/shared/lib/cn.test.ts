@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 
-import { cn } from "@/shared/lib/cn";
+import { cn } from "./cn";
 
 describe("cn", () => {
   it("조건부 class와 Tailwind 충돌 class를 정리한다", () => {

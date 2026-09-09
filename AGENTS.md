@@ -36,8 +36,8 @@ Storybook, routing, or the full template workflow.
 
 ## Coding Style and Dependency Boundaries
 
-Use TypeScript with 2-space indentation and Prettier formatting. Prefer `@/`
-imports for source modules. Keep route files thin and place feature behavior under
+Use TypeScript with 2-space indentation and Prettier formatting. Use `./` only for colocated modules in the same directory. Use `@/`
+for every other source module, including child directories and re-exports. Keep route files thin and place feature behavior under
 `src/features/<feature>`.
 
 Leave exactly one blank line after an import block. ESLint checks and fixes this

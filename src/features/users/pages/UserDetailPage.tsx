@@ -1,14 +1,14 @@
 import { useQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { History, ShoppingBag, UserRound } from "lucide-react";
-import { userQueryOptions } from "../queries/user-queries";
+import { userQueryOptions } from "@/features/users/queries/user-queries";
 import {
   userDetailSearchSchema,
   usersSearchSchema,
-} from "../model/user-schema";
-import { UserStatusBadge } from "../components/UserStatusBadge";
-import { UserAccessForm } from "../components/UserAccessForm";
-import { UserProfileForm } from "../components/UserProfileForm";
+} from "@/features/users/model/user-schema";
+import { UserStatusBadge } from "@/features/users/components/UserStatusBadge";
+import { UserAccessForm } from "@/features/users/components/UserAccessForm";
+import { UserProfileForm } from "@/features/users/components/UserProfileForm";
 import { ordersQueryOptions } from "@/features/orders/queries/order-queries";
 import { ordersSearchSchema } from "@/features/orders/model/order-schema";
 import { OrderStatusBadge } from "@/features/orders/components/OrderStatusBadge";

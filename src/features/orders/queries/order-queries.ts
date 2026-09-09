@@ -1,4 +1,8 @@
-import type { ManagedOrder, Order, OrderShipping } from "../model/order-schema";
+import type {
+  ManagedOrder,
+  Order,
+  OrderShipping,
+} from "@/features/orders/model/order-schema";
 import { commerceKeys } from "@/features/dashboard/queries/commerce-queries";
 import {
   queryOptions,

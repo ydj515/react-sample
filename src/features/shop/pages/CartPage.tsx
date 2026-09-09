@@ -13,10 +13,10 @@ import {
   shopMoney,
   shopSearchSchema,
   type Receipt,
-} from "../model/shop";
-import { CartSummary } from "../components/CartSummary";
-import { CheckoutForm } from "../components/CheckoutForm";
-import { useShopOrderMutation } from "../queries/shop-queries";
+} from "@/features/shop/model/shop";
+import { CartSummary } from "@/features/shop/components/CartSummary";
+import { CheckoutForm } from "@/features/shop/components/CheckoutForm";
+import { useShopOrderMutation } from "@/features/shop/queries/shop-queries";
 
 export function CartPage({ checkout = false }: { checkout?: boolean }) {
   const items = useShopStore((s) => s.items);

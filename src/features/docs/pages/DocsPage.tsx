@@ -11,12 +11,12 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/shared/ui/dialog";
-import { ReadingProgress } from "../components/ReadingProgress";
-import { DocsArticle } from "../components/DocsArticle";
-import { DocsSearch } from "../components/DocsSearch";
-import { DocsNavigation } from "../components/DocsNavigation";
-import { DocsToc } from "../components/DocsToc";
-import { findDocument } from "../model/documents";
+import { ReadingProgress } from "@/features/docs/components/ReadingProgress";
+import { DocsArticle } from "@/features/docs/components/DocsArticle";
+import { DocsSearch } from "@/features/docs/components/DocsSearch";
+import { DocsNavigation } from "@/features/docs/components/DocsNavigation";
+import { DocsToc } from "@/features/docs/components/DocsToc";
+import { findDocument } from "@/features/docs/model/documents";
 
 export function DocsPage({ slug }: { slug: string }) {
   const [menuOpen, setMenuOpen] = useState(false);

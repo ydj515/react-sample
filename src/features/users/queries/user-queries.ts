@@ -1,4 +1,7 @@
-import type { UserAccess, UserProfile } from "../model/user-schema";
+import type {
+  UserAccess,
+  UserProfile,
+} from "@/features/users/model/user-schema";
 import {
   queryOptions,
   useMutation,

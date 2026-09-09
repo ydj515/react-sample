@@ -1,11 +1,11 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowDown, ArrowUpRight, MoveUpRight } from "lucide-react";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
-import { LandingContainer } from "../../components/LandingContainer";
-import { LandingSection } from "../../components/LandingSection";
-import { LandingPage } from "../../components/LandingPage";
-import { LandingMenu } from "../../components/LandingMenu";
-import { InquiryForm } from "../../components/InquiryForm";
+import { LandingContainer } from "@/features/landing/components/LandingContainer";
+import { LandingSection } from "@/features/landing/components/LandingSection";
+import { LandingPage } from "@/features/landing/components/LandingPage";
+import { LandingMenu } from "@/features/landing/components/LandingMenu";
+import { InquiryForm } from "@/features/landing/components/InquiryForm";
 import { AgencyWork } from "./AgencyWork";
 
 const items = [

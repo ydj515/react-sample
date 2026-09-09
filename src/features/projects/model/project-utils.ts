@@ -3,7 +3,7 @@ import type {
   ProjectFilters,
   ProjectSortKey,
   ProjectStatus,
-} from "@/features/projects/model/project-types";
+} from "./project-types";
 
 export function filterProjects(projects: Project[], filters: ProjectFilters) {
   const search = filters.search.trim().toLowerCase();

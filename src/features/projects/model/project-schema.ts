@@ -1,9 +1,6 @@
 import { z } from "zod";
 
-import {
-  projectStatuses,
-  type Project,
-} from "@/features/projects/model/project-types";
+import { projectStatuses, type Project } from "./project-types";
 
 export const projectSchema: z.ZodType<Project> = z.object({
   id: z.string().min(1),

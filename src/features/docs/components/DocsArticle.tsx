@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { ArrowLeft, ArrowRight, Clock3, Info } from "lucide-react";
 import { CodeBlock } from "./CodeBlock";
-import { documents, type DocArticle } from "../model/documents";
+import { documents, type DocArticle } from "@/features/docs/model/documents";
 
 export function DocsArticle({ article }: { article: DocArticle }) {
   const index = documents.findIndex((doc) => doc.slug === article.slug);

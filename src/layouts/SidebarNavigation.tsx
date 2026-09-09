@@ -2,7 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ChevronDown } from "lucide-react";
 import { useId, useState } from "react";
 
-import { navigationGroups } from "@/layouts/navigation";
+import { navigationGroups } from "./navigation";
 import { cn } from "@/shared/lib/cn";
 
 export function SidebarBrand() {

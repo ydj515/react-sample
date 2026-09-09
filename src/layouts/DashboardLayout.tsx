@@ -2,13 +2,13 @@ import { Outlet, useLocation, useNavigate } from "@tanstack/react-router";
 import { LogOut, Menu, X } from "lucide-react";
 import { useRef, useState, useSyncExternalStore } from "react";
 
-import { AppFooter } from "@/layouts/AppFooter";
-import { MobileBottomNavigation } from "@/layouts/MobileBottomNavigation";
-import { BreadcrumbBar } from "@/layouts/BreadcrumbBar";
-import { GlobalSearch } from "@/layouts/GlobalSearch";
-import { currentNavigation } from "@/layouts/navigation";
-import { SidebarBrand, SidebarNavigation } from "@/layouts/SidebarNavigation";
-import { ThemeToggle } from "@/layouts/ThemeToggle";
+import { AppFooter } from "./AppFooter";
+import { MobileBottomNavigation } from "./MobileBottomNavigation";
+import { BreadcrumbBar } from "./BreadcrumbBar";
+import { GlobalSearch } from "./GlobalSearch";
+import { currentNavigation } from "./navigation";
+import { SidebarBrand, SidebarNavigation } from "./SidebarNavigation";
+import { ThemeToggle } from "./ThemeToggle";
 import { cn } from "@/shared/lib/cn";
 import { Button } from "@/shared/ui/button";
 import {
