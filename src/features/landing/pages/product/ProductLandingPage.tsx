@@ -1,3 +1,4 @@
+import { landingImages } from "../../model/images";
 import { Link } from "@tanstack/react-router";
 import { ArrowDownRight, ArrowUpRight, AudioLines } from "lucide-react";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
@@ -79,9 +80,8 @@ export function ProductLandingPage() {
                 </Button>
               </div>
               <img
-                src="/landing-images/forma-headphones.png"
-                width={1536}
-                height={1024}
+                {...landingImages.product}
+                sizes="(min-width: 1152px) 712px, (min-width: 1024px) calc((100vw - 84px) * 2 / 3), (min-width: 640px) calc(100vw - 64px), calc(100vw - 40px)"
                 alt="아이보리 쿠션과 오렌지색 다이얼을 갖춘 FORMA One 헤드폰 콘셉트"
                 fetchPriority="high"
                 className="order-1 w-full mix-blend-multiply lg:order-2"
@@ -192,9 +192,8 @@ export function ProductLandingPage() {
                 당신의 리듬으로.
               </h2>
               <img
-                src="/landing-images/forma-headphones.png"
-                width={1536}
-                height={1024}
+                {...landingImages.product}
+                sizes="(min-width: 1152px) 524px, (min-width: 1024px) calc((100vw - 104px) / 2), (min-width: 640px) calc(100vw - 64px), calc(100vw - 40px)"
                 alt="FORMA One 제품 전체 모습"
                 loading="lazy"
                 className="mt-8 w-full"

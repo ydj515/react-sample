@@ -1,3 +1,4 @@
+import { landingImages } from "../../model/images";
 import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/shared/ui/button";
@@ -9,10 +10,9 @@ export function StayRooms() {
     <div className="mt-10 grid items-center gap-10 lg:grid-cols-[1.35fr_1fr]">
       <div className="relative">
         <img
-          src="/landing-images/forest-suite.png"
+          {...landingImages.room}
+          sizes="(min-width: 1152px) 602px, (min-width: 1024px) calc((100vw - 104px) * 1.35 / 2.35), (min-width: 640px) calc(100vw - 64px), calc(100vw - 40px)"
           alt="창 너머 소나무 숲이 보이는 차분한 우드 톤 침실 콘셉트"
-          width={1536}
-          height={1024}
           loading="lazy"
           className="aspect-[4/3] w-full object-cover"
         />

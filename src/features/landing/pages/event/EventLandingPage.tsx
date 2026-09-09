@@ -211,6 +211,7 @@ export function EventLandingPage() {
               </ul>
               <InquiryDialog
                 label="참가 신청 체험"
+                triggerClassName="bg-[#17200c] text-[#d5fa57] hover:bg-[#2b3608] focus-visible:outline-[#17200c]"
                 context="OFFSCRIPT 참가 신청"
                 description="2일 참가권 · ₩120,000. 이 행사는 가상 샘플입니다."
               />

@@ -1,3 +1,4 @@
+import { landingImages } from "../model/images";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, LayoutTemplate } from "lucide-react";
 import { shopSearchSchema } from "@/features/shop/model/shop";
@@ -44,10 +45,9 @@ export function LandingIndexPage() {
                   {sample.to === "/landing/stay" && (
                     <>
                       <img
-                        src="/landing-images/forest-retreat.png"
+                        {...landingImages.retreat}
+                        sizes="(min-width: 1152px) 346px, (min-width: 1024px) calc((100vw - 112px) / 3), (min-width: 640px) calc(100vw - 64px), calc(100vw - 40px)"
                         alt=""
-                        width={1536}
-                        height={1024}
                         loading="lazy"
                         className="absolute inset-0 -z-20 h-full w-full object-cover"
                       />
@@ -56,10 +56,9 @@ export function LandingIndexPage() {
                   )}
                   {sample.to === "/landing/product" && (
                     <img
-                      src="/landing-images/forma-headphones.png"
+                      {...landingImages.product}
+                      sizes="(min-width: 1152px) 346px, (min-width: 1024px) calc((100vw - 112px) / 3), (min-width: 640px) calc(100vw - 64px), calc(100vw - 40px)"
                       alt=""
-                      width={1536}
-                      height={1024}
                       loading="lazy"
                       className="absolute top-0 -right-12 -z-10 h-full w-full object-cover opacity-25 mix-blend-multiply"
                     />

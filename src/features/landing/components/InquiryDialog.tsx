@@ -14,16 +14,20 @@ export function InquiryDialog({
   context,
   description,
   variant = "primary",
+  triggerClassName,
 }: {
   label: string;
   context: string;
   description: string;
   variant?: ButtonProps["variant"];
+  triggerClassName?: string;
 }) {
   return (
     <Dialog>
       <DialogTrigger asChild>
-        <Button variant={variant}>{label}</Button>
+        <Button variant={variant} className={triggerClassName}>
+          {label}
+        </Button>
       </DialogTrigger>
       <DialogContent className="max-h-[90dvh] overflow-y-auto">
         <div className="flex items-center justify-between gap-4">

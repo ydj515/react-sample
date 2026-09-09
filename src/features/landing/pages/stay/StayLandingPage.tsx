@@ -1,3 +1,4 @@
+import { landingImages } from "../../model/images";
 import { Link } from "@tanstack/react-router";
 import { ArrowDown, Leaf, Sunrise, Coffee } from "lucide-react";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
@@ -45,14 +46,22 @@ export function StayLandingPage() {
       </header>
       <main id="landing-main" tabIndex={-1}>
         <section className="relative isolate min-h-[650px] bg-[#253c31] text-white sm:min-h-[740px]">
-          <img
-            src="/landing-images/forest-retreat.png"
-            width={1536}
-            height={1024}
-            alt="안개 낀 소나무 숲과 반영 연못에 둘러싸인 작은 리트리트"
-            fetchPriority="high"
-            className="absolute inset-0 -z-20 h-full w-full object-cover"
-          />
+          <picture>
+            <source
+              media="(max-width: 639px)"
+              srcSet="/landing-images/forest-retreat-mobile-360.webp 360w, /landing-images/forest-retreat-mobile-600.webp 600w"
+              sizes="100vw"
+              width={600}
+              height={1000}
+            />
+            <img
+              {...landingImages.retreat}
+              sizes="(max-width: 1110px) 1110px, 100vw"
+              alt="안개 낀 소나무 숲과 반영 연못에 둘러싸인 작은 리트리트"
+              fetchPriority="high"
+              className="absolute inset-0 -z-20 h-full w-full object-cover"
+            />
+          </picture>
           <div className="absolute inset-0 -z-10 bg-gradient-to-r from-black/60 via-black/20 to-transparent" />
           <LandingContainer className="flex min-h-[650px] flex-col justify-between py-14 sm:min-h-[740px] sm:py-20">
             <p className="text-xs tracking-[0.28em]">A QUIETER WAY TO STAY</p>

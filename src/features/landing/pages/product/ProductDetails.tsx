@@ -1,3 +1,4 @@
+import { landingImages } from "../../model/images";
 import { useState } from "react";
 import { SlidersHorizontal, AudioLines, Feather } from "lucide-react";
 import { Button } from "@/shared/ui/button";
@@ -37,10 +38,9 @@ export function ProductDetails() {
     <div className="mt-10 grid gap-10 lg:grid-cols-2">
       <div className="relative overflow-hidden bg-[#e7e6e3]">
         <img
-          src="/landing-images/forma-headphones.png"
+          {...landingImages.product}
+          sizes="(min-width: 1152px) 524px, (min-width: 1024px) calc((100vw - 104px) / 2), (min-width: 640px) calc(100vw - 64px), calc(100vw - 40px)"
           alt="아이보리 이어컵과 알루미늄 프레임, 오렌지색 다이얼을 갖춘 FORMA 헤드폰"
-          width={1536}
-          height={1024}
           loading="lazy"
           className="h-full min-h-72 w-full object-cover"
         />

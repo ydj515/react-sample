@@ -1,5 +1,73 @@
 import { expect, test } from "@playwright/test";
 
+for (const width of [390, 1440]) {
+  for (const sample of ["stay", "product"]) {
+    test(`${width}px ${sample} 히어로는 반응형 WebP를 내려받는다`, async ({
+      page,
+    }) => {
+      const imageRequests: string[] = [];
+      page.on("request", (request) => {
+        if (request.resourceType() === "image")
+          imageRequests.push(request.url());
+      });
+      await page.setViewportSize({ width, height: 900 });
+      await page.goto(`/landing/${sample}`);
+      const hero = page.getByRole("img").first();
+      await expect(hero).toBeVisible();
+      await expect
+        .poll(() => hero.evaluate((el) => (el as HTMLImageElement).currentSrc))
+        .toMatch(/\.webp$/);
+      const source = await hero.evaluate(
+        (el) => (el as HTMLImageElement).currentSrc,
+      );
+      expect(source).toContain(
+        sample === "stay" && width === 390 ? "-mobile-" : "-landscape-",
+      );
+      expect(
+        imageRequests.filter((url) => /\/landing-images\/.*\.png$/.test(url)),
+      ).toEqual([]);
+      const response = await page.request.get(source);
+      expect(response.ok()).toBe(true);
+      expect((await response.body()).byteLength).toBeLessThan(300_000);
+    });
+  }
+}
+
+test("다크 모드 참가권 버튼과 키보드 포커스가 배경과 구분된다", async ({
+  page,
+}) => {
+  await page.goto("/landing/event");
+  await page.getByRole("button", { name: "다크 모드로 전환" }).click();
+  await expect(page.locator("html")).toHaveAttribute("data-theme", "dark");
+  await page
+    .getByRole("link", { name: "모든 랜딩 샘플 ↗", exact: true })
+    .focus();
+  await page.keyboard.press("Shift+Tab");
+  const trigger = page.getByRole("button", { name: "참가 신청 체험" });
+  await expect(trigger).toBeFocused();
+  await trigger.evaluate(async (el) => {
+    await Promise.all(
+      el.getAnimations().map((animation) => animation.finished),
+    );
+  });
+  const sectionColor = await page
+    .locator("#passes")
+    .evaluate((el) => getComputedStyle(el).backgroundColor);
+  const colors = await trigger.evaluate((el) => {
+    const style = getComputedStyle(el);
+    return {
+      background: style.backgroundColor,
+      outline: style.outlineColor,
+      width: style.outlineWidth,
+    };
+  });
+  expect(colors.background).not.toBe(sectionColor);
+  expect(colors.outline).not.toBe(sectionColor);
+  expect(parseFloat(colors.width)).toBeGreaterThanOrEqual(2);
+  await page.keyboard.press("Enter");
+  await expect(page.getByRole("dialog")).toBeVisible();
+});
+
 test("320px 컨퍼런스는 대체 글꼴에서도 참가권 가격이 넘치지 않는다", async ({
   page,
 }) => {
