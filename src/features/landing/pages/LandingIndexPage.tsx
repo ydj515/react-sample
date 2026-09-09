@@ -28,8 +28,8 @@ export function LandingIndexPage() {
             서로 다른 첫인상.
           </h1>
           <p className="text-ink-muted mt-6 max-w-2xl leading-8">
-            서비스, 교육, 크리에이티브 스튜디오. 목적에 맞는 구성과 인터랙션을
-            담은 세 가지 랜딩 페이지를 둘러보세요.
+            서비스부터 컨퍼런스, 숲속 숙소와 오디오 브랜드까지. 목적에 따라
+            달라지는 여섯 가지 디자인과 인터랙션을 둘러보세요.
           </p>
           <div className="mt-14 grid gap-6 lg:grid-cols-3">
             {landingSamples.map((sample, i) => (
@@ -39,8 +39,37 @@ export function LandingIndexPage() {
                 className="border-line group rounded-panel focus-visible:outline-brand overflow-hidden border"
               >
                 <div
-                  className={`flex min-h-64 flex-col justify-between p-7 ${i === 0 ? "bg-brand-soft text-brand" : i === 1 ? "bg-ink text-surface dark:bg-canvas dark:text-ink" : "bg-surface-muted text-ink"}`}
+                  className={`relative isolate flex min-h-64 flex-col justify-between overflow-hidden p-7 ${i === 0 ? "bg-brand-soft text-brand" : i === 1 ? "bg-ink text-surface dark:bg-canvas dark:text-ink" : i === 3 ? "bg-[#161b16] text-[#d5fa57]" : i === 4 ? "bg-[#29362d] text-white" : i === 5 ? "bg-[#e7e6e3] text-[#ac4224]" : "bg-surface-muted text-ink"}`}
                 >
+                  {sample.to === "/landing/stay" && (
+                    <>
+                      <img
+                        src="/landing-images/forest-retreat.png"
+                        alt=""
+                        width={1536}
+                        height={1024}
+                        loading="lazy"
+                        className="absolute inset-0 -z-20 h-full w-full object-cover"
+                      />
+                      <div className="absolute inset-0 -z-10 bg-black/55" />
+                    </>
+                  )}
+                  {sample.to === "/landing/product" && (
+                    <img
+                      src="/landing-images/forma-headphones.png"
+                      alt=""
+                      width={1536}
+                      height={1024}
+                      loading="lazy"
+                      className="absolute top-0 -right-12 -z-10 h-full w-full object-cover opacity-25 mix-blend-multiply"
+                    />
+                  )}
+                  {sample.to === "/landing/event" && (
+                    <div
+                      aria-hidden
+                      className="absolute top-10 -right-14 -z-10 size-52 rounded-full border-[28px] border-[#d5fa57]/20"
+                    />
+                  )}
                   <div className="flex items-center justify-between text-xs">
                     <span>
                       {sample.number} / {sample.category}
@@ -52,7 +81,9 @@ export function LandingIndexPage() {
                   </div>
                   <div>
                     <p className="mb-3 text-xs opacity-80">{sample.name}</p>
-                    <h2 className="text-3xl leading-tight font-semibold tracking-tight">
+                    <h2
+                      className={`text-3xl leading-tight font-semibold tracking-tight ${sample.to === "/landing/stay" ? "font-serif" : ""}`}
+                    >
                       {sample.title}
                     </h2>
                   </div>

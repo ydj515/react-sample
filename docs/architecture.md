@@ -196,7 +196,7 @@ products API/query를 사용하고, 구매 흐름은 `features/shop`에서 조�
 
 ## 랜딩 페이지 샘플
 
-`/landing`은 공개 샘플 컬렉션이며, SaaS·강의·에이전시 페이지는
+`/landing`은 공개 샘플 컬렉션이며, SaaS·강의·에이전시·컨퍼런스·숙소·제품 소개 페이지는
 `features/landing/pages`에서 독립적인 헤더·본문·푸터를 구성한다.
 랜딩 내부에서 반복되는 너비, 섹션 간격, 모바일 메뉴와 데모 폼은
 `features/landing/components`에 둔다. 기존 UI 토큰과 기본 컴포넌트를

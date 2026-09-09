@@ -21,7 +21,10 @@ import { Route as DocsSlugRouteImport } from "./routes/docs.$slug";
 import { Route as LandingIndexRouteImport } from "./routes/landing.index";
 import { Route as LandingAgencyRouteImport } from "./routes/landing.agency";
 import { Route as LandingCourseRouteImport } from "./routes/landing.course";
+import { Route as LandingEventRouteImport } from "./routes/landing.event";
+import { Route as LandingProductRouteImport } from "./routes/landing.product";
 import { Route as LandingSaasRouteImport } from "./routes/landing.saas";
+import { Route as LandingStayRouteImport } from "./routes/landing.stay";
 import { Route as ShopIndexRouteImport } from "./routes/shop.index";
 import { Route as ShopProductIdRouteImport } from "./routes/shop.$productId";
 import { Route as ShopCartRouteImport } from "./routes/shop.cart";
@@ -96,9 +99,24 @@ const LandingCourseRoute = LandingCourseRouteImport.update({
   path: "/landing/course",
   getParentRoute: () => rootRouteImport,
 } as any);
+const LandingEventRoute = LandingEventRouteImport.update({
+  id: "/landing/event",
+  path: "/landing/event",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const LandingProductRoute = LandingProductRouteImport.update({
+  id: "/landing/product",
+  path: "/landing/product",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const LandingSaasRoute = LandingSaasRouteImport.update({
   id: "/landing/saas",
   path: "/landing/saas",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const LandingStayRoute = LandingStayRouteImport.update({
+  id: "/landing/stay",
+  path: "/landing/stay",
   getParentRoute: () => rootRouteImport,
 } as any);
 const ShopIndexRoute = ShopIndexRouteImport.update({
@@ -185,7 +203,10 @@ export interface FileRoutesByFullPath {
   "/docs/$slug": typeof DocsSlugRoute;
   "/landing/agency": typeof LandingAgencyRoute;
   "/landing/course": typeof LandingCourseRoute;
+  "/landing/event": typeof LandingEventRoute;
+  "/landing/product": typeof LandingProductRoute;
   "/landing/saas": typeof LandingSaasRoute;
+  "/landing/stay": typeof LandingStayRoute;
   "/shop/$productId": typeof ShopProductIdRoute;
   "/shop/cart": typeof ShopCartRoute;
   "/shop/checkout": typeof ShopCheckoutRoute;
@@ -211,7 +232,10 @@ export interface FileRoutesByTo {
   "/docs/$slug": typeof DocsSlugRoute;
   "/landing/agency": typeof LandingAgencyRoute;
   "/landing/course": typeof LandingCourseRoute;
+  "/landing/event": typeof LandingEventRoute;
+  "/landing/product": typeof LandingProductRoute;
   "/landing/saas": typeof LandingSaasRoute;
+  "/landing/stay": typeof LandingStayRoute;
   "/shop/$productId": typeof ShopProductIdRoute;
   "/shop/cart": typeof ShopCartRoute;
   "/shop/checkout": typeof ShopCheckoutRoute;
@@ -241,7 +265,10 @@ export interface FileRoutesById {
   "/docs/$slug": typeof DocsSlugRoute;
   "/landing/agency": typeof LandingAgencyRoute;
   "/landing/course": typeof LandingCourseRoute;
+  "/landing/event": typeof LandingEventRoute;
+  "/landing/product": typeof LandingProductRoute;
   "/landing/saas": typeof LandingSaasRoute;
+  "/landing/stay": typeof LandingStayRoute;
   "/shop/$productId": typeof ShopProductIdRoute;
   "/shop/cart": typeof ShopCartRoute;
   "/shop/checkout": typeof ShopCheckoutRoute;
@@ -272,7 +299,10 @@ export interface FileRouteTypes {
     | "/docs/$slug"
     | "/landing/agency"
     | "/landing/course"
+    | "/landing/event"
+    | "/landing/product"
     | "/landing/saas"
+    | "/landing/stay"
     | "/shop/$productId"
     | "/shop/cart"
     | "/shop/checkout"
@@ -298,7 +328,10 @@ export interface FileRouteTypes {
     | "/docs/$slug"
     | "/landing/agency"
     | "/landing/course"
+    | "/landing/event"
+    | "/landing/product"
     | "/landing/saas"
+    | "/landing/stay"
     | "/shop/$productId"
     | "/shop/cart"
     | "/shop/checkout"
@@ -327,7 +360,10 @@ export interface FileRouteTypes {
     | "/docs/$slug"
     | "/landing/agency"
     | "/landing/course"
+    | "/landing/event"
+    | "/landing/product"
     | "/landing/saas"
+    | "/landing/stay"
     | "/shop/$productId"
     | "/shop/cart"
     | "/shop/checkout"
@@ -354,7 +390,10 @@ export interface RootRouteChildren {
   DocsSlugRoute: typeof DocsSlugRoute;
   LandingAgencyRoute: typeof LandingAgencyRoute;
   LandingCourseRoute: typeof LandingCourseRoute;
+  LandingEventRoute: typeof LandingEventRoute;
+  LandingProductRoute: typeof LandingProductRoute;
   LandingSaasRoute: typeof LandingSaasRoute;
+  LandingStayRoute: typeof LandingStayRoute;
   DocsIndexRoute: typeof DocsIndexRoute;
   LandingIndexRoute: typeof LandingIndexRoute;
 }
@@ -445,11 +484,32 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof LandingCourseRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/landing/event": {
+      id: "/landing/event";
+      path: "/landing/event";
+      fullPath: "/landing/event";
+      preLoaderRoute: typeof LandingEventRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/landing/product": {
+      id: "/landing/product";
+      path: "/landing/product";
+      fullPath: "/landing/product";
+      preLoaderRoute: typeof LandingProductRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     "/landing/saas": {
       id: "/landing/saas";
       path: "/landing/saas";
       fullPath: "/landing/saas";
       preLoaderRoute: typeof LandingSaasRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/landing/stay": {
+      id: "/landing/stay";
+      path: "/landing/stay";
+      fullPath: "/landing/stay";
+      preLoaderRoute: typeof LandingStayRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/shop/": {
@@ -614,7 +674,10 @@ const rootRouteChildren: RootRouteChildren = {
   DocsSlugRoute: DocsSlugRoute,
   LandingAgencyRoute: LandingAgencyRoute,
   LandingCourseRoute: LandingCourseRoute,
+  LandingEventRoute: LandingEventRoute,
+  LandingProductRoute: LandingProductRoute,
   LandingSaasRoute: LandingSaasRoute,
+  LandingStayRoute: LandingStayRoute,
   DocsIndexRoute: DocsIndexRoute,
   LandingIndexRoute: LandingIndexRoute,
 };
