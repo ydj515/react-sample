@@ -10,6 +10,7 @@ import { dashboardAsOf, dashboardTasks } from "@/mocks/data/dashboard";
 import { commerceFixture } from "@/mocks/data/commerce";
 import { projectsFixture } from "@/mocks/data/projects";
 
+import { shopHandlers } from "./shop-handlers";
 import { managementHandlers } from "./management-handlers";
 import { managementData } from "./data/management";
 import { orderSchema } from "@/features/orders/model/order-schema";
@@ -21,6 +22,7 @@ export function resetProjectsMockData() {
 }
 
 export const handlers = [
+  ...shopHandlers,
   ...managementHandlers,
   http.get("/api/dashboard/commerce", () =>
     HttpResponse.json({
