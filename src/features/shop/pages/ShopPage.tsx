@@ -1,5 +1,6 @@
+import { QueryBoundary } from "@/shared/ui/query-boundary";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { ArrowDown, SlidersHorizontal, X } from "lucide-react";
 import { productsQueryOptions } from "@/features/products/queries/product-queries";
@@ -13,7 +14,6 @@ import { Button } from "@/shared/ui/button";
 import { SearchInput } from "@/shared/ui/search-input";
 import { Select } from "@/shared/ui/select";
 import { Pagination } from "@/shared/ui/pagination";
-import { QueryFeedback } from "@/shared/ui/query-feedback";
 import { EmptyState } from "@/shared/ui/empty-state";
 import {
   Dialog,
@@ -31,10 +31,10 @@ import {
 import { ShopProductCard } from "@/features/shop/components/ShopProductCard";
 import { ShopFilters } from "@/features/shop/components/ShopFilters";
 
-export function ShopPage() {
+function ShopPageContent() {
   const search = shopSearchSchema.parse(useSearch({ strict: false }));
   const navigate = useNavigate();
-  const query = useQuery(productsQueryOptions());
+  const query = useSuspenseQuery(productsQueryOptions());
   const favorites = useShopStore((s) => s.favorites);
   const toggleFavorite = useShopStore((s) => s.toggleFavorite);
   const [filtersOpen, setFiltersOpen] = useState(false);
@@ -179,11 +179,6 @@ export function ShopPage() {
               ? `${result.total}개의 상품`
               : "컬렉션을 불러오는 중입니다."}
           </p>
-          <QueryFeedback
-            pending={query.isPending}
-            error={query.error}
-            onRetry={() => void query.refetch()}
-          />
           {query.data && (
             <>
               {result.total ? (
@@ -223,5 +218,13 @@ export function ShopPage() {
         </section>
       </div>
     </div>
+  );
+}
+
+export function ShopPage() {
+  return (
+    <QueryBoundary>
+      <ShopPageContent />
+    </QueryBoundary>
   );
 }

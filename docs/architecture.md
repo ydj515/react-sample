@@ -28,8 +28,8 @@ src/test       Vitest setup
 
 - `main.tsx`는 React root를 만들고 환경변수(`VITE_ENABLE_MOCKS`)에 따라 MSW worker를 시작한다.
 - `App.tsx`는 provider와 router를 연결한다.
-- `router.tsx`는 TanStack Router 인스턴스를 생성하고 `context`로 auth store를 주입한다.
-- `router-context.ts`는 라우터 context 타입(`{ auth }`)을 정의해 `beforeLoad`에서 인증 상태를 읽게 한다.
+- `router.tsx`는 TanStack Router 인스턴스를 생성하고 `context`로 auth store와 공유 QueryClient를 주입한다.
+- `router-context.ts`는 라우터 context 타입(`{ auth, queryClient }`)을 정의해 `beforeLoad`에서 인증 상태를 읽게 한다.
 - `providers/QueryProvider.tsx`는 앱 전체 React Query client를 제공한다.
 - `providers/AppProviders.tsx`는 theme/density를 document 속성에 동기화하고 전역 `Toaster`를 마운트한다.
 
@@ -218,3 +218,12 @@ products API/query를 사용하고, 구매 흐름은 `features/shop`에서 조�
 명시적 필터 적용과 페이지 선택은 history에 기록하므로 새로고침과
 뒤로가기로 조건을 복원한다. 필터 변경은 페이지를 1로 초기화한다.
 상세 검색의 제출 전 값, 선택 행, 열린 메뉴와 데모 신청 값은 URL에 넣지 않는다.
+
+## 서버 데이터의 선언적 로딩과 오류 복구
+
+- `app/query-client.ts`의 QueryClient를 Router context와 QueryProvider가 함께 사용한다. 조회 route의 loader는 `ensureQueryData`로 데이터를 준비하며, 상세 화면의 독립적인 요청은 `Promise.all`로 병렬 실행한다.
+- 주요 관리자·쇼핑 화면은 `useSuspenseQuery`를 사용한다. 페이지 외곽의 `QueryBoundary`가 React Suspense와 Error Boundary를 결합해 본문 로딩·오류를 처리하므로 사이드바와 헤더를 유지한다. 이 경계는 단독 렌더링 테스트와 Storybook에서도 동일하게 동작한다.
+- loader 실패는 Router의 `QueryRouteError`가 처리하며 재시도 시 query 오류 경계와 route를 재설정하고 loader를 다시 실행한다. params가 바뀌면 route를 다시 마운트해 이전 상세 화면의 오류를 이어받지 않는다.
+- QueryFeedback은 공통 경계의 표시 UI와 대시보드·장바구니의 **백그라운드 갱신 실패** 알림에 사용한다. 캐시 데이터가 있으면 초기 로딩 화면으로 돌아가지 않는다.
+- 상품 신규 등록은 서버 조회 없이 폼을 표시한다. 기존 상품 편집은 별도 조회 컴포넌트에서 suspend한다. ProductForm의 선택적인 관련 상품 조회(`enabled`)와 mutation 저장 오류는 폼 내부에서 관리한다.
+- `Shared/UI/QueryBoundary` 스토리에서 정상·로딩·실패 후 재시도 상태를 확인한다. 경계 테스트는 주변 레이아웃 유지와 복구를, 실제 route 통합 테스트는 loader 오류 복구와 캐시 재사용을 확인한다.

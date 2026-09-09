@@ -68,3 +68,10 @@
       `public/mockServiceWorker.js`는 `pnpm exec msw init public --save`로
       재생성하고 `PACKAGE_VERSION`이나 `INTEGRITY_CHECKSUM`을 직접 수정하지
       않았다.
+
+## 서버 데이터 경계
+
+- [ ] 필수 조회는 loader의 `ensureQueryData`와 페이지의 `useSuspenseQuery`가 같은 query options/cache를 사용한다.
+- [ ] 독립적인 상세 조회는 loader에서 병렬로 준비한다.
+- [ ] 페이지 외곽 QueryBoundary와 route 오류 재시도로 로딩·실패를 복구할 수 있다.
+- [ ] 신규 등록이나 조건부 보조 조회, mutation 오류를 필수 조회의 Suspense와 구분한다.

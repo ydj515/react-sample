@@ -1,18 +1,18 @@
+import { QueryBoundary } from "@/shared/ui/query-boundary";
 import { PageHeader } from "@/shared/ui/page-header";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 
 import { CreateProjectDialog } from "@/features/projects/components/CreateProjectDialog";
 import { ProjectCard } from "@/features/projects/components/ProjectCard";
 import { ProjectFilters } from "@/features/projects/components/ProjectFilters";
 import { useProjectFilters } from "@/features/projects/hooks/use-project-filters";
 import { projectsQueryOptions } from "@/features/projects/queries/project-queries";
-import { QueryFeedback } from "@/shared/ui/query-feedback";
 import { EmptyState } from "@/shared/ui/empty-state";
 import { Pagination } from "@/shared/ui/pagination";
 import { paginate } from "@/shared/lib/list-search";
 
-export function ProjectsPage() {
-  const query = useQuery(projectsQueryOptions());
+function ProjectsPageContent() {
+  const query = useSuspenseQuery(projectsQueryOptions());
   const projects = query.data ?? [];
   const {
     filters,
@@ -44,11 +44,6 @@ export function ProjectsPage() {
           setSortKey(next);
         }}
       />
-      <QueryFeedback
-        pending={query.isPending}
-        error={query.error}
-        onRetry={() => void query.refetch()}
-      />
       {query.data ? (
         <>
           {result.total === 0 ? (
@@ -67,5 +62,13 @@ export function ProjectsPage() {
         </>
       ) : null}
     </section>
+  );
+}
+
+export function ProjectsPage() {
+  return (
+    <QueryBoundary>
+      <ProjectsPageContent />
+    </QueryBoundary>
   );
 }

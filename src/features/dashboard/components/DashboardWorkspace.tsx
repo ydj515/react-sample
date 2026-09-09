@@ -1,5 +1,7 @@
+import type { ComponentProps } from "react";
+import { QueryBoundary } from "@/shared/ui/query-boundary";
 import { PageHeader } from "@/shared/ui/page-header";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { useMemo } from "react";
 
@@ -35,7 +37,7 @@ const views = {
   },
 } as const;
 
-export function DashboardWorkspace({
+function DashboardWorkspaceContent({
   view,
 }: {
   view: "operations" | "reports";
@@ -46,7 +48,7 @@ export function DashboardWorkspace({
     [rawSearch],
   );
   const navigate = useNavigate();
-  const query = useQuery(dashboardQueryOptions());
+  const query = useSuspenseQuery(dashboardQueryOptions());
   const model = useMemo(
     () => (query.data ? buildDashboard(query.data, filters) : null),
     [query.data, filters],
@@ -86,7 +88,7 @@ export function DashboardWorkspace({
         refreshing={query.isFetching}
       />
       <QueryFeedback
-        pending={query.isPending}
+        pending={false}
         pendingLabel="대시보드 로딩 중"
         error={query.error}
         errorMessage={`대시보드 데이터를 불러오지 못했습니다.${model ? " 마지막으로 불러온 데이터를 표시합니다." : ""}`}
@@ -146,5 +148,18 @@ export function DashboardWorkspace({
         </>
       ) : null}
     </section>
+  );
+}
+
+export function DashboardWorkspace(
+  props: ComponentProps<typeof DashboardWorkspaceContent>,
+) {
+  return (
+    <QueryBoundary
+      key={JSON.stringify(props)}
+      errorMessage={"대시보드 데이터를 불러오지 못했습니다."}
+    >
+      <DashboardWorkspaceContent {...props} />
+    </QueryBoundary>
   );
 }

@@ -1,4 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryBoundary } from "@/shared/ui/query-boundary";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { usersQueryOptions } from "@/features/users/queries/user-queries";
 import {
@@ -18,13 +19,12 @@ import { SearchInput } from "@/shared/ui/search-input";
 import { FilterBar, FilterField } from "@/shared/ui/filter-bar";
 import { PageHeader } from "@/shared/ui/page-header";
 import { Pagination } from "@/shared/ui/pagination";
-import { QueryFeedback } from "@/shared/ui/query-feedback";
 import { Select } from "@/shared/ui/select";
 
-export function UsersPage() {
+function UsersPageContent() {
   const search = usersSearchSchema.parse(useSearch({ strict: false }));
   const navigate = useNavigate();
-  const query = useQuery(usersQueryOptions());
+  const query = useSuspenseQuery(usersQueryOptions());
   const users = query.data ?? [];
   const result = selectUsers(users, search);
   const change = (patch: Partial<typeof search>) =>
@@ -124,11 +124,6 @@ export function UsersPage() {
           초기화
         </Button>
       </FilterBar>
-      <QueryFeedback
-        pending={query.isPending}
-        error={query.error}
-        onRetry={() => void query.refetch()}
-      />
       {query.data ? (
         result.total ? (
           <>
@@ -205,5 +200,13 @@ export function UsersPage() {
         )
       ) : null}
     </section>
+  );
+}
+
+export function UsersPage() {
+  return (
+    <QueryBoundary>
+      <UsersPageContent />
+    </QueryBoundary>
   );
 }

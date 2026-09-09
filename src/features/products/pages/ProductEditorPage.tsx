@@ -1,25 +1,24 @@
-import { useQuery } from "@tanstack/react-query";
+import type { Product } from "@/features/products/model/product-schema";
+import { QueryBoundary } from "@/shared/ui/query-boundary";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { productQueryOptions } from "@/features/products/queries/product-queries";
 import { productsSearchSchema } from "@/features/products/model/product-schema";
 import { ProductForm } from "@/features/products/components/ProductForm";
 import { Button } from "@/shared/ui/button";
 import { PageHeader } from "@/shared/ui/page-header";
-import { QueryFeedback } from "@/shared/ui/query-feedback";
 
-export function ProductEditorPage({
+function ProductEditorContent({
   productId,
   detail = false,
+  product,
 }: {
   productId?: string;
   detail?: boolean;
+  product?: Product;
 }) {
   const search = productsSearchSchema.parse(useSearch({ strict: false }));
   const navigate = useNavigate();
-  const query = useQuery({
-    ...productQueryOptions(productId ?? "new"),
-    enabled: !!productId,
-  });
   const back = () =>
     productId && !detail
       ? void navigate({
@@ -40,14 +39,14 @@ export function ProductEditorPage({
       <PageHeader
         title={
           detail
-            ? (query.data?.name ?? "상품 상세")
+            ? (product?.name ?? "상품 상세")
             : productId
               ? "상품 수정"
               : "상품 등록"
         }
         description={
-          query.data
-            ? `SKU: ${query.data.sku} · ${query.data.brand} · ${query.data.category}`
+          product
+            ? `SKU: ${product.sku} · ${product.brand} · ${product.category}`
             : "이미지와 판매 정보를 확인한 뒤 저장하세요."
         }
         actions={
@@ -64,17 +63,10 @@ export function ProductEditorPage({
           ) : undefined
         }
       />
-      {productId ? (
-        <QueryFeedback
-          pending={query.isPending}
-          error={query.error}
-          onRetry={() => void query.refetch()}
-        />
-      ) : null}
-      {!productId || query.data ? (
+      {!productId || product ? (
         <ProductForm
-          key={query.data?.id ?? "new"}
-          product={query.data}
+          key={product?.id ?? "new"}
+          product={product}
           onCancel={back}
           onSaved={(saved) =>
             void navigate({
@@ -86,5 +78,40 @@ export function ProductEditorPage({
         />
       ) : null}
     </section>
+  );
+}
+
+function ExistingProductEditor({
+  productId,
+  detail,
+}: {
+  productId: string;
+  detail?: boolean;
+}) {
+  const { data } = useSuspenseQuery(productQueryOptions(productId));
+  return (
+    <ProductEditorContent
+      productId={productId}
+      detail={detail}
+      product={data}
+    />
+  );
+}
+
+export function ProductEditorPage({
+  productId,
+  detail,
+}: {
+  productId?: string;
+  detail?: boolean;
+}) {
+  return (
+    <QueryBoundary key={productId ?? "new"}>
+      {productId ? (
+        <ExistingProductEditor productId={productId} detail={detail} />
+      ) : (
+        <ProductEditorContent />
+      )}
+    </QueryBoundary>
   );
 }

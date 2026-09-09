@@ -1,6 +1,8 @@
+import type { ComponentProps } from "react";
+import { QueryBoundary } from "@/shared/ui/query-boundary";
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Minus, Plus, Trash2, Check } from "lucide-react";
 import { productsQueryOptions } from "@/features/products/queries/product-queries";
 import { ProductImage } from "@/features/products/components/ProductImage";
@@ -18,12 +20,12 @@ import { CartSummary } from "@/features/shop/components/CartSummary";
 import { CheckoutForm } from "@/features/shop/components/CheckoutForm";
 import { useShopOrderMutation } from "@/features/shop/queries/shop-queries";
 
-export function CartPage({ checkout = false }: { checkout?: boolean }) {
+function CartPageContent({ checkout = false }: { checkout?: boolean }) {
   const items = useShopStore((s) => s.items);
   const setQuantity = useShopStore((s) => s.quantity);
   const remove = useShopStore((s) => s.remove);
   const clear = useShopStore((s) => s.clear);
-  const query = useQuery(productsQueryOptions());
+  const query = useSuspenseQuery(productsQueryOptions());
   const mutation = useShopOrderMutation();
   const [receipt, setReceipt] = useState<Receipt | null>(null);
   const cart = resolveCart(items, query.data ?? []);
@@ -95,7 +97,7 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
       ) : (
         <>
           <QueryFeedback
-            pending={query.isPending}
+            pending={false}
             error={query.error}
             onRetry={() => void query.refetch()}
           />
@@ -249,5 +251,13 @@ export function CartPage({ checkout = false }: { checkout?: boolean }) {
         </>
       )}
     </div>
+  );
+}
+
+export function CartPage(props: ComponentProps<typeof CartPageContent>) {
+  return (
+    <QueryBoundary key={JSON.stringify(props)}>
+      <CartPageContent {...props} />
+    </QueryBoundary>
   );
 }

@@ -1,29 +1,16 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryBoundary } from "@/shared/ui/query-boundary";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
 
 import { ProjectStatusBadge } from "@/features/projects/components/ProjectStatusBadge";
 import { projectQueryOptions } from "@/features/projects/queries/project-queries";
 import { formatDate } from "@/shared/lib/format-date";
 import { Card } from "@/shared/ui/card";
-import { QueryFeedback } from "@/shared/ui/query-feedback";
 import { PageHeader } from "@/shared/ui/page-header";
 
-export function ProjectDetailPage() {
+function ProjectDetailPageContent() {
   const { projectId } = useParams({ from: "/_dashboard/projects/$projectId" });
-  const query = useQuery(projectQueryOptions(projectId));
-
-  if (query.isPending || query.isError) {
-    return (
-      <QueryFeedback
-        pending={query.isPending}
-        pendingLabel="프로젝트 로딩 중"
-        error={query.error}
-        errorMessage="프로젝트 정보를 불러오지 못했습니다."
-        retrying={query.isFetching}
-        onRetry={() => void query.refetch()}
-      />
-    );
-  }
+  const query = useSuspenseQuery(projectQueryOptions(projectId));
 
   if (!query.data) {
     return (
@@ -59,5 +46,13 @@ export function ProjectDetailPage() {
         </dl>
       </Card>
     </section>
+  );
+}
+
+export function ProjectDetailPage() {
+  return (
+    <QueryBoundary errorMessage={"프로젝트 정보를 불러오지 못했습니다."}>
+      <ProjectDetailPageContent />
+    </QueryBoundary>
   );
 }

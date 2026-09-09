@@ -1,4 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import type { ComponentProps } from "react";
+import { QueryBoundary } from "@/shared/ui/query-boundary";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { History, ShoppingBag, UserRound } from "lucide-react";
 import { userQueryOptions } from "@/features/users/queries/user-queries";
@@ -17,13 +19,12 @@ import { Card } from "@/shared/ui/card";
 import { Button } from "@/shared/ui/button";
 import { CollectionTable } from "@/shared/ui/collection-table";
 import { DetailTabs } from "@/shared/ui/detail-tabs";
-import { QueryFeedback } from "@/shared/ui/query-feedback";
 
-export function UserDetailPage({ userId }: { userId: string }) {
+function UserDetailPageContent({ userId }: { userId: string }) {
   const search = userDetailSearchSchema.parse(useSearch({ strict: false }));
   const navigate = useNavigate();
-  const query = useQuery(userQueryOptions(userId));
-  const orderQuery = useQuery(ordersQueryOptions());
+  const query = useSuspenseQuery(userQueryOptions(userId));
+  const orderQuery = useSuspenseQuery(ordersQueryOptions());
   const user = query.data;
   const orders = orderQuery.data?.filter(
     (order) => order.customerId === userId,
@@ -50,11 +51,6 @@ export function UserDetailPage({ userId }: { userId: string }) {
       >
         ← 사용자 목록
       </Link>
-      <QueryFeedback
-        pending={query.isPending}
-        error={query.error}
-        onRetry={() => void query.refetch()}
-      />
       {user ? (
         <>
           <Card className="overflow-hidden">
@@ -154,11 +150,6 @@ export function UserDetailPage({ userId }: { userId: string }) {
                   <ShoppingBag className="text-brand size-4" />
                   주문 내역 {orders ? `(${orders.length}건)` : ""}
                 </h2>
-                <QueryFeedback
-                  pending={orderQuery.isPending}
-                  error={orderQuery.error}
-                  onRetry={() => void orderQuery.refetch()}
-                />
                 {orders?.length ? (
                   <CollectionTable label="회원 주문 내역">
                     <thead>
@@ -234,5 +225,15 @@ export function UserDetailPage({ userId }: { userId: string }) {
         </>
       ) : null}
     </section>
+  );
+}
+
+export function UserDetailPage(
+  props: ComponentProps<typeof UserDetailPageContent>,
+) {
+  return (
+    <QueryBoundary key={JSON.stringify(props)}>
+      <UserDetailPageContent {...props} />
+    </QueryBoundary>
   );
 }

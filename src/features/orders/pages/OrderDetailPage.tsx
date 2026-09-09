@@ -1,4 +1,6 @@
-import { useQuery } from "@tanstack/react-query";
+import type { ComponentProps } from "react";
+import { QueryBoundary } from "@/shared/ui/query-boundary";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, useSearch } from "@tanstack/react-router";
 import {
   Check,
@@ -23,14 +25,13 @@ import { productsSearchSchema } from "@/features/products/model/product-schema";
 import { userDetailSearchSchema } from "@/features/users/model/user-schema";
 import { Card } from "@/shared/ui/card";
 import { PageHeader } from "@/shared/ui/page-header";
-import { QueryFeedback } from "@/shared/ui/query-feedback";
 import { Badge } from "@/shared/ui/badge";
 
 const money = (value: number) => `₩${value.toLocaleString("ko-KR")}`;
-export function OrderDetailPage({ orderId }: { orderId: string }) {
+function OrderDetailPageContent({ orderId }: { orderId: string }) {
   const search = ordersSearchSchema.parse(useSearch({ strict: false }));
-  const query = useQuery(orderQueryOptions(orderId));
-  const orders = useQuery(ordersQueryOptions());
+  const query = useSuspenseQuery(orderQueryOptions(orderId));
+  const orders = useSuspenseQuery(ordersQueryOptions());
   const order = query.data;
   const recent =
     orders.data
@@ -55,11 +56,6 @@ export function OrderDetailPage({ orderId }: { orderId: string }) {
       >
         ← 주문 목록
       </Link>
-      <QueryFeedback
-        pending={query.isPending}
-        error={query.error}
-        onRetry={() => void query.refetch()}
-      />
       {order ? (
         <>
           <PageHeader
@@ -285,11 +281,6 @@ export function OrderDetailPage({ orderId }: { orderId: string }) {
               </Card>
               <Card className="p-5">
                 <h2 className="font-semibold">이 고객의 최근 주문</h2>
-                <QueryFeedback
-                  pending={orders.isPending}
-                  error={orders.error}
-                  onRetry={() => void orders.refetch()}
-                />
                 <div className="mt-4 grid gap-3">
                   {recent.map((item) => (
                     <Link
@@ -323,5 +314,15 @@ export function OrderDetailPage({ orderId }: { orderId: string }) {
         </>
       ) : null}
     </section>
+  );
+}
+
+export function OrderDetailPage(
+  props: ComponentProps<typeof OrderDetailPageContent>,
+) {
+  return (
+    <QueryBoundary key={JSON.stringify(props)}>
+      <OrderDetailPageContent {...props} />
+    </QueryBoundary>
   );
 }

@@ -1,5 +1,7 @@
+import type { ComponentProps } from "react";
+import { QueryBoundary } from "@/shared/ui/query-boundary";
 import { useState } from "react";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, useSearch } from "@tanstack/react-router";
 import { Heart, Expand, Truck, RotateCcw, X, Star } from "lucide-react";
 import {
@@ -8,7 +10,6 @@ import {
 } from "@/features/products/queries/product-queries";
 import { ProductImage } from "@/features/products/components/ProductImage";
 import { useShopStore } from "@/stores/shop-store";
-import { QueryFeedback } from "@/shared/ui/query-feedback";
 import { Button } from "@/shared/ui/button";
 import { DetailTabs } from "@/shared/ui/detail-tabs";
 import {
@@ -23,9 +24,9 @@ import { shopMoney, shopSearchSchema } from "@/features/shop/model/shop";
 import { ProductPurchase } from "@/features/shop/components/ProductPurchase";
 import { ShopProductCard } from "@/features/shop/components/ShopProductCard";
 
-export function ShopDetailPage({ productId }: { productId: string }) {
-  const query = useQuery(productQueryOptions(productId));
-  const catalog = useQuery(productsQueryOptions());
+function ShopDetailPageContent({ productId }: { productId: string }) {
+  const query = useSuspenseQuery(productQueryOptions(productId));
+  const catalog = useSuspenseQuery(productsQueryOptions());
   const search = shopSearchSchema.parse(useSearch({ strict: false }));
   const favorites = useShopStore((s) => s.favorites);
   const toggleFavorite = useShopStore((s) => s.toggleFavorite);
@@ -40,11 +41,6 @@ export function ShopDetailPage({ productId }: { productId: string }) {
       >
         ← 상품 목록
       </Link>
-      <QueryFeedback
-        pending={query.isPending}
-        error={query.error}
-        onRetry={() => void query.refetch()}
-      />
       {product && product.status !== "active" && (
         <div className="py-20">
           <h1 className="text-2xl font-semibold">판매하지 않는 상품입니다.</h1>
@@ -266,5 +262,15 @@ export function ShopDetailPage({ productId }: { productId: string }) {
         </>
       )}
     </div>
+  );
+}
+
+export function ShopDetailPage(
+  props: ComponentProps<typeof ShopDetailPageContent>,
+) {
+  return (
+    <QueryBoundary key={JSON.stringify(props)}>
+      <ShopDetailPageContent {...props} />
+    </QueryBoundary>
   );
 }

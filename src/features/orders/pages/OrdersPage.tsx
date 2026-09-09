@@ -1,4 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryBoundary } from "@/shared/ui/query-boundary";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { ordersQueryOptions } from "@/features/orders/queries/order-queries";
 import {
@@ -15,13 +16,12 @@ import { SearchInput } from "@/shared/ui/search-input";
 import { FilterBar, FilterField } from "@/shared/ui/filter-bar";
 import { PageHeader } from "@/shared/ui/page-header";
 import { Pagination } from "@/shared/ui/pagination";
-import { QueryFeedback } from "@/shared/ui/query-feedback";
 import { Select } from "@/shared/ui/select";
 
-export function OrdersPage() {
+function OrdersPageContent() {
   const search = ordersSearchSchema.parse(useSearch({ strict: false }));
   const navigate = useNavigate();
-  const query = useQuery(ordersQueryOptions());
+  const query = useSuspenseQuery(ordersQueryOptions());
   const orders = query.data ?? [];
   const result = selectOrders(orders, search);
   const change = (patch: Partial<typeof search>) =>
@@ -100,11 +100,6 @@ export function OrdersPage() {
           초기화
         </Button>
       </FilterBar>
-      <QueryFeedback
-        pending={query.isPending}
-        error={query.error}
-        onRetry={() => void query.refetch()}
-      />
       {query.data ? (
         result.total ? (
           <>
@@ -171,5 +166,13 @@ export function OrdersPage() {
         )
       ) : null}
     </section>
+  );
+}
+
+export function OrdersPage() {
+  return (
+    <QueryBoundary>
+      <OrdersPageContent />
+    </QueryBoundary>
   );
 }

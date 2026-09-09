@@ -1,6 +1,7 @@
+import { QueryBoundary } from "@/shared/ui/query-boundary";
 import { PageHeader } from "@/shared/ui/page-header";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { useQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import {
   ArrowDownRight,
   ArrowUpRight,
@@ -118,8 +119,8 @@ function NewCommerceReport({ data }: { data: CommerceDashboard }) {
     </Dialog>
   );
 }
-export function CommerceOverview() {
-  const query = useQuery(commerceQueryOptions());
+function CommerceOverviewContent() {
+  const query = useSuspenseQuery(commerceQueryOptions());
   const user = useAuthStore((state) => state.user);
   const name = user?.email.split("@")[0] ?? "사용자";
   const data = query.data;
@@ -163,7 +164,7 @@ export function CommerceOverview() {
         }
       />
       <QueryFeedback
-        pending={query.isPending}
+        pending={false}
         pendingLabel="대시보드 로딩 중"
         error={query.error}
         errorMessage={`대시보드 데이터를 불러오지 못했습니다.${data ? " 마지막으로 불러온 데이터를 표시합니다." : ""}`}
@@ -282,5 +283,13 @@ export function CommerceOverview() {
         </>
       ) : null}
     </section>
+  );
+}
+
+export function CommerceOverview() {
+  return (
+    <QueryBoundary errorMessage={"대시보드 데이터를 불러오지 못했습니다."}>
+      <CommerceOverviewContent />
+    </QueryBoundary>
   );
 }

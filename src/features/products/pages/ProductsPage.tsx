@@ -1,4 +1,5 @@
-import { useQuery } from "@tanstack/react-query";
+import { QueryBoundary } from "@/shared/ui/query-boundary";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { Link, useNavigate, useSearch } from "@tanstack/react-router";
 import { Plus } from "lucide-react";
 import { productsQueryOptions } from "@/features/products/queries/product-queries";
@@ -17,13 +18,12 @@ import { SearchInput } from "@/shared/ui/search-input";
 import { FilterBar, FilterField } from "@/shared/ui/filter-bar";
 import { PageHeader } from "@/shared/ui/page-header";
 import { Pagination } from "@/shared/ui/pagination";
-import { QueryFeedback } from "@/shared/ui/query-feedback";
 import { Select } from "@/shared/ui/select";
 
-export function ProductsPage() {
+function ProductsPageContent() {
   const search = productsSearchSchema.parse(useSearch({ strict: false }));
   const navigate = useNavigate();
-  const query = useQuery(productsQueryOptions());
+  const query = useSuspenseQuery(productsQueryOptions());
   const products = query.data ?? [];
   const result = selectProducts(products, search);
   const change = (patch: Partial<typeof search>) =>
@@ -118,11 +118,6 @@ export function ProductsPage() {
           초기화
         </Button>
       </FilterBar>
-      <QueryFeedback
-        pending={query.isPending}
-        error={query.error}
-        onRetry={() => void query.refetch()}
-      />
       {query.data ? (
         result.total ? (
           <>
@@ -195,5 +190,13 @@ export function ProductsPage() {
         )
       ) : null}
     </section>
+  );
+}
+
+export function ProductsPage() {
+  return (
+    <QueryBoundary>
+      <ProductsPageContent />
+    </QueryBoundary>
   );
 }
