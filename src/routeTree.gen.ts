@@ -10,11 +10,18 @@
 
 import { Route as rootRouteImport } from "./routes/__root";
 import { Route as DashboardRouteImport } from "./routes/_dashboard";
+import { Route as ShopRouteImport } from "./routes/shop";
 import { Route as SigninRouteImport } from "./routes/signin";
 import { Route as DashboardIndexRouteImport } from "./routes/_dashboard/index";
 import { Route as DashboardOperationsRouteImport } from "./routes/_dashboard/operations";
 import { Route as DashboardReportsRouteImport } from "./routes/_dashboard/reports";
 import { Route as DashboardSettingsRouteImport } from "./routes/_dashboard/settings";
+import { Route as DocsIndexRouteImport } from "./routes/docs.index";
+import { Route as DocsSlugRouteImport } from "./routes/docs.$slug";
+import { Route as ShopIndexRouteImport } from "./routes/shop.index";
+import { Route as ShopProductIdRouteImport } from "./routes/shop.$productId";
+import { Route as ShopCartRouteImport } from "./routes/shop.cart";
+import { Route as ShopCheckoutRouteImport } from "./routes/shop.checkout";
 import { Route as DashboardOrdersIndexRouteImport } from "./routes/_dashboard/orders.index";
 import { Route as DashboardOrdersOrderIdRouteImport } from "./routes/_dashboard/orders.$orderId";
 import { Route as DashboardProductsIndexRouteImport } from "./routes/_dashboard/products.index";
@@ -28,6 +35,11 @@ import { Route as DashboardProductsProductIdEditRouteImport } from "./routes/_da
 
 const DashboardRoute = DashboardRouteImport.update({
   id: "/_dashboard",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const ShopRoute = ShopRouteImport.update({
+  id: "/shop",
+  path: "/shop",
   getParentRoute: () => rootRouteImport,
 } as any);
 const SigninRoute = SigninRouteImport.update({
@@ -54,6 +66,36 @@ const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
   id: "/settings",
   path: "/settings",
   getParentRoute: () => DashboardRoute,
+} as any);
+const DocsIndexRoute = DocsIndexRouteImport.update({
+  id: "/docs/",
+  path: "/docs/",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const DocsSlugRoute = DocsSlugRouteImport.update({
+  id: "/docs/$slug",
+  path: "/docs/$slug",
+  getParentRoute: () => rootRouteImport,
+} as any);
+const ShopIndexRoute = ShopIndexRouteImport.update({
+  id: "/",
+  path: "/",
+  getParentRoute: () => ShopRoute,
+} as any);
+const ShopProductIdRoute = ShopProductIdRouteImport.update({
+  id: "/$productId",
+  path: "/$productId",
+  getParentRoute: () => ShopRoute,
+} as any);
+const ShopCartRoute = ShopCartRouteImport.update({
+  id: "/cart",
+  path: "/cart",
+  getParentRoute: () => ShopRoute,
+} as any);
+const ShopCheckoutRoute = ShopCheckoutRouteImport.update({
+  id: "/checkout",
+  path: "/checkout",
+  getParentRoute: () => ShopRoute,
 } as any);
 const DashboardOrdersIndexRoute = DashboardOrdersIndexRouteImport.update({
   id: "/orders/",
@@ -111,10 +153,17 @@ const DashboardProductsProductIdEditRoute =
 
 export interface FileRoutesByFullPath {
   "/": typeof DashboardIndexRoute;
+  "/shop": typeof ShopRouteWithChildren;
   "/signin": typeof SigninRoute;
   "/operations": typeof DashboardOperationsRoute;
   "/reports": typeof DashboardReportsRoute;
   "/settings": typeof DashboardSettingsRoute;
+  "/docs/$slug": typeof DocsSlugRoute;
+  "/shop/$productId": typeof ShopProductIdRoute;
+  "/shop/cart": typeof ShopCartRoute;
+  "/shop/checkout": typeof ShopCheckoutRoute;
+  "/docs/": typeof DocsIndexRoute;
+  "/shop/": typeof ShopIndexRoute;
   "/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
   "/products/new": typeof DashboardProductsNewRoute;
   "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
@@ -131,7 +180,13 @@ export interface FileRoutesByTo {
   "/operations": typeof DashboardOperationsRoute;
   "/reports": typeof DashboardReportsRoute;
   "/settings": typeof DashboardSettingsRoute;
+  "/docs/$slug": typeof DocsSlugRoute;
+  "/shop/$productId": typeof ShopProductIdRoute;
+  "/shop/cart": typeof ShopCartRoute;
+  "/shop/checkout": typeof ShopCheckoutRoute;
   "/": typeof DashboardIndexRoute;
+  "/docs": typeof DocsIndexRoute;
+  "/shop": typeof ShopIndexRoute;
   "/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
   "/products/new": typeof DashboardProductsNewRoute;
   "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
@@ -146,11 +201,18 @@ export interface FileRoutesByTo {
 export interface FileRoutesById {
   __root__: typeof rootRouteImport;
   "/_dashboard": typeof DashboardRouteWithChildren;
+  "/shop": typeof ShopRouteWithChildren;
   "/signin": typeof SigninRoute;
   "/_dashboard/operations": typeof DashboardOperationsRoute;
   "/_dashboard/reports": typeof DashboardReportsRoute;
   "/_dashboard/settings": typeof DashboardSettingsRoute;
+  "/docs/$slug": typeof DocsSlugRoute;
+  "/shop/$productId": typeof ShopProductIdRoute;
+  "/shop/cart": typeof ShopCartRoute;
+  "/shop/checkout": typeof ShopCheckoutRoute;
   "/_dashboard/": typeof DashboardIndexRoute;
+  "/docs/": typeof DocsIndexRoute;
+  "/shop/": typeof ShopIndexRoute;
   "/_dashboard/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
   "/_dashboard/products/new": typeof DashboardProductsNewRoute;
   "/_dashboard/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
@@ -166,10 +228,17 @@ export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath;
   fullPaths:
     | "/"
+    | "/shop"
     | "/signin"
     | "/operations"
     | "/reports"
     | "/settings"
+    | "/docs/$slug"
+    | "/shop/$productId"
+    | "/shop/cart"
+    | "/shop/checkout"
+    | "/docs/"
+    | "/shop/"
     | "/orders/$orderId"
     | "/products/new"
     | "/projects/$projectId"
@@ -186,7 +255,13 @@ export interface FileRouteTypes {
     | "/operations"
     | "/reports"
     | "/settings"
+    | "/docs/$slug"
+    | "/shop/$productId"
+    | "/shop/cart"
+    | "/shop/checkout"
     | "/"
+    | "/docs"
+    | "/shop"
     | "/orders/$orderId"
     | "/products/new"
     | "/projects/$projectId"
@@ -200,11 +275,18 @@ export interface FileRouteTypes {
   id:
     | "__root__"
     | "/_dashboard"
+    | "/shop"
     | "/signin"
     | "/_dashboard/operations"
     | "/_dashboard/reports"
     | "/_dashboard/settings"
+    | "/docs/$slug"
+    | "/shop/$productId"
+    | "/shop/cart"
+    | "/shop/checkout"
     | "/_dashboard/"
+    | "/docs/"
+    | "/shop/"
     | "/_dashboard/orders/$orderId"
     | "/_dashboard/products/new"
     | "/_dashboard/projects/$projectId"
@@ -219,7 +301,10 @@ export interface FileRouteTypes {
 }
 export interface RootRouteChildren {
   DashboardRoute: typeof DashboardRouteWithChildren;
+  ShopRoute: typeof ShopRouteWithChildren;
   SigninRoute: typeof SigninRoute;
+  DocsSlugRoute: typeof DocsSlugRoute;
+  DocsIndexRoute: typeof DocsIndexRoute;
 }
 
 declare module "@tanstack/react-router" {
@@ -229,6 +314,13 @@ declare module "@tanstack/react-router" {
       path: "";
       fullPath: "/";
       preLoaderRoute: typeof DashboardRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/shop": {
+      id: "/shop";
+      path: "/shop";
+      fullPath: "/shop";
+      preLoaderRoute: typeof ShopRouteImport;
       parentRoute: typeof rootRouteImport;
     };
     "/signin": {
@@ -265,6 +357,48 @@ declare module "@tanstack/react-router" {
       fullPath: "/settings";
       preLoaderRoute: typeof DashboardSettingsRouteImport;
       parentRoute: typeof DashboardRoute;
+    };
+    "/docs/": {
+      id: "/docs/";
+      path: "/docs";
+      fullPath: "/docs/";
+      preLoaderRoute: typeof DocsIndexRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/docs/$slug": {
+      id: "/docs/$slug";
+      path: "/docs/$slug";
+      fullPath: "/docs/$slug";
+      preLoaderRoute: typeof DocsSlugRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
+    "/shop/": {
+      id: "/shop/";
+      path: "/";
+      fullPath: "/shop/";
+      preLoaderRoute: typeof ShopIndexRouteImport;
+      parentRoute: typeof ShopRoute;
+    };
+    "/shop/$productId": {
+      id: "/shop/$productId";
+      path: "/$productId";
+      fullPath: "/shop/$productId";
+      preLoaderRoute: typeof ShopProductIdRouteImport;
+      parentRoute: typeof ShopRoute;
+    };
+    "/shop/cart": {
+      id: "/shop/cart";
+      path: "/cart";
+      fullPath: "/shop/cart";
+      preLoaderRoute: typeof ShopCartRouteImport;
+      parentRoute: typeof ShopRoute;
+    };
+    "/shop/checkout": {
+      id: "/shop/checkout";
+      path: "/checkout";
+      fullPath: "/shop/checkout";
+      preLoaderRoute: typeof ShopCheckoutRouteImport;
+      parentRoute: typeof ShopRoute;
     };
     "/_dashboard/orders/": {
       id: "/_dashboard/orders/";
@@ -377,9 +511,28 @@ const DashboardRouteWithChildren = DashboardRoute._addFileChildren(
   DashboardRouteChildren,
 );
 
+interface ShopRouteChildren {
+  ShopProductIdRoute: typeof ShopProductIdRoute;
+  ShopCartRoute: typeof ShopCartRoute;
+  ShopCheckoutRoute: typeof ShopCheckoutRoute;
+  ShopIndexRoute: typeof ShopIndexRoute;
+}
+
+const ShopRouteChildren: ShopRouteChildren = {
+  ShopProductIdRoute: ShopProductIdRoute,
+  ShopCartRoute: ShopCartRoute,
+  ShopCheckoutRoute: ShopCheckoutRoute,
+  ShopIndexRoute: ShopIndexRoute,
+};
+
+const ShopRouteWithChildren = ShopRoute._addFileChildren(ShopRouteChildren);
+
 const rootRouteChildren: RootRouteChildren = {
   DashboardRoute: DashboardRouteWithChildren,
+  ShopRoute: ShopRouteWithChildren,
   SigninRoute: SigninRoute,
+  DocsSlugRoute: DocsSlugRoute,
+  DocsIndexRoute: DocsIndexRoute,
 };
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
