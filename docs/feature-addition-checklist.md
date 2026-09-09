@@ -75,3 +75,10 @@
 - [ ] 독립적인 상세 조회는 loader에서 병렬로 준비한다.
 - [ ] 페이지 외곽 QueryBoundary와 route 오류 재시도로 로딩·실패를 복구할 수 있다.
 - [ ] 신규 등록이나 조건부 보조 조회, mutation 오류를 필수 조회의 Suspense와 구분한다.
+
+## 기능 간 Public API
+
+- [ ] 기능 외부에서 필요한 항목만 역할별 `index.ts`에 named export했다.
+- [ ] 다른 기능 및 routes/mocks/통합 테스트가 구현 파일을 직접 import하지 않는다.
+- [ ] 기능 내부에서 자체 public barrel을 import하지 않으며 데이터 계층이 UI API에 의존하지 않는다.
+- [ ] 공개 계약 변경 시 소비자와 테스트를 함께 수정하고 타입 검사·린트·빌드를 확인했다.

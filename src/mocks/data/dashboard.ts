@@ -1,5 +1,5 @@
-import type { DashboardTask } from "@/features/dashboard/model/dashboard-schema";
-import { shiftDate } from "@/features/dashboard/model/dashboard-utils";
+import type { DashboardTask } from "@/features/dashboard/model";
+import { shiftDate } from "@/features/dashboard/model";
 import { projectsFixture } from "./projects";
 
 // 고정 기준일을 사용해 재방문과 테스트에서 같은 기간 비교를 제공한다.

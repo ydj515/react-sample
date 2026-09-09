@@ -1,5 +1,5 @@
-import { ProjectStatusBadge } from "@/features/projects/components/ProjectStatusBadge";
-import type { Project } from "@/features/projects/model/project-types";
+import { ProjectStatusBadge } from "@/features/projects/components";
+import type { Project } from "@/features/projects/model";
 import { Card } from "@/shared/ui/card";
 
 export function RecentProjects({ projects }: { projects: Project[] }) {

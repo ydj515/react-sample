@@ -51,6 +51,14 @@ ESLint enforces these minimum dependency directions:
 - feature components and pages may consume stores when the state is genuinely
   client-side UI state.
 
+External consumers must use explicit feature layer APIs such as
+`@/features/orders/model` or `@/features/products/queries`. Each public `index.ts`
+exports only named contracts needed outside the feature; do not use `export *`.
+Keep page APIs under `pages/<page>/index.ts` so unrelated routes remain independently
+lazy loaded rather than sharing one pages barrel.
+Feature internals import implementation files directly, never their own public
+barrels. Data layers cannot consume feature UI, even through a public API.
+
 Use TanStack Query for server state, Zustand for client UI/auth/toast state,
 React Hook Form for forms, and Zod at input and API response boundaries.
 

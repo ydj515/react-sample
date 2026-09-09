@@ -7,8 +7,8 @@ import { Heart, Expand, Truck, RotateCcw, X, Star } from "lucide-react";
 import {
   productQueryOptions,
   productsQueryOptions,
-} from "@/features/products/queries/product-queries";
-import { ProductImage } from "@/features/products/components/ProductImage";
+} from "@/features/products/queries";
+import { ProductImage } from "@/features/products/components";
 import { useShopStore } from "@/stores/shop-store";
 import { Button } from "@/shared/ui/button";
 import { DetailTabs } from "@/shared/ui/detail-tabs";

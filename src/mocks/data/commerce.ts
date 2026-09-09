@@ -1,4 +1,4 @@
-import type { CommerceDashboard } from "@/features/dashboard/model/commerce-schema";
+import type { CommerceDashboard } from "@/features/dashboard/model";
 
 // 원본 쇼케이스를 재현한 고정 샘플. 담당 CS는 검색 예제를 위한 가상 배정이다.
 export const commerceFixture = {

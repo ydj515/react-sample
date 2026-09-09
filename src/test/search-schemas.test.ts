@@ -1,11 +1,11 @@
 import { expect, it } from "vitest";
-import { projectSearchSchema } from "@/features/projects/model/project-search";
-import { commerceSearchSchema } from "@/features/dashboard/model/order-search";
+import { projectSearchSchema } from "@/features/projects/model";
+import { commerceSearchSchema } from "@/features/dashboard/model";
 import {
   eventSearchSchema,
   agencySearchSchema,
-} from "@/features/landing/model/search";
-import { docsSearchSchema } from "@/features/docs/model/search";
+} from "@/features/landing/model";
+import { docsSearchSchema } from "@/features/docs/model";
 
 it("잘못된 URL 조건을 기본값으로 복구한다", () => {
   expect(

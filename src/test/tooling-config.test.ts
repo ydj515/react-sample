@@ -151,3 +151,74 @@ describe("colocated import paths", () => {
     expect(result?.output ?? input + "\n").toBe(expected + "\n");
   });
 });
+
+describe("feature public APIs", () => {
+  it.each([
+    'import { orderSchema } from "@/features/orders/model/order-schema";',
+    'export { orderSchema } from "@/features/orders/model/order-schema";',
+    'void import("@/features/orders/model/order-schema");',
+    'require("@/features/orders/model/order-schema");',
+    'export type Other = import("@/features/orders/model/order-schema").Order;',
+    'import Other = require("@/features/orders/model/order-schema");',
+  ])("rejects cross-feature implementation access: %s", async (source) => {
+    const [result] = await eslint.lintText(source + "\n", {
+      filePath: `${repositoryRoot}/src/features/dashboard/model/public-api-check.ts`,
+    });
+    expect(result.messages).toEqual(
+      expect.arrayContaining([
+        expect.objectContaining({ ruleId: "architecture/feature-public-api" }),
+      ]),
+    );
+  });
+  it.each([
+    [
+      "src/features/dashboard/model/check.ts",
+      'import { orderSchema } from "@/features/orders/model";',
+    ],
+    [
+      "src/routes/check.tsx",
+      'import { OrdersPage } from "@/features/orders/pages/orders";',
+    ],
+    [
+      "src/features/orders/components/check.tsx",
+      'import { orderSchema } from "@/features/orders/model/order-schema";',
+    ],
+  ])(
+    "allows public consumption or internal implementation imports from %s",
+    async (filePath, source) => {
+      const [result] = await eslint.lintText(source + "\n", {
+        filePath: `${repositoryRoot}/${filePath}`,
+      });
+      expect(
+        result.messages.filter(
+          (message) => message.ruleId === "architecture/feature-public-api",
+        ),
+      ).toEqual([]);
+    },
+  );
+  it.each([
+    [
+      "src/features/dashboard/model/check.ts",
+      'import { OrdersPage } from "@/features/orders/pages/orders";',
+    ],
+    [
+      "src/features/orders/components/check.tsx",
+      'import { orderSchema } from "@/features/orders/model";',
+    ],
+    ["src/features/orders/model/index.ts", 'export * from "./order-schema";'],
+  ])(
+    "rejects UI access from data, self-barrels and implicit exports from %s",
+    async (filePath, source) => {
+      const [result] = await eslint.lintText(source + "\n", {
+        filePath: `${repositoryRoot}/${filePath}`,
+      });
+      expect(result.messages).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            ruleId: "architecture/feature-public-api",
+          }),
+        ]),
+      );
+    },
+  );
+});

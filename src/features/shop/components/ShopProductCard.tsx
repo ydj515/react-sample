@@ -1,7 +1,7 @@
 import { Link } from "@tanstack/react-router";
 import { Heart, Star } from "lucide-react";
-import { ProductImage } from "@/features/products/components/ProductImage";
-import type { Product } from "@/features/products/model/product-schema";
+import { ProductImage } from "@/features/products/components";
+import type { Product } from "@/features/products/model";
 import { Button } from "@/shared/ui/button";
 import { Badge } from "@/shared/ui/badge";
 import {

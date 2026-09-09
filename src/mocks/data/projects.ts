@@ -1,4 +1,4 @@
-import type { Project } from "@/features/projects/model/project-types";
+import type { Project } from "@/features/projects/model";
 
 export const projectsFixture: Project[] = [
   {

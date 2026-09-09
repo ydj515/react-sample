@@ -119,9 +119,27 @@ HTTP 실패는 `ApiError(status, code, message, path, traceId)`로 정규화합�
 주문 변경 시 종합 대시보드 query도 갱신합니다. 흐름과 mock 범위는
 [관리 화면 예제](./management-examples.md)를 참고하세요.
 
-최소 의존 방향은 ESLint `no-restricted-imports`로 검증합니다. feature 간
-전면 격리는 현재 템플릿 범위가 아니며, 필요한 경우 public API 또는 별도
-composition 계층을 먼저 설계합니다.
+의존 방향은 ESLint `architecture/layer-boundaries`와
+`architecture/feature-public-api`로 검증합니다. 기능 간 재사용은 허용하되,
+아래의 명시적인 public API를 통해서만 접근합니다.
+
+### 기능별 Public API
+
+- 다른 기능과 routes, mocks, 통합 테스트는 `@/features/<feature>/<layer>`에서 필요한 이름을 import한다. 실제 진입점은 해당 역할 폴더의 `index.ts`다. 페이지는 `@/features/<feature>/pages/<page>`처럼 화면별 `index.ts`를 사용해 라우트 지연 로딩을 유지한다.
+- `model`은 타입·스키마·순수 함수, `queries`는 query options·공유 key, `api`는 HTTP 계약, `components`는 재사용 UI, `pages/<page>`는 해당 route 화면만 공개한다. 현재 외부 소비자가 필요한 항목만 named export하며 `export *`를 금지한다.
+- 기능 내부에서는 자체 public API를 거치지 않고 구현 파일을 직접 import한다. 같은 디렉터리는 `./`, 그 외는 `@/`를 사용한다. 이는 자신의 barrel을 통한 순환 참조를 방지한다.
+- 데이터 계층(`api`, `model`, `queries`)은 다른 기능의 public API라도 UI 계층(`components`, `pages`, `hooks`)을 참조할 수 없다.
+- 역할별 진입점을 나눠 데이터 계약의 소비가 UI 모듈까지 끌어오지 않도록 한다. 예를 들어 dashboard는 `orders/model`의 주문 계약을 사용하고, 주문 mutation은 `dashboard/queries`의 갱신 key를 사용한다.
+- 공개 목록 변경은 소비자와 함께 검토한다. 내부 파일 이름 변경은 해당 기능의 index에서 흡수하고, 계약 변경은 관련 소비자·테스트까지 갱신한다.
+- ESLint는 static import, named re-export, dynamic import, require, TypeScript import type/equals 문법에서 경계를 검사한다.
+
+```ts
+// 다른 기능에서 주문 계약 소비
+import { orderSchema, type Order } from "@/features/orders/model";
+
+// orders 내부에서는 구현 파일 직접 소비 (components 폴더 기준)
+import { orderSchema } from "@/features/orders/model/order-schema";
+```
 
 클라이언트 UI 상태는 별도 흐름을 사용합니다.
 

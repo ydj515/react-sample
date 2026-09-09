@@ -1,10 +1,10 @@
 import {
   productQueryOptions,
   productsQueryOptions,
-} from "@/features/products/queries/product-queries";
+} from "@/features/products/queries";
 import { createFileRoute } from "@tanstack/react-router";
-import { ShopDetailPage } from "@/features/shop/pages/ShopDetailPage";
-import { shopSearchSchema } from "@/features/shop/model/shop";
+import { ShopDetailPage } from "@/features/shop/pages/shop-detail";
+import { shopSearchSchema } from "@/features/shop/model";
 
 export const Route = createFileRoute("/shop/$productId")({
   loader: ({ context, params }) =>

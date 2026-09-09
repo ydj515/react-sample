@@ -1,9 +1,6 @@
-import type { ManagedUser } from "@/features/users/model/user-schema";
-import type { ManagedOrder } from "@/features/orders/model/order-schema";
-import {
-  productImages,
-  type Product,
-} from "@/features/products/model/product-schema";
+import type { ManagedUser } from "@/features/users/model";
+import type { ManagedOrder } from "@/features/orders/model";
+import { productImages, type Product } from "@/features/products/model";
 import { commerceFixture } from "./commerce";
 
 // 주문 고객과 회원을 같은 이름 목록에서 생성해 잘못된 회원 연결을 방지한다.

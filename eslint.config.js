@@ -1,3 +1,4 @@
+import { existsSync } from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 
@@ -111,7 +112,91 @@ const architecturePlugin = {
           ExportNamedDeclaration: (node) => check(node.source),
           ExportAllDeclaration: (node) => check(node.source),
           ImportExpression: (node) => check(node.source),
-          TSImportType: (node) => check(node.argument ?? node.parameter),
+          TSImportType: (node) => check(node.source),
+          TSImportEqualsDeclaration: (node) =>
+            check(node.moduleReference.expression),
+          CallExpression(node) {
+            if (
+              node.callee.type === "Identifier" &&
+              node.callee.name === "require"
+            )
+              check(node.arguments[0]);
+          },
+        };
+      },
+    },
+    "feature-public-api": {
+      meta: {
+        type: "problem",
+        schema: [],
+        messages: {
+          private:
+            "Consume another feature through its explicit layer public API (@/features/<feature>/<layer>).",
+          self: "Feature internals must import implementation modules directly, not their own public API.",
+          data: "Feature data layers cannot consume feature UI APIs or implementations.",
+          wildcard:
+            "Declare named exports in feature public APIs; do not export *.",
+        },
+      },
+      create(context) {
+        const source = path
+          .relative(sourceRoot, context.filename)
+          .split(path.sep);
+        const publicLayers = new Set([
+          "api",
+          "model",
+          "queries",
+          "hooks",
+          "components",
+          "pages",
+        ]);
+        const dataLayers = new Set(["api", "model", "queries"]);
+        const uiLayers = new Set(["hooks", "components", "pages"]);
+        const publicFile =
+          source[0] === "features" &&
+          source.length >= 4 &&
+          publicLayers.has(source[2]) &&
+          /^index\.[cm]?[jt]sx?$/.test(source.at(-1));
+        function check(node) {
+          if (typeof node?.value !== "string") return;
+          const resolved = resolveSourceImport(context.filename, node.value);
+          if (!resolved) return;
+          const target = path.relative(sourceRoot, resolved).split(path.sep);
+          if (target[0] !== "features") return;
+          const sameFeature =
+            source[0] === "features" && source[1] === target[1];
+          const explicitIndex = /^index(?:\.[cm]?[jt]sx?)?$/.test(
+            target.at(-1),
+          );
+          const entryDirectory = explicitIndex
+            ? path.dirname(resolved)
+            : resolved;
+          const publicEntry =
+            publicLayers.has(target[2]) &&
+            (target[2] === "pages"
+              ? target.length >= 4 &&
+                existsSync(path.join(entryDirectory, "index.ts"))
+              : target.length === 3 || (target.length === 4 && explicitIndex));
+          let messageId;
+          if (
+            source[0] === "features" &&
+            dataLayers.has(source[2]) &&
+            uiLayers.has(target[2])
+          )
+            messageId = "data";
+          else if (sameFeature && publicEntry) messageId = "self";
+          else if (!sameFeature && !publicEntry) messageId = "private";
+          if (messageId) context.report({ node, messageId });
+        }
+        return {
+          ImportDeclaration: (node) => check(node.source),
+          ExportNamedDeclaration: (node) => check(node.source),
+          ExportAllDeclaration(node) {
+            if (publicFile) context.report({ node, messageId: "wildcard" });
+            check(node.source);
+          },
+          ImportExpression: (node) => check(node.source),
+          TSImportType: (node) => check(node.source),
           TSImportEqualsDeclaration: (node) =>
             check(node.moduleReference.expression),
           CallExpression(node) {
@@ -234,7 +319,10 @@ export default tseslint.config(
   },
   {
     files: ["src/**/*.{ts,tsx}", ".storybook/**/*.{ts,tsx}"],
-    rules: { "architecture/colocated-imports": "error" },
+    rules: {
+      "architecture/colocated-imports": "error",
+      "architecture/feature-public-api": "error",
+    },
   },
   js.configs.recommended,
   ...tseslint.configs.recommended,

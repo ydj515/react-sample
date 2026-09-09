@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { Link } from "@tanstack/react-router";
-import type { Product } from "@/features/products/model/product-schema";
+import type { Product } from "@/features/products/model";
 import { useShopStore } from "@/stores/shop-store";
 import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";

@@ -3,12 +3,9 @@ import { useState } from "react";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useNavigate, useSearch } from "@tanstack/react-router";
 import { ArrowDown, SlidersHorizontal, X } from "lucide-react";
-import { productsQueryOptions } from "@/features/products/queries/product-queries";
-import { ProductImage } from "@/features/products/components/ProductImage";
-import {
-  productCategories,
-  productImages,
-} from "@/features/products/model/product-schema";
+import { productsQueryOptions } from "@/features/products/queries";
+import { ProductImage } from "@/features/products/components";
+import { productCategories, productImages } from "@/features/products/model";
 import { useShopStore } from "@/stores/shop-store";
 import { Button } from "@/shared/ui/button";
 import { SearchInput } from "@/shared/ui/search-input";

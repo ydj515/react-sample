@@ -9,11 +9,11 @@ import {
 import { QueryClientProvider } from "@tanstack/react-query";
 import { render } from "@testing-library/react";
 import { createTestQueryClient } from "@/shared/lib/test/test-query-client";
-import { ShopLayout } from "@/features/shop/components/ShopLayout";
-import { ShopPage } from "@/features/shop/pages/ShopPage";
-import { ShopDetailPage } from "@/features/shop/pages/ShopDetailPage";
-import { CartPage } from "@/features/shop/pages/CartPage";
-import { shopSearchSchema } from "@/features/shop/model/shop";
+import { ShopLayout } from "@/features/shop/components";
+import { ShopPage } from "@/features/shop/pages/shop";
+import { ShopDetailPage } from "@/features/shop/pages/shop-detail";
+import { CartPage } from "@/features/shop/pages/cart";
+import { shopSearchSchema } from "@/features/shop/model";
 
 export function renderShop(path = "/shop") {
   const root = createRootRoute();

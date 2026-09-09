@@ -1,7 +1,7 @@
 import { z } from "zod";
 
-import { projectStatuses } from "@/features/projects/model/project-types";
-import { projectSchema } from "@/features/projects/model/project-schema";
+import { projectStatuses } from "@/features/projects/model";
+import { projectSchema } from "@/features/projects/model";
 
 const taskSchema = z
   .object({

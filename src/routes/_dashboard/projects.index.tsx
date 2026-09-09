@@ -1,9 +1,9 @@
-import { projectsQueryOptions } from "@/features/projects/queries/project-queries";
+import { projectsQueryOptions } from "@/features/projects/queries";
 import { validateSearch } from "@/shared/lib/validate-search";
-import { projectSearchSchema } from "@/features/projects/model/project-search";
+import { projectSearchSchema } from "@/features/projects/model";
 import { createFileRoute } from "@tanstack/react-router";
 
-import { ProjectsPage } from "@/features/projects/pages/ProjectsPage";
+import { ProjectsPage } from "@/features/projects/pages/projects";
 
 export const Route = createFileRoute("/_dashboard/projects/")({
   loader: ({ context }) =>

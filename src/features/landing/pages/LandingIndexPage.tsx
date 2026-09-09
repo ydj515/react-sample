@@ -1,7 +1,7 @@
 import { landingImages } from "@/features/landing/model/images";
 import { Link } from "@tanstack/react-router";
 import { ArrowUpRight, LayoutTemplate } from "lucide-react";
-import { shopSearchSchema } from "@/features/shop/model/shop";
+import { shopSearchSchema } from "@/features/shop/model";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { LandingPage } from "@/features/landing/components/LandingPage";
 import { LandingContainer } from "@/features/landing/components/LandingContainer";

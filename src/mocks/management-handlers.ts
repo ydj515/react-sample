@@ -5,14 +5,14 @@ import {
   roleLabels,
   userStatusLabels,
   permissionLabels,
-} from "@/features/users/model/user-schema";
+} from "@/features/users/model";
 import {
   orderNoteInputSchema,
   orderStatusInputSchema,
   orderTransitions,
   orderShippingSchema,
-} from "@/features/orders/model/order-schema";
-import { productInputSchema } from "@/features/products/model/product-schema";
+} from "@/features/orders/model";
+import { productInputSchema } from "@/features/products/model";
 import { createMockApiError } from "./api-error";
 import { managementData as data } from "@/mocks/data/management";
 

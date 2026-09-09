@@ -3,7 +3,7 @@ import type {
   Order,
   OrderShipping,
 } from "@/features/orders/model/order-schema";
-import { commerceKeys } from "@/features/dashboard/queries/commerce-queries";
+import { commerceKeys } from "@/features/dashboard/queries";
 import {
   queryOptions,
   useMutation,

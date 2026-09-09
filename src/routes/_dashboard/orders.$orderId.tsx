@@ -1,10 +1,10 @@
 import {
   orderQueryOptions,
   ordersQueryOptions,
-} from "@/features/orders/queries/order-queries";
+} from "@/features/orders/queries";
 import { createFileRoute } from "@tanstack/react-router";
-import { OrderDetailPage } from "@/features/orders/pages/OrderDetailPage";
-import { ordersSearchSchema } from "@/features/orders/model/order-schema";
+import { OrderDetailPage } from "@/features/orders/pages/order-detail";
+import { ordersSearchSchema } from "@/features/orders/model";
 
 export const Route = createFileRoute("/_dashboard/orders/$orderId")({
   loader: ({ context, params }) =>

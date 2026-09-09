@@ -9,19 +9,19 @@ import {
 } from "@tanstack/react-router";
 import { render } from "@testing-library/react";
 import { createTestQueryClient } from "@/shared/lib/test/test-query-client";
-import { UsersPage } from "@/features/users/pages/UsersPage";
-import { UserDetailPage } from "@/features/users/pages/UserDetailPage";
+import { UsersPage } from "@/features/users/pages/users";
+import { UserDetailPage } from "@/features/users/pages/user-detail";
 import {
   usersSearchSchema,
   userDetailSearchSchema,
-} from "@/features/users/model/user-schema";
-import { OrdersPage } from "@/features/orders/pages/OrdersPage";
-import { OrderDetailPage } from "@/features/orders/pages/OrderDetailPage";
-import { ordersSearchSchema } from "@/features/orders/model/order-schema";
-import { ProductsPage } from "@/features/products/pages/ProductsPage";
-import { ProductDetailPage } from "@/features/products/pages/ProductDetailPage";
-import { ProductEditorPage } from "@/features/products/pages/ProductEditorPage";
-import { productsSearchSchema } from "@/features/products/model/product-schema";
+} from "@/features/users/model";
+import { OrdersPage } from "@/features/orders/pages/orders";
+import { OrderDetailPage } from "@/features/orders/pages/order-detail";
+import { ordersSearchSchema } from "@/features/orders/model";
+import { ProductsPage } from "@/features/products/pages/products";
+import { ProductDetailPage } from "@/features/products/pages/product-detail";
+import { ProductEditorPage } from "@/features/products/pages/product-editor";
+import { productsSearchSchema } from "@/features/products/model";
 
 export function renderManagement(initial: string) {
   const root = createRootRoute();

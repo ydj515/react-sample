@@ -4,7 +4,7 @@ import { useState } from "react";
 import { useForm } from "react-hook-form";
 import { z } from "zod";
 
-import { signInRequest } from "@/features/auth/api/auth-api";
+import { signInRequest } from "@/features/auth/api";
 import { AuthLayout } from "@/layouts/AuthLayout";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";

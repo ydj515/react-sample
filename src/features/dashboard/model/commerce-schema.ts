@@ -1,9 +1,9 @@
 import { z } from "zod";
 
-import { orderSchema } from "@/features/orders/model/order-schema";
+import { orderSchema } from "@/features/orders/model";
 
-export { orderStatuses } from "@/features/orders/model/order-schema";
-export type { Order } from "@/features/orders/model/order-schema";
+export { orderStatuses } from "@/features/orders/model";
+export type { Order } from "@/features/orders/model";
 
 export const commerceSchema = z.object({
   asOf: z.iso.date(),

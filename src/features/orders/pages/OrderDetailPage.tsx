@@ -20,9 +20,9 @@ import {
   OrderStatusForm,
 } from "@/features/orders/components/OrderActions";
 import { OrderShippingForm } from "@/features/orders/components/OrderShippingForm";
-import { ProductImage } from "@/features/products/components/ProductImage";
-import { productsSearchSchema } from "@/features/products/model/product-schema";
-import { userDetailSearchSchema } from "@/features/users/model/user-schema";
+import { ProductImage } from "@/features/products/components";
+import { productsSearchSchema } from "@/features/products/model";
+import { userDetailSearchSchema } from "@/features/users/model";
 import { Card } from "@/shared/ui/card";
 import { PageHeader } from "@/shared/ui/page-header";
 import { Badge } from "@/shared/ui/badge";

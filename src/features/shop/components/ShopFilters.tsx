@@ -1,4 +1,4 @@
-import { productCategories } from "@/features/products/model/product-schema";
+import { productCategories } from "@/features/products/model";
 import { Button } from "@/shared/ui/button";
 import { Select } from "@/shared/ui/select";
 import { FilterField } from "@/shared/ui/filter-bar";

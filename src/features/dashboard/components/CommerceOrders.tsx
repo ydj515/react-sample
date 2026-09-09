@@ -1,11 +1,11 @@
 import { Link } from "@tanstack/react-router";
-import { ordersSearchSchema } from "@/features/orders/model/order-schema";
+import { ordersSearchSchema } from "@/features/orders/model";
 import type { Order } from "@/features/dashboard/model/commerce-schema";
 import { formatWon } from "@/features/dashboard/model/commerce-utils";
 
 import { CollectionTable } from "@/shared/ui/collection-table";
 import { EmptyState } from "@/shared/ui/empty-state";
-import { OrderStatusBadge } from "@/features/orders/components/OrderStatusBadge";
+import { OrderStatusBadge } from "@/features/orders/components";
 
 export function CommerceOrders({
   orders,

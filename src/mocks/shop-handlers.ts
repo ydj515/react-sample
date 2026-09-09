@@ -1,5 +1,5 @@
 import { http, HttpResponse } from "msw";
-import { checkoutSchema, resolveCart } from "@/features/shop/model/shop";
+import { checkoutSchema, resolveCart } from "@/features/shop/model";
 import { managementData } from "@/mocks/data/management";
 import { createMockApiError } from "./api-error";
 

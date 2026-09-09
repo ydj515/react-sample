@@ -7,8 +7,8 @@ import {
   updateOrderStatus,
   addOrderNote,
 } from "./order-api";
-import { getUsers } from "@/features/users/api/user-api";
-import { getCommerceDashboard } from "@/features/dashboard/api/commerce-api";
+import { getUsers } from "@/features/users/api";
+import { getCommerceDashboard } from "@/features/dashboard/api";
 
 describe("order management API", () => {
   it("상태 전환을 처리 이력과 대시보드에 함께 반영한다", async () => {

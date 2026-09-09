@@ -3,7 +3,7 @@ import { Link } from "@tanstack/react-router";
 import type { DashboardModel } from "@/features/dashboard/model/dashboard-utils";
 import { BarList, ChartPanel } from "./DashboardCharts";
 import { ProjectTimeline } from "./ProjectTimeline";
-import { ProjectStatusBadge } from "@/features/projects/components/ProjectStatusBadge";
+import { ProjectStatusBadge } from "@/features/projects/components";
 
 export function OperationsPanels({ model }: { model: DashboardModel }) {
   return (

@@ -1,4 +1,4 @@
-import { docsSearchSchema } from "@/features/docs/model/search";
+import { docsSearchSchema } from "@/features/docs/model";
 import { createFileRoute, redirect } from "@tanstack/react-router";
 
 export const Route = createFileRoute("/docs/")({

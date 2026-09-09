@@ -1,7 +1,7 @@
-import { usersQueryOptions } from "@/features/users/queries/user-queries";
+import { usersQueryOptions } from "@/features/users/queries";
 import { createFileRoute } from "@tanstack/react-router";
-import { UsersPage } from "@/features/users/pages/UsersPage";
-import { usersSearchSchema } from "@/features/users/model/user-schema";
+import { UsersPage } from "@/features/users/pages/users";
+import { usersSearchSchema } from "@/features/users/model";
 
 export const Route = createFileRoute("/_dashboard/users/")({
   loader: ({ context }) =>

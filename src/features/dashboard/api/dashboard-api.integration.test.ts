@@ -3,10 +3,7 @@ import { describe, expect, it } from "vitest";
 
 import { getDashboard } from "./dashboard-api";
 import { dashboardSchema } from "@/features/dashboard/model/dashboard-schema";
-import {
-  createProject,
-  updateProjectStatus,
-} from "@/features/projects/api/project-api";
+import { createProject, updateProjectStatus } from "@/features/projects/api";
 import { server } from "@/mocks/server";
 
 describe("dashboard API", () => {

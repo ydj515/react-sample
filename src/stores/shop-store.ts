@@ -5,7 +5,7 @@ import {
   cartEntrySchema,
   cartKey,
   type CartEntry,
-} from "@/features/shop/model/shop";
+} from "@/features/shop/model";
 
 const savedSchema = z.object({
   items: z

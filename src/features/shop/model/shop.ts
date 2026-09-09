@@ -1,8 +1,5 @@
 import { z } from "zod";
-import {
-  productCategories,
-  type Product,
-} from "@/features/products/model/product-schema";
+import { productCategories, type Product } from "@/features/products/model";
 import { matchesSearch, paginate } from "@/shared/lib/list-search";
 
 export const shopSearchSchema = z.object({

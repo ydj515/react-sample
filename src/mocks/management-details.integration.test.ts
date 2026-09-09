@@ -1,8 +1,8 @@
 import { z } from "zod";
 import { describe, it, expect } from "vitest";
 import { apiRequest } from "@/shared/api/http-client";
-import { getUser } from "@/features/users/api/user-api";
-import { getOrder } from "@/features/orders/api/order-api";
+import { getUser } from "@/features/users/api";
+import { getOrder } from "@/features/orders/api";
 
 describe("management detail editing", () => {
   it("회원 정보 편집을 저장하고 활동 이력을 남긴다", async () => {

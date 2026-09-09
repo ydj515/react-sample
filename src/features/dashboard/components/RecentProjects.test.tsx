@@ -2,7 +2,7 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 
 import { RecentProjects } from "./RecentProjects";
-import type { Project } from "@/features/projects/model/project-types";
+import type { Project } from "@/features/projects/model";
 
 const projects: Project[] = [
   {
