@@ -3,6 +3,7 @@ import { Check } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import { InquiryDialog } from "../../components/InquiryDialog";
 import { getPlanPrice, type BillingCycle } from "../../model/landing";
+
 export function SaasPricing() {
   const [cycle, setCycle] = useState<BillingCycle>("monthly");
   return (

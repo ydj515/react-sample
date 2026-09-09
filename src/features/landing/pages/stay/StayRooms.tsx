@@ -3,6 +3,7 @@ import { useState } from "react";
 import { ArrowUpRight } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import { rooms } from "../../model/experience";
+
 export function StayRooms() {
   const [room, setRoom] = useState<keyof typeof rooms>("forest");
   const selected = rooms[room];

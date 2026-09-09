@@ -9,6 +9,7 @@ import { LandingMenu } from "../../components/LandingMenu";
 import { InquiryDialog } from "../../components/InquiryDialog";
 import { EventSchedule } from "./EventSchedule";
 import "../experience.css";
+
 const links = [
   { href: "#about", label: "컨퍼런스" },
   { href: "#schedule", label: "프로그램" },

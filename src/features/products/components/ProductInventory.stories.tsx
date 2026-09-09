@@ -3,6 +3,7 @@ import { useState } from "react";
 import { fn } from "storybook/test";
 import { managementFixture } from "@/mocks/data/management";
 import { ProductInventory } from "./ProductInventory";
+
 const meta = {
   title: "Features/Products/Inventory",
   component: ProductInventory,

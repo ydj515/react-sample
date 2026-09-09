@@ -4,6 +4,7 @@ import { Button } from "@/shared/ui/button";
 import { Select } from "@/shared/ui/select";
 import { InquiryDialog } from "../../components/InquiryDialog";
 import { productBundles, getProductTotal } from "../../model/experience";
+
 export function ProductConfigurator() {
   const [bundle, setBundle] = useState<keyof typeof productBundles>("solo");
   const [quantity, setQuantity] = useState(1);

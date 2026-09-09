@@ -7,6 +7,7 @@ import { LandingPage } from "../../components/LandingPage";
 import { LandingMenu } from "../../components/LandingMenu";
 import { InquiryForm } from "../../components/InquiryForm";
 import { AgencyWork } from "./AgencyWork";
+
 const items = [
   { href: "#work", label: "작업" },
   { href: "#approach", label: "방식" },

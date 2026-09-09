@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { managementFixture } from "@/mocks/data/management";
 import { selectProducts } from "./product-utils";
 import { productInputSchema, productsSearchSchema } from "./product-schema";
+
 describe("product filters and input", () => {
   it("품절과 재고 부족을 구분하고 태그도 검색한다", () => {
     const products = managementFixture.products;

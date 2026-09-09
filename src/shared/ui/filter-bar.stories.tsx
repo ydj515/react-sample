@@ -3,6 +3,7 @@ import { FilterBar, FilterField } from "./filter-bar";
 import { SearchInput } from "./search-input";
 import { Select } from "./select";
 import { Button } from "./button";
+
 const meta = {
   title: "Shared/UI/FilterBar",
   component: FilterBar,

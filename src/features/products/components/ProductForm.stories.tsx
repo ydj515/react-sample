@@ -7,6 +7,7 @@ import {
 } from "@/mocks/storybook/with-management-api";
 import { managementFixture } from "@/mocks/data/management";
 import { ProductForm } from "./ProductForm";
+
 const meta = {
   title: "Features/Products/Form",
   component: ProductForm,

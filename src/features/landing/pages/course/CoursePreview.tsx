@@ -8,6 +8,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/shared/ui/dialog";
+
 export function CoursePreview() {
   return (
     <Dialog>

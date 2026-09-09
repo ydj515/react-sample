@@ -103,3 +103,26 @@ describe("tooling configuration", () => {
     ).toEqual([]);
   });
 });
+
+describe("import block spacing", () => {
+  it.each(["\n", "\n\n\n", " "])("fixes separator %j", async (separator) => {
+    const fixer = new ESLint({ cwd: repositoryRoot, fix: true });
+    const [result] = await fixer.lintText(
+      `import "./local";${separator}export const value = 1;\n`,
+      { filePath: `${repositoryRoot}/src/example.ts` },
+    );
+    expect(result?.output).toBe(
+      'import "./local";\n\nexport const value = 1;\n',
+    );
+  });
+  it("preserves import groups and trailing comments", async () => {
+    const fixer = new ESLint({ cwd: repositoryRoot, fix: true });
+    const [result] = await fixer.lintText(
+      'import "./a";\nimport "./b"; // reason\n// declaration\nexport const value = 1;\n',
+      { filePath: `${repositoryRoot}/src/example.ts` },
+    );
+    expect(result?.output).toBe(
+      'import "./a";\nimport "./b"; // reason\n\n// declaration\nexport const value = 1;\n',
+    );
+  });
+});

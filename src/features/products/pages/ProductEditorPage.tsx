@@ -6,6 +6,7 @@ import { ProductForm } from "../components/ProductForm";
 import { Button } from "@/shared/ui/button";
 import { PageHeader } from "@/shared/ui/page-header";
 import { QueryFeedback } from "@/shared/ui/query-feedback";
+
 export function ProductEditorPage({
   productId,
   detail = false,

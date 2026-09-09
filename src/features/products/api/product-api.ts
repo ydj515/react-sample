@@ -3,6 +3,7 @@ import {
   type ProductInput,
 } from "@/features/products/model/product-schema";
 import { apiRequest } from "@/shared/api/http-client";
+
 const headers = { "Content-Type": "application/json" };
 export function getProducts() {
   return apiRequest("/api/products", { schema: productSchema.array() });

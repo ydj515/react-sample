@@ -16,6 +16,7 @@ import { LandingMenu } from "../../components/LandingMenu";
 import { LandingFaq } from "../../components/LandingFaq";
 import { InquiryDialog } from "../../components/InquiryDialog";
 import { CoursePreview } from "./CoursePreview";
+
 const items = [
   { href: "#learn", label: "학습 내용" },
   { href: "#curriculum", label: "커리큘럼" },

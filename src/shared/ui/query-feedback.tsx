@@ -1,6 +1,7 @@
 import { Button } from "./button";
 import { Card } from "./card";
 import { Skeleton } from "./skeleton";
+
 export function QueryFeedback({
   pending,
   error,

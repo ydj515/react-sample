@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, it } from "vitest";
 import { InquiryForm } from "./InquiryForm";
+
 it("필수 입력을 검증하고 입력 내용의 외부 전송 없이 데모 결과를 표시한다", async () => {
   const user = userEvent.setup();
   render(<InquiryForm context="브랜딩 프로젝트" />);

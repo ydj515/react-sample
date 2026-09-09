@@ -25,6 +25,59 @@ function resolveSourceImport(filename, specifier) {
 
 const architecturePlugin = {
   rules: {
+    "import-block-spacing": {
+      meta: {
+        type: "layout",
+        fixable: "whitespace",
+        schema: [],
+        messages: {
+          spacing: "Use exactly one blank line after an import block.",
+        },
+      },
+      create(context) {
+        const source = context.sourceCode;
+        return {
+          Program(program) {
+            program.body.forEach((node, index) => {
+              if (
+                node.type !== "ImportDeclaration" ||
+                program.body[index + 1]?.type === "ImportDeclaration"
+              )
+                return;
+              let anchor = node;
+              let next = source.getTokenAfter(anchor, {
+                includeComments: true,
+              });
+              while (
+                next &&
+                next.loc.start.line === anchor.loc.end.line &&
+                ["Line", "Block"].includes(next.type)
+              ) {
+                anchor = next;
+                next = source.getTokenAfter(anchor, { includeComments: true });
+              }
+              if (!next || next.loc.start.line - anchor.loc.end.line === 2)
+                return;
+              context.report({
+                node,
+                messageId: "spacing",
+                fix(fixer) {
+                  return fixer.replaceTextRange(
+                    [anchor.range[1], next.range[0]],
+                    "\n\n" +
+                      " ".repeat(
+                        next.loc.start.line === anchor.loc.end.line
+                          ? 0
+                          : next.loc.start.column,
+                      ),
+                  );
+                },
+              });
+            });
+          },
+        };
+      },
+    },
     "layer-boundaries": {
       meta: {
         type: "problem",
@@ -127,7 +180,8 @@ export default tseslint.config(
     ],
   },
   {
-    files: ["src/**/*.{ts,tsx}"],
+    files: ["**/*.{js,jsx,ts,tsx}"],
+    rules: { "architecture/import-block-spacing": "error" },
     plugins: {
       architecture: architecturePlugin,
     },

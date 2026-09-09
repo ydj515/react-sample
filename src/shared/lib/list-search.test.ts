@@ -1,5 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { listSearchSchema, paginate, matchesSearch } from "./list-search";
+
 describe("list search", () => {
   it("잘못된 URL 값을 기본값으로 정규화한다", () => {
     expect(listSearchSchema.parse({ q: 3, sort: "bad", page: -1 })).toEqual({

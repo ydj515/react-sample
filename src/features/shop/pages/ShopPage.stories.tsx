@@ -6,6 +6,7 @@ import {
 } from "@/mocks/storybook/with-management-api";
 import { useShopStore } from "@/stores/shop-store";
 import { ShopPage } from "./ShopPage";
+
 const meta = {
   title: "Pages/Shop/Catalog",
   component: ShopPage,

@@ -14,6 +14,7 @@ import { ShopPage } from "@/features/shop/pages/ShopPage";
 import { ShopDetailPage } from "@/features/shop/pages/ShopDetailPage";
 import { CartPage } from "@/features/shop/pages/CartPage";
 import { shopSearchSchema } from "@/features/shop/model/shop";
+
 export function renderShop(path = "/shop") {
   const root = createRootRoute();
   const shop = createRoute({

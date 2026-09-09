@@ -2,6 +2,7 @@ import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect, it, vi } from "vitest";
 import { Pagination } from "./pagination";
+
 it("숫자 페이지 이동과 조회 범위, 현재 페이지를 표시한다", async () => {
   const onChange = vi.fn();
   const user = userEvent.setup();

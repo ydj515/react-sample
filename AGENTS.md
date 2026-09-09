@@ -40,6 +40,9 @@ Use TypeScript with 2-space indentation and Prettier formatting. Prefer `@/`
 imports for source modules. Keep route files thin and place feature behavior under
 `src/features/<feature>`.
 
+Leave exactly one blank line after an import block. ESLint checks and fixes this
+spacing; generated route and worker files remain excluded.
+
 ESLint enforces these minimum dependency directions:
 
 - `src/shared` cannot depend on application, route, page, layout, or feature code.

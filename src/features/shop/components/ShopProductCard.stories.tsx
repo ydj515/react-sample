@@ -3,6 +3,7 @@ import { fn } from "storybook/test";
 import { withRouter } from "@/shared/lib/storybook/with-router";
 import { managementFixture } from "@/mocks/data/management";
 import { ShopProductCard } from "./ShopProductCard";
+
 const meta = {
   title: "Features/Shop/ProductCard",
   component: ShopProductCard,

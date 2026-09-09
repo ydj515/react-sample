@@ -11,6 +11,7 @@ import { LandingFaq } from "../../components/LandingFaq";
 import { ProductDetails } from "./ProductDetails";
 import { ProductConfigurator } from "./ProductConfigurator";
 import "../experience.css";
+
 const links = [
   { href: "#details", label: "디테일" },
   { href: "#specs", label: "사양" },

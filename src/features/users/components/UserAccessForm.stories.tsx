@@ -8,6 +8,7 @@ import {
 } from "@/mocks/storybook/with-management-api";
 import { Card } from "@/shared/ui/card";
 import { UserAccessForm } from "./UserAccessForm";
+
 const meta = {
   title: "Features/Users/AccessForm",
   component: UserAccessForm,

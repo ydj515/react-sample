@@ -5,6 +5,7 @@ import type { Product } from "@/features/products/model/product-schema";
 import { Button } from "@/shared/ui/button";
 import { Badge } from "@/shared/ui/badge";
 import { shopMoney, shopSearchSchema, type ShopSearch } from "../model/shop";
+
 export function ShopProductCard({
   product,
   favorite,

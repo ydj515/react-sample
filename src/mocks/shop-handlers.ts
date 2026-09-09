@@ -2,6 +2,7 @@ import { http, HttpResponse } from "msw";
 import { checkoutSchema, resolveCart } from "@/features/shop/model/shop";
 import { managementData } from "./data/management";
 import { createMockApiError } from "./api-error";
+
 export const shopHandlers = [
   http.post("/api/shop/orders", async ({ request }) => {
     const parsed = checkoutSchema.safeParse(

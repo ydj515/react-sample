@@ -4,6 +4,7 @@ import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { Button } from "@/shared/ui/button";
 import { LandingContainer } from "../../components/LandingContainer";
 import { LandingMenu } from "../../components/LandingMenu";
+
 const items = [
   { href: "#features", label: "제품" },
   { href: "#workflow", label: "워크플로우" },

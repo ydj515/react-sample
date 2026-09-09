@@ -6,6 +6,7 @@ import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Select } from "@/shared/ui/select";
 import { availableStock, shopMoney } from "../model/shop";
+
 export function ProductPurchase({ product }: { product: Product }) {
   const [color, setColor] = useState(product.variants[0]?.color ?? "");
   const [size, setSize] = useState("");

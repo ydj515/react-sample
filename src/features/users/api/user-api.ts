@@ -4,6 +4,7 @@ import {
   type UserAccess,
 } from "@/features/users/model/user-schema";
 import { apiRequest } from "@/shared/api/http-client";
+
 const headers = { "Content-Type": "application/json" };
 export function getUsers() {
   return apiRequest("/api/users", { schema: userSchema.array() });

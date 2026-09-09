@@ -1,5 +1,6 @@
 import { Badge } from "@/shared/ui/badge";
 import type { Order } from "../model/order-schema";
+
 const variants = {
   완료: "success",
   배송중: "warning",

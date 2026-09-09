@@ -1,6 +1,7 @@
 import type { ReactNode } from "react";
 import { cn } from "@/shared/lib/cn";
 import { Card } from "./card";
+
 export function FilterBar({ children }: { children: ReactNode }) {
   return (
     <Card className="flex min-w-0 flex-wrap items-end gap-3 p-4">

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { CoursePreview } from "./CoursePreview";
+
 const meta = {
   title: "Features/Landing/CoursePreview",
   component: CoursePreview,

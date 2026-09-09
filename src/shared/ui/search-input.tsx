@@ -2,6 +2,7 @@ import type { ComponentProps } from "react";
 import { Search } from "lucide-react";
 import { Input } from "./input";
 import { cn } from "@/shared/lib/cn";
+
 export function SearchInput({
   className,
   ...props

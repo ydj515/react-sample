@@ -30,6 +30,7 @@ import {
 } from "../model/shop";
 import { ShopProductCard } from "../components/ShopProductCard";
 import { ShopFilters } from "../components/ShopFilters";
+
 export function ShopPage() {
   const search = shopSearchSchema.parse(useSearch({ strict: false }));
   const navigate = useNavigate();

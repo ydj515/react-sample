@@ -1,4 +1,5 @@
 import { z } from "zod";
+
 export type BillingCycle = "monthly" | "yearly";
 export function getPlanPrice(price: number, cycle: BillingCycle) {
   const monthly = cycle === "yearly" ? Math.round(price * 0.8) : price;

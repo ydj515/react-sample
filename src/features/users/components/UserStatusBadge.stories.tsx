@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { UserStatusBadge } from "./UserStatusBadge";
 import { userStatuses } from "../model/user-schema";
+
 const meta = {
   title: "Features/Users/StatusBadge",
   component: UserStatusBadge,

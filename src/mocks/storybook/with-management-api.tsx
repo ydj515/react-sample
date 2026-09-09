@@ -3,6 +3,7 @@ import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { useState, type ReactNode } from "react";
 import { worker } from "@/mocks/browser";
 import { resetManagementMockData } from "@/mocks/data/management";
+
 let started: ReturnType<typeof worker.start> | undefined;
 export async function loadManagementApi() {
   started ??= worker.start({ onUnhandledRequest: "bypass", quiet: true });

@@ -22,6 +22,7 @@ import {
 import { shopMoney, shopSearchSchema } from "../model/shop";
 import { ProductPurchase } from "../components/ProductPurchase";
 import { ShopProductCard } from "../components/ShopProductCard";
+
 export function ShopDetailPage({ productId }: { productId: string }) {
   const query = useQuery(productQueryOptions(productId));
   const catalog = useQuery(productsQueryOptions());

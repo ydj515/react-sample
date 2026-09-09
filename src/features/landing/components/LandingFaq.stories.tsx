@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { userEvent, within } from "storybook/test";
 import { LandingFaq } from "./LandingFaq";
+
 const meta = {
   title: "Features/Landing/FAQ",
   component: LandingFaq,

@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { Bookmark, Check, ArrowUpRight } from "lucide-react";
 import { Button } from "@/shared/ui/button";
+
 const sessions = [
   {
     id: "e1",

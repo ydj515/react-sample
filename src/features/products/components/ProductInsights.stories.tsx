@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { managementFixture } from "@/mocks/data/management";
 import { ProductInsights } from "./ProductInsights";
+
 const meta = {
   title: "Features/Products/Insights",
   component: ProductInsights,

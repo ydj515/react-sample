@@ -10,6 +10,7 @@ import {
   DialogDescription,
   DialogClose,
 } from "@/shared/ui/dialog";
+
 export function LandingMenu({
   items,
 }: {

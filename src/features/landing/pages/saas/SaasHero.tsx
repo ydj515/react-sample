@@ -2,6 +2,7 @@ import { Link } from "@tanstack/react-router";
 import { ArrowRight, Check, Circle, MoreHorizontal, Plus } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import { LandingContainer } from "../../components/LandingContainer";
+
 export function SaasHero() {
   return (
     <section className="from-brand-soft via-surface to-surface bg-gradient-to-b pt-16 pb-12 sm:pt-24">

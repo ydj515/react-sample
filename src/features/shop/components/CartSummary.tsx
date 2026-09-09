@@ -1,4 +1,5 @@
 import { shopMoney } from "../model/shop";
+
 export function CartSummary({
   subtotal,
   shipping,

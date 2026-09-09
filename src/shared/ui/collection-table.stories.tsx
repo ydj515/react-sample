@@ -1,5 +1,6 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { CollectionTable } from "./collection-table";
+
 const meta = {
   title: "Shared/UI/CollectionTable",
   component: CollectionTable,

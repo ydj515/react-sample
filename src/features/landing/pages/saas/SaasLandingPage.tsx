@@ -14,6 +14,7 @@ import { LandingFaq } from "../../components/LandingFaq";
 import { SaasHeader } from "./SaasHeader";
 import { SaasHero } from "./SaasHero";
 import { SaasPricing } from "./SaasPricing";
+
 export function SaasLandingPage() {
   return (
     <LandingPage title="Nexus · SaaS 랜딩">

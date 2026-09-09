@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Star } from "lucide-react";
 import type { Product } from "../model/product-schema";
 import { Card } from "@/shared/ui/card";
+
 export function ProductInsights({
   product,
   view,

@@ -6,6 +6,7 @@ import {
   resolveCart,
   cartKey,
 } from "./shop";
+
 const products = managementFixture.products;
 describe("storefront", () => {
   it("판매 중인 상품만 검색·필터·정렬한다", () => {

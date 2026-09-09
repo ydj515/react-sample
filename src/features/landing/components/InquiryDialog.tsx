@@ -9,6 +9,7 @@ import {
   DialogClose,
 } from "@/shared/ui/dialog";
 import { InquiryForm } from "./InquiryForm";
+
 export function InquiryDialog({
   label,
   context,

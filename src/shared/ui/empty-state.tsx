@@ -1,5 +1,6 @@
 import { Button } from "./button";
 import { Card } from "./card";
+
 export function EmptyState({
   title,
   onReset,

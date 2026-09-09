@@ -7,6 +7,7 @@ import {
   loadManagementApi,
 } from "@/mocks/storybook/with-management-api";
 import { UserProfileForm } from "./UserProfileForm";
+
 const meta = {
   title: "Features/Users/ProfileForm",
   component: UserProfileForm,

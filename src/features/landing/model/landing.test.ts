@@ -1,5 +1,6 @@
 import { expect, it } from "vitest";
 import { getPlanPrice, inquirySchema } from "./landing";
+
 it("연간 플랜은 월 환산 가격과 실제 연간 합계를 일치시킨다", () => {
   expect(getPlanPrice(39000, "monthly")).toEqual({
     monthly: 39000,

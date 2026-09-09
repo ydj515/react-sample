@@ -1,6 +1,7 @@
 import { beforeEach, expect, it } from "vitest";
 import { useShopStore } from "./shop-store";
 import { cartKey } from "@/features/shop/model/shop";
+
 const item = { productId: "p1", color: "white", size: "250", quantity: 1 };
 beforeEach(() => useShopStore.setState({ items: [], favorites: [] }));
 it("같은 옵션을 합치고 다른 옵션은 분리하며 수량과 삭제를 관리한다", () => {

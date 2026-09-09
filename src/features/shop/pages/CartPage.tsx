@@ -17,6 +17,7 @@ import {
 import { CartSummary } from "../components/CartSummary";
 import { CheckoutForm } from "../components/CheckoutForm";
 import { useShopOrderMutation } from "../queries/shop-queries";
+
 export function CartPage({ checkout = false }: { checkout?: boolean }) {
   const items = useShopStore((s) => s.items);
   const setQuantity = useShopStore((s) => s.quantity);

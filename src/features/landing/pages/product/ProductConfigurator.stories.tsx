@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { ProductConfigurator } from "./ProductConfigurator";
 import "../experience.css";
+
 const meta = {
   title: "Features/Landing/ProductConfigurator",
   component: ProductConfigurator,

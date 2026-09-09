@@ -1,4 +1,5 @@
 import { cn } from "@/shared/lib/cn";
+
 export function ProductImage({
   src,
   name,

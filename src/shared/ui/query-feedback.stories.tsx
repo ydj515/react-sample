@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
 import { QueryFeedback } from "./query-feedback";
+
 const meta = {
   title: "Shared/UI/QueryFeedback",
   component: QueryFeedback,

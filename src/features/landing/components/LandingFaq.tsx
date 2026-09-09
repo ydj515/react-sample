@@ -1,4 +1,5 @@
 import { Plus } from "lucide-react";
+
 export function LandingFaq({
   items,
 }: {

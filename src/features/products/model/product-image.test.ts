@@ -1,5 +1,6 @@
 import { afterEach, describe, it, expect, vi } from "vitest";
 import { readProductImage } from "./product-image";
+
 afterEach(() => vi.unstubAllGlobals());
 describe("product image upload", () => {
   it("허용 이미지 파일을 data URL로 읽는다", async () => {

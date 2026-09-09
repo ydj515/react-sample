@@ -6,6 +6,7 @@ import { Button } from "@/shared/ui/button";
 import { Input } from "@/shared/ui/input";
 import { Textarea } from "@/shared/ui/textarea";
 import { inquirySchema, type Inquiry } from "../model/landing";
+
 export function InquiryForm({ context }: { context: string }) {
   const id = useId();
   const [complete, setComplete] = useState(false);

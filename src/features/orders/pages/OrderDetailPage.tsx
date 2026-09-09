@@ -22,6 +22,7 @@ import { Card } from "@/shared/ui/card";
 import { PageHeader } from "@/shared/ui/page-header";
 import { QueryFeedback } from "@/shared/ui/query-feedback";
 import { Badge } from "@/shared/ui/badge";
+
 const money = (value: number) => `₩${value.toLocaleString("ko-KR")}`;
 export function OrderDetailPage({ orderId }: { orderId: string }) {
   const search = ordersSearchSchema.parse(useSearch({ strict: false }));

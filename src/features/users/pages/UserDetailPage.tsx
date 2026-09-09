@@ -18,6 +18,7 @@ import { Button } from "@/shared/ui/button";
 import { CollectionTable } from "@/shared/ui/collection-table";
 import { DetailTabs } from "@/shared/ui/detail-tabs";
 import { QueryFeedback } from "@/shared/ui/query-feedback";
+
 export function UserDetailPage({ userId }: { userId: string }) {
   const search = userDetailSearchSchema.parse(useSearch({ strict: false }));
   const navigate = useNavigate();

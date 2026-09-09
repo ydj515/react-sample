@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { userEvent, within } from "storybook/test";
 import { StayRooms } from "./StayRooms";
 import "../experience.css";
+
 const meta = {
   title: "Features/Landing/StayRooms",
   component: StayRooms,

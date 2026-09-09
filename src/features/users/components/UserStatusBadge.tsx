@@ -1,5 +1,6 @@
 import { Badge } from "@/shared/ui/badge";
 import { userStatusLabels, type ManagedUser } from "../model/user-schema";
+
 const variants = {
   active: "success",
   invited: "info",

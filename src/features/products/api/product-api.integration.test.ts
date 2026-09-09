@@ -8,6 +8,7 @@ import {
   updateProduct,
 } from "./product-api";
 import type { ProductInput } from "../model/product-schema";
+
 const input: ProductInput = {
   name: "Canvas Tote",
   sku: "TEST-TOTE",

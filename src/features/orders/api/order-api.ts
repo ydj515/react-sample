@@ -4,6 +4,7 @@ import {
   type OrderShipping,
 } from "@/features/orders/model/order-schema";
 import { apiRequest } from "@/shared/api/http-client";
+
 const headers = { "Content-Type": "application/json" };
 export function getOrders() {
   return apiRequest("/api/orders", { schema: managedOrderSchema.array() });

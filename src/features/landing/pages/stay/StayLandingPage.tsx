@@ -11,6 +11,7 @@ import { LandingFaq } from "../../components/LandingFaq";
 import { StayRooms } from "./StayRooms";
 import { StayPlanner } from "./StayPlanner";
 import "../experience.css";
+
 const links = [
   { href: "#story", label: "우리의 공간" },
   { href: "#rooms", label: "객실" },

@@ -8,6 +8,7 @@ import {
 } from "@/mocks/storybook/with-management-api";
 import { Card } from "@/shared/ui/card";
 import { OrderShippingForm } from "./OrderShippingForm";
+
 const shipping = managementFixture.orders.find(
   (order) => order.status === "배송중",
 )!;

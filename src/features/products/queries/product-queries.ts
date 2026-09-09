@@ -10,6 +10,7 @@ import {
   createProduct,
   updateProduct,
 } from "@/features/products/api/product-api";
+
 export const productKeys = {
   all: ["products"] as const,
   list: ["products", "list"] as const,

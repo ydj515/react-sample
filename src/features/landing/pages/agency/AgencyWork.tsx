@@ -9,6 +9,7 @@ import {
   DialogTrigger,
   DialogClose,
 } from "@/shared/ui/dialog";
+
 const projects = [
   {
     name: "Mono Finance",

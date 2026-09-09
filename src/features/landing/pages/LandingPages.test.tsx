@@ -12,6 +12,7 @@ import { LandingIndexPage } from "./LandingIndexPage";
 import { SaasLandingPage } from "./saas/SaasLandingPage";
 import { CourseLandingPage } from "./course/CourseLandingPage";
 import { AgencyLandingPage } from "./agency/AgencyLandingPage";
+
 function renderLanding(path = "/landing") {
   const root = createRootRoute();
   const routes = [

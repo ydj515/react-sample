@@ -4,6 +4,7 @@ import {
   type Product,
 } from "@/features/products/model/product-schema";
 import { matchesSearch, paginate } from "@/shared/lib/list-search";
+
 export const shopSearchSchema = z.object({
   q: z.string().catch(""),
   category: z.enum(["all", ...productCategories]).catch("all"),

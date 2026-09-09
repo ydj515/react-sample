@@ -4,6 +4,7 @@ import { server } from "@/mocks/server";
 import { managementData, managementFixture } from "@/mocks/data/management";
 import { resolveCart } from "../model/shop";
 import { createShopOrder } from "./shop-api";
+
 const product = managementFixture.products[0]!;
 const items = [
   {

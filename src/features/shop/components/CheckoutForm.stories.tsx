@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn, expect, userEvent, within } from "storybook/test";
 import { CheckoutForm } from "./CheckoutForm";
+
 const meta = {
   title: "Features/Shop/CheckoutForm",
   component: CheckoutForm,

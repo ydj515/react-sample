@@ -4,6 +4,7 @@ import { withRouter } from "@/shared/lib/storybook/with-router";
 import { managementFixture } from "@/mocks/data/management";
 import { useShopStore } from "@/stores/shop-store";
 import { ProductPurchase } from "./ProductPurchase";
+
 const meta = {
   title: "Features/Shop/ProductPurchase",
   component: ProductPurchase,

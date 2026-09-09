@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { withRouter } from "@/shared/lib/storybook/with-router";
 import { ProductLandingPage } from "./ProductLandingPage";
+
 const meta = {
   title: "Pages/Landing/Audio",
   component: ProductLandingPage,

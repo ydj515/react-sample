@@ -6,6 +6,7 @@ import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { LandingPage } from "../components/LandingPage";
 import { LandingContainer } from "../components/LandingContainer";
 import { landingSamples } from "../model/landing";
+
 export function LandingIndexPage() {
   return (
     <LandingPage title="랜딩 페이지 컬렉션">

@@ -1,5 +1,6 @@
 import { expect, it } from "vitest";
 import { createStaySchema, getStayQuote, getProductTotal } from "./experience";
+
 it("숙박 날짜의 순서, 과거 날짜, 객실 정원과 최대 14박을 검증한다", () => {
   const schema = createStaySchema("2026-09-09");
   const values = {

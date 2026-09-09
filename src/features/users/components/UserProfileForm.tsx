@@ -13,6 +13,7 @@ import { Textarea } from "@/shared/ui/textarea";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { toast } from "@/stores/toast-store";
+
 export function UserProfileForm({ user }: { user: ManagedUser }) {
   const form = useForm<UserProfile>({
     resolver: zodResolver(userProfileSchema),

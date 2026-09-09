@@ -1,6 +1,7 @@
 import type { ComponentProps } from "react";
 import { cn } from "@/shared/lib/cn";
 import { LandingContainer } from "./LandingContainer";
+
 export function LandingSection({
   className,
   children,

@@ -1,6 +1,7 @@
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { withRouter } from "@/shared/lib/storybook/with-router";
 import { AgencyLandingPage } from "./AgencyLandingPage";
+
 const meta = {
   title: "Pages/Landing/Agency",
   component: AgencyLandingPage,

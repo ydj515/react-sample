@@ -1,4 +1,5 @@
 import { cn } from "@/shared/lib/cn";
+
 export function DetailTabs<T extends string>({
   tabs,
   value,

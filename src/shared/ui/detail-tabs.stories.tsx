@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { fn } from "storybook/test";
 import { DetailTabs } from "./detail-tabs";
+
 const meta = {
   title: "Shared/UI/DetailTabs",
   component: DetailTabs,

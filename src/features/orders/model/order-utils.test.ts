@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { managementFixture } from "@/mocks/data/management";
 import { selectOrders } from "./order-utils";
 import { ordersSearchSchema } from "./order-schema";
+
 describe("order filters", () => {
   it("주문 번호와 상태를 조합하고 페이지 범위를 맞춘다", () => {
     const result = selectOrders(

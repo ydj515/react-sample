@@ -6,6 +6,7 @@ import { server } from "@/mocks/server";
 import { managementFixture } from "@/mocks/data/management";
 import { renderShop } from "@/test/render-shop";
 import { useShopStore } from "@/stores/shop-store";
+
 const first = managementFixture.products[0]!;
 const line = {
   productId: first.id,

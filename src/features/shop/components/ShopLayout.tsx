@@ -4,6 +4,7 @@ import { ShoppingBag, Heart, ArrowUpRight } from "lucide-react";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { useShopStore } from "@/stores/shop-store";
 import { shopSearchSchema } from "../model/shop";
+
 export function ShopLayout() {
   useEffect(() => {
     const previous = document.title;

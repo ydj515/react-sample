@@ -12,6 +12,7 @@ import {
   rooms,
   type StayValues,
 } from "../../model/experience";
+
 export function StayPlanner() {
   const id = useId();
   const [quote, setQuote] = useState<{

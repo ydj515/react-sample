@@ -2,6 +2,7 @@ import { landingImages } from "../../model/images";
 import { useState } from "react";
 import { SlidersHorizontal, AudioLines, Feather } from "lucide-react";
 import { Button } from "@/shared/ui/button";
+
 const details = [
   {
     name: "디자인",

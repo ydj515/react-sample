@@ -11,6 +11,7 @@ import { expect, it } from "vitest";
 import { EventLandingPage } from "./event/EventLandingPage";
 import { StayLandingPage } from "./stay/StayLandingPage";
 import { ProductLandingPage } from "./product/ProductLandingPage";
+
 function renderExperience(path: string) {
   const root = createRootRoute();
   const routes = [

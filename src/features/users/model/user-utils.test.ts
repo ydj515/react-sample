@@ -2,6 +2,7 @@ import { describe, it, expect } from "vitest";
 import { managementFixture } from "@/mocks/data/management";
 import { selectUsers } from "./user-utils";
 import { usersSearchSchema } from "./user-schema";
+
 describe("user filters", () => {
   it("역할과 상태를 동시에 적용한다", () => {
     const result = selectUsers(

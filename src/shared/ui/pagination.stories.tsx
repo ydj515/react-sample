@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useState } from "react";
 import { fn } from "storybook/test";
 import { Pagination } from "./pagination";
+
 const meta = {
   title: "Shared/UI/Pagination",
   component: Pagination,

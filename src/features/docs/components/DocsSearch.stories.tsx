@@ -2,6 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { withRouter } from "@/shared/lib/storybook/with-router";
 import { DocsSearch } from "./DocsSearch";
+
 const meta = {
   title: "Features/Docs/Search",
   component: DocsSearch,
