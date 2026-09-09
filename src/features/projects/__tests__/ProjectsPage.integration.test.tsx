@@ -1,31 +1,18 @@
+import { TestRouter } from "@/shared/lib/test/TestRouter";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import type { ReactNode } from "react";
-import { describe, expect, it, vi } from "vitest";
+import { describe, expect, it } from "vitest";
 
 import { ProjectsPage } from "@/features/projects/pages/ProjectsPage";
 import { renderWithProviders } from "@/shared/lib/test/render-with-providers";
 
-vi.mock("@tanstack/react-router", () => ({
-  Link: ({
-    children,
-    params,
-    to,
-    ...props
-  }: {
-    children: ReactNode;
-    params?: { projectId?: string };
-    to: string;
-  }) => (
-    <a href={to.replace("$projectId", params?.projectId ?? "")} {...props}>
-      {children}
-    </a>
-  ),
-}));
-
 describe("ProjectsPage", () => {
   it("프로젝트 목록을 가져와 렌더링한다", async () => {
-    renderWithProviders(<ProjectsPage />);
+    renderWithProviders(
+      <TestRouter>
+        <ProjectsPage />
+      </TestRouter>,
+    );
 
     expect(await screen.findByText("Design System")).toBeInTheDocument();
     expect(screen.getByText("Dashboard Refresh")).toBeInTheDocument();
@@ -33,7 +20,11 @@ describe("ProjectsPage", () => {
 
   it("공통 빈 상태와 페이지 표시에서 필터를 초기화한다", async () => {
     const user = userEvent.setup();
-    renderWithProviders(<ProjectsPage />);
+    renderWithProviders(
+      <TestRouter>
+        <ProjectsPage />
+      </TestRouter>,
+    );
     await screen.findByText("Design System");
     await user.type(screen.getByLabelText("검색"), "없는 프로젝트");
     expect(screen.getByRole("status")).toHaveTextContent(
@@ -48,7 +39,11 @@ describe("ProjectsPage", () => {
   it("사용자 입력으로 프로젝트를 생성하고 목록에 반영한다", async () => {
     const user = userEvent.setup();
 
-    renderWithProviders(<ProjectsPage />);
+    renderWithProviders(
+      <TestRouter>
+        <ProjectsPage />
+      </TestRouter>,
+    );
     await screen.findByText("Design System");
 
     await user.click(screen.getByRole("button", { name: "프로젝트 생성" }));

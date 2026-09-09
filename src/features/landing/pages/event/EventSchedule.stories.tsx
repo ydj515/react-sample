@@ -1,3 +1,4 @@
+import { withRouter } from "@/shared/lib/storybook/with-router";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { EventSchedule } from "./EventSchedule";
@@ -7,6 +8,7 @@ const meta = {
   title: "Features/Landing/EventSchedule",
   component: EventSchedule,
   decorators: [
+    withRouter,
     (Story) => (
       <div className="landing-event max-w-5xl p-5">
         <Story />

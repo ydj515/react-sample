@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useUrlSearch } from "@/shared/lib/use-url-search";
+import { agencySearchSchema } from "@/features/landing/model/search";
 import { ArrowUpRight, X } from "lucide-react";
 import { Button } from "@/shared/ui/button";
 import {
@@ -66,7 +67,9 @@ const projects = [
   },
 ];
 export function AgencyWork() {
-  const [category, setCategory] = useState("전체");
+  const [search, change] = useUrlSearch(agencySearchSchema);
+  const category = search.category;
+  const setCategory = (value: typeof category) => change({ category: value });
   const visible = projects.filter(
     (project) => category === "전체" || project.category === category,
   );
@@ -77,7 +80,7 @@ export function AgencyWork() {
         role="group"
         aria-label="작업 분야"
       >
-        {["전체", "프로덕트", "브랜딩", "웹사이트"].map((item) => (
+        {(["전체", "프로덕트", "브랜딩", "웹사이트"] as const).map((item) => (
           <Button
             key={item}
             variant={category === item ? "primary" : "secondary"}

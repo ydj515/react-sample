@@ -7,7 +7,7 @@ test("문서는 공개 경로에서 검색, 섹션 링크와 이전·다음 탐�
 }) => {
   await context.grantPermissions(["clipboard-read", "clipboard-write"]);
   await page.goto("/docs");
-  await expect(page).toHaveURL(/\/docs\/getting-started$/);
+  await expect(page).toHaveURL(/\/docs\/getting-started(?:\?q=)?$/);
   await expect(page).toHaveTitle("React Sample 시작하기 | React Sample Docs");
   await expect(
     page.getByRole("heading", { name: "React Sample 시작하기" }),
@@ -22,7 +22,7 @@ test("문서는 공개 경로에서 검색, 섹션 링크와 이전·다음 탐�
     .getByRole("list", { name: "문서 검색 결과" })
     .getByRole("link", { name: /컴포넌트 설계 가이드/ })
     .click();
-  await expect(page).toHaveURL(/\/docs\/components#accessibility$/);
+  await expect(page).toHaveURL(/\/docs\/components(?:\?q=)?#accessibility$/);
   await expect(
     page.getByRole("heading", { name: "키보드와 접근성" }),
   ).toBeInViewport();

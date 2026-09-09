@@ -1,19 +1,8 @@
+import { TestRouter } from "@/shared/lib/test/TestRouter";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, expect, it, vi } from "vitest";
-import type { ReactNode } from "react";
+import { describe, expect, it } from "vitest";
 
-vi.mock("@tanstack/react-router", () => ({
-  Link: ({
-    children,
-    params,
-  }: {
-    children: ReactNode;
-    params: { orderId: string };
-  }) => (
-    <a href={`/orders/${encodeURIComponent(params.orderId)}`}>{children}</a>
-  ),
-}));
 import { commerceFixture } from "@/mocks/data/commerce";
 import {
   MonthlyRevenue,
@@ -44,8 +33,9 @@ describe("commerce snapshot changes", () => {
         orders={commerceFixture.orders}
         asOf={commerceFixture.asOf}
       />,
+      { wrapper: TestRouter },
     );
-    await user.click(screen.getByRole("button", { name: "3페이지" }));
+    await user.click(await screen.findByRole("button", { name: "3페이지" }));
     await user.click(
       screen.getByRole("checkbox", { name: "현재 페이지 전체 선택" }),
     );

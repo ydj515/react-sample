@@ -1,3 +1,5 @@
+import { useUrlSearch } from "@/shared/lib/use-url-search";
+import { commerceSearchSchema } from "@/features/dashboard/model/order-search";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ChevronDown, Download, X } from "lucide-react";
 import { useState } from "react";
@@ -44,15 +46,15 @@ export function OrderSearch({
   asOf: string;
 }) {
   const [advanced, setAdvanced] = useState(false);
-  const [applied, setApplied] = useState<OrderFilters>(defaultOrderFilters);
-  const [sort, setSort] = useState<OrderSort>("newest");
-  const [page, setPage] = useState(1);
+  const [search, change] = useUrlSearch(commerceSearchSchema);
+  const applied = search.orderFilters;
+  const sort = search.orderSort;
+  const setPage = (orderPage: number) => change({ orderPage });
   const [selected, setSelected] = useState<Set<string>>(new Set());
   const [previousOrders, setPreviousOrders] = useState(orders);
   // 스냅샷이 바뀌면 기존 페이지와 선택이 새 주문 목록을 잘못 참조하지 않게 한다.
   if (orders !== previousOrders) {
     setPreviousOrders(orders);
-    setPage(1);
     setSelected(new Set());
   }
   const {
@@ -64,11 +66,19 @@ export function OrderSearch({
     formState: { errors },
   } = useForm<OrderFilters>({
     resolver: zodResolver(orderFiltersSchema),
-    defaultValues: defaultOrderFilters,
+    values: applied,
   });
   const brands = useWatch({ control, name: "brands" });
   const filtered = filterOrders(orders, applied, sort);
   const pages = Math.max(1, Math.ceil(filtered.length / pageSize));
+  const page = Math.min(search.orderPage, pages);
+  const selectionKey = JSON.stringify([applied, sort, page]);
+  const [previousSelectionKey, setPreviousSelectionKey] =
+    useState(selectionKey);
+  if (previousSelectionKey !== selectionKey) {
+    setPreviousSelectionKey(selectionKey);
+    setSelected(new Set());
+  }
   const rows = filtered.slice((page - 1) * pageSize, page * pageSize);
   const active = (
     Object.entries(applied) as [keyof OrderFilters, string | string[]][]
@@ -78,8 +88,7 @@ export function OrderSearch({
   );
   const allBrands = Array.from(new Set(orders.map((order) => order.brand)));
   const apply = (filters: OrderFilters) => {
-    setApplied(filters);
-    setPage(1);
+    change({ orderFilters: filters, orderPage: 1 });
     setSelected(new Set());
   };
   const resetAll = () => {
@@ -309,8 +318,10 @@ export function OrderSearch({
                 aria-label="주문 정렬"
                 value={sort}
                 onChange={(event) => {
-                  setSort(event.target.value as OrderSort);
-                  setPage(1);
+                  change({
+                    orderSort: event.target.value as OrderSort,
+                    orderPage: 1,
+                  });
                   setSelected(new Set());
                 }}
               >

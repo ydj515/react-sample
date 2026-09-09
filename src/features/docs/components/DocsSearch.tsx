@@ -1,11 +1,14 @@
+import { useUrlSearch } from "@/shared/lib/use-url-search";
+import { docsSearchSchema } from "@/features/docs/model/search";
 import { Link } from "@tanstack/react-router";
-import { useState } from "react";
 import { SearchInput } from "@/shared/ui/search-input";
 import { Button } from "@/shared/ui/button";
 import { searchDocuments } from "@/features/docs/model/documents";
 
 export function DocsSearch() {
-  const [query, setQuery] = useState("");
+  const [search, change] = useUrlSearch(docsSearchSchema);
+  const query = search.q;
+  const setQuery = (value: typeof query) => change({ q: value }, true);
   const results = searchDocuments(query);
   return (
     <div
@@ -39,7 +42,7 @@ export function DocsSearch() {
                     to="/docs/$slug"
                     params={{ slug: result.slug }}
                     hash={result.hash}
-                    onClick={() => setQuery("")}
+                    search={{ q: "" }}
                     className="hover:bg-brand-soft focus-visible:outline-brand rounded-control block p-3"
                   >
                     <span className="text-ink block text-sm font-semibold">

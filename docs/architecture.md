@@ -202,7 +202,19 @@ products API/query를 사용하고, 구매 흐름은 `features/shop`에서 조�
 `features/landing/components`에 둔다. 기존 UI 토큰과 기본 컴포넌트를
 재사용하며 관리자 레이아웃에 랜딩별 조건 분기를 추가하지 않는다.
 
-요금 전환과 작업 필터는 지역 상태, 섹션 탐색은 URL hash로 관리한다.
+요금 전환과 신청 폼은 지역 상태, 작업 분야·세션 날짜/트랙 필터는 URL search, 섹션 탐색은 URL hash로 관리한다.
 데모 입력은 React Hook Form과 Zod로 검증하고 저장·전송하지 않는다.
 가상 정적 콘텐츠이므로 서버 API나 TanStack Query를 추가하지 않는다.
 세부 범위와 검증은 [랜딩 페이지 예제](./landing-examples.md)를 참고한다.
+
+## 검색 상태와 URL
+
+프로젝트 목록의 `q/status/sort/page`, 문서의 `q`, 랜딩의 `category`와
+`day/track`은 route의 `validateSearch`에서 정규화한다. 종합 대시보드의
+적용된 주문 조건은 `orderFilters`(JSON), `orderSort`, `orderPage`로 저장한다.
+사용자·상품·주문 목록과 쇼핑 목록의 기존 URL 검색 모델은 유지한다.
+
+`useUrlSearch`는 현재 경로와 hash를 유지한다. 텍스트 입력은 replace,
+명시적 필터 적용과 페이지 선택은 history에 기록하므로 새로고침과
+뒤로가기로 조건을 복원한다. 필터 변경은 페이지를 1로 초기화한다.
+상세 검색의 제출 전 값, 선택 행, 열린 메뉴와 데모 신청 값은 URL에 넣지 않는다.

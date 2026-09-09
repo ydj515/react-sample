@@ -13,6 +13,7 @@ export function ProjectCard({ project }: { project: Project }) {
           <Link
             to="/projects/$projectId"
             params={{ projectId: project.id }}
+            search={(previous) => previous}
             className="text-ink text-base font-semibold hover:underline"
           >
             {project.name}

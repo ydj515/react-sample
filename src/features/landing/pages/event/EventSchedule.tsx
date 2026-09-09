@@ -1,3 +1,5 @@
+import { useUrlSearch } from "@/shared/lib/use-url-search";
+import { eventSearchSchema } from "@/features/landing/model/search";
 import { useState } from "react";
 import { Bookmark, Check, ArrowUpRight } from "lucide-react";
 import { Button } from "@/shared/ui/button";
@@ -50,8 +52,11 @@ const sessions = [
   },
 ];
 export function EventSchedule() {
-  const [day, setDay] = useState("1");
-  const [track, setTrack] = useState("전체");
+  const [{ day: selectedDay, track }, change] = useUrlSearch(eventSearchSchema);
+  const day = String(selectedDay);
+  const setDay = (day: "1" | "2") => change({ day: day === "1" ? 1 : 2 });
+  const setTrack = (track: "전체" | "Design" | "Engineering" | "Culture") =>
+    change({ track });
   const [saved, setSaved] = useState<string[]>([]);
   const visible = sessions.filter(
     (session) =>
@@ -61,7 +66,7 @@ export function EventSchedule() {
     <>
       <div className="mt-10 flex flex-wrap items-center justify-between gap-5">
         <div role="group" aria-label="행사 날짜" className="flex gap-2">
-          {["1", "2"].map((value) => (
+          {(["1", "2"] as const).map((value) => (
             <Button
               key={value}
               variant={day === value ? "primary" : "secondary"}
@@ -77,17 +82,19 @@ export function EventSchedule() {
           aria-label="세션 트랙"
           className="flex flex-wrap gap-2"
         >
-          {["전체", "Design", "Engineering", "Culture"].map((value) => (
-            <Button
-              key={value}
-              size="sm"
-              variant={track === value ? "primary" : "ghost"}
-              aria-pressed={track === value}
-              onClick={() => setTrack(value)}
-            >
-              {value}
-            </Button>
-          ))}
+          {(["전체", "Design", "Engineering", "Culture"] as const).map(
+            (value) => (
+              <Button
+                key={value}
+                size="sm"
+                variant={track === value ? "primary" : "ghost"}
+                aria-pressed={track === value}
+                onClick={() => setTrack(value)}
+              >
+                {value}
+              </Button>
+            ),
+          )}
         </div>
       </div>
       <p role="status" className="text-ink-subtle my-5 text-xs">
