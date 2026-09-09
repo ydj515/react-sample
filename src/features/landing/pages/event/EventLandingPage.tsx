@@ -185,7 +185,7 @@ export function EventLandingPage() {
           </div>
         </LandingSection>
         <LandingSection id="passes" className="bg-[#d5fa57] text-[#17200c]">
-          <div className="grid gap-10 md:grid-cols-2">
+          <div className="grid grid-cols-1 gap-10 md:grid-cols-2">
             <div>
               <p className="font-mono text-xs">04 / YOUR NEXT CONVERSATION</p>
               <h2 className="mt-5 text-4xl leading-tight font-bold sm:text-6xl">
@@ -199,9 +199,9 @@ export function EventLandingPage() {
                 실제 행사 등록이나 결제는 진행하지 않습니다.
               </p>
             </div>
-            <div className="border border-[#17200c]/30 p-7 sm:p-10">
+            <div className="min-w-0 border border-[#17200c]/30 p-5 sm:p-10">
               <p className="font-mono text-sm">FULL EXPERIENCE / 2 DAYS</p>
-              <p className="mt-5 text-5xl font-semibold tracking-tight">
+              <p className="mt-5 text-4xl font-semibold tracking-tight sm:text-5xl">
                 ₩120,000
               </p>
               <ul className="my-7 space-y-3 text-sm">

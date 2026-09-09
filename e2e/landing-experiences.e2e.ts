@@ -1,5 +1,32 @@
 import { expect, test } from "@playwright/test";
 
+test("320px 컨퍼런스는 대체 글꼴에서도 참가권 가격이 넘치지 않는다", async ({
+  page,
+}) => {
+  await page.setViewportSize({ width: 320, height: 812 });
+  await page.goto("/landing/event");
+  await expect(page.getByRole("heading", { level: 1 })).toBeVisible();
+  await page.addStyleTag({
+    content: ":root { font-family: Verdana, sans-serif; font-size: 16px; }",
+  });
+  const price = page.getByText("₩120,000", { exact: true });
+  await price.scrollIntoViewIfNeeded();
+  for (const theme of ["light", "dark"]) {
+    if (theme === "dark") {
+      await page.getByRole("button", { name: "다크 모드로 전환" }).click();
+    }
+    await expect(page.locator("html")).toHaveAttribute("data-theme", theme);
+    await expect
+      .poll(() => page.evaluate(() => document.documentElement.scrollWidth))
+      .toBe(320);
+    expect(
+      await price.evaluate(
+        (element) => element.scrollWidth <= element.clientWidth,
+      ),
+    ).toBe(true);
+  }
+});
+
 test("여섯 샘플을 탐색하고 컨퍼런스 트랙과 관심 세션을 조합한다", async ({
   page,
 }) => {
