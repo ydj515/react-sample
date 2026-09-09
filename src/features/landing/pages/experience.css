@@ -1,0 +1,63 @@
+/* Palette overrides stay within each sample; shared dialogs retain the app theme. */
+.landing-event {
+  --ui-brand: #3d4b10;
+  --ui-brand-hover: #2b3608;
+  --ui-brand-soft: #e8f1cc;
+  --ui-on-brand: #ffffff;
+}
+[data-theme="dark"] .landing-event {
+  --ui-brand: #d5fa57;
+  --ui-brand-hover: #e5ff94;
+  --ui-brand-soft: #29351a;
+  --ui-on-brand: #17200c;
+}
+.landing-stay {
+  --ui-surface: #faf8f3;
+  --ui-surface-muted: #eeece3;
+  --ui-ink: #29362d;
+  --ui-ink-muted: #546154;
+  --ui-ink-subtle: #687261;
+  --ui-brand: #3e5743;
+  --ui-brand-hover: #2f4433;
+  --ui-brand-soft: #e7ece1;
+  --ui-line: #dbddd2;
+  --ui-on-brand: #ffffff;
+}
+[data-theme="dark"] .landing-stay {
+  --ui-surface: #1c2620;
+  --ui-surface-muted: #29372d;
+  --ui-ink: #f4f2e8;
+  --ui-ink-muted: #d0d8c9;
+  --ui-ink-subtle: #aebba5;
+  --ui-brand: #c4d6b4;
+  --ui-brand-hover: #d5e6c5;
+  --ui-brand-soft: #334430;
+  --ui-line: #425041;
+  --ui-on-brand: #1c2620;
+}
+.landing-product {
+  --ui-brand: #b94322;
+  --ui-brand-hover: #99351b;
+  --ui-brand-soft: #fff0e8;
+  --ui-on-brand: #ffffff;
+}
+[data-theme="dark"] .landing-product {
+  --ui-brand: #ffb291;
+  --ui-brand-hover: #ffcbb4;
+  --ui-brand-soft: #432d26;
+  --ui-on-brand: #34150b;
+}
+.event-orbit {
+  border: clamp(28px, 5vw, 72px) solid #d5fa57;
+  border-radius: 50%;
+  box-shadow:
+    0 0 0 1px rgb(213 250 87 / 0.15),
+    inset 0 0 70px rgb(213 250 87 / 0.12);
+  transform: rotate(-32deg) scaleY(0.66);
+}
+.event-grid {
+  background-image:
+    linear-gradient(rgb(255 255 255 / 0.07) 1px, transparent 1px),
+    linear-gradient(90deg, rgb(255 255 255 / 0.07) 1px, transparent 1px);
+  background-size: 72px 72px;
+}
