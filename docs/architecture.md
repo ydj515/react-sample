@@ -193,3 +193,16 @@ products API/query를 사용하고, 구매 흐름은 `features/shop`에서 조�
 장바구니·찜은 `stores/shop-store.ts`가 소유하고 가격·재고를 중복 저장하지
 않는다. 모의 주문은 MSW에서 현재 상품 데이터로 검증한다. 상세한 범위는
 [E-commerce 예제](./ecommerce-examples.md)를 따른다.
+
+## 랜딩 페이지 샘플
+
+`/landing`은 공개 샘플 컬렉션이며, SaaS·강의·에이전시 페이지는
+`features/landing/pages`에서 독립적인 헤더·본문·푸터를 구성한다.
+랜딩 내부에서 반복되는 너비, 섹션 간격, 모바일 메뉴와 데모 폼은
+`features/landing/components`에 둔다. 기존 UI 토큰과 기본 컴포넌트를
+재사용하며 관리자 레이아웃에 랜딩별 조건 분기를 추가하지 않는다.
+
+요금 전환과 작업 필터는 지역 상태, 섹션 탐색은 URL hash로 관리한다.
+데모 입력은 React Hook Form과 Zod로 검증하고 저장·전송하지 않는다.
+가상 정적 콘텐츠이므로 서버 API나 TanStack Query를 추가하지 않는다.
+세부 범위와 검증은 [랜딩 페이지 예제](./landing-examples.md)를 참고한다.
