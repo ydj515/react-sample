@@ -1,5 +1,6 @@
 import {
   BarChart3,
+  BookOpen,
   Users,
   ShoppingCart,
   Package,
@@ -19,7 +20,9 @@ export type NavigationItem = {
     | "/settings"
     | "/users"
     | "/orders"
-    | "/products";
+    | "/products"
+    | "/docs"
+    | "/shop";
   label: string;
   icon: LucideIcon;
 };
@@ -45,6 +48,13 @@ export const navigationGroups: NavigationGroup[] = [
   {
     label: "워크스페이스",
     items: [{ to: "/projects", label: "프로젝트", icon: FolderKanban }],
+  },
+  {
+    label: "샘플",
+    items: [
+      { to: "/docs", label: "Blog / Docs", icon: BookOpen },
+      { to: "/shop", label: "E-commerce", icon: ShoppingCart },
+    ],
   },
   {
     label: "환경",

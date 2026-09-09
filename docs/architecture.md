@@ -177,3 +177,19 @@ mutation onSuccess / onError 등 어디서든
 - 서버 데이터 cache나 mutation은 TanStack Query를 우선 사용한다.
 - 단순 UI preference나 shell 상태는 Zustand store에 둔다.
 - 새 기능 완료 전 [기능 추가 체크리스트](./feature-addition-checklist.md)를 확인한다.
+
+## 공개 문서 예제
+
+`/docs`와 `/docs/$slug`는 `_dashboard` 인증 가드 밖에 둔 공개 경로다.
+`features/docs`에서 정적 콘텐츠, 검색, 문서 전용 탐색과 본문을 구성한다.
+버튼·입력·다이얼로그·테마는 기존 공통 UI를 재사용한다. 콘텐츠는 빌드에
+포함되므로 API/query 계층을 추가하지 않는다. 자세한 범위는
+[Blog / Docs 예제](./blog-docs-examples.md)를 따른다.
+
+## 공개 쇼핑 예제
+
+`/shop` 레이아웃 아래 목록·상세·장바구니·주문서를 둔다. 관리자와 같은
+products API/query를 사용하고, 구매 흐름은 `features/shop`에서 조합한다.
+장바구니·찜은 `stores/shop-store.ts`가 소유하고 가격·재고를 중복 저장하지
+않는다. 모의 주문은 MSW에서 현재 상품 데이터로 검증한다. 상세한 범위는
+[E-commerce 예제](./ecommerce-examples.md)를 따른다.

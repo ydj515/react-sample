@@ -16,6 +16,8 @@
 7. [대시보드 예제와 집계 기준](./dashboard-examples.md)
 8. [디자인 시스템](./design-system.md)
 9. [사용자·주문·상품 관리 예제](./management-examples.md)
+10. [Blog / Docs 예제](./blog-docs-examples.md)
+11. [E-commerce 예제](./ecommerce-examples.md)
 
 ## 목적별 문서
 
