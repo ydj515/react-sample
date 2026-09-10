@@ -49,6 +49,9 @@ describe("product management", () => {
     await screen.findByRole("heading", { name: "상품 등록" });
     await user.click(screen.getByRole("button", { name: "상품 저장" }));
     await screen.findByText("상품명은 2자 이상 입력하세요.");
+    expect(
+      screen.getByRole("textbox", { name: "상품명" }),
+    ).toHaveAccessibleDescription("상품명은 2자 이상 입력하세요.");
     await user.type(
       screen.getByRole("textbox", { name: /^상품명/ }),
       "관리 샘플 가방",
@@ -127,6 +130,13 @@ describe("product management", () => {
       new File(["<svg/>"], "sample.svg", { type: "image/svg+xml" }),
     );
     await screen.findByRole("alert");
+    expect(upload).toHaveAttribute("aria-invalid", "true");
+    expect(upload).toHaveAccessibleDescription(
+      "PNG, JPEG, WebP 파일을 선택하세요.",
+    );
+    expect(
+      screen.getByRole("combobox", { name: "기본 이미지" }),
+    ).toHaveAccessibleDescription("PNG, JPEG, WebP 파일을 선택하세요.");
     expect(screen.getByRole("button", { name: "상품 저장" })).toBeDisabled();
     await user.selectOptions(
       screen.getByRole("combobox", { name: "기본 이미지" }),
