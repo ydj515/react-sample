@@ -33,7 +33,10 @@ function CartPageContent({ checkout = false }: { checkout?: boolean }) {
   if (receipt)
     return (
       <>
-        <PageMetadata title={checkout ? "주문서" : "장바구니"} />
+        <PageMetadata
+          title="주문 완료"
+          description="주문이 완료되었습니다. 주문 번호와 구매 내역을 확인하세요."
+        />
         <div className="mx-auto max-w-2xl py-8">
           <span className="bg-positive-soft text-positive mb-5 grid size-12 place-items-center rounded-full">
             <Check className="size-6" aria-hidden />

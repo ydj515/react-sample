@@ -65,19 +65,50 @@ pnpm verify           # validate + Storybook build + E2E
 
 ## Local Examples
 
-아래 URL은 Vite dev server가 `5174` 포트에서 실행 중인 경우를 기준으로 합니다.
-다른 포트로 실행되면 포트 번호만 바꿔서 확인하면 됩니다.
+Vite 개발 서버의 기본 포트는 `5173`입니다. 사용 중이면 다음 포트로 이동하므로
+터미널에 표시된 주소를 확인하세요.
 
-대시보드 경로(`/`, `/projects`, `/settings`)는 보호 라우트라 미인증 상태로 접근하면 `/signin`으로 리다이렉트됩니다.
-데모 로그인은 아무 이메일과 비밀번호로 통과합니다.
+관리자 경로는 미인증 상태로 접근하면 `/signin`으로 이동합니다. 개발 mock 모드에서는
+로그인 폼의 이메일·비밀번호 검증을 통과하면 데모 토큰을 발급합니다.
 
 ```txt
-http://localhost:5174/signin                                로그인: 데모 인증(RHF + Zod), 로그인 후 원래 목적지로 복귀
-http://localhost:5174/                                      대시보드: TanStack Query로 mock project 데이터를 가져와 metric과 최근 프로젝트를 표시
-http://localhost:5174/projects                              프로젝트 목록: 필터, 정렬, 생성 Dialog, mutation 성공 시 toast 알림 확인
-http://localhost:5174/projects/project-design-system        프로젝트 상세: route params, detail query, 상태 badge, 날짜 format 유틸 확인
-http://localhost:5174/settings                              설정: Zustand client UI state 예제, density 설정 확인
+http://localhost:5173/signin                         로그인: RHF + Zod + React 19 Action
+http://localhost:5173/                               종합 대시보드: 매출·주문·고객 지표
+http://localhost:5173/operations                     프로젝트 운영 대시보드
+http://localhost:5173/reports                        분석 리포트
+http://localhost:5173/projects                       프로젝트 검색·정렬·생성
+http://localhost:5173/projects/project-design-system 프로젝트 상세·낙관적 상태 변경
+http://localhost:5173/users                          사용자 목록·프로필·접근 권한
+http://localhost:5173/products                       상품 관리·이미지·재고
+http://localhost:5173/orders                         주문 관리·상태·배송·메모
+http://localhost:5173/react-19                       use(Promise)·Context·ref cleanup 예제
+http://localhost:5173/docs/getting-started            문서 검색·목차·읽기 진행률
+http://localhost:5173/shop                           쇼핑·찜·장바구니·모의 주문
+http://localhost:5173/landing                        다양한 랜딩 페이지 카탈로그
 ```
+
+### API 서버와 mock 모드
+
+- `VITE_ENABLE_MOCKS` 미설정: 개발 서버는 `true`, production build는 `false`입니다.
+- Mock 모드: 모든 도메인이 같은 출처의 `/api/...` MSW handler를 사용합니다.
+- 실제 API 모드: `apiRequest`가 `VITE_API_BASE_URL` 뒤에 `/api/...` 경로를 붙입니다.
+  기본값은 `http://localhost:3000`이고, 끝의 `/`와 base path를 지원합니다.
+  직접 전달한 절대 URL·URL 객체·Request는 원래 주소를 유지합니다.
+- `.env.local`도 production build에 반영됩니다. 실제 배포에서는 mock을 끄고 API 서버 주소를
+  지정하세요. 환경변수는 빌드 시 반영되므로 변경 후 다시 빌드해야 합니다.
+- API 서버는 앱 출처에 대한 CORS를 허용해야 합니다. 이 샘플에는 실제 백엔드가 포함되지 않으며,
+  쿠키 인증·Bearer 토큰 주입은 사용할 백엔드 계약에 맞춰 별도 연결해야 합니다.
+
+```bash
+# 실제 API 연결
+VITE_ENABLE_MOCKS=false VITE_API_BASE_URL=http://localhost:3000 pnpm dev
+# 실제 배포용 빌드
+VITE_ENABLE_MOCKS=false VITE_API_BASE_URL=https://api.example.com pnpm build
+# API 서버 없이 샘플을 배포할 때만 mock을 명시적으로 활성화
+VITE_ENABLE_MOCKS=true pnpm build
+```
+
+환경변수의 적용 시점과 우선순위는 [Vite 환경변수 문서](https://vite.dev/guide/env-and-mode)를 참고하세요.
 
 ## Structure
 
@@ -94,13 +125,24 @@ src/test       테스트 setup
 
 ## Routes
 
-```txt
-/                    프로젝트 대시보드          (보호 라우트)
-/projects            프로젝트 목록, 생성 Dialog (보호 라우트)
-/projects/$projectId 프로젝트 상세             (보호 라우트)
-/settings            클라이언트 UI 상태 설정    (보호 라우트)
-/signin              데모 로그인 (공개)
-```
+| 경로                                                | 예제                       | 접근 |
+| --------------------------------------------------- | -------------------------- | ---- |
+| `/`                                                 | 종합 대시보드              | 보호 |
+| `/operations`, `/reports`                           | 프로젝트 운영·분석 리포트  | 보호 |
+| `/projects`, `/projects/$projectId`                 | 프로젝트 목록·상세         | 보호 |
+| `/users`, `/users/$userId`                          | 사용자 목록·상세           | 보호 |
+| `/products`, `/products/new`                        | 상품 목록·등록             | 보호 |
+| `/products/$productId`, `/products/$productId/edit` | 상품 상세·수정             | 보호 |
+| `/orders`, `/orders/$orderId`                       | 주문 목록·상세             | 보호 |
+| `/settings`, `/react-19`                            | UI 설정·React 19 예제      | 보호 |
+| `/signin`                                           | 데모 로그인                | 공개 |
+| `/docs`, `/docs/$slug`                              | 시작 문서로 이동·문서 상세 | 공개 |
+| `/shop`, `/shop/$productId`                         | 상품 탐색·상세             | 공개 |
+| `/shop/cart`, `/shop/checkout`                      | 장바구니·모의 주문         | 공개 |
+| `/landing`                                          | 랜딩 카탈로그              | 공개 |
+| `/landing/saas`, `/landing/agency`                  | SaaS·에이전시              | 공개 |
+| `/landing/course`, `/landing/event`                 | 온라인 강의·행사           | 공개 |
+| `/landing/stay`, `/landing/product`                 | 숙박·제품 소개             | 공개 |
 
 ## 핵심 패턴
 
@@ -119,11 +161,13 @@ src/test       테스트 setup
 
 ### 코드 스플리팅
 
+- `generate-routes`와 `watch-routes`는 `scripts/router-cli.mjs`에서 Router CLI의 공개 ESM 진입점을 사용합니다. upstream `tsr` 실행 파일의 CommonJS 순환 참조 경고를 피하면서 같은 명령과 종료 코드를 유지합니다.
+- Router·CLI·plugin은 서로 다른 버전 번호로 릴리스됩니다. 숫자를 강제로 통일하기보다 lockfile의 core/generator 의존성과 생성·빌드를 함께 검증합니다.
 - `vite.config.ts`의 TanStack Router 플러그인 `autoCodeSplitting`으로 각 라우트 컴포넌트가 별도 청크로 분리되어 초기 번들이 작아집니다.
 
 ### API 경계
 
-- `src/shared/api/http-client.ts`의 `apiRequest`가 성공 응답을 feature별 Zod schema로 검증합니다.
+- `src/shared/api/http-client.ts`의 `apiRequest`가 mock 여부에 따라 API 주소를 결정하고 성공 응답을 feature별 Zod schema로 검증합니다.
 - HTTP 오류는 `ApiError`로 정규화해 `status`, `code`, `path`, `traceId`를 보존합니다.
 - MSW 실패 응답도 같은 오류 형식과 `X-Trace-Id` 헤더를 사용합니다.
 

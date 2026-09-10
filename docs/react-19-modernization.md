@@ -385,7 +385,7 @@ export function SubmitButton({
 
 기존 방식은 폼이나 mutation을 소유한 컴포넌트가 제출 가능 여부를 계산하고 Button의 disabled·문구로 전달하는 명시적인 상태 전달입니다.
 
-- **기존 방식이 더 적절한 곳:** [ProductForm](../src/features/products/components/ProductForm.tsx)의 저장 버튼은 `mutation.isPending || imageLoading || !!imageError`로 제출을 막습니다. 폼 제출 외에 이미지 읽기와 오류 조건도 판단해야 하고 `<form onSubmit>`을 사용하므로 기존 상태 전달이 맞습니다.
+- **기존 방식이 더 적절한 곳:** [ProductForm](../src/features/products/components/ProductForm.tsx)의 저장 버튼은 `mutation.isPending || imageField.imageLoading || !!imageField.imageError`로 제출을 막습니다. 폼 제출 외에 이미지 읽기와 오류 조건도 판단해야 하고 `<form onSubmit>`을 사용하므로 기존 상태 전달이 맞습니다.
 - **React 19 방식이 적절한 곳:** [SignInPage](../src/pages/auth/SignInPage.tsx)의 SubmitButton은 부모 `<form action>`의 pending을 구독합니다. 버튼을 하위 컴포넌트로 분리해도 제출 상태 prop을 연결할 필요가 없습니다.
 - **전환 기준:** 버튼이 실제 Action 폼의 자식일 때 사용합니다. useFormStatus는 임의의 API 요청이나 RHF isSubmitting을 구독하지 않습니다. Action 폼에도 별도의 제출 금지 사유가 있다면 disabled 조건은 여전히 전달해야 합니다.
 
@@ -595,7 +595,7 @@ Promise는 렌더 함수에서 만들지 않고 loader에서 생성합니다. �
 보조 요청을 useQuery의 enabled·결과 상태로 제어하는 것입니다. 둘 다 현재 사용하는 방식입니다.
 
 - **useSuspenseQuery가 더 적절한 곳:** [ProjectsPage](../src/features/projects/pages/ProjectsPage.tsx)와 [프로젝트 route](../src/routes/_dashboard/projects.index.tsx)는 목록 조회와 생성·상태 변경에 따른 캐시 갱신을 함께 다룹니다. 한 번 받은 Promise 값보다 지속적인 캐시 구독이 필요합니다.
-- **useQuery가 더 적절한 곳:** [ProductForm](../src/features/products/components/ProductForm.tsx)의 관련 상품 조회는 `enabled: !!product`로 기존 상품에서만 활성화됩니다. 보조 데이터가 폼 전체를 suspend시키지 않도록 현재 방식을 유지합니다.
+- **useQuery가 더 적절한 곳:** [ProductSummary](../src/features/products/components/ProductSummary.tsx)의 관련 상품 조회는 `enabled: !!product`로 기존 상품에서만 활성화됩니다. 보조 데이터가 폼 전체를 suspend시키지 않도록 현재 방식을 유지합니다. 상품 폼 책임 분리 후 조회는 요약 컴포넌트가 소유합니다.
 - **React 19 방식이 적절한 곳:** `/react-19`의 선택적 프로젝트 패널은 본문과 독립된 loader 스냅샷을 읽는 학습 예제입니다. use(Promise)를 쓰기 위해 기존 관리 화면의 캐시 구독을 제거하지 않습니다.
 - **전환 기준:** 데이터가 로드 시점 스냅샷이어도 되는지, 후속 캐시 갱신을 구독해야 하는지, 준비 중일 때 어느 영역을 기다리게 할지를 먼저 결정합니다.
 

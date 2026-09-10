@@ -78,11 +78,13 @@ features/auth/api           로그인 요청 wrapper (signInRequest)
 - `ui-store`는 `theme`, `density`를 관리하고 localStorage key `react-sample-ui`에 저장한다. 모바일 메뉴 열림 여부는 `DashboardLayout`의 지역 상태이며, 데스크톱 사이드바는 고정 표시한다.
 - `auth-store`는 `token`, `user`, `isAuthenticated`를 관리하며 localStorage key `react-sample-auth`에 저장한다. 라우터 context로 주입되어 `beforeLoad` 가드가 이 상태를 읽는다.
 - `toast-store`는 전역 알림 목록과 `toast.success/error/info` 헬퍼를 제공한다(영속화하지 않음).
+- `shop-store`는 장바구니·찜을 관리하는 현재 유일한 도메인 전용 store입니다. 새 도메인 전용 store를 추가하는 시점(2개 이상)에는 `features/<domain>/store`로 함께 정리하고 명시적 public API를 둡니다. 전역 영역에는 auth/UI/toast 상태를 유지합니다.
 - 서버에서 가져오는 프로젝트 데이터는 이곳에 두지 않고 TanStack Query에 맡긴다.
 
 ### `src/mocks`
 
 - MSW handler와 fixture를 둔다.
+- `VITE_ENABLE_MOCKS`는 미설정 시 개발에서 켜지고 production build에서 꺼집니다. 데모 배포는 명시적으로 켜야 합니다.
 - 개발 환경에서는 browser worker가 `/api/projects`, `/api/login` 등 요청을 가로챈다.
 - 테스트 환경에서는 server setup이 같은 handler를 사용한다.
 - 실패 handler는 공통 error helper로 body와 `X-Trace-Id`에 같은 trace ID를 제공한다.
@@ -95,8 +97,8 @@ route file
   -> query hook / mutation hook
   -> API function
   -> apiRequest("/api/...", { schema })
-  -> fetch("/api/...")
-  -> MSW handler
+  -> mock: fetch("/api/...") -> MSW handler
+     real: fetch(`${VITE_API_BASE_URL}/api/...`) -> API server
   -> JSON
   -> Zod response schema
   -> typed feature data
@@ -255,3 +257,12 @@ React 19 API를 기존 서버 상태·URL·폼 도구와 함께 사용합니다.
 `/react-19`의 use(Promise)는 loader 스냅샷을 읽는 별도 학습 예제이며,
 일반 서버 조회는 useSuspenseQuery를 유지합니다.
 변경 전후 코드·범위·검증은 [React 19 가이드](./react-19-modernization.md)를 참고하세요.
+
+## 상품 편집 책임 분리
+
+`ProductForm`은 하나의 RHF 인스턴스, 탭, 재고 합계 동기화와 저장 mutation을 조정합니다.
+`ProductBasicFields`는 기본 입력과 태그 편집, `ProductImageField`는 이미지 입력 상태 표시,
+`useProductImageField`는 비동기 파일 읽기와 오래된 응답 무시를 담당합니다.
+`ProductSummary`는 재고·연관 상품 조회, `ProductPreviewDialog`는 입력값 미리보기를 맡습니다.
+기존 `ProductInventory`와 `ProductInsights`의 역할을 유지하고, 분리한 내부 컴포넌트는
+외부 feature용 public API에 불필요하게 노출하지 않습니다.

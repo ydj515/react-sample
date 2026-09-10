@@ -94,3 +94,14 @@ build
 - React Query를 사용하는 컴포넌트는 `renderWithProviders`를 사용한다.
 - Zustand store 테스트는 `beforeEach`에서 상태를 초기화한다.
 - shared UI 또는 재사용 visual state 변경은 Storybook story도 갱신한다.
+
+## Mock 설정과 로그
+
+Vitest와 Playwright가 실행하는 개발 서버는 `VITE_ENABLE_MOCKS=true`를 명시합니다.
+Playwright가 기존 서버를 재사용한다면 그 서버도 mock 모드로 실행해야 합니다.
+Storybook은 `viteFinal`에서 mock 모드를 명시하여 정적 production 카탈로그에서도 MSW를 사용합니다.
+API 주소 테스트는 별도 서버 주소의 MSW handler로 실제 `fetch` 대상과 메서드·본문을 검증합니다.
+
+jsdom이 구현하지 않은 `window.scrollTo`는 공통 setup에서만 stub 처리합니다.
+경고를 콘솔 전체에서 숨기지 않으며 실제 스크롤 동작은 Playwright에서 검증합니다.
+Storybook worker loader, Query provider 컴포넌트, decorator는 파일을 나눠 Fast Refresh 경계를 유지합니다.

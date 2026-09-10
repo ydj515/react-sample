@@ -79,6 +79,15 @@ it("알 수 없는 문서에서 시작 문서로 복구한다", async () => {
   const user = userEvent.setup();
   renderDocs("missing");
   await screen.findByRole("heading", { name: "문서를 찾을 수 없습니다" });
+  expect(document.title).toBe("문서를 찾을 수 없습니다 | React Sample Docs");
+  // 문서 메타데이터는 body 역할 쿼리가 아닌 head에서 확인한다.
+  expect(
+    // eslint-disable-next-line testing-library/no-node-access
+    document.head.querySelector('meta[name="description"]'),
+  ).toHaveAttribute(
+    "content",
+    "요청한 문서가 없습니다. 주소를 확인하거나 검색으로 필요한 문서를 찾아보세요.",
+  );
   await user.click(screen.getByRole("link", { name: "시작 문서로 이동" }));
   await screen.findByRole("heading", { name: "React Sample 시작하기" });
 });

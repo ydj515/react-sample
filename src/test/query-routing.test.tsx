@@ -67,6 +67,7 @@ describe("route query loading", () => {
     expect(
       screen.getByRole("navigation", { name: "주요 메뉴" }),
     ).toBeInTheDocument();
+    expect(document.title).toBe("데이터를 불러오지 못했습니다 | React Sample");
     server.resetHandlers();
     await userEvent
       .setup()
@@ -75,6 +76,7 @@ describe("route query loading", () => {
       await screen.findByRole("heading", { name: "사용자 관리" }),
     ).toBeInTheDocument();
     expect(screen.queryByRole("alert")).not.toBeInTheDocument();
+    expect(document.title).toBe("사용자 관리 | React Sample");
   });
   it("reuses the loader cache when the page suspense query mounts", async () => {
     let requests = 0;

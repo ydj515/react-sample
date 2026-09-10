@@ -56,6 +56,7 @@ it("옵션을 고르고 수량을 담은 뒤 모의 주문으로 장바구니를
     await screen.findByRole("button", { name: "모의 주문 완료하기" }),
   );
   await screen.findByRole("heading", { name: "모의 주문이 완료되었습니다" });
+  expect(document.title).toBe("주문 완료 | React Sample");
   expect(useShopStore.getState().items).toEqual([]);
 });
 it("주문 실패 시 배송 정보와 장바구니를 유지하고 재시도한다", async () => {

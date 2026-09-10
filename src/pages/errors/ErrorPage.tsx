@@ -1,3 +1,4 @@
+import { PageMetadata } from "@/shared/ui/page-metadata";
 import type { ErrorComponentProps } from "@tanstack/react-router";
 
 /**
@@ -10,6 +11,10 @@ export function ErrorPage({ error, reset }: ErrorComponentProps) {
 
   return (
     <main className="bg-surface-muted text-ink grid min-h-screen place-items-center px-4">
+      <PageMetadata
+        title="문제가 발생했습니다"
+        description="요청을 처리하지 못했습니다. 다시 시도해 주세요."
+      />
       <section className="grid max-w-md gap-4 text-center">
         <p className="text-ink-subtle text-sm font-medium">Error</p>
         <h1 className="text-2xl font-semibold">문제가 발생했습니다.</h1>

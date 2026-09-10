@@ -27,7 +27,10 @@ export function DocsPage({ slug }: { slug: string }) {
       <PageMetadata
         title={article?.title ?? "문서를 찾을 수 없습니다"}
         site="React Sample Docs"
-        description={article?.description}
+        description={
+          article?.description ??
+          "요청한 문서가 없습니다. 주소를 확인하거나 검색으로 필요한 문서를 찾아보세요."
+        }
       />
       <a
         href="#doc-main"
