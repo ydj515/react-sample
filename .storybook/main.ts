@@ -14,6 +14,11 @@ const config: StorybookConfig = {
     options: {},
   },
   viteFinal(viteConfig) {
+    // 정적 Storybook도 명시적으로 mock 모드로 빌드한다.
+    viteConfig.define = {
+      ...viteConfig.define,
+      "import.meta.env.VITE_ENABLE_MOCKS": JSON.stringify("true"),
+    };
     // 앱 전용 TanStack Router 플러그인(라우트 생성/HMR)은 Storybook에 불필요하다.
     // 세 플러그인 모두 "tanstack" 접두사를 쓰므로 이름으로 걸러 빌드 부하를 줄인다.
     const isTanstackRouterPlugin = (plugin: unknown): boolean =>

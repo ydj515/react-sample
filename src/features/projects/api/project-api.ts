@@ -10,7 +10,9 @@ export async function getProjects() {
 }
 
 export async function getProject(projectId: string) {
-  return apiRequest(`/api/projects/${projectId}`, { schema: projectSchema });
+  return apiRequest(`/api/projects/${encodeURIComponent(projectId)}`, {
+    schema: projectSchema,
+  });
 }
 
 export async function createProject(input: CreateProjectInput) {
@@ -28,7 +30,7 @@ export async function updateProjectStatus(
   projectId: string,
   status: ProjectStatus,
 ) {
-  return apiRequest(`/api/projects/${projectId}/status`, {
+  return apiRequest(`/api/projects/${encodeURIComponent(projectId)}/status`, {
     schema: projectSchema,
     method: "PATCH",
     headers: {

@@ -8,6 +8,7 @@ export default defineConfig({
   },
   test: {
     environment: "jsdom",
+    env: { VITE_ENABLE_MOCKS: "true" },
     globals: true,
     setupFiles: ["./src/test/setup.ts"],
     css: true,

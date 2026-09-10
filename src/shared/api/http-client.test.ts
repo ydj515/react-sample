@@ -1,10 +1,15 @@
 import { http, HttpResponse } from "msw";
-import { describe, expect, it } from "vitest";
+import { afterEach, describe, expect, it, vi } from "vitest";
 import { z } from "zod";
 
+import { env } from "@/shared/config/env";
 import { server } from "@/mocks/server";
 import { ApiError } from "./api-error";
 import { apiRequest } from "./http-client";
+
+vi.mock("@/shared/config/env", () => ({
+  env: { VITE_API_BASE_URL: "http://localhost:3000", VITE_ENABLE_MOCKS: true },
+}));
 
 const responseSchema = z.object({ id: z.string() });
 
@@ -108,3 +113,65 @@ describe("apiRequest", () => {
     ).rejects.toMatchObject({ status: 0, code: "NETWORK_ERROR" });
   });
 });
+
+afterEach(() => {
+  env.VITE_ENABLE_MOCKS = true;
+  env.VITE_API_BASE_URL = "http://localhost:3000";
+});
+
+it.each([
+  "https://api.example.test/backend",
+  "https://api.example.test/backend/",
+])("routes real requests through the configured base %s", async (base) => {
+  env.VITE_ENABLE_MOCKS = false;
+  env.VITE_API_BASE_URL = base;
+  server.use(
+    http.post(
+      "https://api.example.test/backend/api/http-client/real",
+      async ({ request }) => {
+        expect(new URL(request.url).searchParams.get("q")).toBe("한글");
+        expect(request.headers.get("X-Sample")).toBe("test");
+        expect(await request.json()).toEqual({ name: "sample" });
+        return HttpResponse.json({ id: "real-server" });
+      },
+    ),
+  );
+  await expect(
+    apiRequest("/api/http-client/real?q=%ED%95%9C%EA%B8%80", {
+      schema: responseSchema,
+      method: "POST",
+      headers: { "X-Sample": "test" },
+      body: JSON.stringify({ name: "sample" }),
+    }),
+  ).resolves.toEqual({ id: "real-server" });
+});
+
+it("uses localhost:3000 when real API mode has no custom base", async () => {
+  env.VITE_ENABLE_MOCKS = false;
+  server.use(
+    http.get("http://localhost:3000/api/http-client/default", () =>
+      HttpResponse.json({ id: "default-server" }),
+    ),
+  );
+  await expect(
+    apiRequest("/api/http-client/default", { schema: responseSchema }),
+  ).resolves.toEqual({ id: "default-server" });
+});
+
+it.each(["string", "URL", "Request"])(
+  "preserves explicit %s targets",
+  async (kind) => {
+    env.VITE_ENABLE_MOCKS = false;
+    const url = "https://explicit.example.test/api/resource";
+    server.use(http.get(url, () => HttpResponse.json({ id: "explicit" })));
+    const input =
+      kind === "URL"
+        ? new URL(url)
+        : kind === "Request"
+          ? new Request(url)
+          : url;
+    await expect(
+      apiRequest(input, { schema: responseSchema }),
+    ).resolves.toEqual({ id: "explicit" });
+  },
+);

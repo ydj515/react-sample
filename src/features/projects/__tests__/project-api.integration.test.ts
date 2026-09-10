@@ -7,6 +7,7 @@ import {
   getProjects,
   updateProjectStatus,
 } from "@/features/projects/api/project-api";
+import { projectsFixture } from "@/mocks/data/projects";
 import { server } from "@/mocks/server";
 
 describe("project-api", () => {
@@ -62,5 +63,25 @@ describe("project-api", () => {
     expect(response.status).toBe(404);
     expect(body.code).toBe("PROJECT_NOT_FOUND");
     expect(response.headers.get("X-Trace-Id")).toBe(body.traceId);
+  });
+});
+
+it("encodes special characters as one project ID segment for reads and updates", async () => {
+  const id = "project/한글?#%";
+  server.use(
+    http.get("/api/projects/:id", ({ params }) => {
+      expect(params.id).toBe(id);
+      return HttpResponse.json({ ...projectsFixture[0], id });
+    }),
+    http.patch("/api/projects/:id/status", async ({ params, request }) => {
+      expect(params.id).toBe(id);
+      expect(await request.json()).toEqual({ status: "paused" });
+      return HttpResponse.json({ ...projectsFixture[0], id, status: "paused" });
+    }),
+  );
+  await expect(getProject(id)).resolves.toMatchObject({ id });
+  await expect(updateProjectStatus(id, "paused")).resolves.toMatchObject({
+    id,
+    status: "paused",
   });
 });

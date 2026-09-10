@@ -1,5 +1,6 @@
 import { z } from "zod";
 
+import { env } from "@/shared/config/env";
 import { ApiError } from "./api-error";
 
 const apiErrorResponseSchema = z.object({
@@ -43,7 +44,15 @@ export async function apiRequest<T>(
   let response: Response;
 
   try {
-    response = await fetch(input, requestInit);
+    // Mock handlers stay same-origin. Explicit URLs and Request objects retain
+    // their own origin; API-relative paths append to the configured base path.
+    const target =
+      typeof input === "string" &&
+      !/^(?:[a-z][a-z\d+.-]*:|\/\/)/i.test(input) &&
+      !env.VITE_ENABLE_MOCKS
+        ? `${env.VITE_API_BASE_URL.replace(/\/+$/, "")}/${input.replace(/^\/+/, "")}`
+        : input;
+    response = await fetch(target, requestInit);
   } catch (cause) {
     throw new ApiError(networkErrorMessage, {
       status: 0,
