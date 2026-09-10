@@ -30,6 +30,7 @@ const linkedPaths = [
   "/projects",
   "/projects/$projectId",
   "/settings",
+  "/react-19",
   "/signin",
   "/users",
   "/users/$userId",

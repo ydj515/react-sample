@@ -1,11 +1,9 @@
+import { loadManagementApi } from "@/mocks/storybook/load-management-api";
 import { FormDocs } from "@/shared/lib/storybook/form-docs";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { managementFixture } from "@/mocks/data/management";
-import {
-  withManagementApi,
-  loadManagementApi,
-} from "@/mocks/storybook/with-management-api";
+import { withManagementApi } from "@/mocks/storybook/with-management-api";
 import { useQuery } from "@tanstack/react-query";
 import { Card } from "@/shared/ui/card";
 import { orderQueryOptions } from "@/features/orders/queries/order-queries";

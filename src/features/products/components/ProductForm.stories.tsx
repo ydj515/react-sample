@@ -1,10 +1,8 @@
+import { loadManagementApi } from "@/mocks/storybook/load-management-api";
 import { withRouter } from "@/shared/lib/storybook/with-router";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { fn } from "storybook/test";
-import {
-  withManagementApi,
-  loadManagementApi,
-} from "@/mocks/storybook/with-management-api";
+import { withManagementApi } from "@/mocks/storybook/with-management-api";
 import { managementFixture } from "@/mocks/data/management";
 import { ProductForm } from "./ProductForm";
 

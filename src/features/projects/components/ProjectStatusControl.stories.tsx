@@ -1,12 +1,10 @@
+import { loadManagementApi } from "@/mocks/storybook/load-management-api";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { ProjectStatusControl } from "./ProjectStatusControl";
 import { projectQueryOptions } from "@/features/projects/queries/project-queries";
 import { QueryBoundary } from "@/shared/ui/query-boundary";
-import {
-  loadManagementApi,
-  withManagementApi,
-} from "@/mocks/storybook/with-management-api";
+import { withManagementApi } from "@/mocks/storybook/with-management-api";
 import { projectsFixture } from "@/mocks/data/projects";
 
 function CurrentProject() {
