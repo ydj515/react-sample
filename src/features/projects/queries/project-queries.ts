@@ -62,8 +62,12 @@ export function useUpdateProjectStatusMutation(projectId: string) {
   return useMutation({
     mutationFn: (status: ProjectStatus) =>
       updateProjectStatus(projectId, status),
-    onSuccess: () => {
-      void queryClient.invalidateQueries({ queryKey: projectKeys.all });
+    onSuccess: async (saved) => {
+      await queryClient.cancelQueries({
+        queryKey: projectKeys.detail(projectId),
+      });
+      queryClient.setQueryData(projectKeys.detail(projectId), saved);
+      await queryClient.invalidateQueries({ queryKey: projectKeys.all });
     },
   });
 }

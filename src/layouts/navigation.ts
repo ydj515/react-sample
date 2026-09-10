@@ -24,7 +24,8 @@ export type NavigationItem = {
     | "/products"
     | "/docs"
     | "/shop"
-    | "/landing";
+    | "/landing"
+    | "/react-19";
   label: string;
   icon: LucideIcon;
 };
@@ -57,6 +58,7 @@ export const navigationGroups: NavigationGroup[] = [
       { to: "/docs", label: "Blog / Docs", icon: BookOpen },
       { to: "/shop", label: "E-commerce", icon: ShoppingCart },
       { to: "/landing", label: "Landing Pages", icon: LayoutTemplate },
+      { to: "/react-19", label: "React 19", icon: BookOpen },
     ],
   },
   {

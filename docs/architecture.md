@@ -245,3 +245,13 @@ products API/query를 사용하고, 구매 흐름은 `features/shop`에서 조�
 - QueryFeedback은 공통 경계의 표시 UI와 대시보드·장바구니의 **백그라운드 갱신 실패** 알림에 사용한다. 캐시 데이터가 있으면 초기 로딩 화면으로 돌아가지 않는다.
 - 상품 신규 등록은 서버 조회 없이 폼을 표시한다. 기존 상품 편집은 별도 조회 컴포넌트에서 suspend한다. ProductForm의 선택적인 관련 상품 조회(`enabled`)와 mutation 저장 오류는 폼 내부에서 관리한다.
 - `Shared/UI/QueryBoundary` 스토리에서 정상·로딩·실패 후 재시도 상태를 확인한다. 경계 테스트는 주변 레이아웃 유지와 복구를, 실제 route 통합 테스트는 loader 오류 복구와 캐시 재사용을 확인한다.
+
+## React 19 적용 기준
+
+React 19 API를 기존 서버 상태·URL·폼 도구와 함께 사용합니다.
+프로젝트 상태는 useOptimistic으로 임시 표시하고 성공 시 Query 캐시를 갱신합니다.
+로그인은 RHF 검증과 Form Action을 결합하며 SubmitButton은 useFormStatus를 구독합니다.
+사용자 상세의 편집 탭은 Activity로 화면 안의 초안을 보존합니다.
+`/react-19`의 use(Promise)는 loader 스냅샷을 읽는 별도 학습 예제이며,
+일반 서버 조회는 useSuspenseQuery를 유지합니다.
+변경 전후 코드·범위·검증은 [React 19 가이드](./react-19-modernization.md)를 참고하세요.

@@ -1,3 +1,4 @@
+import { PageMetadata } from "./page-metadata";
 import type { ReactNode } from "react";
 
 export function PageHeader({
@@ -11,6 +12,10 @@ export function PageHeader({
 }) {
   return (
     <div className="flex flex-wrap items-start justify-between gap-4">
+      <PageMetadata
+        title={title}
+        description={typeof description === "string" ? description : undefined}
+      />
       <div className="min-w-0">
         <h1 className="text-ink text-2xl font-semibold tracking-tight">
           {title}

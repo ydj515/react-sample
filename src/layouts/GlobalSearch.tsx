@@ -1,6 +1,13 @@
 import { useNavigate } from "@tanstack/react-router";
 import { ArrowRight, Search, X } from "lucide-react";
-import { useCallback, useEffect, useId, useRef, useState } from "react";
+import {
+  useCallback,
+  useEffectEvent,
+  useEffect,
+  useId,
+  useRef,
+  useState,
+} from "react";
 
 import { searchNavigation } from "./navigation";
 import { Button } from "@/shared/ui/button";
@@ -36,6 +43,7 @@ export function GlobalSearch() {
     }
     setOpen(next);
   }, []);
+  const toggleFromShortcut = useEffectEvent(() => changeOpen(!open));
   useEffect(() => {
     const shortcut = (event: KeyboardEvent) => {
       if (
@@ -46,11 +54,11 @@ export function GlobalSearch() {
       )
         return;
       event.preventDefault();
-      changeOpen(!open);
+      toggleFromShortcut();
     };
     document.addEventListener("keydown", shortcut);
     return () => document.removeEventListener("keydown", shortcut);
-  }, [changeOpen, open]);
+  }, []);
   const select = (index: number) => {
     const item = results[index];
     if (!item) return;

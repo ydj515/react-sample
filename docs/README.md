@@ -19,6 +19,7 @@
 10. [Blog / Docs 예제](./blog-docs-examples.md)
 11. [E-commerce 예제](./ecommerce-examples.md)
 12. [랜딩 페이지 예제](./landing-examples.md)
+13. [React 19 적용 전후 가이드](./react-19-modernization.md)
 
 ## 목적별 문서
 

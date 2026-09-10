@@ -1,6 +1,7 @@
+import { PageMetadata } from "@/shared/ui/page-metadata";
 import { Link } from "@tanstack/react-router";
 import { BookOpen, Menu, X, ArrowUpRight } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
 import { Button } from "@/shared/ui/button";
 import {
@@ -21,15 +22,13 @@ import { findDocument } from "@/features/docs/model/documents";
 export function DocsPage({ slug }: { slug: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
   const article = findDocument(slug);
-  useEffect(() => {
-    const previousTitle = document.title;
-    document.title = `${article?.title ?? "문서를 찾을 수 없습니다"} | React Sample Docs`;
-    return () => {
-      document.title = previousTitle;
-    };
-  }, [article]);
   return (
     <div className="bg-surface text-ink min-h-screen">
+      <PageMetadata
+        title={article?.title ?? "문서를 찾을 수 없습니다"}
+        site="React Sample Docs"
+        description={article?.description}
+      />
       <a
         href="#doc-main"
         className="bg-brand text-on-brand sr-only top-2 left-2 z-[60] rounded focus:not-sr-only focus:fixed focus:px-4 focus:py-2"

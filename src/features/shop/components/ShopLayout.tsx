@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { Link, Outlet } from "@tanstack/react-router";
 import { ShoppingBag, Heart, ArrowUpRight } from "lucide-react";
 import { ThemeToggle } from "@/layouts/ThemeToggle";
@@ -6,13 +5,6 @@ import { useShopStore } from "@/stores/shop-store";
 import { shopSearchSchema } from "@/features/shop/model/shop";
 
 export function ShopLayout() {
-  useEffect(() => {
-    const previous = document.title;
-    document.title = "Sample Store | React Sample";
-    return () => {
-      document.title = previous;
-    };
-  }, []);
   const items = useShopStore((state) => state.items);
   const count = items.reduce((n, item) => n + item.quantity, 0);
   return (

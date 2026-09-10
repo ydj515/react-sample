@@ -36,14 +36,22 @@ export function QueryPending() {
 export function QueryBoundary({
   children,
   errorMessage,
+  onRetry,
 }: {
   children: ReactNode;
   errorMessage?: string;
+  onRetry?: () => void;
 }) {
   return (
     <QueryErrorResetBoundary>
       {({ reset }) => (
-        <ErrorBoundary onReset={reset} errorMessage={errorMessage}>
+        <ErrorBoundary
+          onReset={() => {
+            reset();
+            onRetry?.();
+          }}
+          errorMessage={errorMessage}
+        >
           <Suspense fallback={<QueryPending />}>{children}</Suspense>
         </ErrorBoundary>
       )}

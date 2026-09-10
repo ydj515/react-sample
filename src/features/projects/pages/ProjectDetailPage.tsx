@@ -2,7 +2,7 @@ import { QueryBoundary } from "@/shared/ui/query-boundary";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useParams } from "@tanstack/react-router";
 
-import { ProjectStatusBadge } from "@/features/projects/components/ProjectStatusBadge";
+import { ProjectStatusControl } from "@/features/projects/components/ProjectStatusControl";
 import { projectQueryOptions } from "@/features/projects/queries/project-queries";
 import { formatDate } from "@/shared/lib/format-date";
 import { Card } from "@/shared/ui/card";
@@ -25,7 +25,7 @@ function ProjectDetailPageContent() {
       <PageHeader
         title={project.name}
         description={project.description}
-        actions={<ProjectStatusBadge status={project.status} />}
+        actions={<ProjectStatusControl project={project} />}
       />
       <Card className="p-6">
         <dl className="grid gap-4 sm:grid-cols-3">

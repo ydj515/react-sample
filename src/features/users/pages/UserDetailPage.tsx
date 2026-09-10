@@ -1,3 +1,4 @@
+import { Activity } from "react";
 import type { ComponentProps } from "react";
 import { QueryBoundary } from "@/shared/ui/query-boundary";
 import { useSuspenseQuery } from "@tanstack/react-query";
@@ -133,17 +134,17 @@ function UserDetailPageContent({ userId }: { userId: string }) {
             aria-labelledby={`user-detail-panel-${search.tab}`}
             tabIndex={0}
           >
-            {search.tab === "profile" ? (
+            <Activity mode={search.tab === "profile" ? "visible" : "hidden"}>
               <UserProfileForm key={user.id} user={user} />
-            ) : null}
-            {search.tab === "access" ? (
+            </Activity>
+            <Activity mode={search.tab === "access" ? "visible" : "hidden"}>
               <Card className="p-5 sm:p-6">
                 <UserAccessForm
                   key={`${user.role}-${user.status}`}
                   user={user}
                 />
               </Card>
-            ) : null}
+            </Activity>
             {search.tab === "orders" ? (
               <Card className="grid gap-4 p-5">
                 <h2 className="flex items-center gap-2 font-semibold">

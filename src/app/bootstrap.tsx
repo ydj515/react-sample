@@ -1,3 +1,4 @@
+import { rootErrorHandlers } from "./error-reporting";
 import { StrictMode } from "react";
 import { createRoot } from "react-dom/client";
 
@@ -16,7 +17,7 @@ export async function enableMocking() {
 }
 
 export function renderApp(container: HTMLElement) {
-  createRoot(container).render(
+  createRoot(container, rootErrorHandlers).render(
     <StrictMode>
       <App />
     </StrictMode>,

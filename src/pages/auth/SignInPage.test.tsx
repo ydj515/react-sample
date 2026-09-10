@@ -1,3 +1,5 @@
+import { http, HttpResponse, delay } from "msw";
+import { server } from "@/mocks/server";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -70,5 +72,31 @@ describe("SignInPage", () => {
     await waitFor(() => {
       expect(navigateMock).toHaveBeenCalledWith({ to: "/settings" });
     });
+  });
+  it("tracks the form Action and preserves controlled values after an API failure", async () => {
+    server.use(
+      http.post("/api/login", async () => {
+        await delay(200);
+        return HttpResponse.json({}, { status: 500 });
+      }),
+    );
+    const user = userEvent.setup();
+    renderWithProviders(<SignInPage />);
+    await user.type(screen.getByLabelText("이메일"), "demo@example.com");
+    await user.type(screen.getByLabelText("비밀번호"), "password");
+    await user.click(screen.getByRole("button", { name: "로그인" }));
+    expect(
+      await screen.findByRole("button", { name: "로그인 중…" }),
+    ).toBeDisabled();
+    expect(await screen.findByRole("alert")).toHaveTextContent(
+      "로그인에 실패했습니다",
+    );
+    expect(screen.getByLabelText("이메일")).toHaveValue("demo@example.com");
+    expect(screen.getByLabelText("비밀번호")).toHaveValue("password");
+    expect(screen.getByRole("button", { name: "로그인" })).toBeEnabled();
+    expect(useAuthStore.getState().isAuthenticated).toBe(false);
+    server.resetHandlers();
+    await user.click(screen.getByRole("button", { name: "로그인" }));
+    await waitFor(() => expect(navigateMock).toHaveBeenCalledWith({ to: "/" }));
   });
 });
