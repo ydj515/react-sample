@@ -27,7 +27,7 @@ export const ordersQueryOptions = () =>
 export const orderQueryOptions = (id: string) =>
   queryOptions({ queryKey: orderKeys.detail(id), queryFn: () => getOrder(id) });
 
-function useOrderSaved(onSaved: () => void) {
+function useOrderSaved(onSaved: (order: ManagedOrder) => void) {
   const client = useQueryClient();
   return async (order: ManagedOrder) => {
     client.setQueryData(orderKeys.detail(order.id), order);
@@ -35,7 +35,7 @@ function useOrderSaved(onSaved: () => void) {
       client.invalidateQueries({ queryKey: orderKeys.all }),
       client.invalidateQueries({ queryKey: commerceKeys.all }),
     ]);
-    onSaved();
+    onSaved(order);
   };
 }
 export function useUpdateOrderStatusMutation(
@@ -58,7 +58,7 @@ export function useAddOrderNoteMutation(orderId: string, onSaved: () => void) {
 
 export function useUpdateOrderShippingMutation(
   orderId: string,
-  onSaved: () => void,
+  onSaved: (order: ManagedOrder) => void,
 ) {
   const saved = useOrderSaved(onSaved);
   return useMutation({

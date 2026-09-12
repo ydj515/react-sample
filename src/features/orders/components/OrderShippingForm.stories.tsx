@@ -98,5 +98,6 @@ export const SaveError: Story = {
     await expect(canvas.getByLabelText("운송장 번호")).toHaveValue(
       "UNSAVED-123",
     );
+    await expect(canvas.getByLabelText("운송장 번호")).toBeEnabled();
   },
 };

@@ -19,8 +19,8 @@ export function UserProfileForm({ user }: { user: ManagedUser }) {
     resolver: zodResolver(userProfileSchema),
     defaultValues: userProfileSchema.parse(user),
   });
-  const mutation = useUpdateUserProfileMutation(user.id, () => {
-    form.reset(form.getValues());
+  const mutation = useUpdateUserProfileMutation(user.id, (saved) => {
+    form.reset(userProfileSchema.parse(saved));
     toast.success("회원 정보를 저장했습니다.");
   });
   return (
@@ -32,7 +32,10 @@ export function UserProfileForm({ user }: { user: ManagedUser }) {
         className="grid gap-5"
       >
         <h2 className="font-semibold">회원 정보 편집</h2>
-        <div className="grid gap-4 sm:grid-cols-2">
+        <fieldset
+          disabled={mutation.isPending}
+          className="grid min-w-0 gap-4 sm:grid-cols-2"
+        >
           {(
             [
               { name: "name", label: "이름" },
@@ -77,7 +80,7 @@ export function UserProfileForm({ user }: { user: ManagedUser }) {
             관리자 메모
             <Textarea {...form.register("memo")} maxLength={1000} />
           </label>
-        </div>
+        </fieldset>
         {mutation.error ? (
           <p role="alert" className="text-negative text-sm">
             {mutation.error.message}

@@ -1,4 +1,5 @@
 import type {
+  ManagedUser,
   UserAccess,
   UserProfile,
 } from "@/features/users/model/user-schema";
@@ -26,7 +27,7 @@ export const userQueryOptions = (id: string) =>
 
 export function useUpdateUserAccessMutation(
   userId: string,
-  onSaved: () => void,
+  onSaved: (user: ManagedUser) => void,
 ) {
   const client = useQueryClient();
   return useMutation({
@@ -34,14 +35,14 @@ export function useUpdateUserAccessMutation(
     onSuccess: async (updated) => {
       client.setQueryData(userKeys.detail(userId), updated);
       await client.invalidateQueries({ queryKey: userKeys.all });
-      onSaved();
+      onSaved(updated);
     },
   });
 }
 
 export function useUpdateUserProfileMutation(
   userId: string,
-  onSaved: () => void,
+  onSaved: (user: ManagedUser) => void,
 ) {
   const client = useQueryClient();
   return useMutation({
@@ -49,7 +50,7 @@ export function useUpdateUserProfileMutation(
     onSuccess: async (updated) => {
       client.setQueryData(userKeys.detail(userId), updated);
       await client.invalidateQueries({ queryKey: userKeys.all });
-      onSaved();
+      onSaved(updated);
     },
   });
 }

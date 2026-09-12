@@ -90,6 +90,7 @@ export const SaveError: Story = {
     await expect(canvas.getByLabelText("닉네임")).toHaveValue(
       "unsaved_profile",
     );
+    await expect(canvas.getByLabelText("닉네임")).toBeEnabled();
   },
 };
 export const Mobile: Story = {

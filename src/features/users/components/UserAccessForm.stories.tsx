@@ -93,5 +93,6 @@ export const SaveError: Story = {
       "사용자를 찾을 수 없습니다.",
     );
     await expect(canvas.getByLabelText("사용자 역할")).toHaveValue("viewer");
+    await expect(canvas.getByLabelText("사용자 역할")).toBeEnabled();
   },
 };
