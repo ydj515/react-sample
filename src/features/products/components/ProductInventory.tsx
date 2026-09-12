@@ -95,7 +95,7 @@ export function ProductInventory({
         <div className="mt-5 grid gap-4">
           {variants.map((item, index) => (
             <div
-              key={`${item.color}-${item.size}`}
+              key={JSON.stringify([item.color, item.size])}
               className="grid grid-cols-[minmax(70px,1fr)_minmax(50px,2fr)_70px] items-center gap-3"
             >
               <div className="text-sm">

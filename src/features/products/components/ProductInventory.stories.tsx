@@ -25,3 +25,14 @@ export const Default: Story = {
   },
 };
 export const Empty: Story = { ...Default, args: { variants: [] } };
+
+export const DelimitedOptions: Story = {
+  ...Default,
+  args: {
+    stock: 8,
+    variants: [
+      { color: "A-B", size: "C", stock: 4 },
+      { color: "A", size: "B-C", stock: 4 },
+    ],
+  },
+};

@@ -3,7 +3,7 @@ import { http, HttpResponse } from "msw";
 import { server } from "@/mocks/server";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { getProduct } from "@/features/products/api/product-api";
 import { renderManagement } from "@/test/render-management";
 
@@ -229,4 +229,37 @@ it("저장 중 후속 초안 입력을 막고 완료 후 편집을 허용한다"
   }
   await waitFor(() => expect(input).toHaveValue("서버 상품명"));
   expect(input).toBeEnabled();
+});
+
+it("구분자를 포함한 서로 다른 옵션을 중복 key 없이 편집한다", async () => {
+  const product = managementFixture.products[0]!;
+  const variants = [
+    { color: "A-B", size: "C", stock: 4 },
+    { color: "A", size: "B-C", stock: 4 },
+  ];
+  server.use(
+    http.get("/api/products/:id", () =>
+      HttpResponse.json({ ...product, stock: 8, variants }),
+    ),
+  );
+  const errors = vi.spyOn(console, "error").mockImplementation(() => {});
+  try {
+    const user = userEvent.setup();
+    renderManagement(`/products/${product.id}`);
+    await screen.findByRole("textbox", { name: "상품명" });
+    await user.click(screen.getByRole("tab", { name: "재고 · 옵션" }));
+    const first = screen.getByRole("spinbutton", { name: "A-B C 재고" });
+    const second = screen.getByRole("spinbutton", { name: "A B-C 재고" });
+    await user.clear(first);
+    await user.type(first, "5");
+    expect(first).toHaveValue(5);
+    expect(second).toHaveValue(4);
+    expect(
+      errors.mock.calls.filter(([message]) =>
+        String(message).includes("same key"),
+      ),
+    ).toEqual([]);
+  } finally {
+    errors.mockRestore();
+  }
 });

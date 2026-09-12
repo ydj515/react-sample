@@ -2,7 +2,7 @@ import { managementFixture } from "@/mocks/data/management";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { http, HttpResponse } from "msw";
-import { describe, it, expect } from "vitest";
+import { describe, it, expect, vi } from "vitest";
 import { renderManagement } from "@/test/render-management";
 import { getOrder } from "@/features/orders/api/order-api";
 import { server } from "@/mocks/server";
@@ -149,4 +149,35 @@ it("저장 중 후속 초안 입력을 막고 완료 후 편집을 허용한다"
   }
   await waitFor(() => expect(input).toHaveValue(""));
   expect(input).toBeEnabled();
+});
+
+it("구분자를 포함한 주문 옵션들을 서로 다른 key로 표시한다", async () => {
+  const order = managementFixture.orders[0]!;
+  const item = order.items[0]!;
+  server.use(
+    http.get("/api/orders/:id", () =>
+      HttpResponse.json({
+        ...order,
+        items: [
+          { ...item, color: "A-B", size: "C" },
+          { ...item, color: "A", size: "B-C" },
+        ],
+      }),
+    ),
+  );
+  const errors = vi.spyOn(console, "error").mockImplementation(() => {});
+  try {
+    renderManagement(`/orders/${encodeURIComponent(order.id)}`);
+    await screen.findByText(`A-B · C · 수량 ${item.quantity}`);
+    expect(
+      screen.getByText(`A · B-C · 수량 ${item.quantity}`),
+    ).toBeInTheDocument();
+    expect(
+      errors.mock.calls.filter(([message]) =>
+        String(message).includes("same key"),
+      ),
+    ).toEqual([]);
+  } finally {
+    errors.mockRestore();
+  }
 });

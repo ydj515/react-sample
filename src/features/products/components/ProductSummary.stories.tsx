@@ -36,3 +36,13 @@ export const StockLevels: Story = {
     ],
   },
 };
+
+export const DelimitedOptions: Story = {
+  args: {
+    stock: 8,
+    variants: [
+      { color: "A-B", size: "C", stock: 4 },
+      { color: "A", size: "B-C", stock: 4 },
+    ],
+  },
+};

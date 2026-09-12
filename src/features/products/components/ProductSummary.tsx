@@ -47,7 +47,7 @@ export function ProductSummary({
         <ul className="mt-3 grid gap-3">
           {variants.map((item) => (
             <li
-              key={`${item.color}-${item.size}`}
+              key={JSON.stringify([item.color, item.size])}
               className="flex justify-between gap-3 text-sm"
             >
               <span className="text-ink-subtle">

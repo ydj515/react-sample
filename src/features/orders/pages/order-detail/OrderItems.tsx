@@ -18,7 +18,7 @@ export function OrderItems({ order }: { order: ManagedOrder }) {
       <ul className="divide-line mt-4 divide-y">
         {order.items.map((item) => (
           <li
-            key={`${item.productId}-${item.color}-${item.size}`}
+            key={JSON.stringify([item.productId, item.color, item.size])}
             className="flex flex-wrap items-center gap-4 py-4"
           >
             <ProductImage
