@@ -154,6 +154,8 @@ layout/settings component
 
 ## 인증 흐름
 
+현재 auth feature는 로그인 API 계약을 소유하고, `src/pages/auth/SignInPage.tsx`는 독립 화면으로 폼과 로그인 후 이동을 조정합니다. 앱 전역 인증 상태와 라우트 가드는 store와 router가 담당합니다. 현재 단일 로그인 예제에는 빈 `model/components/pages` 계층을 추가하지 않습니다. 회원가입이나 비밀번호 재설정 등 두 번째 인증 화면이 생기면 `features/auth/pages`로 화면을 모으고 공유 모델·UI를 분리합니다.
+
 미인증 사용자가 보호 라우트에 접근하면 `beforeLoad`가 로그인으로 리다이렉트하고, 로그인 후 원래 목적지로 복귀합니다.
 
 ```txt
@@ -189,6 +191,27 @@ mutation onSuccess / onError 등 어디서든
 - 입력 검증: Zod
 - API 성공 응답 검증: Zod + `apiRequest`
 - API mocking: MSW
+
+### Zustand selector 기준
+
+- 기본은 필드별 selector입니다. 여러 필드를 각각 구독해도 `useShallow`는 필요하지 않습니다.
+- 하나의 selector가 새 객체나 배열을 만들어 반환하면 `zustand/react/shallow`의 `useShallow`로 결과 참조를 안정화합니다. 기존 상태의 배열이나 객체를 그대로 반환하는 selector에는 일괄 적용하지 않습니다.
+- `useShallow`는 최상위 항목만 비교합니다. selector 안에서 중첩 객체까지 매번 생성하면 참조가 달라지므로 원본 상태를 선택한 뒤 컴포넌트에서 계산하거나 별도로 메모이제이션합니다.
+- Zustand 5에서는 불안정한 selector 반환값이 반복 렌더링을 일으킬 수 있습니다. 필드 수보다 반환값의 참조 안정성을 기준으로 판단합니다.
+
+```ts
+import { useShallow } from "zustand/react/shallow";
+import { useUiStore } from "@/stores/ui-store";
+
+// 두 필드를 하나의 객체로 선택해야 하는 경우의 feature/layout 전용 hook 예제
+function useAppearanceState() {
+  return useUiStore(
+    useShallow((state) => ({ theme: state.theme, density: state.density })),
+  );
+}
+```
+
+참고: [Zustand selector 가이드](https://zustand.docs.pmnd.rs/learn/guides/prevent-rerenders-with-use-shallow.html).
 
 ## 새 기능 추가 기준
 

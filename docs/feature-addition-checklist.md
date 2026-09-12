@@ -28,6 +28,7 @@
 - [ ] 전역 client UI/auth/toast 상태는 `src/stores`, 도메인 전용 client 상태는 `features/<domain>/store`에 둔다.
 - [ ] component 하나에서만 필요한 상태는 지역 state로 유지한다.
 - [ ] 서버 데이터를 Zustand에 중복 저장하지 않는다.
+- [ ] Zustand는 필드별 selector를 기본으로 사용하고, 새 객체·배열을 반환하는 조합 selector는 `useShallow` 등으로 참조 안정성을 확보했다.
 
 ## 4. Shared 승격 기준
 

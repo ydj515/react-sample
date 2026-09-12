@@ -151,6 +151,7 @@ src/test       테스트 setup
 - `src/stores/auth-store.ts`: 토큰과 사용자 정보를 Zustand `persist`로 localStorage(`react-sample-auth`)에 저장합니다.
 - `src/routes/_dashboard.tsx`의 `beforeLoad`가 미인증 접근을 막고 `/signin?redirect=<원래 경로>`로 리다이렉트합니다. 인증 상태는 라우터 `context`(`src/app/router-context.ts`)로 주입됩니다.
 - `src/pages/auth/SignInPage.tsx`는 RHF + Zod 로그인 폼이며, 로그인 후 `redirect` 목적지(없으면 `/`)로 이동합니다. MSW `POST /api/login`이 데모 토큰을 발급합니다.
+- 현재 단일 로그인 예제는 `features/auth/api`가 API 계약을, 독립 `SignInPage`가 폼과 화면 흐름을 소유하도록 분리했습니다. 추가 인증 화면이 생기면 auth feature로 화면과 공유 책임을 모읍니다.
 - 헤더의 로그아웃 버튼은 인증 상태를 비우고 `/signin`으로 보냅니다.
 
 ### 알림 (Toast)

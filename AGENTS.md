@@ -15,6 +15,10 @@ This repository is a single Vite + React application organized by responsibility
 - `src/test`: cross-cutting Vitest setup and tooling tests
 - `e2e`: Playwright browser journeys
 
+The single sign-in example keeps its API contract in `src/features/auth/api` and
+its standalone form/navigation in `src/pages/auth/SignInPage.tsx`. Revisit this
+split when adding another authentication screen.
+
 Start with `docs/README.md` for the documentation reading order. Check
 `docs/feature-addition-checklist.md` before completing a feature.
 
