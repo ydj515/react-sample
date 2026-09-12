@@ -45,14 +45,14 @@ handler에서 다시 계산하며, 클라이언트가 보낸 가격을 신뢰하
 ## 코드와 검증
 
 `features/shop`은 쇼핑 UI, 검색·장바구니 계산, 주문 API와 mutation을 소유한다.
-`stores/shop-store.ts`는 클라이언트 장바구니·찜을 관리한다.
+`features/shop/store/shop-store.ts`는 클라이언트 장바구니·찜을 관리한다.
 `mocks/shop-handlers.ts`는 같은 관리 상품 fixture로 모의 주문을 검증한다.
 
 Storybook의 `Features/Shop`과 `Pages/Shop`에서 상품 카드, 구매 옵션,
 주문 폼의 기본·검증 오류·저장 오류·로딩 상태와 목록·장바구니를 확인한다.
 
 ```bash
-pnpm test src/features/shop src/stores/shop-store.test.ts
+pnpm test src/features/shop src/features/shop/store/shop-store.test.ts
 pnpm test:e2e e2e/shop.e2e.ts
 pnpm verify
 ```

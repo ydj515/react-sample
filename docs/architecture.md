@@ -78,7 +78,7 @@ features/auth/api           로그인 요청 wrapper (signInRequest)
 - `ui-store`는 `theme`, `density`를 관리하고 localStorage key `react-sample-ui`에 저장한다. 모바일 메뉴 열림 여부는 `DashboardLayout`의 지역 상태이며, 데스크톱 사이드바는 고정 표시한다.
 - `auth-store`는 `token`, `user`, `isAuthenticated`를 관리하며 localStorage key `react-sample-auth`에 저장한다. 라우터 context로 주입되어 `beforeLoad` 가드가 이 상태를 읽는다.
 - `toast-store`는 전역 알림 목록과 `toast.success/error/info` 헬퍼를 제공한다(영속화하지 않음).
-- `shop-store`는 장바구니·찜을 관리하는 현재 유일한 도메인 전용 store입니다. 새 도메인 전용 store를 추가하는 시점(2개 이상)에는 `features/<domain>/store`로 함께 정리하고 명시적 public API를 둡니다. 전역 영역에는 auth/UI/toast 상태를 유지합니다.
+- 전역 영역에는 auth/UI/toast 상태만 유지합니다. 장바구니·찜처럼 도메인 전용 client 상태는 `features/<domain>/store`가 소유합니다. `features/shop/store/shop-store.ts`는 기존 localStorage key `react-sample-shop`과 저장 형식(version 1)을 유지합니다.
 - 서버에서 가져오는 프로젝트 데이터는 이곳에 두지 않고 TanStack Query에 맡긴다.
 
 ### `src/mocks`
@@ -128,9 +128,9 @@ HTTP 실패는 `ApiError(status, code, message, path, traceId)`로 정규화합�
 ### 기능별 Public API
 
 - 다른 기능과 routes, mocks, 통합 테스트는 `@/features/<feature>/<layer>`에서 필요한 이름을 import한다. 실제 진입점은 해당 역할 폴더의 `index.ts`다. 페이지는 `@/features/<feature>/pages/<page>`처럼 화면별 `index.ts`를 사용해 라우트 지연 로딩을 유지한다.
-- `model`은 타입·스키마·순수 함수, `queries`는 query options·공유 key, `api`는 HTTP 계약, `components`는 재사용 UI, `pages/<page>`는 해당 route 화면만 공개한다. 현재 외부 소비자가 필요한 항목만 named export하며 `export *`를 금지한다.
+- `model`은 타입·스키마·순수 함수, `queries`는 query options·공유 key, `api`는 HTTP 계약, `store`는 도메인 전용 client 상태, `components`는 재사용 UI, `pages/<page>`는 해당 route 화면만 공개한다. 현재 외부 소비자가 필요한 항목만 named export하며 `export *`를 금지한다.
 - 기능 내부에서는 자체 public API를 거치지 않고 구현 파일을 직접 import한다. 같은 디렉터리는 `./`, 그 외는 `@/`를 사용한다. 이는 자신의 barrel을 통한 순환 참조를 방지한다.
-- 데이터 계층(`api`, `model`, `queries`)은 다른 기능의 public API라도 UI 계층(`components`, `pages`, `hooks`)을 참조할 수 없다.
+- 데이터 계층(`api`, `model`, `queries`)은 다른 기능의 public API라도 UI 계층(`components`, `pages`, `hooks`)이나 `store`를 참조할 수 없다. 같은 feature의 store 구현 파일에도 이 제한을 적용한다.
 - 역할별 진입점을 나눠 데이터 계약의 소비가 UI 모듈까지 끌어오지 않도록 한다. 예를 들어 dashboard는 `orders/model`의 주문 계약을 사용하고, 주문 mutation은 `dashboard/queries`의 갱신 key를 사용한다.
 - 공개 목록 변경은 소비자와 함께 검토한다. 내부 파일 이름 변경은 해당 기능의 index에서 흡수하고, 계약 변경은 관련 소비자·테스트까지 갱신한다.
 - ESLint는 static import, named re-export, dynamic import, require, TypeScript import type/equals 문법에서 경계를 검사한다.
@@ -184,6 +184,7 @@ mutation onSuccess / onError 등 어디서든
 
 - 서버 데이터: TanStack Query
 - 클라이언트 UI 상태 / 인증 / 알림: Zustand (`ui-store`, `auth-store`, `toast-store`)
+- 도메인 전용 클라이언트 상태: Zustand (`features/<domain>/store`), 서버 데이터 중복 저장 금지
 - 폼 상태: React Hook Form
 - 입력 검증: Zod
 - API 성공 응답 검증: Zod + `apiRequest`
@@ -210,7 +211,7 @@ mutation onSuccess / onError 등 어디서든
 
 `/shop` 레이아웃 아래 목록·상세·장바구니·주문서를 둔다. 관리자와 같은
 products API/query를 사용하고, 구매 흐름은 `features/shop`에서 조합한다.
-장바구니·찜은 `stores/shop-store.ts`가 소유하고 가격·재고를 중복 저장하지
+장바구니·찜은 `features/shop/store/shop-store.ts`가 소유하고 가격·재고를 중복 저장하지
 않는다. 모의 주문은 MSW에서 현재 상품 데이터로 검증한다. 상세한 범위는
 [E-commerce 예제](./ecommerce-examples.md)를 따른다.
 

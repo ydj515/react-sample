@@ -133,7 +133,7 @@ const architecturePlugin = {
           private:
             "Consume another feature through its explicit layer public API (@/features/<feature>/<layer>).",
           self: "Feature internals must import implementation modules directly, not their own public API.",
-          data: "Feature data layers cannot consume feature UI APIs or implementations.",
+          data: "Feature data layers cannot consume feature UI or store APIs or implementations.",
           wildcard:
             "Declare named exports in feature public APIs; do not export *.",
         },
@@ -146,12 +146,18 @@ const architecturePlugin = {
           "api",
           "model",
           "queries",
+          "store",
           "hooks",
           "components",
           "pages",
         ]);
         const dataLayers = new Set(["api", "model", "queries"]);
-        const uiLayers = new Set(["hooks", "components", "pages"]);
+        const restrictedDataTargets = new Set([
+          "hooks",
+          "components",
+          "pages",
+          "store",
+        ]);
         const publicFile =
           source[0] === "features" &&
           source.length >= 4 &&
@@ -181,7 +187,7 @@ const architecturePlugin = {
           if (
             source[0] === "features" &&
             dataLayers.has(source[2]) &&
-            uiLayers.has(target[2])
+            restrictedDataTargets.has(target[2])
           )
             messageId = "data";
           else if (sameFeature && publicEntry) messageId = "self";

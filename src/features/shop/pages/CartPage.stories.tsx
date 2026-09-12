@@ -2,7 +2,7 @@ import { loadManagementApi } from "@/mocks/storybook/load-management-api";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { withRouter } from "@/shared/lib/storybook/with-router";
 import { withManagementApi } from "@/mocks/storybook/with-management-api";
-import { useShopStore } from "@/stores/shop-store";
+import { useShopStore } from "@/features/shop/store/shop-store";
 import { CartPage } from "./CartPage";
 
 const meta = {

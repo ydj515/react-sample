@@ -10,7 +10,7 @@ This repository is a single Vite + React application organized by responsibility
 - `src/features`: domain-oriented API, model, query, component, and page code
 - `src/pages`: standalone pages that do not belong to a feature package
 - `src/shared`: feature-independent API infrastructure, configuration, UI, and utilities
-- `src/stores`: Zustand client state
+- `src/stores`: global UI/auth/toast state; domain client state belongs in `src/features/<feature>/store`
 - `src/mocks`: MSW handlers, fixtures, and mock response helpers
 - `src/test`: cross-cutting Vitest setup and tooling tests
 - `e2e`: Playwright browser journeys
@@ -47,7 +47,7 @@ ESLint enforces these minimum dependency directions:
 
 - `src/shared` cannot depend on application, route, page, layout, or feature code.
 - feature `api`, `model`, and `queries` code cannot depend on application UI or
-  global stores.
+  global or feature stores.
 - feature components and pages may consume stores when the state is genuinely
   client-side UI state.
 
@@ -57,7 +57,7 @@ exports only named contracts needed outside the feature; do not use `export *`.
 Keep page APIs under `pages/<page>/index.ts` so unrelated routes remain independently
 lazy loaded rather than sharing one pages barrel.
 Feature internals import implementation files directly, never their own public
-barrels. Data layers cannot consume feature UI, even through a public API.
+barrels. Data layers cannot consume feature UI or stores, even through a public API.
 
 Use TanStack Query for server state, Zustand for client UI/auth/toast state,
 React Hook Form for forms, and Zod at input and API response boundaries.

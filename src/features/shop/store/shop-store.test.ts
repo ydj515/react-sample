@@ -1,6 +1,6 @@
 import { beforeEach, expect, it } from "vitest";
 import { useShopStore } from "./shop-store";
-import { cartKey } from "@/features/shop/model";
+import { cartKey } from "@/features/shop/model/shop";
 
 const item = { productId: "p1", color: "white", size: "250", quantity: 1 };
 beforeEach(() => useShopStore.setState({ items: [], favorites: [] }));

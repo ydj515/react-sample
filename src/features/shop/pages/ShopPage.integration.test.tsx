@@ -5,7 +5,7 @@ import { http, HttpResponse } from "msw";
 import { server } from "@/mocks/server";
 import { managementFixture } from "@/mocks/data/management";
 import { renderShop } from "@/test/render-shop";
-import { useShopStore } from "@/stores/shop-store";
+import { useShopStore } from "@/features/shop/store/shop-store";
 
 const first = managementFixture.products[0]!;
 const line = {

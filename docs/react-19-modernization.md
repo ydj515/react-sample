@@ -263,7 +263,7 @@ export function useUpdateProjectStatusMutation(projectId: string) {
 수정 동작의 일반적인 기존 방식은 서버 성공 후 Query 캐시를 갱신하고 그 결과를 표시하는 것입니다.
 별도로, 서버 요청이 없는 UI 값은 useState·Zustand에서 곧바로 변경할 수 있습니다.
 
-- **동기 상태 변경이 더 적절한 곳:** [CartPage](../src/features/shop/pages/CartPage.tsx)의 수량 변경은 [shop-store](../src/stores/shop-store.ts)의 `quantity`를 바로 호출합니다. 기다릴 서버 응답이 없고 수량·합계가 이미 즉시 바뀌므로 임시 optimistic 상태와 롤백 수명을 추가하지 않습니다.
+- **동기 상태 변경이 더 적절한 곳:** [CartPage](../src/features/shop/pages/CartPage.tsx)의 수량 변경은 [shop-store](../src/features/shop/store/shop-store.ts)의 `quantity`를 바로 호출합니다. 기다릴 서버 응답이 없고 수량·합계가 이미 즉시 바뀌므로 임시 optimistic 상태와 롤백 수명을 추가하지 않습니다.
 - **서버 성공 후 반영이 더 적절한 곳:** [UserAccessForm](../src/features/users/components/UserAccessForm.tsx)은 역할·이용 상태·권한을 검증하고 저장 성공 후 캐시와 완료 알림을 갱신합니다. 미확정 권한을 저장된 권한처럼 표시하는 것보다 결과 확인 후 반영하는 현재 흐름을 유지합니다.
 - **React 19 방식이 적절한 곳:** ProjectStatusControl처럼 하나의 상태 선택을 먼저 보여주고, 저장 중 표시와 실패 복구를 함께 제공하는 조작입니다. 실제 권한 판정이나 서버 상태 자체를 대신하지 않습니다.
 
@@ -659,7 +659,7 @@ export function ContextExample({
 항상 같은 Context가 필요한 컴포넌트에서는 이 명시적인 형태가 충분합니다.
 
 - **기존 방식이 더 적절한 곳:** [TestRouter](../src/shared/lib/test/TestRouter.tsx)의 TestContent는 매번 Content를 읽어야 하므로 `useContext(Content)`를 유지합니다. `.Provider` 역시 동작상 문제가 없어 함께 유지합니다. 조건부 읽기가 없는 이 코드에서는 변환 이점이 없습니다.
-- **상태 저장 방식을 유지한 예:** [shop-store](../src/stores/shop-store.ts)의 장바구니는 Zustand의 selector와 영속화를 사용합니다. Context 소비 문법을 바꾸는 것과 상태 저장소를 교체하는 것은 다른 결정입니다.
+- **상태 저장 방식을 유지한 예:** [shop-store](../src/features/shop/store/shop-store.ts)의 장바구니는 Zustand의 selector와 영속화를 사용합니다. Context 소비 문법을 바꾸는 것과 상태 저장소를 교체하는 것은 다른 결정입니다.
 - **React 19 방식이 적절한 곳:** ContextExample처럼 닫혀 있을 때 먼저 반환하고 열린 경우에만 Context 값을 읽는 예제입니다. 짧은 Provider 표기도 이 신규 예제에서 사용합니다.
 
 ## 10. ref callback이 DOM 자원의 정리 책임 소유

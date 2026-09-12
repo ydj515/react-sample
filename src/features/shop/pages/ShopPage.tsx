@@ -7,7 +7,7 @@ import { ArrowDown, SlidersHorizontal, X } from "lucide-react";
 import { productsQueryOptions } from "@/features/products/queries";
 import { ProductImage } from "@/features/products/components";
 import { productCategories, productImages } from "@/features/products/model";
-import { useShopStore } from "@/stores/shop-store";
+import { useShopStore } from "@/features/shop/store/shop-store";
 import { Button } from "@/shared/ui/button";
 import { SearchInput } from "@/shared/ui/search-input";
 import { Select } from "@/shared/ui/select";

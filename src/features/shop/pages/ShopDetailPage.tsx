@@ -10,7 +10,7 @@ import {
   productsQueryOptions,
 } from "@/features/products/queries";
 import { ProductImage } from "@/features/products/components";
-import { useShopStore } from "@/stores/shop-store";
+import { useShopStore } from "@/features/shop/store/shop-store";
 import { Button } from "@/shared/ui/button";
 import { DetailTabs } from "@/shared/ui/detail-tabs";
 import {

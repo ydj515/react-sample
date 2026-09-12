@@ -25,7 +25,7 @@
 
 - [ ] 서버에서 가져온 데이터는 TanStack Query로 관리한다.
 - [ ] form 입력과 오류는 React Hook Form과 Zod로 관리한다.
-- [ ] 전역 client UI/auth/toast 상태만 Zustand에 둔다.
+- [ ] 전역 client UI/auth/toast 상태는 `src/stores`, 도메인 전용 client 상태는 `features/<domain>/store`에 둔다.
 - [ ] component 하나에서만 필요한 상태는 지역 state로 유지한다.
 - [ ] 서버 데이터를 Zustand에 중복 저장하지 않는다.
 
@@ -80,5 +80,5 @@
 
 - [ ] 기능 외부에서 필요한 항목만 역할별 `index.ts`에 named export했다.
 - [ ] 다른 기능 및 routes/mocks/통합 테스트가 구현 파일을 직접 import하지 않는다.
-- [ ] 기능 내부에서 자체 public barrel을 import하지 않으며 데이터 계층이 UI API에 의존하지 않는다.
+- [ ] 기능 내부에서 자체 public barrel을 import하지 않으며 데이터 계층이 UI나 store API 및 구현에 의존하지 않는다.
 - [ ] 공개 계약 변경 시 소비자와 테스트를 함께 수정하고 타입 검사·린트·빌드를 확인했다.

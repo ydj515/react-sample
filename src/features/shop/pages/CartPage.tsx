@@ -7,7 +7,7 @@ import { useSuspenseQuery } from "@tanstack/react-query";
 import { Minus, Plus, Trash2, Check } from "lucide-react";
 import { productsQueryOptions } from "@/features/products/queries";
 import { ProductImage } from "@/features/products/components";
-import { useShopStore } from "@/stores/shop-store";
+import { useShopStore } from "@/features/shop/store/shop-store";
 import { Button } from "@/shared/ui/button";
 import { Card } from "@/shared/ui/card";
 import { QueryFeedback } from "@/shared/ui/query-feedback";

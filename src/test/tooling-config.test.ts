@@ -222,3 +222,85 @@ describe("feature public APIs", () => {
     },
   );
 });
+
+describe("feature stores", () => {
+  it.each([
+    [
+      "src/layouts/check.tsx",
+      'import { useShopStore } from "@/features/shop/store";',
+    ],
+    [
+      "src/features/shop/pages/check.tsx",
+      'import { useShopStore } from "@/features/shop/store/shop-store";',
+    ],
+  ])("allows store consumption from %s", async (filePath, source) => {
+    const [result] = await eslint.lintText(source + "\n", {
+      filePath: `${repositoryRoot}/${filePath}`,
+    });
+    expect(
+      result.messages.filter(
+        (message) => message.ruleId === "architecture/feature-public-api",
+      ),
+    ).toEqual([]);
+  });
+
+  it.each(["api", "model", "queries"])(
+    "rejects store imports from %s in the same or another feature",
+    async (layer) => {
+      for (const feature of ["shop", "orders"]) {
+        for (const target of [
+          "@/features/shop/store",
+          "@/features/shop/store/shop-store",
+        ]) {
+          const [result] = await eslint.lintText(
+            `import { useShopStore } from "${target}";\n`,
+            {
+              filePath: `${repositoryRoot}/src/features/${feature}/${layer}/check.ts`,
+            },
+          );
+          expect(result.messages).toEqual(
+            expect.arrayContaining([
+              expect.objectContaining({
+                ruleId: "architecture/feature-public-api",
+                messageId: "data",
+              }),
+            ]),
+          );
+        }
+      }
+    },
+  );
+
+  it.each([
+    [
+      "src/layouts/check.tsx",
+      'import { useShopStore } from "@/features/shop/store/shop-store";',
+      "private",
+    ],
+    [
+      "src/features/shop/pages/check.tsx",
+      'import { useShopStore } from "@/features/shop/store";',
+      "self",
+    ],
+    [
+      "src/features/shop/store/index.ts",
+      'export * from "./shop-store";',
+      "wildcard",
+    ],
+  ])(
+    "rejects invalid store boundaries from %s",
+    async (filePath, source, messageId) => {
+      const [result] = await eslint.lintText(source + "\n", {
+        filePath: `${repositoryRoot}/${filePath}`,
+      });
+      expect(result.messages).toEqual(
+        expect.arrayContaining([
+          expect.objectContaining({
+            ruleId: "architecture/feature-public-api",
+            messageId,
+          }),
+        ]),
+      );
+    },
+  );
+});

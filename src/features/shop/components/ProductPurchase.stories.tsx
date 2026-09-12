@@ -2,7 +2,7 @@ import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, userEvent, within } from "storybook/test";
 import { withRouter } from "@/shared/lib/storybook/with-router";
 import { managementFixture } from "@/mocks/data/management";
-import { useShopStore } from "@/stores/shop-store";
+import { useShopStore } from "@/features/shop/store/shop-store";
 import { ProductPurchase } from "./ProductPurchase";
 
 const meta = {
