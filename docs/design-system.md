@@ -82,3 +82,7 @@ Storybook의 `Layouts/DesignSystem`에서 셸과 공통 컴포넌트를 함께
 검색 결과·페이지 이동·초기화의 동작은 단위/통합 테스트로 확인하며,
 브라우저 테스트는 390px·1280px에서 공통 페이지 버튼, 검색창 높이,
 표 셀 여백과 가로 넘침 여부를 비교합니다.
+
+### Icon 버튼과 밀도
+
+`Button size="icon"`은 일반 모드에서 40px, compact 모드에서 36px이며 두 모드 모두 패딩은 0입니다. compact 기본 패딩을 icon 크기에서 명시적으로 덮어써 내부 `size-4` 아이콘이 16px을 유지하도록 합니다. `Shared/UI/Button/CompactIcon` 스토리와 탐색 E2E에서 이 조합을 확인합니다.

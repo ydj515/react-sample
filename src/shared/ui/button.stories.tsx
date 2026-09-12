@@ -1,3 +1,4 @@
+import { LogOut } from "lucide-react";
 import type { Meta, StoryObj } from "@storybook/react-vite";
 import { expect, fn, userEvent, within } from "storybook/test";
 
@@ -77,4 +78,27 @@ export const AllSizes: Story = {
       <Button size="lg">Large</Button>
     </div>
   ),
+};
+
+export const CompactIcon: Story = {
+  args: {
+    size: "icon",
+    variant: "ghost",
+    "aria-label": "로그아웃",
+    children: <LogOut className="size-4" aria-hidden />,
+  },
+  decorators: [
+    (Story) => (
+      <div data-density="compact">
+        <Story />
+      </div>
+    ),
+  ],
+  play: async ({ canvasElement }) => {
+    const button = within(canvasElement).getByRole("button", {
+      name: "로그아웃",
+    });
+    await expect(getComputedStyle(button).paddingLeft).toBe("0px");
+    await expect(button.getBoundingClientRect().width).toBe(36);
+  },
 };

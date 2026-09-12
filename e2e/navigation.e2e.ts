@@ -189,3 +189,20 @@ test("데스크톱 푸터가 짧은 페이지 하단에 놓이고 도움말을 �
   await help.getByRole("button", { name: "닫기" }).click();
   await expect(help).toHaveCount(0);
 });
+
+test("compact 모드에서도 icon 버튼의 아이콘 크기와 여백을 유지한다", async ({
+  page,
+}) => {
+  await login(page);
+  await page.goto("/settings");
+  const logout = page.getByRole("button", { name: "로그아웃" });
+  await expect(logout).toHaveCSS("width", "40px");
+  await expect(logout.locator("svg")).toHaveCSS("width", "16px");
+  await page.getByRole("combobox", { name: "밀도" }).selectOption("compact");
+  await expect(logout).toHaveCSS("width", "36px");
+  await expect(logout).toHaveCSS("height", "36px");
+  await expect(logout).toHaveCSS("padding-left", "0px");
+  await expect(logout).toHaveCSS("padding-right", "0px");
+  await expect(logout.locator("svg")).toHaveCSS("width", "16px");
+  await expect(logout.locator("svg")).toHaveCSS("height", "16px");
+});
