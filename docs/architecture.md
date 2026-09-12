@@ -266,3 +266,7 @@ React 19 API를 기존 서버 상태·URL·폼 도구와 함께 사용합니다.
 `ProductSummary`는 재고·연관 상품 조회, `ProductPreviewDialog`는 입력값 미리보기를 맡습니다.
 기존 `ProductInventory`와 `ProductInsights`의 역할을 유지하고, 분리한 내부 컴포넌트는
 외부 feature용 public API에 불필요하게 노출하지 않습니다.
+
+## 주문 상세 책임 분리
+
+`OrderDetailPage`는 조회, 검색 조건과 화면 배치를 조정합니다. 배송 현황·상품·고객·메모·결제·최근 주문 표시는 `pages/order-detail`의 페이지 전용 컴포넌트로 분리합니다. 이 컴포넌트는 화면별 public API에 노출하지 않습니다. 배송 정보와 상태 변경 폼은 기존 mutation과 폼 상태 소유권을 유지합니다. 단순 조회를 감싸기 위해 hook을 추가하지 않으며, 줄 수보다 독립적인 책임을 기준으로 분리합니다.
