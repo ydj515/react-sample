@@ -12,6 +12,23 @@ export function ProductPurchase({ product }: { product: Product }) {
   const [size, setSize] = useState("");
   const [quantity, setQuantity] = useState(1);
   const [message, setMessage] = useState("");
+  const currentColor = product.variants.some(
+    (variant) => variant.color === color,
+  )
+    ? color
+    : (product.variants[0]?.color ?? "");
+  const currentSize = product.variants.some(
+    (variant) => variant.color === currentColor && variant.size === size,
+  )
+    ? size
+    : "";
+  // Reconcile removed options before rendering children; preserve valid selections.
+  if (color !== currentColor || size !== currentSize) {
+    setColor(currentColor);
+    setSize(currentSize);
+    setQuantity(1);
+    setMessage("");
+  }
   const items = useShopStore((state) => state.items);
   const add = useShopStore((state) => state.add);
   const existing = items.filter((line) => line.productId === product.id);

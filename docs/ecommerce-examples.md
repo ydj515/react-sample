@@ -56,3 +56,7 @@ pnpm test src/features/shop src/features/shop/store/shop-store.test.ts
 pnpm test:e2e e2e/shop.e2e.ts
 pnpm verify
 ```
+
+### 상품 옵션 갱신
+
+상세 화면의 상품이 갱신되면 현재 색상·사이즈가 여전히 존재하는지 확인합니다. 사라진 색상은 첫 색상으로, 사라진 사이즈는 미선택 상태로 바꾸고 수량을 1로 초기화합니다. 옵션이 없는 상품으로 전환되면 기본 옵션을 사용합니다. 가격·재고만 바뀌면 유효한 선택과 수량을 유지하며, 갱신된 재고에 따른 구매 가능 여부를 다시 계산합니다.
