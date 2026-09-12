@@ -10,7 +10,15 @@ const meta = {
   title: "Features/Products/Form",
   component: ProductForm,
   tags: ["autodocs"],
-  parameters: { layout: "padded" },
+  parameters: {
+    layout: "padded",
+    docs: {
+      description: {
+        component:
+          "상품 저장과 query 갱신 중에는 입력·탭·옵션 편집을 잠그고, 실패 시 초안을 보존합니다.",
+      },
+    },
+  },
   decorators: [withRouter, withManagementApi],
   loaders: [loadManagementApi],
   args: { onSaved: fn(), onCancel: fn() },

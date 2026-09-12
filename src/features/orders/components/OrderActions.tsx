@@ -76,6 +76,7 @@ export function OrderNoteForm({ orderId }: { orderId: string }) {
       <label className="grid gap-2 text-sm">
         관리자 메모
         <Textarea
+          disabled={mutation.isPending}
           {...form.register("text")}
           placeholder="처리 과정에서 확인한 내용을 기록하세요."
           maxLength={1000}

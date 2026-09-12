@@ -1,3 +1,4 @@
+import { managementFixture } from "@/mocks/data/management";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { http, HttpResponse } from "msw";
@@ -108,4 +109,44 @@ describe("order management", () => {
       "주문을 찾을 수 없습니다.",
     );
   });
+});
+
+it("저장 중 후속 초안 입력을 막고 완료 후 편집을 허용한다", async () => {
+  const order = managementFixture.orders.find((item) => item.id === "#2046")!;
+  let release = () => {};
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  server.use(
+    http.post("/api/orders/:id/notes", async () => {
+      await gate;
+      return HttpResponse.json({
+        ...order,
+        notes: [
+          {
+            id: "saved",
+            text: "제출할 메모",
+            author: "관리자",
+            at: "2026-09-12T00:00:00Z",
+          },
+        ],
+      });
+    }),
+  );
+  const user = userEvent.setup();
+  renderManagement("/orders/%232046");
+  const input = await screen.findByRole("textbox", { name: "관리자 메모" });
+  await user.clear(input);
+  await user.type(input, "제출할 메모");
+  await user.click(screen.getByRole("button", { name: "메모 추가" }));
+  try {
+    await screen.findByRole("button", { name: "저장 중…" });
+    expect(input).toBeDisabled();
+    await user.type(input, "후속 초안");
+    expect(input).toHaveValue("제출할 메모");
+  } finally {
+    release();
+  }
+  await waitFor(() => expect(input).toHaveValue(""));
+  expect(input).toBeEnabled();
 });

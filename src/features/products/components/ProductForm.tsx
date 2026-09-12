@@ -80,96 +80,98 @@ export function ProductForm({
             ),
         )}
       >
-        <div className="grid min-w-0 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_300px]">
-          <div className="grid min-w-0 gap-5">
-            <DetailTabs
-              tabs={tabs}
-              value={tab}
-              onChange={setTab}
-              panelId={panelId}
-              label="상품 상세"
-            />
-            <div
-              role="tabpanel"
-              id={panelId}
-              aria-labelledby={`${panelId}-${tab}`}
-              tabIndex={0}
-            >
-              <div hidden={tab !== "basic"}>
-                <ProductBasicFields form={form} />
-              </div>
-              <div hidden={tab !== "stock"}>
-                <ProductInventory
-                  variants={variants}
-                  stock={stock}
-                  onChange={(next) => {
-                    form.setValue("variants", next, {
-                      shouldDirty: true,
-                      shouldValidate: true,
-                    });
-                    form.setValue(
-                      "stock",
-                      next.reduce((sum, item) => sum + item.stock, 0),
-                      { shouldDirty: true, shouldValidate: true },
-                    );
-                  }}
-                />
-                {errors.variants || errors.stock ? (
-                  <p role="alert" className="text-negative mt-3 text-sm">
-                    재고 수량은 0 이상의 정수로 입력하세요.
-                  </p>
+        <fieldset disabled={mutation.isPending} className="grid min-w-0 gap-5">
+          <div className="grid min-w-0 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_300px]">
+            <div className="grid min-w-0 gap-5">
+              <DetailTabs
+                tabs={tabs}
+                value={tab}
+                onChange={setTab}
+                panelId={panelId}
+                label="상품 상세"
+              />
+              <div
+                role="tabpanel"
+                id={panelId}
+                aria-labelledby={`${panelId}-${tab}`}
+                tabIndex={0}
+              >
+                <div hidden={tab !== "basic"}>
+                  <ProductBasicFields form={form} />
+                </div>
+                <div hidden={tab !== "stock"}>
+                  <ProductInventory
+                    variants={variants}
+                    stock={stock}
+                    onChange={(next) => {
+                      form.setValue("variants", next, {
+                        shouldDirty: true,
+                        shouldValidate: true,
+                      });
+                      form.setValue(
+                        "stock",
+                        next.reduce((sum, item) => sum + item.stock, 0),
+                        { shouldDirty: true, shouldValidate: true },
+                      );
+                    }}
+                  />
+                  {errors.variants || errors.stock ? (
+                    <p role="alert" className="text-negative mt-3 text-sm">
+                      재고 수량은 0 이상의 정수로 입력하세요.
+                    </p>
+                  ) : null}
+                </div>
+                {tab === "sales" || tab === "reviews" ? (
+                  <ProductInsights product={product} view={tab} />
                 ) : null}
               </div>
-              {tab === "sales" || tab === "reviews" ? (
-                <ProductInsights product={product} view={tab} />
-              ) : null}
             </div>
+            <aside className="grid min-w-0 gap-4" aria-label="상품 요약">
+              <ProductImageField
+                {...imageField}
+                validationError={errors.image?.message}
+              />
+              <ProductSummary
+                product={product}
+                stock={stock}
+                variants={variants}
+                onManageStock={() => setTab("stock")}
+              />
+            </aside>
           </div>
-          <aside className="grid min-w-0 gap-4" aria-label="상품 요약">
-            <ProductImageField
-              {...imageField}
-              validationError={errors.image?.message}
-            />
-            <ProductSummary
-              product={product}
-              stock={stock}
-              variants={variants}
-              onManageStock={() => setTab("stock")}
-            />
-          </aside>
-        </div>
-        {mutation.error ? (
-          <Card role="alert" className="text-negative p-4 text-sm">
-            {mutation.error.message}
-          </Card>
-        ) : null}
-        <div className="flex flex-wrap justify-end gap-2">
-          <Button
-            type="button"
-            variant="secondary"
-            onClick={() => setPreview(true)}
-          >
-            미리보기
-          </Button>
-          <Button
-            type="button"
-            variant="secondary"
-            disabled={mutation.isPending}
-            onClick={onCancel}
-          >
-            취소
-          </Button>
-          <Button
-            type="submit"
-            disabled={
-              mutation.isPending ||
-              imageField.imageLoading ||
-              !!imageField.imageError
-            }
-          >
-            {mutation.isPending ? "저장 중…" : "상품 저장"}
-          </Button>
-        </div>
+          {mutation.error ? (
+            <Card role="alert" className="text-negative p-4 text-sm">
+              {mutation.error.message}
+            </Card>
+          ) : null}
+          <div className="flex flex-wrap justify-end gap-2">
+            <Button
+              type="button"
+              variant="secondary"
+              onClick={() => setPreview(true)}
+            >
+              미리보기
+            </Button>
+            <Button
+              type="button"
+              variant="secondary"
+              disabled={mutation.isPending}
+              onClick={onCancel}
+            >
+              취소
+            </Button>
+            <Button
+              type="submit"
+              disabled={
+                mutation.isPending ||
+                imageField.imageLoading ||
+                !!imageField.imageError
+              }
+            >
+              {mutation.isPending ? "저장 중…" : "상품 저장"}
+            </Button>
+          </div>
+        </fieldset>
       </form>
       <ProductPreviewDialog
         open={preview}

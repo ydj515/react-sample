@@ -1,3 +1,6 @@
+import { managementFixture } from "@/mocks/data/management";
+import { http, HttpResponse } from "msw";
+import { server } from "@/mocks/server";
 import { screen, waitFor } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, it, expect } from "vitest";
@@ -194,4 +197,36 @@ describe("product management", () => {
       );
     },
   );
+});
+
+it("저장 중 후속 초안 입력을 막고 완료 후 편집을 허용한다", async () => {
+  const product = managementFixture.products.find(
+    (item) => item.id === "product-2",
+  )!;
+  let release = () => {};
+  const gate = new Promise<void>((resolve) => {
+    release = resolve;
+  });
+  server.use(
+    http.put("/api/products/:id", async () => {
+      await gate;
+      return HttpResponse.json({ ...product, name: "서버 상품명" });
+    }),
+  );
+  const user = userEvent.setup();
+  renderManagement("/products/product-2");
+  const input = await screen.findByRole("textbox", { name: "상품명" });
+  await user.clear(input);
+  await user.type(input, "제출할 상품명");
+  await user.click(screen.getByRole("button", { name: "상품 저장" }));
+  try {
+    await screen.findByRole("button", { name: "저장 중…" });
+    expect(input).toBeDisabled();
+    await user.type(input, "후속 초안");
+    expect(input).toHaveValue("제출할 상품명");
+  } finally {
+    release();
+  }
+  await waitFor(() => expect(input).toHaveValue("서버 상품명"));
+  expect(input).toBeEnabled();
 });
