@@ -7,3 +7,20 @@ test("로그인 페이지가 렌더되고 폼 필드가 보인다", async ({ pag
   await expect(page.getByLabel("이메일")).toBeVisible();
   await expect(page.getByLabel("비밀번호")).toBeVisible();
 });
+
+test("검증 오류가 있는 로그인 필드로 포커스를 이동한다", async ({ page }) => {
+  await page.goto("/signin");
+  await page.getByRole("button", { name: "로그인", exact: true }).click();
+  await expect(page.getByLabel("이메일")).toBeFocused();
+  await expect(page.getByLabel("이메일")).toHaveAttribute(
+    "aria-invalid",
+    "true",
+  );
+  await page.getByLabel("이메일").fill("demo@example.com");
+  await page.getByRole("button", { name: "로그인", exact: true }).click();
+  await expect(page.getByLabel("비밀번호")).toBeFocused();
+  await expect(page.getByLabel("비밀번호")).toHaveAttribute(
+    "aria-invalid",
+    "true",
+  );
+});

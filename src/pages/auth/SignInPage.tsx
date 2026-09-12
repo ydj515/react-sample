@@ -73,7 +73,7 @@ export function SignInPage() {
               type="email"
               autoComplete="email"
               {...email.field}
-              disabled={pending}
+              readOnly={pending}
               aria-describedby={errors.email ? "email-error" : undefined}
               aria-invalid={errors.email ? true : undefined}
             />
@@ -94,7 +94,7 @@ export function SignInPage() {
               type="password"
               autoComplete="current-password"
               {...password.field}
-              disabled={pending}
+              readOnly={pending}
               aria-describedby={errors.password ? "password-error" : undefined}
               aria-invalid={errors.password ? true : undefined}
             />

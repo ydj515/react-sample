@@ -43,6 +43,7 @@ describe("SignInPage", () => {
       await screen.findByText("올바른 이메일을 입력해주세요."),
     ).toBeInTheDocument();
     expect(navigateMock).not.toHaveBeenCalled();
+    await waitFor(() => expect(screen.getByLabelText("이메일")).toHaveFocus());
   });
 
   it("로그인 성공 시 인증 상태를 저장하고 목적지로 이동한다", async () => {
@@ -88,6 +89,10 @@ describe("SignInPage", () => {
     expect(
       await screen.findByRole("button", { name: "로그인 중…" }),
     ).toBeDisabled();
+    expect(screen.getByLabelText("이메일")).toHaveAttribute("readonly");
+    expect(screen.getByLabelText("이메일")).toBeEnabled();
+    await user.type(screen.getByLabelText("이메일"), "unsaved");
+    expect(screen.getByLabelText("이메일")).toHaveValue("demo@example.com");
     expect(await screen.findByRole("alert")).toHaveTextContent(
       "로그인에 실패했습니다",
     );

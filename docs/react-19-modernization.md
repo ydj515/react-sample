@@ -913,3 +913,7 @@ export function ProductImage({
 - [createRoot 오류 보고](https://react.dev/reference/react-dom/client/createRoot)
 
 문서 사이트가 더 최신 React 버전을 설명할 수 있으므로 실제 구현은 저장소의 설치 버전과 테스트를 기준으로 합니다.
+
+### 로그인 검증과 포커스
+
+로그인 Action의 pending 동안 controlled 입력은 `readOnly`로 잠급니다. `disabled`로 만들면 RHF의 `shouldFocus`가 오류 입력에 포커스를 줄 수 없습니다. 제출 버튼은 `useFormStatus`로 비활성화하며, API 실패 후에는 입력을 보존하고 편집과 재제출을 허용합니다.
