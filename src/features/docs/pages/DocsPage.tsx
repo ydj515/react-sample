@@ -21,6 +21,7 @@ import { findDocument } from "@/features/docs/model/documents";
 
 export function DocsPage({ slug }: { slug: string }) {
   const [menuOpen, setMenuOpen] = useState(false);
+
   const article = findDocument(slug);
   return (
     <div className="bg-surface text-ink min-h-screen">

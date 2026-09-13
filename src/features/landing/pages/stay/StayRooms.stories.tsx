@@ -14,9 +14,11 @@ const meta = {
     ),
   ],
 } satisfies Meta<typeof StayRooms>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Forest: Story = {};
+
 export const Garden: Story = {
   play: async ({ canvasElement }) => {
     await userEvent.click(

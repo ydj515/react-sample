@@ -13,6 +13,7 @@ import { DocsPage } from "./DocsPage";
 
 function renderDocs(slug = "getting-started") {
   const root = createRootRoute();
+
   const route = createRoute({
     getParentRoute: () => root,
     path: "/docs/$slug",
@@ -20,6 +21,7 @@ function renderDocs(slug = "getting-started") {
       return <DocsPage slug={useParams({ strict: false }).slug!} />;
     },
   });
+
   const router = createRouter({
     routeTree: root.addChildren([route]),
     history: createMemoryHistory({ initialEntries: [`/docs/${slug}`] }),

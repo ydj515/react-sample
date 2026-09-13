@@ -14,9 +14,11 @@ const meta = {
     ),
   ],
 } satisfies Meta<typeof StayPlanner>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const ValidationError: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -26,13 +28,14 @@ export const ValidationError: Story = {
     await expect((await canvas.findAllByRole("alert"))[0]).toBeVisible();
   },
 };
+
 export const Quote: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
-    fireEvent.change(canvas.getByLabelText("체크인"), {
+    await fireEvent.change(canvas.getByLabelText("체크인"), {
       target: { value: "2099-10-01" },
     });
-    fireEvent.change(canvas.getByLabelText("체크아웃"), {
+    await fireEvent.change(canvas.getByLabelText("체크아웃"), {
       target: { value: "2099-10-03" },
     });
     await userEvent.click(

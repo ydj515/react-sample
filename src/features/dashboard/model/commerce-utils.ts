@@ -2,6 +2,7 @@ import { z } from "zod";
 import { orderStatuses, type Order } from "./commerce-schema";
 
 const optionalDate = z.union([z.literal(""), z.iso.date()]);
+
 const amountInput = z
   .string()
   .refine(
@@ -10,6 +11,7 @@ const amountInput = z
       (/^\d+(\.\d+)?$/.test(value) && Number.isFinite(Number(value))),
     "0 이상의 금액을 입력하세요.",
   );
+
 export const orderFiltersSchema = z
   .object({
     keyword: z.string(),
@@ -33,8 +35,11 @@ export const orderFiltersSchema = z
       Number(value.min) <= Number(value.max),
     { message: "최대 금액은 최소 금액 이상이어야 합니다.", path: ["max"] },
   );
+
 export type OrderFilters = z.infer<typeof orderFiltersSchema>;
+
 export type OrderSort = "newest" | "oldest" | "amount-desc" | "amount-asc";
+
 export const defaultOrderFilters: OrderFilters = {
   keyword: "",
   status: "all",
@@ -46,6 +51,7 @@ export const defaultOrderFilters: OrderFilters = {
   brands: [],
   cs: "",
 };
+
 export function filterOrders(
   orders: Order[],
   filters: OrderFilters,
@@ -76,9 +82,11 @@ export function filterOrders(
         : b.date.localeCompare(a.date);
     });
 }
+
 export function formatWon(value: number) {
   return `₩${value.toLocaleString("ko-KR")}`;
 }
+
 export function createCsv(rows: (string | number)[][]) {
   return (
     "\uFEFF" +
@@ -87,6 +95,7 @@ export function createCsv(rows: (string | number)[][]) {
         row
           .map((value) => {
             const text = String(value);
+
             const safe = /^[\s]*[=+\-@\t\r\n]/.test(text) ? `'${text}` : text;
             return `"${safe.replaceAll('"', '""')}"`;
           })
@@ -95,6 +104,7 @@ export function createCsv(rows: (string | number)[][]) {
       .join("\r\n")
   );
 }
+
 export function ordersCsv(orders: Order[]) {
   return createCsv([
     [

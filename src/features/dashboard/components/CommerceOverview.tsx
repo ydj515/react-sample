@@ -54,6 +54,7 @@ function summaryCsv(data: CommerceDashboard, title: string) {
     ...data.categories.map((item) => [item.label, item.amount]),
   ]);
 }
+
 const reportSchema = z.object({
   title: z
     .string()
@@ -61,6 +62,7 @@ const reportSchema = z.object({
     .min(1, "보고서 이름을 입력하세요.")
     .max(80, "80자 이하로 입력하세요."),
 });
+
 function NewCommerceReport({ data }: { data: CommerceDashboard }) {
   const {
     register,
@@ -84,12 +86,14 @@ function NewCommerceReport({ data }: { data: CommerceDashboard }) {
         </DialogDescription>
         <form
           className="mt-5 grid gap-4"
-          onSubmit={handleSubmit(({ title }) =>
-            downloadCommerceCsv(
-              summaryCsv(data, title),
-              `commerce-report-${data.asOf}.csv`,
-            ),
-          )}
+          onSubmit={(event) => {
+            void handleSubmit(({ title }) =>
+              downloadCommerceCsv(
+                summaryCsv(data, title),
+                `commerce-report-${data.asOf}.csv`,
+              ),
+            )(event);
+          }}
           noValidate
         >
           <label className="grid gap-2 text-sm">
@@ -119,12 +123,18 @@ function NewCommerceReport({ data }: { data: CommerceDashboard }) {
     </Dialog>
   );
 }
+
 function CommerceOverviewContent() {
   const query = useSuspenseQuery(commerceQueryOptions());
+
   const user = useAuthStore((state) => state.user);
+
   const name = user?.email.split("@")[0] ?? "사용자";
+
   const data = query.data;
+
   const previousRevenue = data?.monthly.at(-2)?.amount ?? 0;
+
   const revenueChange =
     data && previousRevenue > 0
       ? (data.revenue / previousRevenue - 1) * 100
@@ -149,11 +159,12 @@ function CommerceOverviewContent() {
               variant="secondary"
               disabled={!data}
               onClick={() => {
-                if (data)
+                if (data) {
                   downloadCommerceCsv(
                     summaryCsv(data, "대시보드 요약"),
                     `dashboard-${data.asOf}.csv`,
                   );
+                }
               }}
             >
               <Download className="size-4" aria-hidden />

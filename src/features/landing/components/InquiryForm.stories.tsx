@@ -14,9 +14,11 @@ const meta = {
     ),
   ],
 } satisfies Meta<typeof InquiryForm>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const ValidationError: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -24,6 +26,7 @@ export const ValidationError: Story = {
     await expect(await canvas.findByText("이름을 입력하세요.")).toBeVisible();
   },
 };
+
 export const Complete: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

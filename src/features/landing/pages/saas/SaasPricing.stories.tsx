@@ -13,9 +13,11 @@ const meta = {
     ),
   ],
 } satisfies Meta<typeof SaasPricing>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Monthly: Story = {};
+
 export const Yearly: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

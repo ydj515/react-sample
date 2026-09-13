@@ -23,19 +23,26 @@ import { DetailTabs } from "@/shared/ui/detail-tabs";
 
 function UserDetailPageContent({ userId }: { userId: string }) {
   const search = userDetailSearchSchema.parse(useSearch({ strict: false }));
+
   const navigate = useNavigate();
+
   const query = useSuspenseQuery(userQueryOptions(userId));
+
   const orderQuery = useSuspenseQuery(ordersQueryOptions());
+
   const user = query.data;
+
   const orders = orderQuery.data?.filter(
     (order) => order.customerId === userId,
   );
+
   const tabs = [
     { value: "profile", label: "기본 정보" },
     { value: "orders", label: "주문 내역" },
     { value: "activity", label: "활동 로그" },
     { value: "access", label: "권한 설정" },
   ] as const;
+
   const changeTab = (tab: typeof search.tab) =>
     void navigate({
       to: "/users/$userId",

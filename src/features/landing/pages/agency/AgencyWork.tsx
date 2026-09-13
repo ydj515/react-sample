@@ -66,10 +66,14 @@ const projects = [
       "오늘의 한 가지에 집중하는 화면과 가벼운 완료 피드백을 설계했습니다.",
   },
 ];
+
 export function AgencyWork() {
   const [search, change] = useUrlSearch(agencySearchSchema);
+
   const category = search.category;
+
   const setCategory = (value: typeof category) => change({ category: value });
+
   const visible = projects.filter(
     (project) => category === "전체" || project.category === category,
   );

@@ -46,19 +46,28 @@ export function ProductForm({
       description: "",
     },
   });
+
   const [tab, setTab] = useState("basic");
+
   const [preview, setPreview] = useState(false);
+
   const panelId = useId();
+
   const stock = useWatch({ control: form.control, name: "stock" });
+
   const variants = useWatch({ control: form.control, name: "variants" }) ?? [];
+
   const tabs = [
     { value: "basic", label: "기본 정보" },
     { value: "stock", label: "재고 · 옵션" },
     { value: "sales", label: "판매 통계" },
     { value: "reviews", label: `리뷰 (${product?.reviews.length ?? 0})` },
   ];
+
   const errors = form.formState.errors;
+
   const imageField = useProductImageField(form);
+
   const mutation = useSaveProductMutation(product?.id, (saved) => {
     toast.success(product ? "상품을 수정했습니다." : "상품을 등록했습니다.");
     form.reset(saved);
@@ -70,15 +79,17 @@ export function ProductForm({
         id="product-editor-form"
         className="grid gap-5"
         noValidate
-        onSubmit={form.handleSubmit(
-          (values) => mutation.mutate(values),
-          (invalid) =>
-            setTab(
-              invalid.variants || (invalid.stock && variants.length)
-                ? "stock"
-                : "basic",
-            ),
-        )}
+        onSubmit={(event) => {
+          void form.handleSubmit(
+            (values) => mutation.mutate(values),
+            (invalid) =>
+              setTab(
+                invalid.variants || (invalid.stock && variants.length)
+                  ? "stock"
+                  : "basic",
+              ),
+          )(event);
+        }}
       >
         <fieldset disabled={mutation.isPending} className="grid min-w-0 gap-5">
           <div className="grid min-w-0 items-start gap-5 xl:grid-cols-[minmax(0,1fr)_300px]">

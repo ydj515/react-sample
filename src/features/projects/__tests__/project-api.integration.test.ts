@@ -55,6 +55,7 @@ describe("project-api", () => {
 
   it("mock 오류 본문과 헤더에 같은 trace ID를 반환한다", async () => {
     const response = await fetch("/api/projects/missing-project");
+
     const body = (await response.json()) as {
       code: string;
       traceId: string;

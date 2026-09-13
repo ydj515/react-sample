@@ -17,11 +17,13 @@ import { shopSearchSchema } from "@/features/shop/model";
 
 export function renderShop(path = "/shop") {
   const root = createRootRoute();
+
   const shop = createRoute({
     getParentRoute: () => root,
     path: "/shop",
     component: ShopLayout,
   });
+
   const routes = [
     createRoute({
       getParentRoute: () => shop,
@@ -49,6 +51,7 @@ export function renderShop(path = "/shop") {
       component: () => <CartPage checkout />,
     }),
   ];
+
   const router = createRouter({
     routeTree: root.addChildren([shop.addChildren(routes)]),
     history: createMemoryHistory({ initialEntries: [path] }),

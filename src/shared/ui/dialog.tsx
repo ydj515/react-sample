@@ -4,7 +4,9 @@ import type { ComponentPropsWithoutRef } from "react";
 import { cn } from "@/shared/lib/cn";
 
 export const Dialog = DialogPrimitive.Root;
+
 export const DialogTrigger = DialogPrimitive.Trigger;
+
 export const DialogClose = DialogPrimitive.Close;
 
 export function DialogContent({
@@ -26,4 +28,5 @@ export function DialogContent({
 }
 
 export const DialogTitle = DialogPrimitive.Title;
+
 export const DialogDescription = DialogPrimitive.Description;

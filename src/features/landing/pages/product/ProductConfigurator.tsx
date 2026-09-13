@@ -10,8 +10,11 @@ import {
 
 export function ProductConfigurator() {
   const [bundle, setBundle] = useState<keyof typeof productBundles>("solo");
+
   const [quantity, setQuantity] = useState(1);
+
   const selected = productBundles[bundle];
+
   const total = getProductTotal(bundle, quantity);
   return (
     <div className="border-line border p-6 sm:p-9">

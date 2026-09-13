@@ -14,9 +14,11 @@ const meta = {
   ],
   args: { subtotal: 189000, shipping: 0, total: 189000 },
 } satisfies Meta<typeof CartSummary>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const FreeShipping: Story = {};
+
 export const ShippingFee: Story = {
   args: { subtotal: 49000, shipping: 3000, total: 52000 },
 };

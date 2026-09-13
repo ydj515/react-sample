@@ -5,6 +5,7 @@ import { Pagination } from "./pagination";
 
 it("숫자 페이지 이동과 조회 범위, 현재 페이지를 표시한다", async () => {
   const onChange = vi.fn();
+
   const user = userEvent.setup();
   render(<Pagination page={2} pages={3} total={23} onChange={onChange} />);
   expect(screen.getByText("9–16 / 23건")).toBeInTheDocument();
@@ -19,6 +20,7 @@ it("숫자 페이지 이동과 조회 범위, 현재 페이지를 표시한다",
 });
 it("페이지가 많아도 숫자 버튼 수를 제한하고 마지막 페이지로 이동한다", async () => {
   const onChange = vi.fn();
+
   const user = userEvent.setup();
   render(<Pagination page={99} pages={100} total={800} onChange={onChange} />);
   expect(screen.getAllByRole("button")).toHaveLength(7);

@@ -52,8 +52,9 @@ for (const width of [390, 1440]) {
   }) => {
     await page.setViewportSize({ width, height: 900 });
     await page.goto("/shop");
-    if (width < 1024)
+    if (width < 1024) {
       await page.getByRole("button", { name: "필터 열기" }).click();
+    }
     const filters =
       width < 1024 ? page.getByRole("dialog") : page.getByRole("complementary");
     await filters

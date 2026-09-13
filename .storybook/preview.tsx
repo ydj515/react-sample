@@ -54,6 +54,9 @@ export const globalTypes = {
 
 const preview: Preview = {
   parameters: {
+    a11y: {
+      test: "error",
+    },
     // 스토리를 기본적으로 중앙에 배치한다(전체 화면이 필요한 스토리는 개별 override).
     layout: "centered",
     controls: {

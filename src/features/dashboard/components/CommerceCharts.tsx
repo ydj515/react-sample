@@ -23,16 +23,22 @@ export function CommercePanel({
     </Card>
   );
 }
+
 const captionClass = "mb-3 text-xs text-ink-subtle";
+
 const cellClass = "border-t border-line p-2 text-left";
+
 export function MonthlyRevenue({
   data,
 }: {
   data: CommerceDashboard["monthly"];
 }) {
   const id = useId();
+
   const [active, setActive] = useState<string | null>(null);
+
   const max = Math.max(1, ...data.map((item) => item.amount));
+
   const slot = 510 / Math.max(1, data.length);
   return (
     <CommercePanel title="월별 매출 추이">
@@ -135,8 +141,9 @@ export function MonthlyRevenue({
               }}
               onPointerEnter={() => setActive(item.label)}
               onPointerLeave={(event) => {
-                if (event.currentTarget !== document.activeElement)
+                if (event.currentTarget !== document.activeElement) {
                   setActive(null);
+                }
               }}
               onFocus={() => setActive(item.label)}
               onBlur={() => setActive(null)}
@@ -192,15 +199,23 @@ export function MonthlyRevenue({
     </CommercePanel>
   );
 }
+
 export function VisitorTrend({ data }: { data: CommerceDashboard["traffic"] }) {
   const id = useId();
+
   const [selected, setSelected] = useState(data.length - 1);
+
   const selectedIndex = Math.min(selected, data.length - 1);
+
   const active = data[selectedIndex]!;
+
   const max =
     Math.ceil(Math.max(...data.map((item) => item.visitors), 1) / 1000) * 1000;
+
   const x = (index: number) => 42 + (index / (data.length - 1)) * 496;
+
   const y = (value: number) => 190 - (value / max) * 155;
+
   const points = (key: "visitors" | "converted") =>
     data.map((item, i) => `${x(i)},${y(item[key])}`).join(" ");
   return (
@@ -352,20 +367,25 @@ export function VisitorTrend({ data }: { data: CommerceDashboard["traffic"] }) {
     </CommercePanel>
   );
 }
+
 const categoryColors = [
   "var(--ui-brand)",
   "var(--ui-chart-positive)",
   "var(--ui-chart-caution)",
   "var(--ui-ink-subtle)",
 ];
+
 export function CategoryRevenue({
   data,
 }: {
   data: CommerceDashboard["categories"];
 }) {
   const [active, setActive] = useState<number | null>(null);
+
   const id = useId();
+
   const total = data.reduce((sum, item) => sum + item.amount, 0);
+
   const segments = data.map((item, i) => ({
     ...item,
     percent: total ? (item.amount / total) * 100 : 0,
@@ -375,6 +395,7 @@ export function CategoryRevenue({
         100
       : 0,
   }));
+
   const selected = active === null ? null : data[active];
   return (
     <CommercePanel title="카테고리별 매출 비중">

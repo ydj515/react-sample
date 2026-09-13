@@ -8,6 +8,7 @@ import { renderShop } from "@/test/render-shop";
 import { useShopStore } from "@/features/shop/store/shop-store";
 
 const first = managementFixture.products[0]!;
+
 const line = {
   productId: first.id,
   color: first.variants[0]!.color,

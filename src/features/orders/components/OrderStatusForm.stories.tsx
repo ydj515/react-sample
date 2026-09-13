@@ -12,6 +12,7 @@ import { OrderStatusForm } from "./OrderActions";
 const shipping = managementFixture.orders.find(
   (order) => order.status === "배송중",
 )!;
+
 const meta = {
   title: "Features/Orders/StatusForm",
   component: OrderStatusForm,
@@ -42,12 +43,14 @@ const meta = {
       ...orderQueryOptions(args.order.id),
       initialData: args.order,
     });
+
     const order = query.data;
     return (
       <OrderStatusForm key={`${order.id}-${order.status}`} order={order} />
     );
   },
 } satisfies Meta<typeof OrderStatusForm>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Awaiting: Story = {
@@ -55,17 +58,21 @@ export const Awaiting: Story = {
     order: managementFixture.orders.find((order) => order.status === "대기")!,
   },
 };
+
 export const Shipping: Story = {};
+
 export const Completed: Story = {
   args: {
     order: managementFixture.orders.find((order) => order.status === "완료")!,
   },
 };
+
 export const Cancelled: Story = {
   args: {
     order: managementFixture.orders.find((order) => order.status === "취소")!,
   },
 };
+
 export const Saved: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -78,6 +85,7 @@ export const Saved: Story = {
     ).not.toBeInTheDocument();
   },
 };
+
 export const SaveError: Story = {
   args: { order: { ...shipping, id: "missing-status-story" } },
   parameters: {

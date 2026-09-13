@@ -12,9 +12,11 @@ const meta = {
     description: "매출과 주요 운영 현황을 한눈에 확인하세요.",
   },
 } satisfies Meta<typeof PageHeader>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const WithActions: Story = {
   args: {
     actions: (

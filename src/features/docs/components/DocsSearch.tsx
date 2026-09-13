@@ -7,8 +7,11 @@ import { searchDocuments } from "@/features/docs/model/documents";
 
 export function DocsSearch() {
   const [search, change] = useUrlSearch(docsSearchSchema);
+
   const query = search.q;
+
   const setQuery = (value: typeof query) => change({ q: value }, true);
+
   const results = searchDocuments(query);
   return (
     <div

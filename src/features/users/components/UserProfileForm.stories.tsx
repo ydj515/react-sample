@@ -32,9 +32,11 @@ const meta = {
   loaders: [loadManagementApi],
   args: { user: managementFixture.users[0]! },
 } satisfies Meta<typeof UserProfileForm>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const Saved: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -55,6 +57,7 @@ export const Saved: Story = {
     await expect(canvas.getByLabelText("닉네임")).toHaveValue("minjun_updated");
   },
 };
+
 export const ValidationError: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -65,6 +68,7 @@ export const ValidationError: Story = {
     await expect(await canvas.findByRole("alert")).toBeVisible();
   },
 };
+
 export const SaveError: Story = {
   args: {
     user: { ...managementFixture.users[0]!, id: "missing-profile-story" },
@@ -93,6 +97,7 @@ export const SaveError: Story = {
     await expect(canvas.getByLabelText("닉네임")).toBeEnabled();
   },
 };
+
 export const Mobile: Story = {
   decorators: [
     (Story) => (

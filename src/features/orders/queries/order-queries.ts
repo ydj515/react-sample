@@ -22,8 +22,10 @@ export const orderKeys = {
   list: ["orders", "list"] as const,
   detail: (id: string) => ["orders", "detail", id] as const,
 };
+
 export const ordersQueryOptions = () =>
   queryOptions({ queryKey: orderKeys.list, queryFn: getOrders });
+
 export const orderQueryOptions = (id: string) =>
   queryOptions({ queryKey: orderKeys.detail(id), queryFn: () => getOrder(id) });
 
@@ -38,6 +40,7 @@ function useOrderSaved(onSaved: (order: ManagedOrder) => void) {
     onSaved(order);
   };
 }
+
 export function useUpdateOrderStatusMutation(
   orderId: string,
   onSaved: () => void,
@@ -48,6 +51,7 @@ export function useUpdateOrderStatusMutation(
     onSuccess: saved,
   });
 }
+
 export function useAddOrderNoteMutation(orderId: string, onSaved: () => void) {
   const saved = useOrderSaved(onSaved);
   return useMutation({

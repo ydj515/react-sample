@@ -9,12 +9,14 @@ import { inquirySchema, type Inquiry } from "@/features/landing/model/landing";
 
 export function InquiryForm({ context }: { context: string }) {
   const id = useId();
+
   const [complete, setComplete] = useState(false);
+
   const form = useForm<Inquiry>({
     resolver: zodResolver(inquirySchema),
     defaultValues: { name: "", email: "", message: "" },
   });
-  if (complete)
+  if (complete) {
     return (
       <div className="space-y-5 py-6">
         <div
@@ -39,10 +41,13 @@ export function InquiryForm({ context }: { context: string }) {
         </Button>
       </div>
     );
+  }
   return (
     <form
       noValidate
-      onSubmit={form.handleSubmit(() => setComplete(true))}
+      onSubmit={(event) => {
+        void form.handleSubmit(() => setComplete(true))(event);
+      }}
       className="space-y-5"
     >
       <p className="text-ink-subtle text-sm leading-6">

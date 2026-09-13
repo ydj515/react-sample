@@ -8,6 +8,7 @@ const names = [
   ...new Set(commerceFixture.orders.map((order) => order.customer)),
   "심지후",
 ];
+
 const users: ManagedUser[] = names.map((name, i) => ({
   id: `user-${i + 1}`,
   name,
@@ -41,11 +42,14 @@ const users: ManagedUser[] = names.map((name, i) => ({
     },
   ],
 }));
+
 const usersByName = new Map(users.map((user) => [user.name, user]));
+
 const orders: ManagedOrder[] = commerceFixture.orders.map((order, i) => {
   const customer = usersByName.get(order.customer);
-  if (!customer)
+  if (!customer) {
     throw new Error(`Missing customer fixture for order ${order.id}`);
+  }
   return {
     ...order,
     customerId: customer.id,
@@ -97,11 +101,13 @@ const orders: ManagedOrder[] = commerceFixture.orders.map((order, i) => {
     notes: [],
   };
 });
+
 const uniqueProducts = [
   ...new Map(
     commerceFixture.orders.map((order) => [order.product, order]),
   ).values(),
 ];
+
 const products: Product[] = uniqueProducts.map((order, i) => ({
   id: `product-${i + 1}`,
   name: order.product,
@@ -158,8 +164,11 @@ const products: Product[] = uniqueProducts.map((order, i) => ({
   createdAt: `2025-05-${String((i % 28) + 1).padStart(2, "0")}T09:00:00Z`,
   updatedAt: "2025-06-30T09:00:00Z",
 }));
+
 export const managementFixture = { users, orders, products };
+
 export const managementData = structuredClone(managementFixture);
+
 export function resetManagementMockData() {
   Object.assign(managementData, structuredClone(managementFixture));
 }

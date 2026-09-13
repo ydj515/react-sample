@@ -43,16 +43,21 @@ function DashboardWorkspaceContent({
   view: "operations" | "reports";
 }) {
   const rawSearch = useSearch({ strict: false });
+
   const filters = useMemo(
     () => normalizeDashboardSearch(rawSearch),
     [rawSearch],
   );
+
   const navigate = useNavigate();
+
   const query = useSuspenseQuery(dashboardQueryOptions());
+
   const model = useMemo(
     () => (query.data ? buildDashboard(query.data, filters) : null),
     [query.data, filters],
   );
+
   const onChange = (search: DashboardSearch) => {
     void navigate({ to: views[view].to, search });
   };

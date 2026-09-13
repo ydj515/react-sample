@@ -131,6 +131,7 @@ describe("user management", () => {
     await screen.findByRole("heading", { name: "김민준 수정" });
     await user.click(screen.getByRole("tab", { name: "권한 설정" }));
     const permission = screen.getByRole("switch", { name: "상품 리뷰 작성" });
+
     const before = (await getUser("user-1")).permissions.reviews;
     await user.click(permission);
     await user.click(screen.getByRole("button", { name: "변경 사항 저장" }));

@@ -9,6 +9,7 @@ export function FilterBar({ children }: { children: ReactNode }) {
     </Card>
   );
 }
+
 export function FilterField({
   label,
   children,

@@ -34,6 +34,7 @@ export const Typing: Story = {
   args: { placeholder: "Type here" },
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
+
     const input = canvas.getByPlaceholderText("Type here");
     await userEvent.type(input, "hello");
     await expect(input).toHaveValue("hello");

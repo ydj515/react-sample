@@ -24,6 +24,7 @@ const input: ProductInput = {
 describe("product management API", () => {
   it("상품을 등록하고 가격·재고·태그를 수정한다", async () => {
     const created = await createProduct(input);
+
     const updated = await updateProduct(created.id, {
       ...input,
       price: 31000,

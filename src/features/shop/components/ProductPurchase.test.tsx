@@ -16,6 +16,7 @@ it.each(["color", "size", "none"] as const)(
   "%s 옵션 갱신 시 유효하지 않은 선택을 초기화한다",
   async (change) => {
     const user = userEvent.setup();
+
     const { rerender } = render(<ProductPurchase product={product} />);
     await user.selectOptions(
       screen.getByRole("combobox", { name: "사이즈" }),
@@ -40,16 +41,18 @@ it.each(["color", "size", "none"] as const)(
       expect(sizes).toHaveValue("");
       expect(within(sizes).getByRole("option", { name: "280" })).toBeEnabled();
       await user.selectOptions(sizes, "280");
-    } else
+    } else {
       expect(
         screen.queryByRole("combobox", { name: "색상" }),
       ).not.toBeInTheDocument();
+    }
     expect(screen.getByRole("button", { name: "장바구니 담기" })).toBeEnabled();
   },
 );
 
 it("가격과 재고만 갱신되면 유효한 선택과 수량을 유지한다", async () => {
   const user = userEvent.setup();
+
   const { rerender } = render(<ProductPurchase product={product} />);
   await user.selectOptions(
     screen.getByRole("combobox", { name: "사이즈" }),

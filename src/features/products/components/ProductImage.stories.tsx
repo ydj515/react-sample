@@ -15,6 +15,7 @@ const meta = {
     className: "w-48 rounded-panel",
   },
 } satisfies Meta<typeof ProductImage>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const All: Story = {

@@ -21,7 +21,9 @@ describe("QueryBoundary", () => {
     const client = new QueryClient({
       defaultOptions: { queries: { retry: false } },
     });
+
     let resolve!: (value: string) => void;
+
     const pending = new Promise<string>((done) => {
       resolve = done;
     });
@@ -44,7 +46,9 @@ describe("QueryBoundary", () => {
     const client = new QueryClient({
       defaultOptions: { queries: { retry: false } },
     });
+
     let failing = true;
+
     const load = async () => {
       if (failing) throw new Error("Unavailable");
       return "Recovered";

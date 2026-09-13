@@ -5,6 +5,7 @@ import { CodeBlock } from "./CodeBlock";
 
 it("표시한 코드 원문을 복사하고 결과를 알린다", async () => {
   const user = userEvent.setup();
+
   const write = vi.spyOn(navigator.clipboard, "writeText").mockResolvedValue();
   render(<CodeBlock code={'const value = "sample";'} language="tsx" />);
   await user.click(screen.getByRole("button", { name: "코드 복사" }));
@@ -15,6 +16,7 @@ it("표시한 코드 원문을 복사하고 결과를 알린다", async () => {
 
 it("복사 실패 시 코드를 유지하고 직접 복사를 안내한다", async () => {
   const user = userEvent.setup();
+
   const write = vi
     .spyOn(navigator.clipboard, "writeText")
     .mockRejectedValue(new Error("denied"));

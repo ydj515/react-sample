@@ -45,12 +45,14 @@ it("성공 응답의 스키마가 잘못되면 INVALID_RESPONSE로 거부한다"
 
 it("동일한 상태 재요청은 처리 이력을 중복 생성하지 않는다", async () => {
   const before = await getOrder("#2046");
+
   const same = await updateOrderStatus(before.id, before.status);
   expect(same.timeline).toEqual(before.timeline);
 });
 
 it("모든 주문을 실제 고객의 회원 ID와 이메일에 연결한다", async () => {
   const users = await getUsers();
+
   const orders = await getOrders();
   for (const order of orders) {
     const customer = users.find((user) => user.id === order.customerId);

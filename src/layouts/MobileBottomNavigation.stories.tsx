@@ -16,6 +16,7 @@ const meta = {
   args: { className: "relative inset-auto" },
   tags: ["autodocs"],
 } satisfies Meta<typeof MobileBottomNavigation>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};

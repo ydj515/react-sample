@@ -17,14 +17,15 @@ export function QueryFeedback({
   pendingLabel?: string;
   retrying?: boolean;
 }) {
-  if (pending)
+  if (pending) {
     return (
       <div role="status" aria-label={pendingLabel} className="grid gap-3">
         <Skeleton className="h-16" />
         <Skeleton className="h-64" />
       </div>
     );
-  if (error)
+  }
+  if (error) {
     return (
       <Card role="alert" className="p-6">
         <p className="text-negative text-sm">{errorMessage ?? error.message}</p>
@@ -38,5 +39,6 @@ export function QueryFeedback({
         </Button>
       </Card>
     );
+  }
   return null;
 }

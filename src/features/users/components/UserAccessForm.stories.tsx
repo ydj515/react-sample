@@ -33,19 +33,23 @@ const meta = {
   loaders: [loadManagementApi],
   args: { user: managementFixture.users[0]! },
 } satisfies Meta<typeof UserAccessForm>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const Invited: Story = {
   args: {
     user: managementFixture.users.find((user) => user.status === "invited")!,
   },
 };
+
 export const Suspended: Story = {
   args: {
     user: managementFixture.users.find((user) => user.status === "suspended")!,
   },
 };
+
 export const Saved: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -69,6 +73,7 @@ export const Saved: Story = {
     ).not.toBeChecked();
   },
 };
+
 export const SaveError: Story = {
   args: {
     user: { ...managementFixture.users[0]!, id: "missing-access-story" },

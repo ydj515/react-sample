@@ -10,6 +10,7 @@ export function CodeBlock({
   language: string;
 }) {
   const [status, setStatus] = useState<"idle" | "copied" | "error">("idle");
+
   async function copy() {
     try {
       await navigator.clipboard.writeText(code);
@@ -22,7 +23,14 @@ export function CodeBlock({
     <div className="border-line rounded-panel my-6 min-w-0 overflow-hidden border">
       <div className="bg-surface-muted border-line flex items-center justify-between gap-3 border-b px-4 py-2">
         <span className="text-ink-subtle font-mono text-xs">{language}</span>
-        <Button variant="ghost" size="sm" onClick={copy} aria-label="코드 복사">
+        <Button
+          variant="ghost"
+          size="sm"
+          onClick={() => {
+            void copy();
+          }}
+          aria-label="코드 복사"
+        >
           <Copy aria-hidden className="size-3.5" />
           복사
         </Button>

@@ -10,7 +10,9 @@ const meta = {
   tags: ["autodocs"],
   args: { orders: commerceFixture.orders, asOf: commerceFixture.asOf },
 } satisfies Meta<typeof OrderSearch>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const Empty: Story = { args: { orders: [] } };

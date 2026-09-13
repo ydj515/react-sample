@@ -9,10 +9,15 @@ import { ProjectStatusBadge } from "./ProjectStatusBadge";
 
 export function ProjectStatusControl({ project }: { project: Project }) {
   const [status, setOptimisticStatus] = useOptimistic(project.status);
+
   const [pending, startTransition] = useTransition();
+
   const [error, setError] = useState<string | null>(null);
+
   const inFlight = useRef(false);
+
   const mutation = useUpdateProjectStatusMutation(project.id);
+
   const change = (next: ProjectStatus) => {
     if (inFlight.current || next === project.status) return;
     inFlight.current = true;

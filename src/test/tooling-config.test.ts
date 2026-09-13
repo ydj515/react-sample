@@ -2,10 +2,18 @@ import { readFile } from "node:fs/promises";
 import process from "node:process";
 
 import { ESLint } from "eslint";
+import tseslint from "typescript-eslint";
 import { describe, expect, it } from "vitest";
 
 const repositoryRoot = process.cwd();
-const eslint = new ESLint({ cwd: repositoryRoot });
+
+// 가상 파일로 검사하는 구문 규칙은 TypeScript 프로젝트 서비스 없이 실행한다.
+const syntaxOptions = {
+  cwd: repositoryRoot,
+  overrideConfig: [tseslint.configs.disableTypeChecked],
+};
+
+const eslint = new ESLint(syntaxOptions);
 
 describe("tooling configuration", () => {
   it.each([
@@ -36,6 +44,7 @@ describe("tooling configuration", () => {
 
   it("keeps the MSW worker regeneration directory configured", async () => {
     const content = await readFile(`${repositoryRoot}/package.json`, "utf8");
+
     const packageJson = JSON.parse(content) as {
       msw?: { workerDirectory?: string[] };
     };
@@ -106,7 +115,8 @@ describe("tooling configuration", () => {
 
 describe("import block spacing", () => {
   it.each(["\n", "\n\n\n", " "])("fixes separator %j", async (separator) => {
-    const fixer = new ESLint({ cwd: repositoryRoot, fix: true });
+    const fixer = new ESLint({ ...syntaxOptions, fix: true });
+
     const [result] = await fixer.lintText(
       `import "./local";${separator}export const value = 1;\n`,
       { filePath: `${repositoryRoot}/src/example.ts` },
@@ -116,7 +126,8 @@ describe("import block spacing", () => {
     );
   });
   it("preserves import groups and trailing comments", async () => {
-    const fixer = new ESLint({ cwd: repositoryRoot, fix: true });
+    const fixer = new ESLint({ ...syntaxOptions, fix: true });
+
     const [result] = await fixer.lintText(
       'import "./a";\nimport "./b"; // reason\n// declaration\nexport const value = 1;\n',
       { filePath: `${repositoryRoot}/src/example.ts` },
@@ -144,7 +155,8 @@ describe("colocated import paths", () => {
     ],
     ['import "react";', 'import "react";'],
   ])("normalizes %s", async (input, expected) => {
-    const fixer = new ESLint({ cwd: repositoryRoot, fix: true });
+    const fixer = new ESLint({ ...syntaxOptions, fix: true });
+
     const [result] = await fixer.lintText(input + "\n", {
       filePath: `${repositoryRoot}/src/features/example/model/example.ts`,
     });
@@ -302,5 +314,29 @@ describe("feature stores", () => {
         ]),
       );
     },
+  );
+});
+
+describe("type-aware promise rules", () => {
+  it.each([
+    ["Promise.resolve();", true],
+    ["void Promise.resolve();", false],
+  ])(
+    "checks %s with the actual project service",
+    async (source, rejected) => {
+      const typedEslint = new ESLint({ cwd: repositoryRoot });
+
+      const [result] = await typedEslint.lintText(source + "\n", {
+        filePath: `${repositoryRoot}/src/app/error-reporting.ts`,
+      });
+      expect(result.fatalErrorCount).toBe(0);
+      expect(
+        result.messages.some(
+          (message) =>
+            message.ruleId === "@typescript-eslint/no-floating-promises",
+        ),
+      ).toBe(rejected);
+    },
+    15_000,
   );
 });

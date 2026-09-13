@@ -17,10 +17,13 @@ function Status() {
 describe("optimistic project status", () => {
   it("shows the optimistic badge before the response and commits the server result", async () => {
     let finish!: () => void;
+
     const gate = new Promise<void>((resolve) => {
       finish = resolve;
     });
+
     let saved = projectsFixture[0];
+
     let writes = 0;
     server.use(
       http.get("/api/projects/:id", () => HttpResponse.json(saved)),

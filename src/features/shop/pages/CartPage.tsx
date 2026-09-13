@@ -23,14 +23,21 @@ import { useShopOrderMutation } from "@/features/shop/queries/shop-queries";
 
 function CartPageContent({ checkout = false }: { checkout?: boolean }) {
   const items = useShopStore((s) => s.items);
+
   const setQuantity = useShopStore((s) => s.quantity);
+
   const remove = useShopStore((s) => s.remove);
+
   const clear = useShopStore((s) => s.clear);
+
   const query = useSuspenseQuery(productsQueryOptions());
+
   const mutation = useShopOrderMutation();
+
   const [receipt, setReceipt] = useState<Receipt | null>(null);
+
   const cart = resolveCart(items, query.data ?? []);
-  if (receipt)
+  if (receipt) {
     return (
       <>
         <PageMetadata
@@ -72,6 +79,7 @@ function CartPageContent({ checkout = false }: { checkout?: boolean }) {
         </div>
       </>
     );
+  }
   return (
     <>
       <PageMetadata title={checkout ? "주문서" : "장바구니"} />

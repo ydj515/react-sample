@@ -15,6 +15,7 @@ describe("OrderShippingProgress", () => {
       />,
     );
     const steps = screen.getByRole("list", { name: "배송 진행 단계" });
+
     const current = within(steps).getByRole("listitem", { current: "step" });
     expect(current).toHaveTextContent(label);
     expect(current).toHaveTextContent(status === "완료" ? "완료" : "진행 중");

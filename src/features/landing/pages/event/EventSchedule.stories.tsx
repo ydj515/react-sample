@@ -16,9 +16,11 @@ const meta = {
     ),
   ],
 } satisfies Meta<typeof EventSchedule>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const Saved: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -30,6 +32,7 @@ export const Saved: Story = {
     await expect(canvas.getByRole("status")).toHaveTextContent("관심 세션 1개");
   },
 };
+
 export const Empty: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

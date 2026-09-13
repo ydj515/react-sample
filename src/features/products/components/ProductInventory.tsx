@@ -14,7 +14,9 @@ export function ProductInventory({
   onChange: (variants: Product["variants"]) => void;
 }) {
   const [color, setColor] = useState("화이트");
+
   const [size, setSize] = useState("");
+
   const [error, setError] = useState("");
   return (
     <div className="grid gap-4">
@@ -53,8 +55,9 @@ export function ProductInventory({
             variant="secondary"
             className="self-end"
             onClick={() => {
-              if (!color.trim() || !size.trim())
+              if (!color.trim() || !size.trim()) {
                 return setError("색상과 사이즈를 입력하세요.");
+              }
               if (
                 variants.length >= 30 ||
                 variants.some(
@@ -62,10 +65,11 @@ export function ProductInventory({
                     item.color.toLowerCase() === color.trim().toLowerCase() &&
                     item.size.toLowerCase() === size.trim().toLowerCase(),
                 )
-              )
+              ) {
                 return setError(
                   "중복 없이 최대 30개 옵션을 등록할 수 있습니다.",
                 );
+              }
               onChange([
                 ...variants,
                 {

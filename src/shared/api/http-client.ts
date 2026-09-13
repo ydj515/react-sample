@@ -16,6 +16,7 @@ export type ApiRequestOptions<T> = RequestInit & {
 };
 
 const invalidResponseMessage = "서버 응답 형식이 올바르지 않습니다.";
+
 const networkErrorMessage = "서버에 연결하지 못했습니다.";
 
 function getTraceId(response: Response, bodyTraceId?: string) {
@@ -63,7 +64,9 @@ export async function apiRequest<T>(
 
   if (!response.ok) {
     const body = await response.json().catch(() => undefined);
+
     const parsedError = apiErrorResponseSchema.safeParse(body);
+
     const error = parsedError.success ? parsedError.data : undefined;
 
     throw new ApiError(error?.message || fallbackErrorMessage, {

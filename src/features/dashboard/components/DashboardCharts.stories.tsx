@@ -12,6 +12,7 @@ const model = buildDashboard(
   { asOf: dashboardAsOf, projects: projectsFixture, tasks: dashboardTasks },
   normalizeDashboardSearch({}),
 );
+
 const meta = {
   title: "Features/Dashboard/TrendChart",
   component: TrendChart,
@@ -30,10 +31,13 @@ const meta = {
     ),
   ],
 } satisfies Meta<typeof TrendChart>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const Hours: Story = { args: { metric: "hours" } };
+
 export const Empty: Story = {
   args: {
     model: buildDashboard(

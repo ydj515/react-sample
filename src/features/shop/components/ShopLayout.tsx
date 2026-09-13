@@ -6,6 +6,7 @@ import { shopSearchSchema } from "@/features/shop/model/shop";
 
 export function ShopLayout() {
   const items = useShopStore((state) => state.items);
+
   const count = items.reduce((n, item) => n + item.quantity, 0);
   return (
     <div className="bg-surface text-ink min-h-screen">

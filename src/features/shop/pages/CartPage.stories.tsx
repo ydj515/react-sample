@@ -15,6 +15,7 @@ const meta = {
   },
   parameters: { layout: "padded" },
 } satisfies Meta<typeof CartPage>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 const fill = () => {
@@ -25,6 +26,9 @@ const fill = () => {
     favorites: [],
   });
 };
+
 export const Empty: Story = {};
+
 export const Filled: Story = { beforeEach: fill };
+
 export const Checkout: Story = { beforeEach: fill, args: { checkout: true } };

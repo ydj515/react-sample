@@ -39,8 +39,11 @@ describe("storefront", () => {
   });
   it("옵션마다 수량과 가격을 계산하고 재고 초과를 거부한다", () => {
     const p = products[0]!;
+
     const v = p.variants[0]!;
+
     const line = { productId: p.id, color: v.color, size: v.size, quantity: 2 };
+
     const cart = resolveCart([line], products);
     expect(cart.valid).toBe(true);
     expect(cart.subtotal).toBe(p.price * 2);
@@ -66,6 +69,7 @@ describe("storefront", () => {
         { color: "black", size: "M", stock: 2 },
       ],
     };
+
     const lines = p.variants.map((v) => ({
       productId: p.id,
       ...v,

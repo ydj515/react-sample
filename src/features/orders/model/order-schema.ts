@@ -2,6 +2,7 @@ import { z } from "zod";
 import { listSearchSchema } from "@/shared/lib/list-search";
 
 export const orderStatuses = ["완료", "배송중", "취소", "대기"] as const;
+
 export const orderSchema = z.object({
   id: z.string(),
   customer: z.string(),
@@ -13,16 +14,20 @@ export const orderSchema = z.object({
   category: z.string(),
   cs: z.string(),
 });
+
 export type Order = z.infer<typeof orderSchema>;
+
 export const orderTransitions: Record<Order["status"], Order["status"][]> = {
   대기: ["배송중", "취소"],
   배송중: ["완료"],
   완료: [],
   취소: [],
 };
+
 export const orderStatusInputSchema = z.object({
   status: z.enum(orderStatuses),
 });
+
 export const orderNoteInputSchema = z.object({
   text: z
     .string()
@@ -30,6 +35,7 @@ export const orderNoteInputSchema = z.object({
     .min(1, "메모를 입력하세요.")
     .max(1000, "메모는 1,000자 이하로 입력하세요."),
 });
+
 export const orderShippingSchema = z.object({
   carrier: z.string().trim().min(1, "택배사를 입력하세요.").max(40),
   trackingNumber: z
@@ -38,7 +44,9 @@ export const orderShippingSchema = z.object({
     .max(40)
     .regex(/^[A-Za-z0-9-]*$/, "운송장은 영문, 숫자, 하이픈만 입력하세요."),
 });
+
 export type OrderShipping = z.infer<typeof orderShippingSchema>;
+
 export const managedOrderSchema = orderSchema.extend({
   email: z.email(),
   address: z.string(),
@@ -82,7 +90,9 @@ export const managedOrderSchema = orderSchema.extend({
     }),
   ),
 });
+
 export type ManagedOrder = z.infer<typeof managedOrderSchema>;
+
 export const ordersSearchSchema = listSearchSchema.extend({
   status: z.enum(["all", ...orderStatuses]).catch("all"),
   sort: z

@@ -2,16 +2,19 @@ import { createContext, use } from "react";
 import { Button } from "@/shared/ui/button";
 
 const GuideContext = createContext("Context의 기본 설명입니다.");
+
 function ConditionalGuide({ expanded }: { expanded: boolean }) {
-  if (!expanded)
+  if (!expanded) {
     return (
       <p className="text-ink-subtle text-sm">
         설명을 열면 Context 값을 읽습니다.
       </p>
     );
+  }
   const guide = use(GuideContext);
   return <p className="text-sm">{guide}</p>;
 }
+
 export function ContextExample({
   expanded,
   onToggle,

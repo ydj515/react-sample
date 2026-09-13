@@ -37,7 +37,9 @@ const filterLabels: Record<keyof OrderFilters, string> = {
   brands: "브랜드",
   cs: "담당 CS",
 };
+
 const pageSize = 8;
+
 export function OrderSearch({
   orders,
   asOf,
@@ -46,11 +48,17 @@ export function OrderSearch({
   asOf: string;
 }) {
   const [advanced, setAdvanced] = useState(false);
+
   const [search, change] = useUrlSearch(commerceSearchSchema);
+
   const applied = search.orderFilters;
+
   const sort = search.orderSort;
+
   const setPage = (orderPage: number) => change({ orderPage });
+
   const [selected, setSelected] = useState<Set<string>>(new Set());
+
   const [previousOrders, setPreviousOrders] = useState(orders);
   // 스냅샷이 바뀌면 기존 페이지와 선택이 새 주문 목록을 잘못 참조하지 않게 한다.
   if (orders !== previousOrders) {
@@ -68,11 +76,17 @@ export function OrderSearch({
     resolver: zodResolver(orderFiltersSchema),
     values: applied,
   });
+
   const brands = useWatch({ control, name: "brands" });
+
   const filtered = filterOrders(orders, applied, sort);
+
   const pages = Math.max(1, Math.ceil(filtered.length / pageSize));
+
   const page = Math.min(search.orderPage, pages);
+
   const selectionKey = JSON.stringify([applied, sort, page]);
+
   const [previousSelectionKey, setPreviousSelectionKey] =
     useState(selectionKey);
   if (previousSelectionKey !== selectionKey) {
@@ -80,21 +94,26 @@ export function OrderSearch({
     setSelected(new Set());
   }
   const rows = filtered.slice((page - 1) * pageSize, page * pageSize);
+
   const active = (
     Object.entries(applied) as [keyof OrderFilters, string | string[]][]
   ).filter(
     ([key, value]) =>
       value.length > 0 && !(key === "status" && value === "all"),
   );
+
   const allBrands = Array.from(new Set(orders.map((order) => order.brand)));
+
   const apply = (filters: OrderFilters) => {
     change({ orderFilters: filters, orderPage: 1 });
     setSelected(new Set());
   };
+
   const resetAll = () => {
     reset(defaultOrderFilters);
     apply(defaultOrderFilters);
   };
+
   const exportOrders = selected.size
     ? filtered.filter((order) => selected.has(order.id))
     : filtered;
@@ -111,13 +130,15 @@ export function OrderSearch({
         }
       >
         <form
-          onSubmit={handleSubmit(
-            (filters) => {
-              apply(filters);
-              setAdvanced(false);
-            },
-            () => setAdvanced(true),
-          )}
+          onSubmit={(event) => {
+            void handleSubmit(
+              (filters) => {
+                apply(filters);
+                setAdvanced(false);
+              },
+              () => setAdvanced(true),
+            )(event);
+          }}
           noValidate
         >
           <div className="flex flex-wrap items-end gap-3">

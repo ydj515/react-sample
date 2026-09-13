@@ -9,14 +9,19 @@ import { availableStock, shopMoney } from "@/features/shop/model/shop";
 
 export function ProductPurchase({ product }: { product: Product }) {
   const [color, setColor] = useState(product.variants[0]?.color ?? "");
+
   const [size, setSize] = useState("");
+
   const [quantity, setQuantity] = useState(1);
+
   const [message, setMessage] = useState("");
+
   const currentColor = product.variants.some(
     (variant) => variant.color === color,
   )
     ? color
     : (product.variants[0]?.color ?? "");
+
   const currentSize = product.variants.some(
     (variant) => variant.color === currentColor && variant.size === size,
   )
@@ -30,11 +35,15 @@ export function ProductPurchase({ product }: { product: Product }) {
     setMessage("");
   }
   const items = useShopStore((state) => state.items);
+
   const add = useShopStore((state) => state.add);
+
   const existing = items.filter((line) => line.productId === product.id);
+
   const sameQuantity = existing
     .filter((line) => line.color === color && line.size === size)
     .reduce((n, line) => n + line.quantity, 0);
+
   const remaining = Math.max(
     0,
     Math.min(
@@ -43,6 +52,7 @@ export function ProductPurchase({ product }: { product: Product }) {
       product.stock - existing.reduce((n, line) => n + line.quantity, 0),
     ),
   );
+
   const valid =
     Number.isInteger(quantity) && quantity > 0 && quantity <= remaining;
   return (

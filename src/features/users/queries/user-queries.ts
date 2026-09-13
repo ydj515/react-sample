@@ -20,8 +20,10 @@ export const userKeys = {
   list: ["users", "list"] as const,
   detail: (id: string) => ["users", "detail", id] as const,
 };
+
 export const usersQueryOptions = () =>
   queryOptions({ queryKey: userKeys.list, queryFn: getUsers });
+
 export const userQueryOptions = (id: string) =>
   queryOptions({ queryKey: userKeys.detail(id), queryFn: () => getUser(id) });
 

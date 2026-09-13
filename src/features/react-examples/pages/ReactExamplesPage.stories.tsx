@@ -15,15 +15,19 @@ const meta = {
   },
   argTypes: { projectsPromise: { control: false } },
 } satisfies Meta<typeof ReactExamplesPage>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Ready: Story = {};
+
 export const Loading: Story = {
   args: { projectsPromise: new Promise<Project[]>(() => {}) },
 };
+
 export const RetryError: Story = {
   render: function RetryExample(args) {
     const [attempt, setAttempt] = useState(0);
+
     const [promise, setPromise] = useState(() => {
       const failed = Promise.reject<Project[]>(
         new Error("데이터를 불러오지 못했습니다."),

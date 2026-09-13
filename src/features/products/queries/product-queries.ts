@@ -19,8 +19,10 @@ export const productKeys = {
   list: ["products", "list"] as const,
   detail: (id: string) => ["products", "detail", id] as const,
 };
+
 export const productsQueryOptions = () =>
   queryOptions({ queryKey: productKeys.list, queryFn: getProducts });
+
 export const productQueryOptions = (id: string) =>
   queryOptions({
     queryKey: productKeys.detail(id),

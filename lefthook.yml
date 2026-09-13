@@ -2,7 +2,6 @@
 # (prepare script) so every contributor shares the same local quality gate.
 
 pre-commit:
-  parallel: true
   commands:
     format:
       glob: "*.{ts,tsx,js,jsx,json,css,md,yml,yaml}"
@@ -12,6 +11,8 @@ pre-commit:
       glob: "*.{ts,tsx}"
       run: pnpm eslint --fix {staged_files}
       stage_fixed: true
+
+# 포맷터가 수정한 파일을 린터가 덮어쓰지 않도록 두 작업은 순차 실행한다.
 
 pre-push:
   commands:

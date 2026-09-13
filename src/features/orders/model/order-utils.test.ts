@@ -19,6 +19,7 @@ describe("order filters", () => {
         managementFixture.orders,
         ordersSearchSchema.parse({ sort }),
       );
+
       const values = result.items.map((o) =>
         sort.startsWith("amount") ? o.amount : Date.parse(o.date),
       );

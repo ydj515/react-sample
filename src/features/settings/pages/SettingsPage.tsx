@@ -16,8 +16,11 @@ const densityDescriptions = {
 
 export function SettingsPage() {
   const density = useUiStore((state) => state.density);
+
   const resetSettings = useUiStore((state) => state.resetSettings);
+
   const setDensity = useUiStore((state) => state.setDensity);
+
   const isCompact = density === "compact";
 
   return (

@@ -22,9 +22,13 @@ import { OrderRecentOrders } from "@/features/orders/pages/order-detail/OrderRec
 
 function OrderDetailPageContent({ orderId }: { orderId: string }) {
   const search = ordersSearchSchema.parse(useSearch({ strict: false }));
+
   const query = useSuspenseQuery(orderQueryOptions(orderId));
+
   const orders = useSuspenseQuery(ordersQueryOptions());
+
   const order = query.data;
+
   const recent =
     orders.data
       ?.filter(

@@ -113,7 +113,9 @@ describe("order management", () => {
 
 it("저장 중 후속 초안 입력을 막고 완료 후 편집을 허용한다", async () => {
   const order = managementFixture.orders.find((item) => item.id === "#2046")!;
+
   let release = () => {};
+
   const gate = new Promise<void>((resolve) => {
     release = resolve;
   });
@@ -153,6 +155,7 @@ it("저장 중 후속 초안 입력을 막고 완료 후 편집을 허용한다"
 
 it("구분자를 포함한 주문 옵션들을 서로 다른 key로 표시한다", async () => {
   const order = managementFixture.orders[0]!;
+
   const item = order.items[0]!;
   server.use(
     http.get("/api/orders/:id", () =>

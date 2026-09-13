@@ -3,7 +3,9 @@ export type DocumentBlock =
   | { type: "list"; items: string[] }
   | { type: "code"; language: string; code: string }
   | { type: "note"; title: string; text: string };
+
 export type DocSection = { id: string; title: string; blocks: DocumentBlock[] };
+
 export type DocArticle = {
   slug: string;
   title: string;
@@ -344,9 +346,11 @@ export const documents: DocArticle[] = [
     ],
   },
 ];
+
 export function findDocument(slug: string) {
   return documents.find((document) => document.slug === slug);
 }
+
 export function searchDocuments(query: string) {
   const normalized = query.trim().toLocaleLowerCase("ko-KR");
   if (!normalized) return [];
@@ -366,6 +370,7 @@ export function searchDocuments(query: string) {
         .toLocaleLowerCase("ko-KR")
         .includes(normalized),
     );
+
     const titleMatch = `${doc.title} ${doc.description}`
       .toLocaleLowerCase("ko-KR")
       .includes(normalized);

@@ -8,6 +8,7 @@ for (const width of [390, 1280]) {
     await page.setViewportSize({ width, height: 900 });
     await login(page);
     const searchHeights: number[] = [];
+
     const tablePaddings: string[] = [];
     for (const [path, searchLabel, tableLabel] of [
       ["/", "주문 검색어", "주문 검색 결과"],

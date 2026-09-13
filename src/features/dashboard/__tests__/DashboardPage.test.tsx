@@ -21,6 +21,7 @@ import { createTestQueryClient } from "@/shared/lib/test/test-query-client";
 
 function renderDashboard(initial = "/") {
   const root = createRootRoute();
+
   const routeTree = root.addChildren([
     ...[
       ["/", DashboardPage],
@@ -40,6 +41,7 @@ function renderDashboard(initial = "/") {
       component: () => <h1>프로젝트 상세</h1>,
     }),
   ]);
+
   const router = createRouter({
     routeTree,
     history: createMemoryHistory({ initialEntries: [initial] }),
@@ -90,6 +92,7 @@ describe("dashboard pages", () => {
   });
   it("필터 변경과 뒤로 가기에서 URL과 화면을 함께 복원한다", async () => {
     const user = userEvent.setup();
+
     const { router } = renderDashboard("/operations?days=7");
     await screen.findByText("전체 프로젝트");
     await user.selectOptions(screen.getByLabelText("프로젝트 담당자"), "Mina");
@@ -134,7 +137,9 @@ describe("dashboard pages", () => {
   });
   it("리포트 지표 전환과 데이터 표, CSV 다운로드를 제공한다", async () => {
     const user = userEvent.setup();
+
     const create = vi.fn(() => "blob:report");
+
     const revoke = vi.fn();
     vi.stubGlobal(
       "URL",

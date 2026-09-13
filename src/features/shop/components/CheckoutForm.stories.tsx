@@ -14,9 +14,11 @@ const meta = {
   ],
   args: { pending: false, disabled: false, onSubmit: fn() },
 } satisfies Meta<typeof CheckoutForm>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const ValidationError: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -29,10 +31,12 @@ export const ValidationError: Story = {
     );
   },
 };
+
 export const SaveError: Story = {
   args: {
     error:
       "상품 가격이 변경되었습니다. 갱신된 금액을 확인하고 다시 주문하세요.",
   },
 };
+
 export const Pending: Story = { args: { pending: true } };

@@ -60,6 +60,7 @@ test.describe("대시보드", () => {
       "project-report-2026-07-09-2026-07-15.csv",
     );
     const stream = await download.createReadStream();
+
     const chunks = [];
     for await (const chunk of stream) chunks.push(chunk);
     const content = Buffer.concat(chunks).toString("utf8");

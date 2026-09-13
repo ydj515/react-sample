@@ -1,10 +1,12 @@
 import { z } from "zod";
 
 export type BillingCycle = "monthly" | "yearly";
+
 export function getPlanPrice(price: number, cycle: BillingCycle) {
   const monthly = cycle === "yearly" ? Math.round(price * 0.8) : price;
   return { monthly, total: cycle === "yearly" ? monthly * 12 : monthly };
 }
+
 export const inquirySchema = z.object({
   name: z
     .string()
@@ -14,7 +16,9 @@ export const inquirySchema = z.object({
   email: z.string().trim().email("이메일 형식을 확인하세요.").max(254),
   message: z.string().trim().max(1000, "1000자 이내로 입력하세요."),
 });
+
 export type Inquiry = z.infer<typeof inquirySchema>;
+
 export const landingSamples = [
   {
     to: "/landing/saas",

@@ -24,6 +24,7 @@ export function UserAccessForm({ user }: { user: ManagedUser }) {
       permissions: user.permissions,
     },
   });
+
   const mutation = useUpdateUserAccessMutation(user.id, (saved) => {
     form.reset(userAccessSchema.parse(saved));
     toast.success("사용자 권한과 상태를 저장했습니다.");
@@ -31,7 +32,9 @@ export function UserAccessForm({ user }: { user: ManagedUser }) {
   return (
     <form
       className="grid gap-5"
-      onSubmit={form.handleSubmit((values) => mutation.mutate(values))}
+      onSubmit={(event) => {
+        void form.handleSubmit((values) => mutation.mutate(values))(event);
+      }}
     >
       <fieldset disabled={mutation.isPending} className="grid min-w-0 gap-5">
         <div>

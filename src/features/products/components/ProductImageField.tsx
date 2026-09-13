@@ -22,7 +22,9 @@ export function ProductImageField({
   validationError,
 }: Props) {
   const errorId = useId();
+
   const error = imageError ?? validationError;
+
   const errorProps = {
     "aria-invalid": !!error,
     "aria-describedby": error ? errorId : undefined,
@@ -65,7 +67,9 @@ export function ProductImageField({
           type="file"
           accept="image/png,image/jpeg,image/webp"
           className="h-auto py-2"
-          onChange={upload}
+          onChange={(event) => {
+            void upload(event);
+          }}
         />
       </label>
       <p className="text-ink-subtle text-xs">

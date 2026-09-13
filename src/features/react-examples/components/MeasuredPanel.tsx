@@ -2,6 +2,7 @@ import { useCallback, useState } from "react";
 
 export function MeasuredPanel() {
   const [width, setWidth] = useState(0);
+
   const observe = useCallback((node: HTMLDivElement | null) => {
     if (!node || typeof ResizeObserver === "undefined") return;
     const observer = new ResizeObserver(([entry]) => {

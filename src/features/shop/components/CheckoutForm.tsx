@@ -26,7 +26,9 @@ export function CheckoutForm({
   return (
     <form
       noValidate
-      onSubmit={form.handleSubmit(onSubmit)}
+      onSubmit={(event) => {
+        void form.handleSubmit(onSubmit)(event);
+      }}
       className="mt-7 space-y-5"
     >
       <h2 className="font-semibold">배송 정보</h2>

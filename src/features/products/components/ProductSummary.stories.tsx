@@ -7,6 +7,7 @@ import { withRouter } from "@/shared/lib/storybook/with-router";
 import { ProductSummary } from "./ProductSummary";
 
 const product = managementFixture.products[0]!;
+
 const meta = {
   title: "Features/Products/Summary",
   component: ProductSummary,
@@ -20,12 +21,15 @@ const meta = {
     onManageStock: fn(),
   },
 } satisfies Meta<typeof ProductSummary>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const ExistingProduct: Story = {};
+
 export const NewProduct: Story = {
   args: { product: undefined, stock: 0, variants: [] },
 };
+
 export const StockLevels: Story = {
   args: {
     stock: 14,

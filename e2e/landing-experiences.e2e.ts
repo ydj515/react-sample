@@ -7,8 +7,9 @@ for (const width of [390, 1440]) {
     }) => {
       const imageRequests: string[] = [];
       page.on("request", (request) => {
-        if (request.resourceType() === "image")
+        if (request.resourceType() === "image") {
           imageRequests.push(request.url());
+        }
       });
       await page.setViewportSize({ width, height: 900 });
       await page.goto(`/landing/${sample}`);
@@ -53,6 +54,7 @@ test("다크 모드 참가권 버튼과 키보드 포커스가 배경과 구분�
   const sectionColor = await page
     .locator("#passes")
     .evaluate((el) => getComputedStyle(el).backgroundColor);
+
   const colors = await trigger.evaluate((el) => {
     const style = getComputedStyle(el);
     return {
@@ -199,11 +201,12 @@ for (const width of [390, 1440]) {
           .getByRole("link", { name: sample.label, exact: true })
           .click();
         await expect(dialog).not.toBeVisible();
-      } else
+      } else {
         await page
           .getByRole("banner")
           .getByRole("link", { name: sample.label, exact: true })
           .click();
+      }
       await expect(page).toHaveURL(new RegExp(`#${sample.section}$`));
       await expect(
         page

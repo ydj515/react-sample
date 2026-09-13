@@ -5,6 +5,7 @@ export function ReadingProgress() {
   const [value, setValue] = useState(0);
   useEffect(() => {
     let frame = 0;
+
     const update = () => {
       cancelAnimationFrame(frame);
       frame = requestAnimationFrame(() =>

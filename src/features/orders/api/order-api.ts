@@ -6,14 +6,17 @@ import {
 import { apiRequest } from "@/shared/api/http-client";
 
 const headers = { "Content-Type": "application/json" };
+
 export function getOrders() {
   return apiRequest("/api/orders", { schema: managedOrderSchema.array() });
 }
+
 export function getOrder(id: string) {
   return apiRequest(`/api/orders/${encodeURIComponent(id)}`, {
     schema: managedOrderSchema,
   });
 }
+
 export function updateOrderStatus(id: string, status: Order["status"]) {
   return apiRequest(`/api/orders/${encodeURIComponent(id)}/status`, {
     schema: managedOrderSchema,
@@ -22,6 +25,7 @@ export function updateOrderStatus(id: string, status: Order["status"]) {
     body: JSON.stringify({ status }),
   });
 }
+
 export function addOrderNote(id: string, text: string) {
   return apiRequest(`/api/orders/${encodeURIComponent(id)}/notes`, {
     schema: managedOrderSchema,

@@ -20,10 +20,15 @@ import { Select } from "@/shared/ui/select";
 
 function OrdersPageContent() {
   const search = ordersSearchSchema.parse(useSearch({ strict: false }));
+
   const navigate = useNavigate();
+
   const query = useSuspenseQuery(ordersQueryOptions());
+
   const orders = query.data ?? [];
+
   const result = selectOrders(orders, search);
+
   const change = (patch: Partial<typeof search>) =>
     void navigate({
       to: "/orders",

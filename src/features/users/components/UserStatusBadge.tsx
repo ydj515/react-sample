@@ -9,6 +9,7 @@ const variants = {
   invited: "info",
   suspended: "warning",
 } as const;
+
 export function UserStatusBadge({ status }: { status: ManagedUser["status"] }) {
   return (
     <Badge className="whitespace-nowrap" variant={variants[status]}>

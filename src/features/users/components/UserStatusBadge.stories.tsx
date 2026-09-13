@@ -8,6 +8,7 @@ const meta = {
   tags: ["autodocs"],
   args: { status: "active" },
 } satisfies Meta<typeof UserStatusBadge>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const All: Story = {

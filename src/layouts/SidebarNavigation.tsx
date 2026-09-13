@@ -33,6 +33,7 @@ export function SidebarNavigation({
   onNavigate?: () => void;
 }) {
   const [expanded, setExpanded] = useState<string | null>(activeGroup);
+
   const id = useId();
   return (
     <nav

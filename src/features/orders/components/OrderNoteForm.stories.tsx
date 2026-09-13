@@ -33,9 +33,11 @@ const meta = {
   loaders: [loadManagementApi],
   args: { orderId: managementFixture.orders[0]!.id },
 } satisfies Meta<typeof OrderNoteForm>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const ValidationError: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -45,6 +47,7 @@ export const ValidationError: Story = {
     );
   },
 };
+
 export const Saved: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -58,6 +61,7 @@ export const Saved: Story = {
     );
   },
 };
+
 export const SaveError: Story = {
   args: { orderId: "missing-note-story" },
   parameters: {

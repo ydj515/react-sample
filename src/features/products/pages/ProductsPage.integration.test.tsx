@@ -111,6 +111,7 @@ describe("product management", () => {
     const user = userEvent.setup({ applyAccept: false });
     renderManagement("/products/product-1/edit");
     const upload = await screen.findByLabelText("이미지 업로드");
+
     const file = new File(["image"], "sample.png", { type: "image/png" });
     await user.upload(upload, file);
     await waitFor(() =>
@@ -203,7 +204,9 @@ it("저장 중 후속 초안 입력을 막고 완료 후 편집을 허용한다"
   const product = managementFixture.products.find(
     (item) => item.id === "product-2",
   )!;
+
   let release = () => {};
+
   const gate = new Promise<void>((resolve) => {
     release = resolve;
   });
@@ -233,6 +236,7 @@ it("저장 중 후속 초안 입력을 막고 완료 후 편집을 허용한다"
 
 it("구분자를 포함한 서로 다른 옵션을 중복 key 없이 편집한다", async () => {
   const product = managementFixture.products[0]!;
+
   const variants = [
     { color: "A-B", size: "C", stock: 4 },
     { color: "A", size: "B-C", stock: 4 },
@@ -249,6 +253,7 @@ it("구분자를 포함한 서로 다른 옵션을 중복 key 없이 편집한�
     await screen.findByRole("textbox", { name: "상품명" });
     await user.click(screen.getByRole("tab", { name: "재고 · 옵션" }));
     const first = screen.getByRole("spinbutton", { name: "A-B C 재고" });
+
     const second = screen.getByRole("spinbutton", { name: "A B-C 재고" });
     await user.clear(first);
     await user.type(first, "5");

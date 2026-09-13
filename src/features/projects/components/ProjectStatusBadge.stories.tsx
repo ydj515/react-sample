@@ -19,7 +19,9 @@ export default meta;
 type Story = StoryObj<typeof meta>;
 
 export const Active: Story = { args: { status: "active" } };
+
 export const Paused: Story = { args: { status: "paused" } };
+
 export const Completed: Story = { args: { status: "completed" } };
 
 export const AllStatuses: Story = {

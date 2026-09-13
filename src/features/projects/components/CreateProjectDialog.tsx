@@ -32,11 +32,14 @@ const defaultValues: CreateProjectFormValues = {
 
 export function CreateProjectDialog() {
   const [open, setOpen] = useState(false);
+
   const mutation = useCreateProjectMutation();
+
   const form = useForm<CreateProjectFormValues>({
     resolver: zodResolver(createProjectSchema),
     defaultValues,
   });
+
   const errors = form.formState.errors;
 
   function handleOpenChange(nextOpen: boolean) {
@@ -74,7 +77,9 @@ export function CreateProjectDialog() {
         </DialogDescription>
         <form
           className="mt-5 grid gap-4"
-          onSubmit={form.handleSubmit(onSubmit)}
+          onSubmit={(event) => {
+            void form.handleSubmit(onSubmit)(event);
+          }}
         >
           <div className="grid gap-1.5">
             <Label htmlFor="name">프로젝트 이름</Label>

@@ -10,6 +10,7 @@ import { OrderShippingForm } from "./OrderShippingForm";
 const shipping = managementFixture.orders.find(
   (order) => order.status === "배송중",
 )!;
+
 const meta = {
   title: "Features/Orders/ShippingForm",
   component: OrderShippingForm,
@@ -36,14 +37,17 @@ const meta = {
   loaders: [loadManagementApi],
   args: { order: shipping },
 } satisfies Meta<typeof OrderShippingForm>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const BeforeShipment: Story = {
   args: {
     order: managementFixture.orders.find((order) => order.status === "대기")!,
   },
 };
+
 export const ValidationError: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -57,6 +61,7 @@ export const ValidationError: Story = {
     );
   },
 };
+
 export const Saved: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -75,6 +80,7 @@ export const Saved: Story = {
     );
   },
 };
+
 export const SaveError: Story = {
   args: { order: { ...shipping, id: "missing-shipping-story" } },
   parameters: {

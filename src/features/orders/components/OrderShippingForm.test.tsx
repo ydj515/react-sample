@@ -9,10 +9,13 @@ import { OrderShippingForm } from "./OrderShippingForm";
 
 it("저장 중 입력을 잠그고 서버 응답을 저장 기준으로 사용한다", async () => {
   const order = managementFixture.orders[0]!;
+
   let release = () => {};
+
   const gate = new Promise<void>((resolve) => {
     release = resolve;
   });
+
   let submitted: unknown;
   server.use(
     http.patch("/api/orders/:id/shipping", async ({ request }) => {

@@ -8,9 +8,11 @@ const meta = {
   decorators: [withRouter],
   parameters: { layout: "fullscreen" },
 } satisfies Meta<typeof ProductLandingPage>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const Mobile: Story = {
   parameters: {
     viewport: {
@@ -24,4 +26,5 @@ export const Mobile: Story = {
   },
   globals: { viewport: { value: "landingMobile", isRotated: false } },
 };
+
 export const Dark: Story = { globals: { theme: "dark" } };

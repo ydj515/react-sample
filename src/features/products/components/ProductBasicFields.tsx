@@ -21,19 +21,27 @@ export function ProductBasicFields({
   form: UseFormReturn<ProductInput>;
 }) {
   const [tag, setTag] = useState("");
+
   const panelId = useId();
+
   const errors = form.formState.errors;
+
   const errorId = (name: keyof ProductInput) => `${panelId}-${name}-error`;
+
   const errorProps = (name: keyof ProductInput) => ({
     "aria-invalid": !!errors[name],
     "aria-describedby": errors[name] ? errorId(name) : undefined,
   });
+
   const tags = useWatch({ control: form.control, name: "tags" });
+
   const variants = useWatch({ control: form.control, name: "variants" }) ?? [];
+
   const addTag = () => {
     const value = tag.trim();
     if (!value) return;
     const next = [...tags, value];
+
     const parsed = productInputSchema.shape.tags.safeParse(next);
     if (!parsed.success) {
       form.setError("tags", { message: parsed.error.issues[0]?.message });

@@ -13,7 +13,7 @@ class ErrorBoundary extends Component<BoundaryProps, { error: Error | null }> {
     return { error };
   }
   render() {
-    if (this.state.error)
+    if (this.state.error) {
       return (
         <QueryFeedback
           pending={false}
@@ -25,6 +25,7 @@ class ErrorBoundary extends Component<BoundaryProps, { error: Error | null }> {
           }}
         />
       );
+    }
     return this.props.children;
   }
 }

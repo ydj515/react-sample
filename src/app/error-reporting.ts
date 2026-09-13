@@ -1,6 +1,7 @@
 import type { RootOptions } from "react-dom/client";
 
 export type RenderErrorKind = "caught" | "uncaught" | "recoverable";
+
 export function reportRenderError(
   kind: RenderErrorKind,
   error: unknown,
@@ -13,6 +14,7 @@ export function reportRenderError(
     componentStack: componentStack ?? "",
   });
 }
+
 export const rootErrorHandlers: RootOptions = {
   onCaughtError: (error, info) =>
     reportRenderError("caught", error, info.componentStack),

@@ -7,6 +7,7 @@ const variants = {
   취소: "danger",
   대기: "neutral",
 } as const;
+
 export function OrderStatusBadge({ status }: { status: Order["status"] }) {
   return (
     <Badge className="whitespace-nowrap" variant={variants[status]}>

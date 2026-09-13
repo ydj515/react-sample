@@ -27,9 +27,11 @@ const meta = {
     ),
   ],
 } satisfies Meta<typeof LandingFaq>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const Expanded: Story = {
   play: async ({ canvasElement }) => {
     await userEvent.click(

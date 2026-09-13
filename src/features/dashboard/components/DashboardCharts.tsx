@@ -32,16 +32,22 @@ export function TrendChart({
   metric: DashboardSearch["metric"];
 }) {
   const id = useId();
+
   const previousKey =
     metric === "hours" ? "previousHours" : "previousCompleted";
+
   const unit = metric === "hours" ? "h" : "건";
+
   const maximum = Math.max(
     1,
     ...model.series.flatMap((point) => [point[metric], point[previousKey]]),
   );
+
   const x = (index: number) =>
     44 + (index / Math.max(1, model.series.length - 1)) * 512;
+
   const y = (value: number) => 180 - (value / maximum) * 144;
+
   const points = (previous: boolean) =>
     model.series
       .map(

@@ -11,9 +11,11 @@ const meta = {
     className: "w-80",
   },
 } satisfies Meta<typeof Textarea>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const Disabled: Story = {
   args: { disabled: true, defaultValue: "수정할 수 없는 메모입니다." },
 };

@@ -153,12 +153,14 @@ describe("dashboard aggregation", () => {
       ...snapshot,
       projects: [{ ...snapshot.projects[0], name: '=SUM(1,2)"' }],
     };
+
     const result = buildDashboard(data, {
       days: 7,
       owner: "all",
       status: "all",
       metric: "completed",
     });
+
     const csv = toReportCsv(result);
     expect(csv).toContain("2026-07-09");
     expect(csv).toContain('"\'=SUM(1,2)"""');

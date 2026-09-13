@@ -1,5 +1,6 @@
 import { matchesSearch, paginate } from "@/shared/lib/list-search";
-import { productsSearchSchema, type Product } from "./product-schema";
+import type { productsSearchSchema } from "./product-schema";
+import { type Product } from "./product-schema";
 
 export function selectProducts(
   products: Product[],

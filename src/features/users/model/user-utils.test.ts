@@ -18,7 +18,9 @@ describe("user filters", () => {
     "%s 정렬은 원본 배열을 변경하지 않는다",
     (sort) => {
       const items = managementFixture.users;
+
       const before = [...items];
+
       const result = selectUsers(items, usersSearchSchema.parse({ sort }));
       expect(result.items[0]?.id).toBe(
         sort === "newest" ? "user-24" : sort === "name" ? "user-10" : "user-1",

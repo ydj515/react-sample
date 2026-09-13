@@ -6,7 +6,9 @@ import { bootstrapApp } from "./bootstrap";
 describe("bootstrapApp", () => {
   it("mock worker 시작이 실패해도 앱 렌더링을 계속한다", async () => {
     const container = document.createElement("div");
+
     const render = vi.fn();
+
     const onMockingError = vi.fn();
 
     bootstrapApp({

@@ -58,6 +58,7 @@ describe("useUiStore", () => {
     expect(useUiStore.getState().density).toBe("comfortable");
 
     const persistedValue = localStorage.getItem("react-sample-ui");
+
     const persisted = JSON.parse(persistedValue!) as {
       state: Record<string, unknown>;
     };

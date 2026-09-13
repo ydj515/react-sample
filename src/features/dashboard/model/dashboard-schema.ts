@@ -40,6 +40,7 @@ export const dashboardSchema = z
   }, "Invalid dashboard snapshot");
 
 export type DashboardSnapshot = z.infer<typeof dashboardSchema>;
+
 export type DashboardTask = DashboardSnapshot["tasks"][number];
 
 export const dashboardSearchSchema = z.object({

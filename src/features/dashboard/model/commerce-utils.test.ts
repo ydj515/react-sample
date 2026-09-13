@@ -45,6 +45,7 @@ describe("commerce order search", () => {
       ),
     ).toEqual([]);
     const before = [...commerceFixture.orders];
+
     const sorted = filterOrders(before, defaultOrderFilters, "amount-desc");
     expect(sorted[0]!.amount).toBe(298000);
     expect(before).toEqual(commerceFixture.orders);

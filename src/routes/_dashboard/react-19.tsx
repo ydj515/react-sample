@@ -15,8 +15,11 @@ export const Route = createFileRoute("/_dashboard/react-19")({
   },
   component: function ExamplesRoute() {
     const data = Route.useLoaderData();
+
     const router = useRouter();
+
     const client = useQueryClient();
+
     const [refreshing, startTransition] = useTransition();
     return (
       <ReactExamplesPage

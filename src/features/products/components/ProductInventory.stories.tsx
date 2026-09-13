@@ -14,6 +14,7 @@ const meta = {
     onChange: fn(),
   },
 } satisfies Meta<typeof ProductInventory>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {
@@ -24,6 +25,7 @@ export const Default: Story = {
     );
   },
 };
+
 export const Empty: Story = { ...Default, args: { variants: [] } };
 
 export const DelimitedOptions: Story = {

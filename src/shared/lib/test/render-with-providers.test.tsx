@@ -6,6 +6,7 @@ import { renderWithProviders } from "./render-with-providers";
 
 function QueryClientProbe() {
   const queryClient = useQueryClient();
+
   const retry = queryClient.getDefaultOptions().queries?.retry;
 
   return <div>retry: {String(retry)}</div>;

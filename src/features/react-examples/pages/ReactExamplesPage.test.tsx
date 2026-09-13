@@ -8,10 +8,13 @@ import type { Project } from "@/features/projects/model";
 
 it("shows the shell before deferred data and recovers with a new loader Promise", async () => {
   let reject!: (error: Error) => void;
+
   const projectsPromise = new Promise<Project[]>((_resolve, fail) => {
     reject = fail;
   });
+
   const refresh = vi.fn();
+
   const { rerender } = render(
     <ReactExamplesPage
       requestId="first"

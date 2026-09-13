@@ -13,10 +13,12 @@ test("로그인 후 그룹 메뉴와 검색 단축키로 이동하고 현재 위
     page.getByRole("button", { name: /사이드바 (열기|닫기)/ }),
   ).toHaveCount(0);
   const identity = page.getByRole("group", { name: "로그인 사용자" });
+
   const emailBounds = await identity
     .getByText("demo@example.com", { exact: true })
     .first()
     .boundingBox();
+
   const logoutBounds = await page
     .getByRole("button", { name: "로그아웃" })
     .boundingBox();
@@ -139,6 +141,7 @@ test("모바일 하단 메뉴가 현재 화면을 표시하고 마지막 콘텐�
     .locator("section")
     .first()
     .boundingBox();
+
   const navBounds = await nav.boundingBox();
   expect(contentBottom!.y + contentBottom!.height).toBeLessThanOrEqual(
     navBounds!.y,

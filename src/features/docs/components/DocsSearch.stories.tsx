@@ -10,9 +10,11 @@ const meta = {
   parameters: { layout: "padded" },
   tags: ["autodocs"],
 } satisfies Meta<typeof DocsSearch>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const Results: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -22,6 +24,7 @@ export const Results: Story = {
     ).toBeVisible();
   },
 };
+
 export const Empty: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

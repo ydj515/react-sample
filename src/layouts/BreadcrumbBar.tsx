@@ -5,7 +5,9 @@ import { currentNavigation } from "./navigation";
 
 export function BreadcrumbBar({ pathname }: { pathname: string }) {
   const current = currentNavigation(pathname);
+
   const detail = pathname.split("/").filter(Boolean).length > 1;
+
   const detailLabel =
     pathname === "/products/new"
       ? "상품 등록"

@@ -14,6 +14,7 @@ function ProjectFiltersDemo() {
     search: "",
     status: "all",
   });
+
   const [sortKey, setSortKey] = useState<ProjectSortKey>("dueDate");
 
   return (

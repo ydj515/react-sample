@@ -19,6 +19,7 @@ const meta = {
   ],
   args: { data: commerceFixture.monthly },
 } satisfies Meta<typeof MonthlyRevenue>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Monthly: Story = {
@@ -31,17 +32,21 @@ export const Monthly: Story = {
     },
   },
 };
+
 export const ZeroRevenue: Story = {
   args: {
     data: commerceFixture.monthly.map((item) => ({ ...item, amount: 0 })),
   },
 };
+
 export const Visitors: Story = {
   render: () => <VisitorTrend data={commerceFixture.traffic} />,
 };
+
 export const Categories: Story = {
   render: () => <CategoryRevenue data={commerceFixture.categories} />,
 };
+
 export const EmptyCategories: Story = {
   render: () => <CategoryRevenue data={[]} />,
 };

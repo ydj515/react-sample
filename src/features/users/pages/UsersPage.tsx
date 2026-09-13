@@ -23,10 +23,15 @@ import { Select } from "@/shared/ui/select";
 
 function UsersPageContent() {
   const search = usersSearchSchema.parse(useSearch({ strict: false }));
+
   const navigate = useNavigate();
+
   const query = useSuspenseQuery(usersQueryOptions());
+
   const users = query.data ?? [];
+
   const result = selectUsers(users, search);
+
   const change = (patch: Partial<typeof search>) =>
     void navigate({
       to: "/users",

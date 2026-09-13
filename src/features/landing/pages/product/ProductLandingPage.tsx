@@ -17,6 +17,7 @@ const links = [
   { href: "#specs", label: "사양" },
   { href: "#configure", label: "구성 선택" },
 ];
+
 export function ProductLandingPage() {
   return (
     <LandingPage title="FORMA One · 오디오 제품" className="landing-product">

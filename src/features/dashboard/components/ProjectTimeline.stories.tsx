@@ -21,9 +21,11 @@ const meta = {
     ),
   },
 } satisfies Meta<typeof ProjectTimeline>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const NoTasks: Story = {
   args: {
     model: buildDashboard(

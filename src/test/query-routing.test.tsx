@@ -80,6 +80,7 @@ describe("route query loading", () => {
   });
   it("reuses the loader cache when the page suspense query mounts", async () => {
     let requests = 0;
+
     const count = ({ request }: { request: Request }) => {
       if (new URL(request.url).pathname === "/api/users") requests++;
     };

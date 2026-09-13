@@ -15,12 +15,14 @@ import { AgencyLandingPage } from "@/features/landing/pages/agency/AgencyLanding
 
 function renderLanding(path = "/landing") {
   const root = createRootRoute();
+
   const routes = [
     { path: "/landing", component: LandingIndexPage },
     { path: "/landing/saas", component: SaasLandingPage },
     { path: "/landing/course", component: CourseLandingPage },
     { path: "/landing/agency", component: AgencyLandingPage },
   ].map((route) => createRoute({ getParentRoute: () => root, ...route }));
+
   const router = createRouter({
     routeTree: root.addChildren(routes),
     history: createMemoryHistory({ initialEntries: [path] }),

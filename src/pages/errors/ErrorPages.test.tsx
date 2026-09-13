@@ -7,6 +7,7 @@ import { TestRouter } from "@/shared/lib/test/TestRouter";
 
 it("sets recovery page titles when no content page remains mounted", async () => {
   const reset = vi.fn();
+
   const view = render(<ErrorPage error={new Error("Failure")} reset={reset} />);
   expect(
     screen.getByRole("heading", { name: "문제가 발생했습니다." }),

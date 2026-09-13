@@ -333,6 +333,23 @@ export default tseslint.config(
   js.configs.recommended,
   ...tseslint.configs.recommended,
   {
+    files: ["src/**/*.{ts,tsx}"],
+    languageOptions: {
+      parserOptions: {
+        projectService: true,
+      },
+    },
+    rules: {
+      ...tseslint.configs.recommendedTypeChecked.rules,
+      "@typescript-eslint/consistent-type-imports": [
+        "error",
+        { prefer: "type-imports", fixStyle: "separate-type-imports" },
+      ],
+      "@typescript-eslint/no-floating-promises": "error",
+      "@typescript-eslint/no-misused-promises": "error",
+    },
+  },
+  {
     files: ["**/*.{ts,tsx}"],
     languageOptions: {
       ecmaVersion: 2024,
@@ -344,6 +361,16 @@ export default tseslint.config(
     },
     rules: {
       ...reactHooks.configs.recommended.rules,
+      curly: ["error", "multi-line"],
+      eqeqeq: ["error", "always", { null: "ignore" }],
+      "padding-line-between-statements": [
+        "error",
+        {
+          blankLine: "always",
+          prev: ["const", "let", "var", "function", "class", "export"],
+          next: ["const", "let", "var", "function", "class", "export"],
+        },
+      ],
       "react-refresh/only-export-components": [
         "warn",
         { allowConstantExport: true, allowExportNames: ["Route"] },

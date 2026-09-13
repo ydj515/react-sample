@@ -27,11 +27,17 @@ import { ShopProductCard } from "@/features/shop/components/ShopProductCard";
 
 function ShopDetailPageContent({ productId }: { productId: string }) {
   const query = useSuspenseQuery(productQueryOptions(productId));
+
   const catalog = useSuspenseQuery(productsQueryOptions());
+
   const search = shopSearchSchema.parse(useSearch({ strict: false }));
+
   const favorites = useShopStore((s) => s.favorites);
+
   const toggleFavorite = useShopStore((s) => s.toggleFavorite);
+
   const [tab, setTab] = useState<"description" | "reviews">("description");
+
   const product = query.data;
   return (
     <>

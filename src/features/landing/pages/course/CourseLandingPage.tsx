@@ -23,6 +23,7 @@ const items = [
   { href: "#instructor", label: "강사" },
   { href: "#tickets", label: "수강권" },
 ];
+
 const chapters = [
   {
     title: "컴포넌트 시스템의 기초",
@@ -61,6 +62,7 @@ const chapters = [
     ],
   },
 ];
+
 export function CourseLandingPage() {
   return (
     <LandingPage title="마스터클래스 · 강의 랜딩">

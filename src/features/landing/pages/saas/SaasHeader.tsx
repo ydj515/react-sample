@@ -11,6 +11,7 @@ const items = [
   { href: "#pricing", label: "요금제" },
   { href: "#faq", label: "FAQ" },
 ];
+
 export function SaasHeader() {
   return (
     <header className="bg-surface/95 border-line sticky top-0 z-30 border-b backdrop-blur">

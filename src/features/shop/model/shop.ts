@@ -14,7 +14,9 @@ export const shopSearchSchema = z.object({
   favorites: z.boolean().catch(false),
   page: z.coerce.number().int().min(1).max(10000).catch(1),
 });
+
 export type ShopSearch = z.infer<typeof shopSearchSchema>;
+
 export function selectShopProducts(
   products: Product[],
   search: ShopSearch,
@@ -50,18 +52,22 @@ export function selectShopProducts(
     search.page,
   );
 }
+
 export const cartEntrySchema = z.object({
   productId: z.string().min(1),
   color: z.string().max(30),
   size: z.string().max(20),
   quantity: z.number().int().min(1).max(99),
 });
+
 export type CartEntry = z.infer<typeof cartEntrySchema>;
+
 export function cartKey(
   entry: Pick<CartEntry, "productId" | "color" | "size">,
 ) {
   return JSON.stringify([entry.productId, entry.color, entry.size]);
 }
+
 export const recipientSchema = z.object({
   name: z.string().trim().min(2, "받는 분 이름을 2자 이상 입력하세요.").max(40),
   phone: z
@@ -70,7 +76,9 @@ export const recipientSchema = z.object({
     .regex(/^[0-9+() -]{7,20}$/, "연락처를 확인하세요."),
   address: z.string().trim().min(5, "주소를 5자 이상 입력하세요.").max(200),
 });
+
 export type Recipient = z.infer<typeof recipientSchema>;
+
 export const checkoutSchema = z.object({
   expectedTotal: z.number().int().nonnegative(),
   recipient: recipientSchema,
@@ -83,7 +91,9 @@ export const checkoutSchema = z.object({
       "중복 상품 옵션입니다.",
     ),
 });
+
 export type CheckoutInput = z.infer<typeof checkoutSchema>;
+
 export const receiptSchema = z.object({
   id: z.string(),
   createdAt: z.iso.datetime(),
@@ -97,7 +107,9 @@ export const receiptSchema = z.object({
     }),
   ),
 });
+
 export type Receipt = z.infer<typeof receiptSchema>;
+
 export function availableStock(product: Product, color: string, size: string) {
   if (product.status !== "active") return 0;
   const option = product.variants.find(
@@ -109,15 +121,19 @@ export function availableStock(product: Product, color: string, size: string) {
       ? product.stock
       : 0;
 }
+
 export function resolveCart(entries: CartEntry[], products: Product[]) {
   const lines = entries.map((entry) => {
     const product = products.find((p) => p.id === entry.productId);
+
     const available = product
       ? Math.min(99, availableStock(product, entry.color, entry.size))
       : 0;
+
     const totalQuantity = entries
       .filter((line) => line.productId === entry.productId)
       .reduce((n, line) => n + line.quantity, 0);
+
     const error =
       !product || product.status !== "active"
         ? "판매하지 않는 상품입니다."
@@ -135,7 +151,9 @@ export function resolveCart(entries: CartEntry[], products: Product[]) {
       amount: (product?.price ?? 0) * entry.quantity,
     };
   });
+
   const subtotal = lines.reduce((n, line) => n + line.amount, 0);
+
   const shipping = entries.length === 0 || subtotal >= 100000 ? 0 : 3000;
   return {
     lines,
@@ -149,6 +167,7 @@ export function resolveCart(entries: CartEntry[], products: Product[]) {
       lines.every((line) => !line.error),
   };
 }
+
 export function shopMoney(amount: number) {
   return `${amount.toLocaleString("ko-KR")}원`;
 }

@@ -5,6 +5,7 @@ import { QueryFeedback } from "./query-feedback";
 
 export function QueryRouteError({ error, reset }: ErrorComponentProps) {
   const router = useRouter();
+
   const queryBoundary = useQueryErrorResetBoundary();
   return (
     <>

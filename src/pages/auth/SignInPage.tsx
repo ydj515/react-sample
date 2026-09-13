@@ -27,24 +27,30 @@ const defaultValues: SignInValues = {
 
 export function SignInPage() {
   const navigate = useNavigate();
+
   const search = useSearch({ from: "/signin" });
+
   const signIn = useAuthStore((state) => state.signIn);
 
   const form = useForm<SignInValues>({
     resolver: zodResolver(signInSchema),
     defaultValues,
   });
+
   const errors = form.formState.errors;
 
   const email = useController({ name: "email", control: form.control });
+
   const password = useController({ name: "password", control: form.control });
+
   const [result, submitAction, pending] = useActionState<
     { error: string | null },
     FormData
   >(
     async () => {
-      if (!(await form.trigger(undefined, { shouldFocus: true })))
+      if (!(await form.trigger(undefined, { shouldFocus: true }))) {
         return { error: null };
+      }
       try {
         const { token, user } = await signInRequest(form.getValues());
         signIn({ token, user });

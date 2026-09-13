@@ -24,19 +24,27 @@ export function buildDashboard(
   filters: DashboardSearch,
 ) {
   const end = snapshot.asOf;
+
   const start = shiftDate(end, 1 - filters.days);
+
   const previousStart = shiftDate(start, -filters.days);
+
   const previousEnd = shiftDate(start, -1);
+
   const projects = snapshot.projects.filter(
     (project) =>
       (filters.owner === "all" || project.owner === filters.owner) &&
       (filters.status === "all" || project.status === filters.status),
   );
+
   const selectedIds = new Set(projects.map((project) => project.id));
+
   const tasks = snapshot.tasks.filter((task) =>
     selectedIds.has(task.projectId),
   );
+
   const daily = new Map<string, { completed: number; hours: number }>();
+
   const byProject = new Map<string, typeof tasks>();
   for (const task of tasks) {
     const group = byProject.get(task.projectId) ?? [];
@@ -51,6 +59,7 @@ export function buildDashboard(
   }
   const series = Array.from({ length: filters.days }, (_, index) => {
     const date = shiftDate(start, index);
+
     const previousDate = shiftDate(previousStart, index);
     return {
       date,
@@ -60,7 +69,9 @@ export function buildDashboard(
       previousHours: daily.get(previousDate)?.hours ?? 0,
     };
   });
+
   const current = { completed: 0, hours: 0 };
+
   const previous = { completed: 0, hours: 0 };
   for (const point of series) {
     current.completed += point.completed;
@@ -70,7 +81,9 @@ export function buildDashboard(
   }
   const rows = projects.map((project) => {
     const projectTasks = byProject.get(project.id) ?? [];
+
     const done = projectTasks.filter((task) => task.completedAt !== null);
+
     const periodDone = done.filter(
       (task) => task.completedAt! >= start && task.completedAt! <= end,
     );
@@ -91,9 +104,11 @@ export function buildDashboard(
         : null,
     };
   });
+
   const overdue = tasks
     .filter((task) => !task.completedAt && task.dueDate < end)
     .sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+
   const upcoming = tasks
     .filter(
       (task) =>
@@ -102,6 +117,7 @@ export function buildDashboard(
         task.dueDate <= shiftDate(end, 7),
     )
     .sort((a, b) => a.dueDate.localeCompare(b.dueDate));
+
   const activity = tasks
     .filter(
       (task) =>
@@ -111,6 +127,7 @@ export function buildDashboard(
     )
     .sort((a, b) => b.completedAt!.localeCompare(a.completedAt!))
     .slice(0, 5);
+
   const owners = Array.from(
     new Set(projects.map((project) => project.owner)),
   ).map((owner) => ({
@@ -138,14 +155,16 @@ export function buildDashboard(
 export type DashboardModel = ReturnType<typeof buildDashboard>;
 
 export function comparisonText(current: number, previous: number) {
-  if (previous === 0)
+  if (previous === 0) {
     return current === 0 ? "이전 기간과 동일" : "이전 기간 실적 없음";
+  }
   const percent = Math.round(((current - previous) / previous) * 100);
   return `이전 기간 대비 ${percent > 0 ? "+" : ""}${percent}%`;
 }
 
 function csvCell(value: string | number) {
   const text = String(value);
+
   const safe = /^[\s]*[=+\-@\t\r\n]/.test(text) ? `'${text}` : text;
   return `"${safe.replaceAll('"', '""')}"`;
 }

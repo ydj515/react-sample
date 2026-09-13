@@ -18,7 +18,9 @@ function ProductEditorContent({
   product?: Product;
 }) {
   const search = productsSearchSchema.parse(useSearch({ strict: false }));
+
   const navigate = useNavigate();
+
   const back = () =>
     productId && !detail
       ? void navigate({

@@ -5,7 +5,9 @@ import { documents, type DocArticle } from "@/features/docs/model/documents";
 
 export function DocsArticle({ article }: { article: DocArticle }) {
   const index = documents.findIndex((doc) => doc.slug === article.slug);
+
   const previous = documents[index - 1];
+
   const next = documents[index + 1];
   return (
     <article className="min-w-0">

@@ -9,10 +9,13 @@ const meta = {
   parameters: { layout: "fullscreen" },
   args: { slug: "getting-started" },
 } satisfies Meta<typeof DocsPage>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const GettingStarted: Story = {};
+
 export const Components: Story = { args: { slug: "components" } };
+
 export const Mobile: Story = {
   parameters: {
     viewport: {
@@ -26,4 +29,5 @@ export const Mobile: Story = {
   },
   globals: { viewport: { value: "docsMobile", isRotated: false } },
 };
+
 export const NotFound: Story = { args: { slug: "missing" } };

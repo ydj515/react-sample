@@ -19,6 +19,7 @@ export function UserProfileForm({ user }: { user: ManagedUser }) {
     resolver: zodResolver(userProfileSchema),
     defaultValues: userProfileSchema.parse(user),
   });
+
   const mutation = useUpdateUserProfileMutation(user.id, (saved) => {
     form.reset(userProfileSchema.parse(saved));
     toast.success("회원 정보를 저장했습니다.");
@@ -28,7 +29,9 @@ export function UserProfileForm({ user }: { user: ManagedUser }) {
       <form
         id="user-profile-form"
         noValidate
-        onSubmit={form.handleSubmit((values) => mutation.mutate(values))}
+        onSubmit={(event) => {
+          void form.handleSubmit((values) => mutation.mutate(values))(event);
+        }}
         className="grid gap-5"
       >
         <h2 className="font-semibold">회원 정보 편집</h2>

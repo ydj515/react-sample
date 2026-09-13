@@ -51,13 +51,19 @@ const sessions = [
     duration: "50 MIN",
   },
 ];
+
 export function EventSchedule() {
   const [{ day: selectedDay, track }, change] = useUrlSearch(eventSearchSchema);
+
   const day = String(selectedDay);
+
   const setDay = (day: "1" | "2") => change({ day: day === "1" ? 1 : 2 });
+
   const setTrack = (track: "전체" | "Design" | "Engineering" | "Culture") =>
     change({ track });
+
   const [saved, setSaved] = useState<string[]>([]);
+
   const visible = sessions.filter(
     (session) =>
       session.day === day && (track === "전체" || session.track === track),

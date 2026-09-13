@@ -22,10 +22,13 @@ const meta = {
     onFavorite: fn(),
   },
 } satisfies Meta<typeof ShopProductCard>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const Favorite: Story = { args: { favorite: true } };
+
 export const SoldOut: Story = {
   args: { product: managementFixture.products[2]! },
 };

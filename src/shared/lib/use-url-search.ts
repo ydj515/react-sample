@@ -5,7 +5,9 @@ export function useUrlSearch<T extends Record<string, unknown>>(
   schema: z.ZodType<T>,
 ) {
   const search = schema.parse(useSearch({ strict: false }));
+
   const navigate = useNavigate();
+
   const change = (patch: Partial<T>, replace = false) => {
     void navigate({
       to: ".",

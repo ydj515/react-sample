@@ -18,6 +18,7 @@ const links = [
   { href: "#rituals", label: "머무는 하루" },
   { href: "#plan", label: "여정 계획" },
 ];
+
 export function StayLandingPage() {
   return (
     <LandingPage title="온유 · 포레스트 리트리트" className="landing-stay">

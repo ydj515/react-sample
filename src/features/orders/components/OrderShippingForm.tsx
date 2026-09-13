@@ -18,6 +18,7 @@ export function OrderShippingForm({ order }: { order: ManagedOrder }) {
       trackingNumber: order.trackingNumber,
     },
   });
+
   const mutation = useUpdateOrderShippingMutation(order.id, (saved) => {
     form.reset(orderShippingSchema.parse(saved));
     toast.success("배송 정보를 저장했습니다.");
@@ -26,7 +27,9 @@ export function OrderShippingForm({ order }: { order: ManagedOrder }) {
     <form
       noValidate
       className="border-line grid gap-4 border-t pt-5"
-      onSubmit={form.handleSubmit((values) => mutation.mutate(values))}
+      onSubmit={(event) => {
+        void form.handleSubmit((values) => mutation.mutate(values))(event);
+      }}
     >
       <fieldset disabled={mutation.isPending} className="grid min-w-0 gap-4">
         {(

@@ -14,9 +14,11 @@ const meta = {
     ),
   ],
 } satisfies Meta<typeof ProductConfigurator>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Solo: Story = {};
+
 export const StudioBundle: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

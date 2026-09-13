@@ -14,11 +14,13 @@ import { ProductLandingPage } from "@/features/landing/pages/product/ProductLand
 
 function renderExperience(path: string) {
   const root = createRootRoute();
+
   const routes = [
     { path: "/landing/event", component: EventLandingPage },
     { path: "/landing/stay", component: StayLandingPage },
     { path: "/landing/product", component: ProductLandingPage },
   ].map((route) => createRoute({ getParentRoute: () => root, ...route }));
+
   const router = createRouter({
     routeTree: root.addChildren(routes),
     history: createMemoryHistory({ initialEntries: [path] }),

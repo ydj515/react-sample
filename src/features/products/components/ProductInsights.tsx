@@ -11,14 +11,17 @@ export function ProductInsights({
   view: "sales" | "reviews";
 }) {
   const [selected, setSelected] = useState<number | null>(null);
+
   const sales = product?.sales ?? [];
+
   const reviews = product?.reviews ?? [];
+
   const average = reviews.length
     ? (
         reviews.reduce((sum, review) => sum + review.rating, 0) / reviews.length
       ).toFixed(1)
     : "—";
-  if (view === "reviews")
+  if (view === "reviews") {
     return (
       <Card className="p-5">
         <h2 className="font-semibold">리뷰 목록 ({reviews.length}건)</h2>
@@ -60,6 +63,7 @@ export function ProductInsights({
         ) : null}
       </Card>
     );
+  }
   return (
     <Card className="p-5">
       <div className="grid grid-cols-3 gap-2">

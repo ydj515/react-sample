@@ -15,6 +15,7 @@ export function Pagination({
   onChange: (page: number) => void;
 }) {
   const count = Math.min(5, pages);
+
   const start = Math.max(1, Math.min(page - 2, pages - count + 1));
   return (
     <nav

@@ -14,9 +14,11 @@ const meta = {
     ),
   ],
 } satisfies Meta<typeof ProductDetails>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Design: Story = {};
+
 export const Controls: Story = {
   play: async ({ canvasElement }) => {
     await userEvent.click(

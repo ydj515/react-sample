@@ -16,6 +16,7 @@ const links = [
   { href: "#voices", label: "연사" },
   { href: "#passes", label: "참가권" },
 ];
+
 export function EventLandingPage() {
   return (
     <LandingPage title="OFFSCRIPT · 컨퍼런스" className="landing-event">

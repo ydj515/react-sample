@@ -28,6 +28,7 @@ describe("commerce snapshot changes", () => {
   });
   it("새 주문 스냅샷을 받으면 페이지와 선택을 초기화한다", async () => {
     const user = userEvent.setup();
+
     const { rerender } = render(
       <OrderSearch
         orders={commerceFixture.orders}
@@ -71,6 +72,7 @@ describe("monthly revenue inspection", () => {
   });
   it("터치에 대응하는 클릭으로 값을 확인하고 데이터가 사라지면 툴팁을 제거한다", async () => {
     const user = userEvent.setup();
+
     const { rerender } = render(
       <MonthlyRevenue data={commerceFixture.monthly} />,
     );

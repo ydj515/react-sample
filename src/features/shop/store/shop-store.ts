@@ -38,8 +38,9 @@ export const useShopStore = create<ShopState>()(
           if (
             (!existing && state.items.length >= 50) ||
             (existing?.quantity ?? 0) + entry.quantity > 99
-          )
+          ) {
             return state;
+          }
           added = true;
           return {
             items: existing
@@ -54,12 +55,13 @@ export const useShopStore = create<ShopState>()(
         return added;
       },
       quantity: (key, quantity) => {
-        if (Number.isInteger(quantity) && quantity >= 1 && quantity <= 99)
+        if (Number.isInteger(quantity) && quantity >= 1 && quantity <= 99) {
           set((state) => ({
             items: state.items.map((line) =>
               cartKey(line) === key ? { ...line, quantity } : line,
             ),
           }));
+        }
       },
       remove: (key) =>
         set((state) => ({

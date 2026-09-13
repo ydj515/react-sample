@@ -15,11 +15,13 @@ import {
 
 export function StayPlanner() {
   const id = useId();
+
   const [quote, setQuote] = useState<{
     values: StayValues;
     nights: number;
     total: number;
   }>();
+
   const form = useForm<StayValues>({
     resolver: zodResolver(createStaySchema()),
     defaultValues: { arrival: "", departure: "", room: "forest", guests: "2" },
@@ -28,9 +30,11 @@ export function StayPlanner() {
     <form
       noValidate
       onChange={() => setQuote(undefined)}
-      onSubmit={form.handleSubmit((values) =>
-        setQuote({ values, ...getStayQuote(values) }),
-      )}
+      onSubmit={(event) => {
+        void form.handleSubmit((values) =>
+          setQuote({ values, ...getStayQuote(values) }),
+        )(event);
+      }}
       className="space-y-6"
     >
       <div className="grid gap-5 sm:grid-cols-2">

@@ -2,18 +2,22 @@ import { z } from "zod";
 import { listSearchSchema } from "@/shared/lib/list-search";
 
 export const productStatuses = ["active", "draft", "archived"] as const;
+
 export const productStatusLabels = {
   active: "판매 중",
   draft: "임시 저장",
   archived: "판매 중지",
 };
+
 export const productCategories = ["신발", "의류", "액세서리", "기타"] as const;
+
 export const productImages = [
   "/product-images/shoes.svg",
   "/product-images/clothing.svg",
   "/product-images/accessory.svg",
   "/product-images/other.svg",
 ] as const;
+
 const imageSchema = z
   .string()
   .max(2800000, "이미지는 2MB 이하로 선택하세요.")
@@ -23,11 +27,13 @@ const imageSchema = z
       /^data:image\/(png|jpeg|webp);base64,[A-Za-z0-9+/]+={0,2}$/.test(value),
     "PNG, JPEG, WebP 이미지 또는 기본 이미지를 선택하세요.",
   );
+
 export const productVariantSchema = z.object({
   color: z.string().trim().min(1).max(30),
   size: z.string().trim().min(1).max(20),
   stock: z.number().int().min(0).max(1000000),
 });
+
 export const productInputSchema = z
   .object({
     name: z
@@ -78,23 +84,26 @@ export const productInputSchema = z
     if (
       input.variants?.length &&
       input.variants.reduce((sum, item) => sum + item.stock, 0) !== input.stock
-    )
+    ) {
       context.addIssue({
         code: "custom",
         path: ["stock"],
         message: "전체 재고는 옵션 재고의 합계와 같아야 합니다.",
       });
+    }
     const keys =
       input.variants?.map((item) =>
         JSON.stringify([item.color.toLowerCase(), item.size.toLowerCase()]),
       ) ?? [];
-    if (new Set(keys).size !== keys.length)
+    if (new Set(keys).size !== keys.length) {
       context.addIssue({
         code: "custom",
         path: ["variants"],
         message: "중복 옵션을 제거하세요.",
       });
+    }
   });
+
 export const productSchema = productInputSchema.safeExtend({
   id: z.string(),
   listPrice: z.number().int().nonnegative().default(0),
@@ -122,8 +131,11 @@ export const productSchema = productInputSchema.safeExtend({
   createdAt: z.iso.datetime(),
   updatedAt: z.iso.datetime(),
 });
+
 export type ProductInput = z.infer<typeof productInputSchema>;
+
 export type Product = z.infer<typeof productSchema>;
+
 export const productsSearchSchema = listSearchSchema.extend({
   status: z.enum(["all", ...productStatuses]).catch("all"),
   stock: z.enum(["all", "low", "out"]).catch("all"),

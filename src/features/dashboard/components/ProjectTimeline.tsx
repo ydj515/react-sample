@@ -8,9 +8,13 @@ export function ProjectTimeline({ model }: { model: DashboardModel }) {
     row.startDate ?? model.end,
     row.project.dueDate,
   ]);
+
   const first = [model.end, ...dates].sort()[0]!;
+
   const last = [model.end, ...dates].sort().at(-1)!;
+
   const span = Math.max(86_400_000, Date.parse(last) - Date.parse(first));
+
   const position = (date: string) =>
     ((Date.parse(date) - Date.parse(first)) / span) * 100;
   return (

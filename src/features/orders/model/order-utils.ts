@@ -1,5 +1,6 @@
 import { matchesSearch, paginate } from "@/shared/lib/list-search";
-import { ordersSearchSchema, type ManagedOrder } from "./order-schema";
+import type { ordersSearchSchema } from "./order-schema";
+import { type ManagedOrder } from "./order-schema";
 
 export function selectOrders(
   orders: ManagedOrder[],

@@ -11,9 +11,13 @@ import { PageMetadata } from "./page-metadata";
 describe("React 19 primitives", () => {
   it("exposes native refs and runs callback cleanup on unmount", () => {
     const input = createRef<HTMLInputElement>();
+
     const select = createRef<HTMLSelectElement>();
+
     const textarea = createRef<HTMLTextAreaElement>();
+
     const cleanup = vi.fn();
+
     const { unmount } = render(
       <StrictMode>
         <Input aria-label="name" ref={input} />

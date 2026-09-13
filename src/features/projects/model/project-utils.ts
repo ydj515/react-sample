@@ -13,6 +13,7 @@ export function filterProjects(projects: Project[], filters: ProjectFilters) {
       search.length === 0 ||
       project.name.toLowerCase().includes(search) ||
       project.owner.toLowerCase().includes(search);
+
     const matchesStatus =
       filters.status === "all" || project.status === filters.status;
 

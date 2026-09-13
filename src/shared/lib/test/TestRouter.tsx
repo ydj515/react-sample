@@ -16,6 +16,7 @@ function TestContent() {
 export function TestRouter({ children }: { children: ReactNode }) {
   const [router] = useState(() => {
     const root = createRootRoute({ component: TestContent });
+
     const fallback = createRoute({
       getParentRoute: () => root,
       path: "/$",

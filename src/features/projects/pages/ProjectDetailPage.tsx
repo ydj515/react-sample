@@ -10,6 +10,7 @@ import { PageHeader } from "@/shared/ui/page-header";
 
 function ProjectDetailPageContent() {
   const { projectId } = useParams({ from: "/_dashboard/projects/$projectId" });
+
   const query = useSuspenseQuery(projectQueryOptions(projectId));
 
   if (!query.data) {

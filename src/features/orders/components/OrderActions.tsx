@@ -18,23 +18,30 @@ import { toast } from "@/stores/toast-store";
 
 export function OrderStatusForm({ order }: { order: ManagedOrder }) {
   const choices = orderTransitions[order.status];
+
   const form = useForm<{ status: Order["status"] }>({
     resolver: zodResolver(orderStatusInputSchema),
     defaultValues: { status: choices[0] ?? order.status },
   });
+
   const mutation = useUpdateOrderStatusMutation(order.id, () =>
     toast.success("주문 상태를 변경했습니다."),
   );
-  if (!choices.length)
+  if (!choices.length) {
     return (
       <p className="text-ink-subtle text-sm">
         처리가 종료된 주문입니다. 상태를 변경할 수 없습니다.
       </p>
     );
+  }
   return (
     <form
       className="grid gap-4"
-      onSubmit={form.handleSubmit((values) => mutation.mutate(values.status))}
+      onSubmit={(event) => {
+        void form.handleSubmit((values) => mutation.mutate(values.status))(
+          event,
+        );
+      }}
     >
       <label className="grid gap-2 text-sm">
         변경할 주문 상태
@@ -58,11 +65,13 @@ export function OrderStatusForm({ order }: { order: ManagedOrder }) {
     </form>
   );
 }
+
 export function OrderNoteForm({ orderId }: { orderId: string }) {
   const form = useForm<{ text: string }>({
     resolver: zodResolver(orderNoteInputSchema),
     defaultValues: { text: "" },
   });
+
   const mutation = useAddOrderNoteMutation(orderId, () => {
     form.reset();
     toast.success("관리자 메모를 추가했습니다.");
@@ -71,7 +80,9 @@ export function OrderNoteForm({ orderId }: { orderId: string }) {
     <form
       className="grid gap-3"
       noValidate
-      onSubmit={form.handleSubmit((values) => mutation.mutate(values.text))}
+      onSubmit={(event) => {
+        void form.handleSubmit((values) => mutation.mutate(values.text))(event);
+      }}
     >
       <label className="grid gap-2 text-sm">
         관리자 메모

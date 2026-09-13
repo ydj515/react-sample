@@ -13,7 +13,9 @@ import { paginate } from "@/shared/lib/list-search";
 
 function ProjectsPageContent() {
   const query = useSuspenseQuery(projectsQueryOptions());
+
   const projects = query.data ?? [];
+
   const {
     filters,
     setFilters,

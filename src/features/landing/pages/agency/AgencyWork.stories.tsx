@@ -13,9 +13,11 @@ const meta = {
     ),
   ],
 } satisfies Meta<typeof AgencyWork>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const All: Story = {};
+
 export const Branding: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);

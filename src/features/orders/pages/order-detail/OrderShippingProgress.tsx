@@ -5,6 +5,7 @@ import { Check, CreditCard, PackageCheck, Truck } from "lucide-react";
 export function OrderShippingProgress({ order }: { order: ManagedOrder }) {
   const stage =
     order?.status === "완료" ? 3 : order?.status === "배송중" ? 2 : 1;
+
   const steps = [
     { label: "주문 접수", icon: CreditCard },
     { label: "배송 준비", icon: PackageCheck },

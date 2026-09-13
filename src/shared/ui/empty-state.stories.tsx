@@ -8,7 +8,9 @@ const meta = {
   tags: ["autodocs"],
   args: { title: "조건에 맞는 결과가 없습니다.", onReset: fn() },
 } satisfies Meta<typeof EmptyState>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};
+
 export const WithoutReset: Story = { args: { onReset: undefined } };

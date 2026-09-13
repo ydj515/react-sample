@@ -7,6 +7,7 @@ const meta = {
   component: SubmitButton,
   args: { children: "저장", pendingLabel: "저장 중…" },
 } satisfies Meta<typeof SubmitButton>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const FormAction: Story = {

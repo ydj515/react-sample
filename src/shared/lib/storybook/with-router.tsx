@@ -45,11 +45,13 @@ const linkedPaths = [
 function RouterStory({ Story }: { Story: ComponentType }) {
   const [router] = useState(() => {
     const rootRoute = createRootRoute({ component: Outlet });
+
     const indexRoute = createRoute({
       getParentRoute: () => rootRoute,
       path: "/",
       component: () => <Story />,
     });
+
     const stubRoutes = linkedPaths.map((path) =>
       createRoute({
         getParentRoute: () => rootRoute,

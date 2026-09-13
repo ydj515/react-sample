@@ -6,6 +6,7 @@ import { rooms } from "@/features/landing/model/experience";
 
 export function StayRooms() {
   const [room, setRoom] = useState<keyof typeof rooms>("forest");
+
   const selected = rooms[room];
   return (
     <div className="mt-10 grid items-center gap-10 lg:grid-cols-[1.35fr_1fr]">

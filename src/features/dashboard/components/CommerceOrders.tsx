@@ -33,8 +33,9 @@ export function CommerceOrders({
                   aria-label="현재 페이지 전체 선택"
                   checked={orders.length > 0 && count === orders.length}
                   ref={(input) => {
-                    if (input)
+                    if (input) {
                       input.indeterminate = count > 0 && count < orders.length;
+                    }
                   }}
                   onChange={selection.onSelectPage}
                   disabled={!orders.length}

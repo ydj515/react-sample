@@ -20,7 +20,9 @@ export function ReactExamplesPage({
   refreshing?: boolean;
 }) {
   const [visible, setVisible] = useState(false);
+
   const [expanded, setExpanded] = useState(false);
+
   const [measuring, setMeasuring] = useState(true);
   return (
     <section className="grid gap-6">

@@ -87,12 +87,14 @@ function DesignSystem() {
     </div>
   );
 }
+
 const meta = {
   title: "Layouts/DesignSystem",
   component: DesignSystem,
   parameters: { layout: "fullscreen" },
   decorators: [withRouter],
 } satisfies Meta<typeof DesignSystem>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Default: Story = {};

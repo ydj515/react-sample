@@ -25,6 +25,7 @@ export function ProductSummary({
     ...productsQueryOptions(),
     enabled: !!product,
   });
+
   const related =
     relatedQuery.data
       ?.filter(

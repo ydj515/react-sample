@@ -12,10 +12,13 @@ it.each(["profile", "access"] as const)(
   "%s 저장 중 입력을 잠그고 서버 응답으로 초기화한다",
   async (kind) => {
     const member = managementFixture.users[0]!;
+
     let release = () => {};
+
     const gate = new Promise<void>((resolve) => {
       release = resolve;
     });
+
     let submitted: unknown;
     server.use(
       http.patch(`/api/users/:id/${kind}`, async ({ request }) => {
@@ -49,8 +52,9 @@ it.each(["profile", "access"] as const)(
     try {
       await waitFor(() => expect(submitted).toBeDefined());
       for (const role of ["textbox", "combobox", "switch"] as const) {
-        for (const input of screen.queryAllByRole(role))
+        for (const input of screen.queryAllByRole(role)) {
           expect(input).toBeDisabled();
+        }
       }
     } finally {
       release();

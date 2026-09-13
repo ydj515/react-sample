@@ -23,7 +23,9 @@ const meta = {
   loaders: [loadManagementApi],
   args: { onSaved: fn(), onCancel: fn() },
 } satisfies Meta<typeof ProductForm>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Create: Story = {};
+
 export const Edit: Story = { args: { product: managementFixture.products[0] } };

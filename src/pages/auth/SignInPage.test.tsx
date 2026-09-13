@@ -9,6 +9,7 @@ import { renderWithProviders } from "@/shared/lib/test/render-with-providers";
 import { useAuthStore } from "@/stores/auth-store";
 
 const navigateMock = vi.fn();
+
 const searchMock = vi.fn(
   () => ({ redirect: undefined }) as { redirect?: string },
 );

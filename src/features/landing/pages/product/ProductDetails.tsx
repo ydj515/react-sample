@@ -32,8 +32,10 @@ const details = [
     label: "익숙한 조작, 하나의 다이얼",
   },
 ];
+
 export function ProductDetails() {
   const [selected, setSelected] = useState(0);
+
   const detail = details[selected]!;
   return (
     <div className="mt-10 grid gap-10 lg:grid-cols-2">

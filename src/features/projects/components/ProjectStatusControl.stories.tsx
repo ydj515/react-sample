@@ -13,6 +13,7 @@ function CurrentProject() {
   );
   return <ProjectStatusControl project={data} />;
 }
+
 const meta = {
   title: "Features/Projects/StatusControl",
   component: ProjectStatusControl,
@@ -25,6 +26,7 @@ const meta = {
     </QueryBoundary>
   ),
 } satisfies Meta<typeof ProjectStatusControl>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Interactive: Story = {};

@@ -5,7 +5,9 @@ import { readProductImage } from "@/features/products/model/product-image";
 
 export function useProductImageField(form: UseFormReturn<ProductInput>) {
   const [imageError, setImageError] = useState<string | null>(null);
+
   const [imageLoading, setImageLoading] = useState(false);
+
   const imageRequest = useRef(0);
   useEffect(
     () => () => {
@@ -14,6 +16,7 @@ export function useProductImageField(form: UseFormReturn<ProductInput>) {
     [],
   );
   const image = useWatch({ control: form.control, name: "image" });
+
   const upload = async (event: ChangeEvent<HTMLInputElement>) => {
     const file = event.target.files?.[0];
     event.target.value = "";
@@ -23,22 +26,25 @@ export function useProductImageField(form: UseFormReturn<ProductInput>) {
     setImageError(null);
     try {
       const result = await readProductImage(file);
-      if (request === imageRequest.current)
+      if (request === imageRequest.current) {
         form.setValue("image", result, {
           shouldDirty: true,
           shouldValidate: true,
         });
+      }
     } catch (error) {
-      if (request === imageRequest.current)
+      if (request === imageRequest.current) {
         setImageError(
           error instanceof Error
             ? error.message
             : "이미지 업로드에 실패했습니다.",
         );
+      }
     } finally {
       if (request === imageRequest.current) setImageLoading(false);
     }
   };
+
   const select = (event: ChangeEvent<HTMLSelectElement>) => {
     imageRequest.current += 1;
     setImageLoading(false);

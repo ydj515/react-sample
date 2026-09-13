@@ -31,11 +31,17 @@ import { ShopFilters } from "@/features/shop/components/ShopFilters";
 
 function ShopPageContent() {
   const search = shopSearchSchema.parse(useSearch({ strict: false }));
+
   const navigate = useNavigate();
+
   const query = useSuspenseQuery(productsQueryOptions());
+
   const favorites = useShopStore((s) => s.favorites);
+
   const toggleFavorite = useShopStore((s) => s.toggleFavorite);
+
   const [filtersOpen, setFiltersOpen] = useState(false);
+
   const change = (patch: Partial<ShopSearch>) =>
     void navigate({
       to: "/shop",
@@ -43,7 +49,9 @@ function ShopPageContent() {
       replace: true,
       resetScroll: false,
     });
+
   const result = selectShopProducts(query.data ?? [], search, favorites);
+
   const brands = [
     ...new Set(
       (query.data ?? [])

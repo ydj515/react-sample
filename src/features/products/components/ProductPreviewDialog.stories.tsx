@@ -13,9 +13,11 @@ const meta = {
     values: managementFixture.products[0]!,
   },
 } satisfies Meta<typeof ProductPreviewDialog>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const Product: Story = {};
+
 export const EmptyContent: Story = {
   args: {
     values: {

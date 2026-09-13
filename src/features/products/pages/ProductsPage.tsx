@@ -22,10 +22,15 @@ import { Select } from "@/shared/ui/select";
 
 function ProductsPageContent() {
   const search = productsSearchSchema.parse(useSearch({ strict: false }));
+
   const navigate = useNavigate();
+
   const query = useSuspenseQuery(productsQueryOptions());
+
   const products = query.data ?? [];
+
   const result = selectProducts(products, search);
+
   const change = (patch: Partial<typeof search>) =>
     void navigate({
       to: "/products",

@@ -20,18 +20,28 @@ import {
 
 export function GlobalSearch() {
   const [open, setOpen] = useState(false);
+
   const [query, setQuery] = useState("");
+
   const [active, setActive] = useState(0);
+
   const inputRef = useRef<HTMLInputElement>(null);
+
   const triggerRef = useRef<HTMLButtonElement>(null);
+
   const restoreFocus = useRef<HTMLElement | null>(null);
+
   const listId = useId();
+
   const navigate = useNavigate();
+
   const results = searchNavigation(query);
+
   const shortcut =
     typeof navigator !== "undefined" && /mac/i.test(navigator.platform)
       ? "⌘ K"
       : "Ctrl K";
+
   const changeOpen = useCallback((next: boolean) => {
     if (next) {
       restoreFocus.current =
@@ -43,6 +53,7 @@ export function GlobalSearch() {
     }
     setOpen(next);
   }, []);
+
   const toggleFromShortcut = useEffectEvent(() => changeOpen(!open));
   useEffect(() => {
     const shortcut = (event: KeyboardEvent) => {
@@ -51,8 +62,9 @@ export function GlobalSearch() {
         event.altKey ||
         !(event.metaKey || event.ctrlKey) ||
         event.key.toLowerCase() !== "k"
-      )
+      ) {
         return;
+      }
       event.preventDefault();
       toggleFromShortcut();
     };
@@ -66,10 +78,11 @@ export function GlobalSearch() {
     changeOpen(false);
   };
   useEffect(() => {
-    if (open)
+    if (open) {
       document
         .getElementById(`${listId}-${active}`)
         ?.scrollIntoView?.({ block: "nearest" });
+    }
   }, [active, listId, open]);
   return (
     <>

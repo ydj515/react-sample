@@ -22,9 +22,11 @@ const meta = {
   },
   args: { product: managementFixture.products[0]! },
 } satisfies Meta<typeof ProductPurchase>;
+
 export default meta;
 type Story = StoryObj<typeof meta>;
 export const SelectOptions: Story = {};
+
 export const Added: Story = {
   play: async ({ canvasElement }) => {
     const canvas = within(canvasElement);
@@ -40,6 +42,7 @@ export const Added: Story = {
     );
   },
 };
+
 export const SoldOut: Story = {
   args: { product: managementFixture.products[2]! },
 };

@@ -28,7 +28,9 @@ test("상세 주문 조건, 페이지 선택과 CSV 내보내기가 같은 데�
     .getByRole("button", { name: "주문 내보내기", exact: true })
     .click();
   const filtered = await filteredDownload;
+
   const stream = await filtered.createReadStream();
+
   const chunks = [];
   for await (const chunk of stream) chunks.push(chunk);
   const content = Buffer.concat(chunks).toString("utf8");
@@ -41,7 +43,9 @@ test("상세 주문 조건, 페이지 선택과 CSV 내보내기가 같은 데�
   const selectedDownload = page.waitForEvent("download");
   await page.getByRole("button", { name: "선택 주문 내보내기" }).click();
   const selected = await selectedDownload;
+
   const selectedStream = await selected.createReadStream();
+
   const selectedChunks = [];
   for await (const chunk of selectedStream) selectedChunks.push(chunk);
   expect(
@@ -55,6 +59,7 @@ test("상세 주문 조건, 페이지 선택과 CSV 내보내기가 같은 데�
 test("차트 수치 조회와 새 보고서 생성이 동작한다", async ({ page }) => {
   await login(page);
   const chart = page.getByRole("group", { name: "월별 매출 금액 조회" });
+
   const april = chart.getByRole("button", { name: "4월 매출 ₩3,300,000" });
   await april.hover();
   await expect(page.getByRole("tooltip")).toContainText("4월: ₩3.3M");
@@ -80,6 +85,7 @@ test("차트 수치 조회와 새 보고서 생성이 동작한다", async ({ pa
   const download = await downloadPromise;
   expect(download.suggestedFilename()).toBe("commerce-report-2025-06-30.csv");
   const stream = await download.createReadStream();
+
   const chunks = [];
   for await (const chunk of stream) chunks.push(chunk);
   const content = Buffer.concat(chunks).toString("utf8");
@@ -102,6 +108,7 @@ test.describe("매출 차트 터치", () => {
       const tooltip = page.getByRole("tooltip");
       await expect(tooltip).toBeVisible();
       const bounds = await tooltip.boundingBox();
+
       const chartBounds = await chart.boundingBox();
       expect(bounds!.x).toBeGreaterThanOrEqual(chartBounds!.x);
       expect(bounds!.x + bounds!.width).toBeLessThanOrEqual(

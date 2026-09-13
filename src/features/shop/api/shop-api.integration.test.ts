@@ -6,6 +6,7 @@ import { resolveCart } from "@/features/shop/model/shop";
 import { createShopOrder } from "./shop-api";
 
 const product = managementFixture.products[0]!;
+
 const items = [
   {
     productId: product.id,
@@ -14,6 +15,7 @@ const items = [
     quantity: 2,
   },
 ];
+
 const input = {
   items,
   expectedTotal: resolveCart(items, managementFixture.products).total,
@@ -25,7 +27,9 @@ const input = {
 };
 it("검증한 현재 가격으로 모의 주문을 만들고 실제 주문과 재고는 유지한다", async () => {
   const stock = managementData.products[0]!.stock;
+
   const orderCount = managementData.orders.length;
+
   const receipt = await createShopOrder(input);
   expect(receipt.id).toMatch(/^DEMO-/);
   expect(receipt.total).toBe(product.price * 2);
