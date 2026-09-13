@@ -34,6 +34,7 @@ import { Route as ShopCheckoutRouteImport } from "./routes/shop.checkout";
 import { Route as DashboardAdminLogsRouteImport } from "./routes/_dashboard/admin.logs";
 import { Route as DashboardCmsIndexRouteImport } from "./routes/_dashboard/cms.index";
 import { Route as DashboardCmsNewRouteImport } from "./routes/_dashboard/cms.new";
+import { Route as DashboardCrmIndexRouteImport } from "./routes/_dashboard/crm.index";
 import { Route as DashboardKanbanIndexRouteImport } from "./routes/_dashboard/kanban.index";
 import { Route as DashboardNotificationsIndexRouteImport } from "./routes/_dashboard/notifications.index";
 import { Route as DashboardOrdersIndexRouteImport } from "./routes/_dashboard/orders.index";
@@ -46,6 +47,7 @@ import { Route as DashboardUsersIndexRouteImport } from "./routes/_dashboard/use
 import { Route as DashboardUsersUserIdRouteImport } from "./routes/_dashboard/users.$userId";
 import { Route as DashboardCmsPostIdIndexRouteImport } from "./routes/_dashboard/cms.$postId.index";
 import { Route as DashboardCmsPostIdEditRouteImport } from "./routes/_dashboard/cms.$postId.edit";
+import { Route as DashboardCrmContactsContactIdRouteImport } from "./routes/_dashboard/crm.contacts.$contactId";
 import { Route as DashboardProductsProductIdIndexRouteImport } from "./routes/_dashboard/products.$productId.index";
 import { Route as DashboardProductsProductIdEditRouteImport } from "./routes/_dashboard/products.$productId.edit";
 
@@ -173,6 +175,11 @@ const DashboardCmsNewRoute = DashboardCmsNewRouteImport.update({
   path: "/cms/new",
   getParentRoute: () => DashboardRoute,
 } as any);
+const DashboardCrmIndexRoute = DashboardCrmIndexRouteImport.update({
+  id: "/crm/",
+  path: "/crm/",
+  getParentRoute: () => DashboardRoute,
+} as any);
 const DashboardKanbanIndexRoute = DashboardKanbanIndexRouteImport.update({
   id: "/kanban/",
   path: "/kanban/",
@@ -235,6 +242,12 @@ const DashboardCmsPostIdEditRoute = DashboardCmsPostIdEditRouteImport.update({
   path: "/cms/$postId/edit",
   getParentRoute: () => DashboardRoute,
 } as any);
+const DashboardCrmContactsContactIdRoute =
+  DashboardCrmContactsContactIdRouteImport.update({
+    id: "/crm/contacts/$contactId",
+    path: "/crm/contacts/$contactId",
+    getParentRoute: () => DashboardRoute,
+  } as any);
 const DashboardProductsProductIdIndexRoute =
   DashboardProductsProductIdIndexRouteImport.update({
     id: "/products/$productId/",
@@ -277,6 +290,7 @@ export interface FileRoutesByFullPath {
   "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
   "/users/$userId": typeof DashboardUsersUserIdRoute;
   "/cms/": typeof DashboardCmsIndexRoute;
+  "/crm/": typeof DashboardCrmIndexRoute;
   "/kanban/": typeof DashboardKanbanIndexRoute;
   "/notifications/": typeof DashboardNotificationsIndexRoute;
   "/orders/": typeof DashboardOrdersIndexRoute;
@@ -284,6 +298,7 @@ export interface FileRoutesByFullPath {
   "/projects/": typeof DashboardProjectsIndexRoute;
   "/users/": typeof DashboardUsersIndexRoute;
   "/cms/$postId/edit": typeof DashboardCmsPostIdEditRoute;
+  "/crm/contacts/$contactId": typeof DashboardCrmContactsContactIdRoute;
   "/products/$productId/edit": typeof DashboardProductsProductIdEditRoute;
   "/cms/$postId/": typeof DashboardCmsPostIdIndexRoute;
   "/products/$productId/": typeof DashboardProductsProductIdIndexRoute;
@@ -316,6 +331,7 @@ export interface FileRoutesByTo {
   "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
   "/users/$userId": typeof DashboardUsersUserIdRoute;
   "/cms": typeof DashboardCmsIndexRoute;
+  "/crm": typeof DashboardCrmIndexRoute;
   "/kanban": typeof DashboardKanbanIndexRoute;
   "/notifications": typeof DashboardNotificationsIndexRoute;
   "/orders": typeof DashboardOrdersIndexRoute;
@@ -323,6 +339,7 @@ export interface FileRoutesByTo {
   "/projects": typeof DashboardProjectsIndexRoute;
   "/users": typeof DashboardUsersIndexRoute;
   "/cms/$postId/edit": typeof DashboardCmsPostIdEditRoute;
+  "/crm/contacts/$contactId": typeof DashboardCrmContactsContactIdRoute;
   "/products/$productId/edit": typeof DashboardProductsProductIdEditRoute;
   "/cms/$postId": typeof DashboardCmsPostIdIndexRoute;
   "/products/$productId": typeof DashboardProductsProductIdIndexRoute;
@@ -358,6 +375,7 @@ export interface FileRoutesById {
   "/_dashboard/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
   "/_dashboard/users/$userId": typeof DashboardUsersUserIdRoute;
   "/_dashboard/cms/": typeof DashboardCmsIndexRoute;
+  "/_dashboard/crm/": typeof DashboardCrmIndexRoute;
   "/_dashboard/kanban/": typeof DashboardKanbanIndexRoute;
   "/_dashboard/notifications/": typeof DashboardNotificationsIndexRoute;
   "/_dashboard/orders/": typeof DashboardOrdersIndexRoute;
@@ -365,6 +383,7 @@ export interface FileRoutesById {
   "/_dashboard/projects/": typeof DashboardProjectsIndexRoute;
   "/_dashboard/users/": typeof DashboardUsersIndexRoute;
   "/_dashboard/cms/$postId/edit": typeof DashboardCmsPostIdEditRoute;
+  "/_dashboard/crm/contacts/$contactId": typeof DashboardCrmContactsContactIdRoute;
   "/_dashboard/products/$productId/edit": typeof DashboardProductsProductIdEditRoute;
   "/_dashboard/cms/$postId/": typeof DashboardCmsPostIdIndexRoute;
   "/_dashboard/products/$productId/": typeof DashboardProductsProductIdIndexRoute;
@@ -400,6 +419,7 @@ export interface FileRouteTypes {
     | "/projects/$projectId"
     | "/users/$userId"
     | "/cms/"
+    | "/crm/"
     | "/kanban/"
     | "/notifications/"
     | "/orders/"
@@ -407,6 +427,7 @@ export interface FileRouteTypes {
     | "/projects/"
     | "/users/"
     | "/cms/$postId/edit"
+    | "/crm/contacts/$contactId"
     | "/products/$productId/edit"
     | "/cms/$postId/"
     | "/products/$productId/";
@@ -439,6 +460,7 @@ export interface FileRouteTypes {
     | "/projects/$projectId"
     | "/users/$userId"
     | "/cms"
+    | "/crm"
     | "/kanban"
     | "/notifications"
     | "/orders"
@@ -446,6 +468,7 @@ export interface FileRouteTypes {
     | "/projects"
     | "/users"
     | "/cms/$postId/edit"
+    | "/crm/contacts/$contactId"
     | "/products/$productId/edit"
     | "/cms/$postId"
     | "/products/$productId";
@@ -480,6 +503,7 @@ export interface FileRouteTypes {
     | "/_dashboard/projects/$projectId"
     | "/_dashboard/users/$userId"
     | "/_dashboard/cms/"
+    | "/_dashboard/crm/"
     | "/_dashboard/kanban/"
     | "/_dashboard/notifications/"
     | "/_dashboard/orders/"
@@ -487,6 +511,7 @@ export interface FileRouteTypes {
     | "/_dashboard/projects/"
     | "/_dashboard/users/"
     | "/_dashboard/cms/$postId/edit"
+    | "/_dashboard/crm/contacts/$contactId"
     | "/_dashboard/products/$productId/edit"
     | "/_dashboard/cms/$postId/"
     | "/_dashboard/products/$productId/";
@@ -685,6 +710,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardCmsNewRouteImport;
       parentRoute: typeof DashboardRoute;
     };
+    "/_dashboard/crm/": {
+      id: "/_dashboard/crm/";
+      path: "/crm";
+      fullPath: "/crm/";
+      preLoaderRoute: typeof DashboardCrmIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
     "/_dashboard/kanban/": {
       id: "/_dashboard/kanban/";
       path: "/kanban";
@@ -769,6 +801,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardCmsPostIdEditRouteImport;
       parentRoute: typeof DashboardRoute;
     };
+    "/_dashboard/crm/contacts/$contactId": {
+      id: "/_dashboard/crm/contacts/$contactId";
+      path: "/crm/contacts/$contactId";
+      fullPath: "/crm/contacts/$contactId";
+      preLoaderRoute: typeof DashboardCrmContactsContactIdRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
     "/_dashboard/products/$productId/": {
       id: "/_dashboard/products/$productId/";
       path: "/products/$productId";
@@ -799,6 +838,7 @@ interface DashboardRouteChildren {
   DashboardProjectsProjectIdRoute: typeof DashboardProjectsProjectIdRoute;
   DashboardUsersUserIdRoute: typeof DashboardUsersUserIdRoute;
   DashboardCmsIndexRoute: typeof DashboardCmsIndexRoute;
+  DashboardCrmIndexRoute: typeof DashboardCrmIndexRoute;
   DashboardKanbanIndexRoute: typeof DashboardKanbanIndexRoute;
   DashboardNotificationsIndexRoute: typeof DashboardNotificationsIndexRoute;
   DashboardOrdersIndexRoute: typeof DashboardOrdersIndexRoute;
@@ -806,6 +846,7 @@ interface DashboardRouteChildren {
   DashboardProjectsIndexRoute: typeof DashboardProjectsIndexRoute;
   DashboardUsersIndexRoute: typeof DashboardUsersIndexRoute;
   DashboardCmsPostIdEditRoute: typeof DashboardCmsPostIdEditRoute;
+  DashboardCrmContactsContactIdRoute: typeof DashboardCrmContactsContactIdRoute;
   DashboardProductsProductIdEditRoute: typeof DashboardProductsProductIdEditRoute;
   DashboardCmsPostIdIndexRoute: typeof DashboardCmsPostIdIndexRoute;
   DashboardProductsProductIdIndexRoute: typeof DashboardProductsProductIdIndexRoute;
@@ -824,6 +865,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardProjectsProjectIdRoute: DashboardProjectsProjectIdRoute,
   DashboardUsersUserIdRoute: DashboardUsersUserIdRoute,
   DashboardCmsIndexRoute: DashboardCmsIndexRoute,
+  DashboardCrmIndexRoute: DashboardCrmIndexRoute,
   DashboardKanbanIndexRoute: DashboardKanbanIndexRoute,
   DashboardNotificationsIndexRoute: DashboardNotificationsIndexRoute,
   DashboardOrdersIndexRoute: DashboardOrdersIndexRoute,
@@ -831,6 +873,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardProjectsIndexRoute: DashboardProjectsIndexRoute,
   DashboardUsersIndexRoute: DashboardUsersIndexRoute,
   DashboardCmsPostIdEditRoute: DashboardCmsPostIdEditRoute,
+  DashboardCrmContactsContactIdRoute: DashboardCrmContactsContactIdRoute,
   DashboardProductsProductIdEditRoute: DashboardProductsProductIdEditRoute,
   DashboardCmsPostIdIndexRoute: DashboardCmsPostIdIndexRoute,
   DashboardProductsProductIdIndexRoute: DashboardProductsProductIdIndexRoute,

@@ -81,6 +81,7 @@ VITE_ENABLE_MOCKS=true pnpm build
 ## 새 업무 예제
 
 - `/cms`, `/cms/new`, `/cms/$postId`, `/cms/$postId/edit`: [글 작성과 게시 상태 관리](./cms-examples.md)
+- `/crm`, `/crm/contacts/$contactId`: [회사·연락처·딜과 활동 내역](./crm-examples.md)
 
 위 경로는 로그인이 필요하다. 추가 데이터는 MSW 메모리 예제이며 페이지를
 새로고침하면 초기화된다. 실제 API 연결 시 각 가이드의 계약을 구현해야 한다.

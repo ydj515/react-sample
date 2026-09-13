@@ -32,7 +32,8 @@ export type NavigationItem = {
     | "/react-19"
     | "/notifications"
     | "/kanban"
-    | "/cms";
+    | "/cms"
+    | "/crm";
   label: string;
   icon: LucideIcon;
 };
@@ -61,6 +62,7 @@ export const navigationGroups: NavigationGroup[] = [
   {
     label: "워크스페이스",
     items: [
+      { to: "/crm", label: "CRM", icon: Users },
       { to: "/cms", label: "블로그 / CMS", icon: BookOpen },
       { to: "/projects", label: "프로젝트", icon: FolderKanban },
       { to: "/kanban", label: "칸반 보드", icon: KanbanSquare },
