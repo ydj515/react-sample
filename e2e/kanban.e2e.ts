@@ -244,12 +244,16 @@ test("필터된 카드를 제자리에 놓으면 숨긴 카드의 순서를 바�
   await page
     .getByRole("textbox", { name: "검색", exact: true })
     .fill("결제 실패 토스트");
+  await expect(page.locator('[data-testid^="kanban-card-card-"]')).toHaveCount(
+    1,
+  );
   const handle = page.getByRole("button", {
     name: "결제 실패 토스트 개선 이동",
     exact: true,
   });
   await handle.focus();
-  await page.keyboard.press("Space");
+  // dnd-kit은 시작 직후 타이머로 종료 키 리스너를 등록한다.
+  await page.keyboard.press("Space", { delay: 50 });
   await expect(page.getByTestId("kanban-drop-placeholder")).toHaveCount(1);
   await page.keyboard.press("Space");
   await expect(page.getByTestId("kanban-drop-placeholder")).toHaveCount(0);
