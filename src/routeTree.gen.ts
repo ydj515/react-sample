@@ -32,6 +32,8 @@ import { Route as ShopProductIdRouteImport } from "./routes/shop.$productId";
 import { Route as ShopCartRouteImport } from "./routes/shop.cart";
 import { Route as ShopCheckoutRouteImport } from "./routes/shop.checkout";
 import { Route as DashboardAdminLogsRouteImport } from "./routes/_dashboard/admin.logs";
+import { Route as DashboardCmsIndexRouteImport } from "./routes/_dashboard/cms.index";
+import { Route as DashboardCmsNewRouteImport } from "./routes/_dashboard/cms.new";
 import { Route as DashboardKanbanIndexRouteImport } from "./routes/_dashboard/kanban.index";
 import { Route as DashboardNotificationsIndexRouteImport } from "./routes/_dashboard/notifications.index";
 import { Route as DashboardOrdersIndexRouteImport } from "./routes/_dashboard/orders.index";
@@ -42,6 +44,8 @@ import { Route as DashboardProjectsIndexRouteImport } from "./routes/_dashboard/
 import { Route as DashboardProjectsProjectIdRouteImport } from "./routes/_dashboard/projects.$projectId";
 import { Route as DashboardUsersIndexRouteImport } from "./routes/_dashboard/users.index";
 import { Route as DashboardUsersUserIdRouteImport } from "./routes/_dashboard/users.$userId";
+import { Route as DashboardCmsPostIdIndexRouteImport } from "./routes/_dashboard/cms.$postId.index";
+import { Route as DashboardCmsPostIdEditRouteImport } from "./routes/_dashboard/cms.$postId.edit";
 import { Route as DashboardProductsProductIdIndexRouteImport } from "./routes/_dashboard/products.$productId.index";
 import { Route as DashboardProductsProductIdEditRouteImport } from "./routes/_dashboard/products.$productId.edit";
 
@@ -159,6 +163,16 @@ const DashboardAdminLogsRoute = DashboardAdminLogsRouteImport.update({
   path: "/admin/logs",
   getParentRoute: () => DashboardRoute,
 } as any);
+const DashboardCmsIndexRoute = DashboardCmsIndexRouteImport.update({
+  id: "/cms/",
+  path: "/cms/",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardCmsNewRoute = DashboardCmsNewRouteImport.update({
+  id: "/cms/new",
+  path: "/cms/new",
+  getParentRoute: () => DashboardRoute,
+} as any);
 const DashboardKanbanIndexRoute = DashboardKanbanIndexRouteImport.update({
   id: "/kanban/",
   path: "/kanban/",
@@ -211,6 +225,16 @@ const DashboardUsersUserIdRoute = DashboardUsersUserIdRouteImport.update({
   path: "/users/$userId",
   getParentRoute: () => DashboardRoute,
 } as any);
+const DashboardCmsPostIdIndexRoute = DashboardCmsPostIdIndexRouteImport.update({
+  id: "/cms/$postId/",
+  path: "/cms/$postId/",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardCmsPostIdEditRoute = DashboardCmsPostIdEditRouteImport.update({
+  id: "/cms/$postId/edit",
+  path: "/cms/$postId/edit",
+  getParentRoute: () => DashboardRoute,
+} as any);
 const DashboardProductsProductIdIndexRoute =
   DashboardProductsProductIdIndexRouteImport.update({
     id: "/products/$productId/",
@@ -247,17 +271,21 @@ export interface FileRoutesByFullPath {
   "/landing/": typeof LandingIndexRoute;
   "/shop/": typeof ShopIndexRoute;
   "/admin/logs": typeof DashboardAdminLogsRoute;
+  "/cms/new": typeof DashboardCmsNewRoute;
   "/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
   "/products/new": typeof DashboardProductsNewRoute;
   "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
   "/users/$userId": typeof DashboardUsersUserIdRoute;
+  "/cms/": typeof DashboardCmsIndexRoute;
   "/kanban/": typeof DashboardKanbanIndexRoute;
   "/notifications/": typeof DashboardNotificationsIndexRoute;
   "/orders/": typeof DashboardOrdersIndexRoute;
   "/products/": typeof DashboardProductsIndexRoute;
   "/projects/": typeof DashboardProjectsIndexRoute;
   "/users/": typeof DashboardUsersIndexRoute;
+  "/cms/$postId/edit": typeof DashboardCmsPostIdEditRoute;
   "/products/$productId/edit": typeof DashboardProductsProductIdEditRoute;
+  "/cms/$postId/": typeof DashboardCmsPostIdIndexRoute;
   "/products/$productId/": typeof DashboardProductsProductIdIndexRoute;
 }
 export interface FileRoutesByTo {
@@ -282,17 +310,21 @@ export interface FileRoutesByTo {
   "/landing": typeof LandingIndexRoute;
   "/shop": typeof ShopIndexRoute;
   "/admin/logs": typeof DashboardAdminLogsRoute;
+  "/cms/new": typeof DashboardCmsNewRoute;
   "/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
   "/products/new": typeof DashboardProductsNewRoute;
   "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
   "/users/$userId": typeof DashboardUsersUserIdRoute;
+  "/cms": typeof DashboardCmsIndexRoute;
   "/kanban": typeof DashboardKanbanIndexRoute;
   "/notifications": typeof DashboardNotificationsIndexRoute;
   "/orders": typeof DashboardOrdersIndexRoute;
   "/products": typeof DashboardProductsIndexRoute;
   "/projects": typeof DashboardProjectsIndexRoute;
   "/users": typeof DashboardUsersIndexRoute;
+  "/cms/$postId/edit": typeof DashboardCmsPostIdEditRoute;
   "/products/$productId/edit": typeof DashboardProductsProductIdEditRoute;
+  "/cms/$postId": typeof DashboardCmsPostIdIndexRoute;
   "/products/$productId": typeof DashboardProductsProductIdIndexRoute;
 }
 export interface FileRoutesById {
@@ -320,17 +352,21 @@ export interface FileRoutesById {
   "/landing/": typeof LandingIndexRoute;
   "/shop/": typeof ShopIndexRoute;
   "/_dashboard/admin/logs": typeof DashboardAdminLogsRoute;
+  "/_dashboard/cms/new": typeof DashboardCmsNewRoute;
   "/_dashboard/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
   "/_dashboard/products/new": typeof DashboardProductsNewRoute;
   "/_dashboard/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
   "/_dashboard/users/$userId": typeof DashboardUsersUserIdRoute;
+  "/_dashboard/cms/": typeof DashboardCmsIndexRoute;
   "/_dashboard/kanban/": typeof DashboardKanbanIndexRoute;
   "/_dashboard/notifications/": typeof DashboardNotificationsIndexRoute;
   "/_dashboard/orders/": typeof DashboardOrdersIndexRoute;
   "/_dashboard/products/": typeof DashboardProductsIndexRoute;
   "/_dashboard/projects/": typeof DashboardProjectsIndexRoute;
   "/_dashboard/users/": typeof DashboardUsersIndexRoute;
+  "/_dashboard/cms/$postId/edit": typeof DashboardCmsPostIdEditRoute;
   "/_dashboard/products/$productId/edit": typeof DashboardProductsProductIdEditRoute;
+  "/_dashboard/cms/$postId/": typeof DashboardCmsPostIdIndexRoute;
   "/_dashboard/products/$productId/": typeof DashboardProductsProductIdIndexRoute;
 }
 export interface FileRouteTypes {
@@ -358,17 +394,21 @@ export interface FileRouteTypes {
     | "/landing/"
     | "/shop/"
     | "/admin/logs"
+    | "/cms/new"
     | "/orders/$orderId"
     | "/products/new"
     | "/projects/$projectId"
     | "/users/$userId"
+    | "/cms/"
     | "/kanban/"
     | "/notifications/"
     | "/orders/"
     | "/products/"
     | "/projects/"
     | "/users/"
+    | "/cms/$postId/edit"
     | "/products/$productId/edit"
+    | "/cms/$postId/"
     | "/products/$productId/";
   fileRoutesByTo: FileRoutesByTo;
   to:
@@ -393,17 +433,21 @@ export interface FileRouteTypes {
     | "/landing"
     | "/shop"
     | "/admin/logs"
+    | "/cms/new"
     | "/orders/$orderId"
     | "/products/new"
     | "/projects/$projectId"
     | "/users/$userId"
+    | "/cms"
     | "/kanban"
     | "/notifications"
     | "/orders"
     | "/products"
     | "/projects"
     | "/users"
+    | "/cms/$postId/edit"
     | "/products/$productId/edit"
+    | "/cms/$postId"
     | "/products/$productId";
   id:
     | "__root__"
@@ -430,17 +474,21 @@ export interface FileRouteTypes {
     | "/landing/"
     | "/shop/"
     | "/_dashboard/admin/logs"
+    | "/_dashboard/cms/new"
     | "/_dashboard/orders/$orderId"
     | "/_dashboard/products/new"
     | "/_dashboard/projects/$projectId"
     | "/_dashboard/users/$userId"
+    | "/_dashboard/cms/"
     | "/_dashboard/kanban/"
     | "/_dashboard/notifications/"
     | "/_dashboard/orders/"
     | "/_dashboard/products/"
     | "/_dashboard/projects/"
     | "/_dashboard/users/"
+    | "/_dashboard/cms/$postId/edit"
     | "/_dashboard/products/$productId/edit"
+    | "/_dashboard/cms/$postId/"
     | "/_dashboard/products/$productId/";
   fileRoutesById: FileRoutesById;
 }
@@ -623,6 +671,20 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardAdminLogsRouteImport;
       parentRoute: typeof DashboardRoute;
     };
+    "/_dashboard/cms/": {
+      id: "/_dashboard/cms/";
+      path: "/cms";
+      fullPath: "/cms/";
+      preLoaderRoute: typeof DashboardCmsIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/cms/new": {
+      id: "/_dashboard/cms/new";
+      path: "/cms/new";
+      fullPath: "/cms/new";
+      preLoaderRoute: typeof DashboardCmsNewRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
     "/_dashboard/kanban/": {
       id: "/_dashboard/kanban/";
       path: "/kanban";
@@ -693,6 +755,20 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardUsersUserIdRouteImport;
       parentRoute: typeof DashboardRoute;
     };
+    "/_dashboard/cms/$postId/": {
+      id: "/_dashboard/cms/$postId/";
+      path: "/cms/$postId";
+      fullPath: "/cms/$postId/";
+      preLoaderRoute: typeof DashboardCmsPostIdIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/cms/$postId/edit": {
+      id: "/_dashboard/cms/$postId/edit";
+      path: "/cms/$postId/edit";
+      fullPath: "/cms/$postId/edit";
+      preLoaderRoute: typeof DashboardCmsPostIdEditRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
     "/_dashboard/products/$productId/": {
       id: "/_dashboard/products/$productId/";
       path: "/products/$productId";
@@ -717,17 +793,21 @@ interface DashboardRouteChildren {
   DashboardSettingsRoute: typeof DashboardSettingsRoute;
   DashboardIndexRoute: typeof DashboardIndexRoute;
   DashboardAdminLogsRoute: typeof DashboardAdminLogsRoute;
+  DashboardCmsNewRoute: typeof DashboardCmsNewRoute;
   DashboardOrdersOrderIdRoute: typeof DashboardOrdersOrderIdRoute;
   DashboardProductsNewRoute: typeof DashboardProductsNewRoute;
   DashboardProjectsProjectIdRoute: typeof DashboardProjectsProjectIdRoute;
   DashboardUsersUserIdRoute: typeof DashboardUsersUserIdRoute;
+  DashboardCmsIndexRoute: typeof DashboardCmsIndexRoute;
   DashboardKanbanIndexRoute: typeof DashboardKanbanIndexRoute;
   DashboardNotificationsIndexRoute: typeof DashboardNotificationsIndexRoute;
   DashboardOrdersIndexRoute: typeof DashboardOrdersIndexRoute;
   DashboardProductsIndexRoute: typeof DashboardProductsIndexRoute;
   DashboardProjectsIndexRoute: typeof DashboardProjectsIndexRoute;
   DashboardUsersIndexRoute: typeof DashboardUsersIndexRoute;
+  DashboardCmsPostIdEditRoute: typeof DashboardCmsPostIdEditRoute;
   DashboardProductsProductIdEditRoute: typeof DashboardProductsProductIdEditRoute;
+  DashboardCmsPostIdIndexRoute: typeof DashboardCmsPostIdIndexRoute;
   DashboardProductsProductIdIndexRoute: typeof DashboardProductsProductIdIndexRoute;
 }
 
@@ -738,17 +818,21 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardAdminLogsRoute: DashboardAdminLogsRoute,
+  DashboardCmsNewRoute: DashboardCmsNewRoute,
   DashboardOrdersOrderIdRoute: DashboardOrdersOrderIdRoute,
   DashboardProductsNewRoute: DashboardProductsNewRoute,
   DashboardProjectsProjectIdRoute: DashboardProjectsProjectIdRoute,
   DashboardUsersUserIdRoute: DashboardUsersUserIdRoute,
+  DashboardCmsIndexRoute: DashboardCmsIndexRoute,
   DashboardKanbanIndexRoute: DashboardKanbanIndexRoute,
   DashboardNotificationsIndexRoute: DashboardNotificationsIndexRoute,
   DashboardOrdersIndexRoute: DashboardOrdersIndexRoute,
   DashboardProductsIndexRoute: DashboardProductsIndexRoute,
   DashboardProjectsIndexRoute: DashboardProjectsIndexRoute,
   DashboardUsersIndexRoute: DashboardUsersIndexRoute,
+  DashboardCmsPostIdEditRoute: DashboardCmsPostIdEditRoute,
   DashboardProductsProductIdEditRoute: DashboardProductsProductIdEditRoute,
+  DashboardCmsPostIdIndexRoute: DashboardCmsPostIdIndexRoute,
   DashboardProductsProductIdIndexRoute: DashboardProductsProductIdIndexRoute,
 };
 

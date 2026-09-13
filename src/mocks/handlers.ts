@@ -1,3 +1,4 @@
+import { cmsHandlers } from "./cms-handlers";
 import { http, HttpResponse } from "msw";
 
 import type {
@@ -25,6 +26,7 @@ export function resetProjectsMockData() {
 }
 
 export const handlers = [
+  ...cmsHandlers,
   ...shopHandlers,
   ...managementHandlers,
   ...notificationHandlers,

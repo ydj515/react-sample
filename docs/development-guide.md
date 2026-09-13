@@ -78,6 +78,13 @@ VITE_ENABLE_MOCKS=true pnpm build
 
 환경변수의 적용 시점과 우선순위는 [Vite 환경변수 문서](https://vite.dev/guide/env-and-mode)를 참고하세요.
 
+## 새 업무 예제
+
+- `/cms`, `/cms/new`, `/cms/$postId`, `/cms/$postId/edit`: [글 작성과 게시 상태 관리](./cms-examples.md)
+
+위 경로는 로그인이 필요하다. 추가 데이터는 MSW 메모리 예제이며 페이지를
+새로고침하면 초기화된다. 실제 API 연결 시 각 가이드의 계약을 구현해야 한다.
+
 ## 전체 경로
 
 | 경로                                                | 예제                       | 접근 |
