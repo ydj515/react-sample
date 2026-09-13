@@ -17,6 +17,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from "@/shared/ui/dialog";
+import { NotificationCenter } from "@/features/notifications/components";
 import { useAuthStore } from "@/stores/auth-store";
 import { useUiStore } from "@/stores/ui-store";
 
@@ -25,25 +26,37 @@ function subscribeMobile(callback: () => void) {
   media.addEventListener("change", callback);
   return () => media.removeEventListener("change", callback);
 }
+
 function getMobile() {
   return window.matchMedia("(max-width: 1023px)").matches;
 }
 
 export function DashboardLayout() {
   const density = useUiStore((state) => state.density);
+
   const theme = useUiStore((state) => state.theme);
+
   const signOut = useAuthStore((state) => state.signOut);
+
   const user = useAuthStore((state) => state.user);
+
   const navigate = useNavigate();
+
   const { pathname } = useLocation();
+
   const mobile = useSyncExternalStore(subscribeMobile, getMobile, () => false);
+
   const [mobileOpen, setMobileOpen] = useState(false);
+
   const menuRef = useRef<HTMLButtonElement>(null);
+
   const isCompact = density === "compact";
+
   const activeGroup = currentNavigation(pathname)?.group ?? "대시보드";
   // 데스크톱으로 전환했다가 돌아와도 모바일 서랍은 닫힌 상태로 시작한다.
   if (!mobile && mobileOpen) setMobileOpen(false);
   const email = user?.email ?? "데모 계정";
+
   const userName = email.split("@")[0] || "사용자";
   return (
     <div
@@ -146,6 +159,7 @@ export function DashboardLayout() {
           </div>
           <div className="flex min-w-0 items-center justify-end gap-2 sm:gap-3">
             <ThemeToggle />
+            <NotificationCenter />
             <div
               role="group"
               aria-label="로그인 사용자"

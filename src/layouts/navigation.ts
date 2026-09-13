@@ -1,6 +1,9 @@
 import {
   BarChart3,
+  Bell,
   BookOpen,
+  Database,
+  KanbanSquare,
   LayoutTemplate,
   Users,
   ShoppingCart,
@@ -22,13 +25,17 @@ export type NavigationItem = {
     | "/users"
     | "/orders"
     | "/products"
+    | "/admin/logs"
     | "/docs"
     | "/shop"
     | "/landing"
-    | "/react-19";
+    | "/react-19"
+    | "/notifications"
+    | "/kanban";
   label: string;
   icon: LucideIcon;
 };
+
 export type NavigationGroup = { label: string; items: NavigationItem[] };
 
 export const navigationGroups: NavigationGroup[] = [
@@ -38,6 +45,7 @@ export const navigationGroups: NavigationGroup[] = [
       { to: "/", label: "종합 대시보드", icon: LayoutDashboard },
       { to: "/operations", label: "프로젝트 운영", icon: ListChecks },
       { to: "/reports", label: "분석 리포트", icon: BarChart3 },
+      { to: "/notifications", label: "알림 센터", icon: Bell },
     ],
   },
   {
@@ -46,11 +54,15 @@ export const navigationGroups: NavigationGroup[] = [
       { to: "/users", label: "사용자 관리", icon: Users },
       { to: "/orders", label: "주문 관리", icon: ShoppingCart },
       { to: "/products", label: "상품 관리", icon: Package },
+      { to: "/admin/logs", label: "활동 로그", icon: Database },
     ],
   },
   {
     label: "워크스페이스",
-    items: [{ to: "/projects", label: "프로젝트", icon: FolderKanban }],
+    items: [
+      { to: "/projects", label: "프로젝트", icon: FolderKanban },
+      { to: "/kanban", label: "칸반 보드", icon: KanbanSquare },
+    ],
   },
   {
     label: "샘플",

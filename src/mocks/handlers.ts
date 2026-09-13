@@ -12,6 +12,9 @@ import { projectsFixture } from "@/mocks/data/projects";
 
 import { shopHandlers } from "./shop-handlers";
 import { managementHandlers } from "./management-handlers";
+import { notificationHandlers } from "./notification-handlers";
+import { kanbanHandlers } from "./kanban-handlers";
+import { adminLogsHandlers } from "./admin-logs-handlers";
 import { managementData } from "@/mocks/data/management";
 import { orderSchema } from "@/features/orders/model";
 
@@ -24,6 +27,9 @@ export function resetProjectsMockData() {
 export const handlers = [
   ...shopHandlers,
   ...managementHandlers,
+  ...notificationHandlers,
+  ...kanbanHandlers,
+  ...adminLogsHandlers,
   http.get("/api/dashboard/commerce", () =>
     HttpResponse.json({
       ...commerceFixture,
@@ -76,6 +82,7 @@ export const handlers = [
 
   http.post("/api/projects", async ({ request }) => {
     const body = (await request.json()) as CreateProjectInput;
+
     const project: Project = {
       ...body,
       id: `project-${crypto.randomUUID()}`,
@@ -89,6 +96,7 @@ export const handlers = [
 
   http.patch("/api/projects/:projectId/status", async ({ params, request }) => {
     const body = (await request.json()) as { status: ProjectStatus };
+
     const project = projects.find((item) => item.id === params.projectId);
 
     if (!project) {

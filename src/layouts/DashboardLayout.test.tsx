@@ -5,6 +5,7 @@ import {
   createRouter,
   RouterProvider,
 } from "@tanstack/react-router";
+import { QueryClientProvider } from "@tanstack/react-query";
 import { render, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -12,6 +13,7 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { DashboardLayout } from "./DashboardLayout";
 import { useAuthStore } from "@/stores/auth-store";
 import { useUiStore } from "@/stores/ui-store";
+import { createTestQueryClient } from "@/shared/lib/test/test-query-client";
 
 function viewport(mobile = false) {
   vi.stubGlobal(
@@ -24,8 +26,10 @@ function viewport(mobile = false) {
     })),
   );
 }
+
 function renderShell(path = "/") {
   const root = createRootRoute({ component: DashboardLayout });
+
   const routeTree = root.addChildren(
     [
       "/",
@@ -43,11 +47,18 @@ function renderShell(path = "/") {
       }),
     ),
   );
+
   const router = createRouter({
     routeTree,
     history: createMemoryHistory({ initialEntries: [path] }),
   });
-  render(<RouterProvider router={router} />);
+
+  const queryClient = createTestQueryClient();
+  render(
+    <QueryClientProvider client={queryClient}>
+      <RouterProvider router={router} />
+    </QueryClientProvider>,
+  );
   return { router };
 }
 
@@ -80,7 +91,9 @@ describe("authenticated application shell", () => {
   it("모바일 하단 메뉴로 이동하고 프로젝트 상세의 현재 탭을 표시한다", async () => {
     viewport(true);
     const user = userEvent.setup();
+
     const { router } = renderShell("/projects/project-design-system");
+
     const nav = await screen.findByRole("navigation", { name: "하단 메뉴" });
     expect(within(nav).getByRole("link", { name: "프로젝트" })).toHaveAttribute(
       "aria-current",
@@ -141,6 +154,7 @@ describe("authenticated application shell", () => {
   });
   it("검색 단축키와 방향키·Enter로 화면을 이동한다", async () => {
     const user = userEvent.setup();
+
     const { router } = renderShell();
     await screen.findByRole("main");
     await user.keyboard("{Control>}k{/Control}");
@@ -185,6 +199,7 @@ describe("authenticated application shell", () => {
   it("데스크톱은 고정 메뉴를 표시하고 테마, 밀도와 로그아웃을 유지한다", async () => {
     useUiStore.setState({ density: "compact" });
     const user = userEvent.setup();
+
     const { router } = renderShell();
     await screen.findByRole("main");
     expect(

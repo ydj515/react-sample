@@ -22,9 +22,16 @@ import { ProductsPage } from "@/features/products/pages/products";
 import { ProductDetailPage } from "@/features/products/pages/product-detail";
 import { ProductEditorPage } from "@/features/products/pages/product-editor";
 import { productsSearchSchema } from "@/features/products/model";
+import { NotificationsPage } from "@/features/notifications/pages/notifications";
+import { notificationListSearchSchema } from "@/features/notifications/model";
+import { KanbanPage } from "@/features/kanban/pages/kanban";
+import { kanbanSearchSchema } from "@/features/kanban/model";
+import { AdminLogsPage } from "@/features/admin-logs/pages/admin-logs";
+import { adminLogsQuerySchema } from "@/features/admin-logs/model";
 
 export function renderManagement(initial: string) {
   const root = createRootRoute();
+
   const routeTree = root.addChildren([
     createRoute({
       getParentRoute: () => root,
@@ -92,12 +99,32 @@ export function renderManagement(initial: string) {
       },
       validateSearch: productsSearchSchema,
     }),
+    createRoute({
+      getParentRoute: () => root,
+      path: "/notifications",
+      component: NotificationsPage,
+      validateSearch: notificationListSearchSchema,
+    }),
+    createRoute({
+      getParentRoute: () => root,
+      path: "/kanban",
+      component: KanbanPage,
+      validateSearch: kanbanSearchSchema,
+    }),
+    createRoute({
+      getParentRoute: () => root,
+      path: "/admin/logs",
+      component: AdminLogsPage,
+      validateSearch: adminLogsQuerySchema,
+    }),
   ]);
+
   const router = createRouter({
     routeTree,
     history: createMemoryHistory({ initialEntries: [initial] }),
     defaultPendingMinMs: 0,
   });
+
   const client = createTestQueryClient();
   render(
     <QueryClientProvider client={client}>

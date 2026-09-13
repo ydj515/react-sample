@@ -98,5 +98,6 @@ VITE_ENABLE_MOCKS=true pnpm build
 | `/landing/saas`, `/landing/agency`                  | SaaS·에이전시              | 공개 |
 | `/landing/course`, `/landing/event`                 | 온라인 강의·행사           | 공개 |
 | `/landing/stay`, `/landing/product`                 | 숙박·제품 소개             | 공개 |
+| `/landing/wizard`                                   | RHF/Zod 심화 폼 샘플       | 공개 |
 
 구조와 상태 관리 기준은 [아키텍처](./architecture.md), 검증 범위는 [테스트 가이드](./testing.md)를 참고합니다.

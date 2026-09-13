@@ -7,3 +7,7 @@ export const server = setupServer(...handlers);
 export { resetProjectsMockData };
 
 export { resetManagementMockData } from "@/mocks/data/management";
+
+export { resetNotificationsMockData } from "@/mocks/data/notifications";
+
+export { resetKanbanMockData } from "@/mocks/data/kanban";

@@ -26,10 +26,14 @@ import { Route as LandingEventRouteImport } from "./routes/landing.event";
 import { Route as LandingProductRouteImport } from "./routes/landing.product";
 import { Route as LandingSaasRouteImport } from "./routes/landing.saas";
 import { Route as LandingStayRouteImport } from "./routes/landing.stay";
+import { Route as LandingWizardRouteImport } from "./routes/landing.wizard";
 import { Route as ShopIndexRouteImport } from "./routes/shop.index";
 import { Route as ShopProductIdRouteImport } from "./routes/shop.$productId";
 import { Route as ShopCartRouteImport } from "./routes/shop.cart";
 import { Route as ShopCheckoutRouteImport } from "./routes/shop.checkout";
+import { Route as DashboardAdminLogsRouteImport } from "./routes/_dashboard/admin.logs";
+import { Route as DashboardKanbanIndexRouteImport } from "./routes/_dashboard/kanban.index";
+import { Route as DashboardNotificationsIndexRouteImport } from "./routes/_dashboard/notifications.index";
 import { Route as DashboardOrdersIndexRouteImport } from "./routes/_dashboard/orders.index";
 import { Route as DashboardOrdersOrderIdRouteImport } from "./routes/_dashboard/orders.$orderId";
 import { Route as DashboardProductsIndexRouteImport } from "./routes/_dashboard/products.index";
@@ -125,6 +129,11 @@ const LandingStayRoute = LandingStayRouteImport.update({
   path: "/landing/stay",
   getParentRoute: () => rootRouteImport,
 } as any);
+const LandingWizardRoute = LandingWizardRouteImport.update({
+  id: "/landing/wizard",
+  path: "/landing/wizard",
+  getParentRoute: () => rootRouteImport,
+} as any);
 const ShopIndexRoute = ShopIndexRouteImport.update({
   id: "/",
   path: "/",
@@ -145,6 +154,22 @@ const ShopCheckoutRoute = ShopCheckoutRouteImport.update({
   path: "/checkout",
   getParentRoute: () => ShopRoute,
 } as any);
+const DashboardAdminLogsRoute = DashboardAdminLogsRouteImport.update({
+  id: "/admin/logs",
+  path: "/admin/logs",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardKanbanIndexRoute = DashboardKanbanIndexRouteImport.update({
+  id: "/kanban/",
+  path: "/kanban/",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardNotificationsIndexRoute =
+  DashboardNotificationsIndexRouteImport.update({
+    id: "/notifications/",
+    path: "/notifications/",
+    getParentRoute: () => DashboardRoute,
+  } as any);
 const DashboardOrdersIndexRoute = DashboardOrdersIndexRouteImport.update({
   id: "/orders/",
   path: "/orders/",
@@ -214,16 +239,20 @@ export interface FileRoutesByFullPath {
   "/landing/product": typeof LandingProductRoute;
   "/landing/saas": typeof LandingSaasRoute;
   "/landing/stay": typeof LandingStayRoute;
+  "/landing/wizard": typeof LandingWizardRoute;
   "/shop/$productId": typeof ShopProductIdRoute;
   "/shop/cart": typeof ShopCartRoute;
   "/shop/checkout": typeof ShopCheckoutRoute;
   "/docs/": typeof DocsIndexRoute;
   "/landing/": typeof LandingIndexRoute;
   "/shop/": typeof ShopIndexRoute;
+  "/admin/logs": typeof DashboardAdminLogsRoute;
   "/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
   "/products/new": typeof DashboardProductsNewRoute;
   "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
   "/users/$userId": typeof DashboardUsersUserIdRoute;
+  "/kanban/": typeof DashboardKanbanIndexRoute;
+  "/notifications/": typeof DashboardNotificationsIndexRoute;
   "/orders/": typeof DashboardOrdersIndexRoute;
   "/products/": typeof DashboardProductsIndexRoute;
   "/projects/": typeof DashboardProjectsIndexRoute;
@@ -244,6 +273,7 @@ export interface FileRoutesByTo {
   "/landing/product": typeof LandingProductRoute;
   "/landing/saas": typeof LandingSaasRoute;
   "/landing/stay": typeof LandingStayRoute;
+  "/landing/wizard": typeof LandingWizardRoute;
   "/shop/$productId": typeof ShopProductIdRoute;
   "/shop/cart": typeof ShopCartRoute;
   "/shop/checkout": typeof ShopCheckoutRoute;
@@ -251,10 +281,13 @@ export interface FileRoutesByTo {
   "/docs": typeof DocsIndexRoute;
   "/landing": typeof LandingIndexRoute;
   "/shop": typeof ShopIndexRoute;
+  "/admin/logs": typeof DashboardAdminLogsRoute;
   "/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
   "/products/new": typeof DashboardProductsNewRoute;
   "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
   "/users/$userId": typeof DashboardUsersUserIdRoute;
+  "/kanban": typeof DashboardKanbanIndexRoute;
+  "/notifications": typeof DashboardNotificationsIndexRoute;
   "/orders": typeof DashboardOrdersIndexRoute;
   "/products": typeof DashboardProductsIndexRoute;
   "/projects": typeof DashboardProjectsIndexRoute;
@@ -278,6 +311,7 @@ export interface FileRoutesById {
   "/landing/product": typeof LandingProductRoute;
   "/landing/saas": typeof LandingSaasRoute;
   "/landing/stay": typeof LandingStayRoute;
+  "/landing/wizard": typeof LandingWizardRoute;
   "/shop/$productId": typeof ShopProductIdRoute;
   "/shop/cart": typeof ShopCartRoute;
   "/shop/checkout": typeof ShopCheckoutRoute;
@@ -285,10 +319,13 @@ export interface FileRoutesById {
   "/docs/": typeof DocsIndexRoute;
   "/landing/": typeof LandingIndexRoute;
   "/shop/": typeof ShopIndexRoute;
+  "/_dashboard/admin/logs": typeof DashboardAdminLogsRoute;
   "/_dashboard/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
   "/_dashboard/products/new": typeof DashboardProductsNewRoute;
   "/_dashboard/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
   "/_dashboard/users/$userId": typeof DashboardUsersUserIdRoute;
+  "/_dashboard/kanban/": typeof DashboardKanbanIndexRoute;
+  "/_dashboard/notifications/": typeof DashboardNotificationsIndexRoute;
   "/_dashboard/orders/": typeof DashboardOrdersIndexRoute;
   "/_dashboard/products/": typeof DashboardProductsIndexRoute;
   "/_dashboard/projects/": typeof DashboardProjectsIndexRoute;
@@ -313,16 +350,20 @@ export interface FileRouteTypes {
     | "/landing/product"
     | "/landing/saas"
     | "/landing/stay"
+    | "/landing/wizard"
     | "/shop/$productId"
     | "/shop/cart"
     | "/shop/checkout"
     | "/docs/"
     | "/landing/"
     | "/shop/"
+    | "/admin/logs"
     | "/orders/$orderId"
     | "/products/new"
     | "/projects/$projectId"
     | "/users/$userId"
+    | "/kanban/"
+    | "/notifications/"
     | "/orders/"
     | "/products/"
     | "/projects/"
@@ -343,6 +384,7 @@ export interface FileRouteTypes {
     | "/landing/product"
     | "/landing/saas"
     | "/landing/stay"
+    | "/landing/wizard"
     | "/shop/$productId"
     | "/shop/cart"
     | "/shop/checkout"
@@ -350,10 +392,13 @@ export interface FileRouteTypes {
     | "/docs"
     | "/landing"
     | "/shop"
+    | "/admin/logs"
     | "/orders/$orderId"
     | "/products/new"
     | "/projects/$projectId"
     | "/users/$userId"
+    | "/kanban"
+    | "/notifications"
     | "/orders"
     | "/products"
     | "/projects"
@@ -376,6 +421,7 @@ export interface FileRouteTypes {
     | "/landing/product"
     | "/landing/saas"
     | "/landing/stay"
+    | "/landing/wizard"
     | "/shop/$productId"
     | "/shop/cart"
     | "/shop/checkout"
@@ -383,10 +429,13 @@ export interface FileRouteTypes {
     | "/docs/"
     | "/landing/"
     | "/shop/"
+    | "/_dashboard/admin/logs"
     | "/_dashboard/orders/$orderId"
     | "/_dashboard/products/new"
     | "/_dashboard/projects/$projectId"
     | "/_dashboard/users/$userId"
+    | "/_dashboard/kanban/"
+    | "/_dashboard/notifications/"
     | "/_dashboard/orders/"
     | "/_dashboard/products/"
     | "/_dashboard/projects/"
@@ -406,6 +455,7 @@ export interface RootRouteChildren {
   LandingProductRoute: typeof LandingProductRoute;
   LandingSaasRoute: typeof LandingSaasRoute;
   LandingStayRoute: typeof LandingStayRoute;
+  LandingWizardRoute: typeof LandingWizardRoute;
   DocsIndexRoute: typeof DocsIndexRoute;
   LandingIndexRoute: typeof LandingIndexRoute;
 }
@@ -531,6 +581,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof LandingStayRouteImport;
       parentRoute: typeof rootRouteImport;
     };
+    "/landing/wizard": {
+      id: "/landing/wizard";
+      path: "/landing/wizard";
+      fullPath: "/landing/wizard";
+      preLoaderRoute: typeof LandingWizardRouteImport;
+      parentRoute: typeof rootRouteImport;
+    };
     "/shop/": {
       id: "/shop/";
       path: "/";
@@ -558,6 +615,27 @@ declare module "@tanstack/react-router" {
       fullPath: "/shop/checkout";
       preLoaderRoute: typeof ShopCheckoutRouteImport;
       parentRoute: typeof ShopRoute;
+    };
+    "/_dashboard/admin/logs": {
+      id: "/_dashboard/admin/logs";
+      path: "/admin/logs";
+      fullPath: "/admin/logs";
+      preLoaderRoute: typeof DashboardAdminLogsRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/kanban/": {
+      id: "/_dashboard/kanban/";
+      path: "/kanban";
+      fullPath: "/kanban/";
+      preLoaderRoute: typeof DashboardKanbanIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/notifications/": {
+      id: "/_dashboard/notifications/";
+      path: "/notifications";
+      fullPath: "/notifications/";
+      preLoaderRoute: typeof DashboardNotificationsIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
     };
     "/_dashboard/orders/": {
       id: "/_dashboard/orders/";
@@ -638,10 +716,13 @@ interface DashboardRouteChildren {
   DashboardReportsRoute: typeof DashboardReportsRoute;
   DashboardSettingsRoute: typeof DashboardSettingsRoute;
   DashboardIndexRoute: typeof DashboardIndexRoute;
+  DashboardAdminLogsRoute: typeof DashboardAdminLogsRoute;
   DashboardOrdersOrderIdRoute: typeof DashboardOrdersOrderIdRoute;
   DashboardProductsNewRoute: typeof DashboardProductsNewRoute;
   DashboardProjectsProjectIdRoute: typeof DashboardProjectsProjectIdRoute;
   DashboardUsersUserIdRoute: typeof DashboardUsersUserIdRoute;
+  DashboardKanbanIndexRoute: typeof DashboardKanbanIndexRoute;
+  DashboardNotificationsIndexRoute: typeof DashboardNotificationsIndexRoute;
   DashboardOrdersIndexRoute: typeof DashboardOrdersIndexRoute;
   DashboardProductsIndexRoute: typeof DashboardProductsIndexRoute;
   DashboardProjectsIndexRoute: typeof DashboardProjectsIndexRoute;
@@ -656,10 +737,13 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardReportsRoute: DashboardReportsRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
+  DashboardAdminLogsRoute: DashboardAdminLogsRoute,
   DashboardOrdersOrderIdRoute: DashboardOrdersOrderIdRoute,
   DashboardProductsNewRoute: DashboardProductsNewRoute,
   DashboardProjectsProjectIdRoute: DashboardProjectsProjectIdRoute,
   DashboardUsersUserIdRoute: DashboardUsersUserIdRoute,
+  DashboardKanbanIndexRoute: DashboardKanbanIndexRoute,
+  DashboardNotificationsIndexRoute: DashboardNotificationsIndexRoute,
   DashboardOrdersIndexRoute: DashboardOrdersIndexRoute,
   DashboardProductsIndexRoute: DashboardProductsIndexRoute,
   DashboardProjectsIndexRoute: DashboardProjectsIndexRoute,
@@ -699,6 +783,7 @@ const rootRouteChildren: RootRouteChildren = {
   LandingProductRoute: LandingProductRoute,
   LandingSaasRoute: LandingSaasRoute,
   LandingStayRoute: LandingStayRoute,
+  LandingWizardRoute: LandingWizardRoute,
   DocsIndexRoute: DocsIndexRoute,
   LandingIndexRoute: LandingIndexRoute,
 };
