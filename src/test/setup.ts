@@ -1,3 +1,4 @@
+import { resetMediaMockData } from "@/mocks/media-handlers";
 import { resetCrmMockData } from "@/mocks/crm-handlers";
 import { resetCmsMockData } from "@/mocks/cms-handlers";
 import "@testing-library/jest-dom/vitest";
@@ -37,6 +38,7 @@ beforeAll(() => {
 
 afterEach(() => {
   server.resetHandlers();
+  resetMediaMockData();
   resetCrmMockData();
   resetCmsMockData();
   resetProjectsMockData();

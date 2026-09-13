@@ -82,30 +82,35 @@ VITE_ENABLE_MOCKS=true pnpm build
 
 - `/cms`, `/cms/new`, `/cms/$postId`, `/cms/$postId/edit`: [글 작성과 게시 상태 관리](./cms-examples.md)
 - `/crm`, `/crm/contacts/$contactId`: [회사·연락처·딜과 활동 내역](./crm-examples.md)
+- `/files?folder=...&q=...`: [폴더·업로드·미리보기](./media-examples.md)
 
 위 경로는 로그인이 필요하다. 추가 데이터는 MSW 메모리 예제이며 페이지를
 새로고침하면 초기화된다. 실제 API 연결 시 각 가이드의 계약을 구현해야 한다.
 
 ## 전체 경로
 
-| 경로                                                | 예제                       | 접근 |
-| --------------------------------------------------- | -------------------------- | ---- |
-| `/`                                                 | 종합 대시보드              | 보호 |
-| `/operations`, `/reports`                           | 프로젝트 운영·분석 리포트  | 보호 |
-| `/projects`, `/projects/$projectId`                 | 프로젝트 목록·상세         | 보호 |
-| `/users`, `/users/$userId`                          | 사용자 목록·상세           | 보호 |
-| `/products`, `/products/new`                        | 상품 목록·등록             | 보호 |
-| `/products/$productId`, `/products/$productId/edit` | 상품 상세·수정             | 보호 |
-| `/orders`, `/orders/$orderId`                       | 주문 목록·상세             | 보호 |
-| `/settings`, `/react-19`                            | UI 설정·React 19 예제      | 보호 |
-| `/signin`                                           | 데모 로그인                | 공개 |
-| `/docs`, `/docs/$slug`                              | 시작 문서로 이동·문서 상세 | 공개 |
-| `/shop`, `/shop/$productId`                         | 상품 탐색·상세             | 공개 |
-| `/shop/cart`, `/shop/checkout`                      | 장바구니·모의 주문         | 공개 |
-| `/landing`                                          | 랜딩 카탈로그              | 공개 |
-| `/landing/saas`, `/landing/agency`                  | SaaS·에이전시              | 공개 |
-| `/landing/course`, `/landing/event`                 | 온라인 강의·행사           | 공개 |
-| `/landing/stay`, `/landing/product`                 | 숙박·제품 소개             | 공개 |
-| `/landing/wizard`                                   | RHF/Zod 심화 폼 샘플       | 공개 |
+| 경로                                                | 예제                        | 접근 |
+| --------------------------------------------------- | --------------------------- | ---- |
+| `/`                                                 | 종합 대시보드               | 보호 |
+| `/operations`, `/reports`                           | 프로젝트 운영·분석 리포트   | 보호 |
+| `/projects`, `/projects/$projectId`                 | 프로젝트 목록·상세          | 보호 |
+| `/users`, `/users/$userId`                          | 사용자 목록·상세            | 보호 |
+| `/products`, `/products/new`                        | 상품 목록·등록              | 보호 |
+| `/products/$productId`, `/products/$productId/edit` | 상품 상세·수정              | 보호 |
+| `/orders`, `/orders/$orderId`                       | 주문 목록·상세              | 보호 |
+| `/cms`, `/cms/new`                                  | 글 목록·작성                | 보호 |
+| `/cms/$postId`, `/cms/$postId/edit`                 | 글 상세·수정                | 보호 |
+| `/crm`, `/crm/contacts/$contactId`                  | 영업 파이프라인·연락처 상세 | 보호 |
+| `/files`                                            | 폴더·업로드·미리보기        | 보호 |
+| `/settings`, `/react-19`                            | UI 설정·React 19 예제       | 보호 |
+| `/signin`                                           | 데모 로그인                 | 공개 |
+| `/docs`, `/docs/$slug`                              | 시작 문서로 이동·문서 상세  | 공개 |
+| `/shop`, `/shop/$productId`                         | 상품 탐색·상세              | 공개 |
+| `/shop/cart`, `/shop/checkout`                      | 장바구니·모의 주문          | 공개 |
+| `/landing`                                          | 랜딩 카탈로그               | 공개 |
+| `/landing/saas`, `/landing/agency`                  | SaaS·에이전시               | 공개 |
+| `/landing/course`, `/landing/event`                 | 온라인 강의·행사            | 공개 |
+| `/landing/stay`, `/landing/product`                 | 숙박·제품 소개              | 공개 |
+| `/landing/wizard`                                   | RHF/Zod 심화 폼 샘플        | 공개 |
 
 구조와 상태 관리 기준은 [아키텍처](./architecture.md), 검증 범위는 [테스트 가이드](./testing.md)를 참고합니다.

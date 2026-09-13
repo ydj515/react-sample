@@ -35,6 +35,7 @@ import { Route as DashboardAdminLogsRouteImport } from "./routes/_dashboard/admi
 import { Route as DashboardCmsIndexRouteImport } from "./routes/_dashboard/cms.index";
 import { Route as DashboardCmsNewRouteImport } from "./routes/_dashboard/cms.new";
 import { Route as DashboardCrmIndexRouteImport } from "./routes/_dashboard/crm.index";
+import { Route as DashboardFilesIndexRouteImport } from "./routes/_dashboard/files.index";
 import { Route as DashboardKanbanIndexRouteImport } from "./routes/_dashboard/kanban.index";
 import { Route as DashboardNotificationsIndexRouteImport } from "./routes/_dashboard/notifications.index";
 import { Route as DashboardOrdersIndexRouteImport } from "./routes/_dashboard/orders.index";
@@ -180,6 +181,11 @@ const DashboardCrmIndexRoute = DashboardCrmIndexRouteImport.update({
   path: "/crm/",
   getParentRoute: () => DashboardRoute,
 } as any);
+const DashboardFilesIndexRoute = DashboardFilesIndexRouteImport.update({
+  id: "/files/",
+  path: "/files/",
+  getParentRoute: () => DashboardRoute,
+} as any);
 const DashboardKanbanIndexRoute = DashboardKanbanIndexRouteImport.update({
   id: "/kanban/",
   path: "/kanban/",
@@ -291,6 +297,7 @@ export interface FileRoutesByFullPath {
   "/users/$userId": typeof DashboardUsersUserIdRoute;
   "/cms/": typeof DashboardCmsIndexRoute;
   "/crm/": typeof DashboardCrmIndexRoute;
+  "/files/": typeof DashboardFilesIndexRoute;
   "/kanban/": typeof DashboardKanbanIndexRoute;
   "/notifications/": typeof DashboardNotificationsIndexRoute;
   "/orders/": typeof DashboardOrdersIndexRoute;
@@ -332,6 +339,7 @@ export interface FileRoutesByTo {
   "/users/$userId": typeof DashboardUsersUserIdRoute;
   "/cms": typeof DashboardCmsIndexRoute;
   "/crm": typeof DashboardCrmIndexRoute;
+  "/files": typeof DashboardFilesIndexRoute;
   "/kanban": typeof DashboardKanbanIndexRoute;
   "/notifications": typeof DashboardNotificationsIndexRoute;
   "/orders": typeof DashboardOrdersIndexRoute;
@@ -376,6 +384,7 @@ export interface FileRoutesById {
   "/_dashboard/users/$userId": typeof DashboardUsersUserIdRoute;
   "/_dashboard/cms/": typeof DashboardCmsIndexRoute;
   "/_dashboard/crm/": typeof DashboardCrmIndexRoute;
+  "/_dashboard/files/": typeof DashboardFilesIndexRoute;
   "/_dashboard/kanban/": typeof DashboardKanbanIndexRoute;
   "/_dashboard/notifications/": typeof DashboardNotificationsIndexRoute;
   "/_dashboard/orders/": typeof DashboardOrdersIndexRoute;
@@ -420,6 +429,7 @@ export interface FileRouteTypes {
     | "/users/$userId"
     | "/cms/"
     | "/crm/"
+    | "/files/"
     | "/kanban/"
     | "/notifications/"
     | "/orders/"
@@ -461,6 +471,7 @@ export interface FileRouteTypes {
     | "/users/$userId"
     | "/cms"
     | "/crm"
+    | "/files"
     | "/kanban"
     | "/notifications"
     | "/orders"
@@ -504,6 +515,7 @@ export interface FileRouteTypes {
     | "/_dashboard/users/$userId"
     | "/_dashboard/cms/"
     | "/_dashboard/crm/"
+    | "/_dashboard/files/"
     | "/_dashboard/kanban/"
     | "/_dashboard/notifications/"
     | "/_dashboard/orders/"
@@ -717,6 +729,13 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardCrmIndexRouteImport;
       parentRoute: typeof DashboardRoute;
     };
+    "/_dashboard/files/": {
+      id: "/_dashboard/files/";
+      path: "/files";
+      fullPath: "/files/";
+      preLoaderRoute: typeof DashboardFilesIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
     "/_dashboard/kanban/": {
       id: "/_dashboard/kanban/";
       path: "/kanban";
@@ -839,6 +858,7 @@ interface DashboardRouteChildren {
   DashboardUsersUserIdRoute: typeof DashboardUsersUserIdRoute;
   DashboardCmsIndexRoute: typeof DashboardCmsIndexRoute;
   DashboardCrmIndexRoute: typeof DashboardCrmIndexRoute;
+  DashboardFilesIndexRoute: typeof DashboardFilesIndexRoute;
   DashboardKanbanIndexRoute: typeof DashboardKanbanIndexRoute;
   DashboardNotificationsIndexRoute: typeof DashboardNotificationsIndexRoute;
   DashboardOrdersIndexRoute: typeof DashboardOrdersIndexRoute;
@@ -866,6 +886,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardUsersUserIdRoute: DashboardUsersUserIdRoute,
   DashboardCmsIndexRoute: DashboardCmsIndexRoute,
   DashboardCrmIndexRoute: DashboardCrmIndexRoute,
+  DashboardFilesIndexRoute: DashboardFilesIndexRoute,
   DashboardKanbanIndexRoute: DashboardKanbanIndexRoute,
   DashboardNotificationsIndexRoute: DashboardNotificationsIndexRoute,
   DashboardOrdersIndexRoute: DashboardOrdersIndexRoute,

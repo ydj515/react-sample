@@ -1,3 +1,4 @@
+import { mediaHandlers } from "./media-handlers";
 import { crmHandlers } from "./crm-handlers";
 import { cmsHandlers } from "./cms-handlers";
 import { http, HttpResponse } from "msw";
@@ -27,6 +28,7 @@ export function resetProjectsMockData() {
 }
 
 export const handlers = [
+  ...mediaHandlers,
   ...crmHandlers,
   ...cmsHandlers,
   ...shopHandlers,
