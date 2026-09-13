@@ -74,3 +74,9 @@ Zustand store는 용도별로 나뉩니다: `ui-store`(테마/밀도 preference�
 - 전역 UI preference는 Zustand로 작게 관리한다.
 - API 서버가 없어도 기능 흐름을 확인할 수 있도록 MSW를 사용한다.
 - form 예제는 React Hook Form과 Zod를 함께 사용해 실무에서 흔한 검증 흐름을 보여준다.
+
+## 라우트 생성과 코드 분할
+
+- `generate-routes`와 `watch-routes`는 `scripts/router-cli.mjs`에서 Router CLI의 공개 ESM 진입점을 사용합니다. upstream `tsr` 실행 파일의 CommonJS 순환 참조 경고를 피하면서 같은 명령과 종료 코드를 유지합니다.
+- Router·CLI·plugin은 서로 다른 버전 번호로 릴리스됩니다. 숫자를 강제로 통일하기보다 lockfile의 core/generator 의존성과 생성·빌드를 함께 검증합니다.
+- `vite.config.ts`의 TanStack Router 플러그인 `autoCodeSplitting`으로 각 라우트 컴포넌트가 별도 청크로 분리되어 초기 번들이 작아집니다.
