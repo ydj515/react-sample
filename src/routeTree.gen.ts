@@ -13,6 +13,7 @@ import { Route as DashboardRouteImport } from "./routes/_dashboard";
 import { Route as ShopRouteImport } from "./routes/shop";
 import { Route as SigninRouteImport } from "./routes/signin";
 import { Route as DashboardIndexRouteImport } from "./routes/_dashboard/index";
+import { Route as DashboardChatRouteImport } from "./routes/_dashboard/chat";
 import { Route as DashboardExpensesRouteImport } from "./routes/_dashboard/expenses";
 import { Route as DashboardNotesRouteImport } from "./routes/_dashboard/notes";
 import { Route as DashboardOperationsRouteImport } from "./routes/_dashboard/operations";
@@ -74,6 +75,11 @@ const SigninRoute = SigninRouteImport.update({
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: "/",
   path: "/",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardChatRoute = DashboardChatRouteImport.update({
+  id: "/chat",
+  path: "/chat",
   getParentRoute: () => DashboardRoute,
 } as any);
 const DashboardExpensesRoute = DashboardExpensesRouteImport.update({
@@ -302,6 +308,7 @@ export interface FileRoutesByFullPath {
   "/": typeof DashboardIndexRoute;
   "/shop": typeof ShopRouteWithChildren;
   "/signin": typeof SigninRoute;
+  "/chat": typeof DashboardChatRoute;
   "/expenses": typeof DashboardExpensesRoute;
   "/notes": typeof DashboardNotesRoute;
   "/operations": typeof DashboardOperationsRoute;
@@ -348,6 +355,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   "/signin": typeof SigninRoute;
+  "/chat": typeof DashboardChatRoute;
   "/expenses": typeof DashboardExpensesRoute;
   "/notes": typeof DashboardNotesRoute;
   "/operations": typeof DashboardOperationsRoute;
@@ -398,6 +406,7 @@ export interface FileRoutesById {
   "/_dashboard": typeof DashboardRouteWithChildren;
   "/shop": typeof ShopRouteWithChildren;
   "/signin": typeof SigninRoute;
+  "/_dashboard/chat": typeof DashboardChatRoute;
   "/_dashboard/expenses": typeof DashboardExpensesRoute;
   "/_dashboard/notes": typeof DashboardNotesRoute;
   "/_dashboard/operations": typeof DashboardOperationsRoute;
@@ -449,6 +458,7 @@ export interface FileRouteTypes {
     | "/"
     | "/shop"
     | "/signin"
+    | "/chat"
     | "/expenses"
     | "/notes"
     | "/operations"
@@ -495,6 +505,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/signin"
+    | "/chat"
     | "/expenses"
     | "/notes"
     | "/operations"
@@ -544,6 +555,7 @@ export interface FileRouteTypes {
     | "/_dashboard"
     | "/shop"
     | "/signin"
+    | "/_dashboard/chat"
     | "/_dashboard/expenses"
     | "/_dashboard/notes"
     | "/_dashboard/operations"
@@ -634,6 +646,13 @@ declare module "@tanstack/react-router" {
       path: "/";
       fullPath: "/";
       preLoaderRoute: typeof DashboardIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/chat": {
+      id: "/_dashboard/chat";
+      path: "/chat";
+      fullPath: "/chat";
+      preLoaderRoute: typeof DashboardChatRouteImport;
       parentRoute: typeof DashboardRoute;
     };
     "/_dashboard/expenses": {
@@ -941,6 +960,7 @@ declare module "@tanstack/react-router" {
 }
 
 interface DashboardRouteChildren {
+  DashboardChatRoute: typeof DashboardChatRoute;
   DashboardExpensesRoute: typeof DashboardExpensesRoute;
   DashboardNotesRoute: typeof DashboardNotesRoute;
   DashboardOperationsRoute: typeof DashboardOperationsRoute;
@@ -974,6 +994,7 @@ interface DashboardRouteChildren {
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardChatRoute: DashboardChatRoute,
   DashboardExpensesRoute: DashboardExpensesRoute,
   DashboardNotesRoute: DashboardNotesRoute,
   DashboardOperationsRoute: DashboardOperationsRoute,

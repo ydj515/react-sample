@@ -30,6 +30,7 @@
 19. [인보이스 / 빌링 예제](./billing-examples.md)
 20. [설문 / 폼 빌더 예제](./surveys-examples.md)
 21. [가계부 예제](./expenses-examples.md)
+22. [메시징 / 채팅 예제](./chat-examples.md)
 
 ## 목적별 문서
 

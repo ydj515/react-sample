@@ -1,5 +1,6 @@
 import {
   BarChart3,
+  MessagesSquare,
   Bell,
   BookOpen,
   Database,
@@ -38,7 +39,8 @@ export type NavigationItem = {
     | "/notes"
     | "/billing"
     | "/surveys"
-    | "/expenses";
+    | "/expenses"
+    | "/chat";
   label: string;
   icon: LucideIcon;
 };
@@ -71,6 +73,7 @@ export const navigationGroups: NavigationGroup[] = [
       { to: "/billing", label: "인보이스 / 빌링", icon: ShoppingCart },
       { to: "/surveys", label: "설문 / 폼 빌더", icon: ListChecks },
       { to: "/expenses", label: "가계부", icon: BarChart3 },
+      { to: "/chat", label: "메시징 / 채팅", icon: MessagesSquare },
       { to: "/files", label: "파일 관리자", icon: FolderKanban },
       { to: "/crm", label: "CRM", icon: Users },
       { to: "/cms", label: "블로그 / CMS", icon: BookOpen },
