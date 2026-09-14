@@ -18,6 +18,7 @@ import { Route as DashboardOperationsRouteImport } from "./routes/_dashboard/ope
 import { Route as DashboardReact19RouteImport } from "./routes/_dashboard/react-19";
 import { Route as DashboardReportsRouteImport } from "./routes/_dashboard/reports";
 import { Route as DashboardSettingsRouteImport } from "./routes/_dashboard/settings";
+import { Route as DashboardSurveysRouteImport } from "./routes/_dashboard/surveys";
 import { Route as DocsIndexRouteImport } from "./routes/docs.index";
 import { Route as DocsSlugRouteImport } from "./routes/docs.$slug";
 import { Route as LandingIndexRouteImport } from "./routes/landing.index";
@@ -97,6 +98,11 @@ const DashboardReportsRoute = DashboardReportsRouteImport.update({
 const DashboardSettingsRoute = DashboardSettingsRouteImport.update({
   id: "/settings",
   path: "/settings",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardSurveysRoute = DashboardSurveysRouteImport.update({
+  id: "/surveys",
+  path: "/surveys",
   getParentRoute: () => DashboardRoute,
 } as any);
 const DocsIndexRoute = DocsIndexRouteImport.update({
@@ -295,6 +301,7 @@ export interface FileRoutesByFullPath {
   "/react-19": typeof DashboardReact19Route;
   "/reports": typeof DashboardReportsRoute;
   "/settings": typeof DashboardSettingsRoute;
+  "/surveys": typeof DashboardSurveysRoute;
   "/docs/$slug": typeof DocsSlugRoute;
   "/landing/agency": typeof LandingAgencyRoute;
   "/landing/course": typeof LandingCourseRoute;
@@ -339,6 +346,7 @@ export interface FileRoutesByTo {
   "/react-19": typeof DashboardReact19Route;
   "/reports": typeof DashboardReportsRoute;
   "/settings": typeof DashboardSettingsRoute;
+  "/surveys": typeof DashboardSurveysRoute;
   "/docs/$slug": typeof DocsSlugRoute;
   "/landing/agency": typeof LandingAgencyRoute;
   "/landing/course": typeof LandingCourseRoute;
@@ -387,6 +395,7 @@ export interface FileRoutesById {
   "/_dashboard/react-19": typeof DashboardReact19Route;
   "/_dashboard/reports": typeof DashboardReportsRoute;
   "/_dashboard/settings": typeof DashboardSettingsRoute;
+  "/_dashboard/surveys": typeof DashboardSurveysRoute;
   "/docs/$slug": typeof DocsSlugRoute;
   "/landing/agency": typeof LandingAgencyRoute;
   "/landing/course": typeof LandingCourseRoute;
@@ -436,6 +445,7 @@ export interface FileRouteTypes {
     | "/react-19"
     | "/reports"
     | "/settings"
+    | "/surveys"
     | "/docs/$slug"
     | "/landing/agency"
     | "/landing/course"
@@ -480,6 +490,7 @@ export interface FileRouteTypes {
     | "/react-19"
     | "/reports"
     | "/settings"
+    | "/surveys"
     | "/docs/$slug"
     | "/landing/agency"
     | "/landing/course"
@@ -527,6 +538,7 @@ export interface FileRouteTypes {
     | "/_dashboard/react-19"
     | "/_dashboard/reports"
     | "/_dashboard/settings"
+    | "/_dashboard/surveys"
     | "/docs/$slug"
     | "/landing/agency"
     | "/landing/course"
@@ -645,6 +657,13 @@ declare module "@tanstack/react-router" {
       path: "/settings";
       fullPath: "/settings";
       preLoaderRoute: typeof DashboardSettingsRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/surveys": {
+      id: "/_dashboard/surveys";
+      path: "/surveys";
+      fullPath: "/surveys";
+      preLoaderRoute: typeof DashboardSurveysRouteImport;
       parentRoute: typeof DashboardRoute;
     };
     "/docs/": {
@@ -908,6 +927,7 @@ interface DashboardRouteChildren {
   DashboardReact19Route: typeof DashboardReact19Route;
   DashboardReportsRoute: typeof DashboardReportsRoute;
   DashboardSettingsRoute: typeof DashboardSettingsRoute;
+  DashboardSurveysRoute: typeof DashboardSurveysRoute;
   DashboardIndexRoute: typeof DashboardIndexRoute;
   DashboardAdminLogsRoute: typeof DashboardAdminLogsRoute;
   DashboardBillingInvoiceIdRoute: typeof DashboardBillingInvoiceIdRoute;
@@ -939,6 +959,7 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardReact19Route: DashboardReact19Route,
   DashboardReportsRoute: DashboardReportsRoute,
   DashboardSettingsRoute: DashboardSettingsRoute,
+  DashboardSurveysRoute: DashboardSurveysRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardAdminLogsRoute: DashboardAdminLogsRoute,
   DashboardBillingInvoiceIdRoute: DashboardBillingInvoiceIdRoute,

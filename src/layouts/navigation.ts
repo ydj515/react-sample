@@ -36,7 +36,8 @@ export type NavigationItem = {
     | "/crm"
     | "/files"
     | "/notes"
-    | "/billing";
+    | "/billing"
+    | "/surveys";
   label: string;
   icon: LucideIcon;
 };
@@ -67,6 +68,7 @@ export const navigationGroups: NavigationGroup[] = [
     items: [
       { to: "/notes", label: "노트 / 마크다운", icon: BookOpen },
       { to: "/billing", label: "인보이스 / 빌링", icon: ShoppingCart },
+      { to: "/surveys", label: "설문 / 폼 빌더", icon: ListChecks },
       { to: "/files", label: "파일 관리자", icon: FolderKanban },
       { to: "/crm", label: "CRM", icon: Users },
       { to: "/cms", label: "블로그 / CMS", icon: BookOpen },
