@@ -9,6 +9,7 @@ import {
 import { dealStages, stageLabels } from "@/features/crm/model/crm-schema";
 import type { Contact, Deal, DealStage } from "@/features/crm/model/crm-schema";
 import { Select } from "@/shared/ui/select";
+import { cn } from "@/shared/lib/cn";
 import { Link } from "@tanstack/react-router";
 import type { ReactNode } from "react";
 
@@ -26,7 +27,10 @@ function Stage({
     <section
       ref={setNodeRef}
       aria-label={`${stageLabels[stage]} 단계`}
-      className={`bg-surface-muted min-w-0 rounded-xl border p-3 ${isOver ? "border-brand" : "border-line"}`}
+      className={cn(
+        "bg-surface-muted min-w-0 rounded-xl border p-3",
+        isOver ? "border-brand" : "border-line",
+      )}
     >
       <h2 className="mb-3 font-semibold">{stageLabels[stage]}</h2>
       <p className="text-ink-subtle mb-4 text-xs">
