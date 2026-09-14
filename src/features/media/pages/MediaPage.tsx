@@ -24,6 +24,7 @@ import { Input } from "@/shared/ui/input";
 import { Button } from "@/shared/ui/button";
 import { QueryBoundary } from "@/shared/ui/query-boundary";
 import { EmptyState } from "@/shared/ui/empty-state";
+import { cn } from "@/shared/lib/cn";
 
 function MediaContent() {
   const { data } = useSuspenseQuery(libraryOptions());
@@ -39,6 +40,11 @@ function MediaContent() {
   const [dragOver, setDragOver] = useState(false);
 
   const [uploading, setUploading] = useState(false);
+
+  const [uploadProgress, setUploadProgress] = useState({
+    completed: 0,
+    total: 0,
+  });
 
   const [messages, setMessages] = useState<string[]>([]);
 
@@ -74,25 +80,36 @@ function MediaContent() {
     if (uploadLock.current || !validFolder) return;
     uploadLock.current = true;
     setUploading(true);
+    setUploadProgress({ completed: 0, total: selected.length });
     setMessages([]);
     setErrors([]);
     try {
-      for (const file of selected) {
-        const invalid = validateUpload(file);
-        if (invalid) {
-          setErrors((previous) => [...previous, `${file.name}: ${invalid}`]);
-          continue;
-        }
-        try {
-          await upload.mutateAsync({ file, folderId: search.folder || null });
+      const results = await Promise.allSettled(
+        selected.map(async (file) => {
+          try {
+            const invalid = validateUpload(file);
+            if (invalid) throw new Error(invalid);
+            await upload.mutateAsync({ file, folderId: search.folder || null });
+            return file.name;
+          } finally {
+            setUploadProgress((previous) => ({
+              ...previous,
+              completed: previous.completed + 1,
+            }));
+          }
+        }),
+      );
+      results.forEach((result, index) => {
+        const file = selected[index]!;
+        if (result.status === "fulfilled") {
           setMessages((previous) => [...previous, `${file.name} 업로드 완료`]);
-        } catch (error) {
+        } else {
           setErrors((previous) => [
             ...previous,
-            `${file.name}: ${error instanceof Error ? error.message : "업로드 실패"}`,
+            `${file.name}: ${result.reason instanceof Error ? result.reason.message : "업로드 실패"}`,
           ]);
         }
-      }
+      });
     } finally {
       uploadLock.current = false;
       setUploading(false);
@@ -201,7 +218,10 @@ function MediaContent() {
               setDragOver(false);
               void uploadFiles(Array.from(event.dataTransfer.files));
             }}
-            className={`rounded-xl border-2 border-dashed p-6 text-center ${dragOver ? "border-brand bg-brand-soft" : "border-line"}`}
+            className={cn(
+              "rounded-xl border-2 border-dashed p-6 text-center",
+              dragOver ? "border-brand bg-brand-soft" : "border-line",
+            )}
           >
             <Upload
               aria-hidden
@@ -227,9 +247,18 @@ function MediaContent() {
             </label>
           </div>
           {uploading && (
-            <p role="status" className="text-sm">
-              파일을 업로드하는 중입니다…
-            </p>
+            <div className="grid gap-2" role="status" aria-live="polite">
+              <p className="text-sm">파일을 업로드하는 중입니다…</p>
+              <progress
+                aria-label="파일 업로드 진행률"
+                max={uploadProgress.total}
+                value={uploadProgress.completed}
+                className="h-2 w-full"
+              />
+              <p className="text-ink-subtle text-xs">
+                {uploadProgress.completed}/{uploadProgress.total}개 완료
+              </p>
+            </div>
           )}
           {!!messages.length && (
             <ul role="status" className="text-sm">
