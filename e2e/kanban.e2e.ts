@@ -1,6 +1,18 @@
-import { expect, test } from "@playwright/test";
+import { expect, test, type Page } from "@playwright/test";
 
 import { login } from "./helpers";
+
+async function waitForKeyboardDrag(page: Page) {
+  await expect(page.getByTestId("kanban-drop-placeholder")).toHaveCount(1);
+  // Placeholder rendering precedes dnd-kit's deferred keyboard listener and
+  // layout measurement. Wait for paint before sending the first arrow key.
+  await page.evaluate(
+    () =>
+      new Promise<void>((resolve) => {
+        requestAnimationFrame(() => requestAnimationFrame(() => resolve()));
+      }),
+  );
+}
 
 test.describe("칸반 보드", () => {
   test("컬럼 필터와 초기화가 URL과 결과에 반영된다", async ({ page }) => {
@@ -66,7 +78,7 @@ test("키보드로 한 칸 아래 이동하고 취소할 수 있다", async ({ p
   });
   await handle.focus();
   await page.keyboard.press("Space");
-  await expect(page.getByTestId("kanban-drop-placeholder")).toHaveCount(1);
+  await waitForKeyboardDrag(page);
   await page.keyboard.press("ArrowDown");
   await expect(
     page.getByRole("status").filter({ hasText: "백로그, 2번째 위치" }),
@@ -79,9 +91,10 @@ test("키보드로 한 칸 아래 이동하고 취소할 수 있다", async ({ p
       nodes.map((node) => node.getAttribute("data-testid")),
     ),
   ).toEqual(original);
+  await expect(handle).not.toHaveAttribute("aria-pressed", "true");
   await handle.focus();
   await page.keyboard.press("Space");
-  await expect(page.getByTestId("kanban-drop-placeholder")).toHaveCount(1);
+  await waitForKeyboardDrag(page);
   await page.keyboard.press("ArrowDown");
   await expect(
     page.getByRole("status").filter({ hasText: "백로그, 2번째 위치" }),
@@ -148,7 +161,7 @@ test("거절된 드래그는 원래 컬럼과 순서로 복원된다", async ({ 
   );
   await handle.focus();
   await page.keyboard.press("Space");
-  await expect(page.getByTestId("kanban-drop-placeholder")).toHaveCount(1);
+  await waitForKeyboardDrag(page);
   await page.keyboard.press("ArrowUp");
   await expect(
     page.getByRole("status").filter({ hasText: "백로그, 4번째 위치" }),
