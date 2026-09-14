@@ -31,6 +31,7 @@
 20. [설문 / 폼 빌더 예제](./surveys-examples.md)
 21. [가계부 예제](./expenses-examples.md)
 22. [메시징 / 채팅 예제](./chat-examples.md)
+23. [캘린더 / 일정 예제](./calendar-examples.md)
 
 ## 목적별 문서
 

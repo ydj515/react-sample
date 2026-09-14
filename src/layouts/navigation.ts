@@ -1,5 +1,6 @@
 import {
   BarChart3,
+  CalendarDays,
   MessagesSquare,
   Bell,
   BookOpen,
@@ -40,7 +41,8 @@ export type NavigationItem = {
     | "/billing"
     | "/surveys"
     | "/expenses"
-    | "/chat";
+    | "/chat"
+    | "/calendar";
   label: string;
   icon: LucideIcon;
 };
@@ -74,6 +76,7 @@ export const navigationGroups: NavigationGroup[] = [
       { to: "/surveys", label: "설문 / 폼 빌더", icon: ListChecks },
       { to: "/expenses", label: "가계부", icon: BarChart3 },
       { to: "/chat", label: "메시징 / 채팅", icon: MessagesSquare },
+      { to: "/calendar", label: "캘린더 / 일정", icon: CalendarDays },
       { to: "/files", label: "파일 관리자", icon: FolderKanban },
       { to: "/crm", label: "CRM", icon: Users },
       { to: "/cms", label: "블로그 / CMS", icon: BookOpen },
