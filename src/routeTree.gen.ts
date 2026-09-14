@@ -13,6 +13,7 @@ import { Route as DashboardRouteImport } from "./routes/_dashboard";
 import { Route as ShopRouteImport } from "./routes/shop";
 import { Route as SigninRouteImport } from "./routes/signin";
 import { Route as DashboardIndexRouteImport } from "./routes/_dashboard/index";
+import { Route as DashboardNotesRouteImport } from "./routes/_dashboard/notes";
 import { Route as DashboardOperationsRouteImport } from "./routes/_dashboard/operations";
 import { Route as DashboardReact19RouteImport } from "./routes/_dashboard/react-19";
 import { Route as DashboardReportsRouteImport } from "./routes/_dashboard/reports";
@@ -69,6 +70,11 @@ const SigninRoute = SigninRouteImport.update({
 const DashboardIndexRoute = DashboardIndexRouteImport.update({
   id: "/",
   path: "/",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardNotesRoute = DashboardNotesRouteImport.update({
+  id: "/notes",
+  path: "/notes",
   getParentRoute: () => DashboardRoute,
 } as any);
 const DashboardOperationsRoute = DashboardOperationsRouteImport.update({
@@ -271,6 +277,7 @@ export interface FileRoutesByFullPath {
   "/": typeof DashboardIndexRoute;
   "/shop": typeof ShopRouteWithChildren;
   "/signin": typeof SigninRoute;
+  "/notes": typeof DashboardNotesRoute;
   "/operations": typeof DashboardOperationsRoute;
   "/react-19": typeof DashboardReact19Route;
   "/reports": typeof DashboardReportsRoute;
@@ -312,6 +319,7 @@ export interface FileRoutesByFullPath {
 }
 export interface FileRoutesByTo {
   "/signin": typeof SigninRoute;
+  "/notes": typeof DashboardNotesRoute;
   "/operations": typeof DashboardOperationsRoute;
   "/react-19": typeof DashboardReact19Route;
   "/reports": typeof DashboardReportsRoute;
@@ -357,6 +365,7 @@ export interface FileRoutesById {
   "/_dashboard": typeof DashboardRouteWithChildren;
   "/shop": typeof ShopRouteWithChildren;
   "/signin": typeof SigninRoute;
+  "/_dashboard/notes": typeof DashboardNotesRoute;
   "/_dashboard/operations": typeof DashboardOperationsRoute;
   "/_dashboard/react-19": typeof DashboardReact19Route;
   "/_dashboard/reports": typeof DashboardReportsRoute;
@@ -403,6 +412,7 @@ export interface FileRouteTypes {
     | "/"
     | "/shop"
     | "/signin"
+    | "/notes"
     | "/operations"
     | "/react-19"
     | "/reports"
@@ -444,6 +454,7 @@ export interface FileRouteTypes {
   fileRoutesByTo: FileRoutesByTo;
   to:
     | "/signin"
+    | "/notes"
     | "/operations"
     | "/react-19"
     | "/reports"
@@ -488,6 +499,7 @@ export interface FileRouteTypes {
     | "/_dashboard"
     | "/shop"
     | "/signin"
+    | "/_dashboard/notes"
     | "/_dashboard/operations"
     | "/_dashboard/react-19"
     | "/_dashboard/reports"
@@ -573,6 +585,13 @@ declare module "@tanstack/react-router" {
       path: "/";
       fullPath: "/";
       preLoaderRoute: typeof DashboardIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/notes": {
+      id: "/_dashboard/notes";
+      path: "/notes";
+      fullPath: "/notes";
+      preLoaderRoute: typeof DashboardNotesRouteImport;
       parentRoute: typeof DashboardRoute;
     };
     "/_dashboard/operations": {
@@ -845,6 +864,7 @@ declare module "@tanstack/react-router" {
 }
 
 interface DashboardRouteChildren {
+  DashboardNotesRoute: typeof DashboardNotesRoute;
   DashboardOperationsRoute: typeof DashboardOperationsRoute;
   DashboardReact19Route: typeof DashboardReact19Route;
   DashboardReportsRoute: typeof DashboardReportsRoute;
@@ -873,6 +893,7 @@ interface DashboardRouteChildren {
 }
 
 const DashboardRouteChildren: DashboardRouteChildren = {
+  DashboardNotesRoute: DashboardNotesRoute,
   DashboardOperationsRoute: DashboardOperationsRoute,
   DashboardReact19Route: DashboardReact19Route,
   DashboardReportsRoute: DashboardReportsRoute,
