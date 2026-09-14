@@ -34,6 +34,8 @@ const linkedPaths = [
   "/signin",
   "/users",
   "/users/$userId",
+  "/billing",
+  "/billing/$invoiceId",
   "/orders",
   "/orders/$orderId",
   "/products",

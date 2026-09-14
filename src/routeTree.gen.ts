@@ -33,6 +33,8 @@ import { Route as ShopProductIdRouteImport } from "./routes/shop.$productId";
 import { Route as ShopCartRouteImport } from "./routes/shop.cart";
 import { Route as ShopCheckoutRouteImport } from "./routes/shop.checkout";
 import { Route as DashboardAdminLogsRouteImport } from "./routes/_dashboard/admin.logs";
+import { Route as DashboardBillingIndexRouteImport } from "./routes/_dashboard/billing.index";
+import { Route as DashboardBillingInvoiceIdRouteImport } from "./routes/_dashboard/billing.$invoiceId";
 import { Route as DashboardCmsIndexRouteImport } from "./routes/_dashboard/cms.index";
 import { Route as DashboardCmsNewRouteImport } from "./routes/_dashboard/cms.new";
 import { Route as DashboardCrmIndexRouteImport } from "./routes/_dashboard/crm.index";
@@ -172,6 +174,17 @@ const DashboardAdminLogsRoute = DashboardAdminLogsRouteImport.update({
   path: "/admin/logs",
   getParentRoute: () => DashboardRoute,
 } as any);
+const DashboardBillingIndexRoute = DashboardBillingIndexRouteImport.update({
+  id: "/billing/",
+  path: "/billing/",
+  getParentRoute: () => DashboardRoute,
+} as any);
+const DashboardBillingInvoiceIdRoute =
+  DashboardBillingInvoiceIdRouteImport.update({
+    id: "/billing/$invoiceId",
+    path: "/billing/$invoiceId",
+    getParentRoute: () => DashboardRoute,
+  } as any);
 const DashboardCmsIndexRoute = DashboardCmsIndexRouteImport.update({
   id: "/cms/",
   path: "/cms/",
@@ -297,11 +310,13 @@ export interface FileRoutesByFullPath {
   "/landing/": typeof LandingIndexRoute;
   "/shop/": typeof ShopIndexRoute;
   "/admin/logs": typeof DashboardAdminLogsRoute;
+  "/billing/$invoiceId": typeof DashboardBillingInvoiceIdRoute;
   "/cms/new": typeof DashboardCmsNewRoute;
   "/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
   "/products/new": typeof DashboardProductsNewRoute;
   "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
   "/users/$userId": typeof DashboardUsersUserIdRoute;
+  "/billing/": typeof DashboardBillingIndexRoute;
   "/cms/": typeof DashboardCmsIndexRoute;
   "/crm/": typeof DashboardCrmIndexRoute;
   "/files/": typeof DashboardFilesIndexRoute;
@@ -340,11 +355,13 @@ export interface FileRoutesByTo {
   "/landing": typeof LandingIndexRoute;
   "/shop": typeof ShopIndexRoute;
   "/admin/logs": typeof DashboardAdminLogsRoute;
+  "/billing/$invoiceId": typeof DashboardBillingInvoiceIdRoute;
   "/cms/new": typeof DashboardCmsNewRoute;
   "/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
   "/products/new": typeof DashboardProductsNewRoute;
   "/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
   "/users/$userId": typeof DashboardUsersUserIdRoute;
+  "/billing": typeof DashboardBillingIndexRoute;
   "/cms": typeof DashboardCmsIndexRoute;
   "/crm": typeof DashboardCrmIndexRoute;
   "/files": typeof DashboardFilesIndexRoute;
@@ -386,11 +403,13 @@ export interface FileRoutesById {
   "/landing/": typeof LandingIndexRoute;
   "/shop/": typeof ShopIndexRoute;
   "/_dashboard/admin/logs": typeof DashboardAdminLogsRoute;
+  "/_dashboard/billing/$invoiceId": typeof DashboardBillingInvoiceIdRoute;
   "/_dashboard/cms/new": typeof DashboardCmsNewRoute;
   "/_dashboard/orders/$orderId": typeof DashboardOrdersOrderIdRoute;
   "/_dashboard/products/new": typeof DashboardProductsNewRoute;
   "/_dashboard/projects/$projectId": typeof DashboardProjectsProjectIdRoute;
   "/_dashboard/users/$userId": typeof DashboardUsersUserIdRoute;
+  "/_dashboard/billing/": typeof DashboardBillingIndexRoute;
   "/_dashboard/cms/": typeof DashboardCmsIndexRoute;
   "/_dashboard/crm/": typeof DashboardCrmIndexRoute;
   "/_dashboard/files/": typeof DashboardFilesIndexRoute;
@@ -432,11 +451,13 @@ export interface FileRouteTypes {
     | "/landing/"
     | "/shop/"
     | "/admin/logs"
+    | "/billing/$invoiceId"
     | "/cms/new"
     | "/orders/$orderId"
     | "/products/new"
     | "/projects/$projectId"
     | "/users/$userId"
+    | "/billing/"
     | "/cms/"
     | "/crm/"
     | "/files/"
@@ -475,11 +496,13 @@ export interface FileRouteTypes {
     | "/landing"
     | "/shop"
     | "/admin/logs"
+    | "/billing/$invoiceId"
     | "/cms/new"
     | "/orders/$orderId"
     | "/products/new"
     | "/projects/$projectId"
     | "/users/$userId"
+    | "/billing"
     | "/cms"
     | "/crm"
     | "/files"
@@ -520,11 +543,13 @@ export interface FileRouteTypes {
     | "/landing/"
     | "/shop/"
     | "/_dashboard/admin/logs"
+    | "/_dashboard/billing/$invoiceId"
     | "/_dashboard/cms/new"
     | "/_dashboard/orders/$orderId"
     | "/_dashboard/products/new"
     | "/_dashboard/projects/$projectId"
     | "/_dashboard/users/$userId"
+    | "/_dashboard/billing/"
     | "/_dashboard/cms/"
     | "/_dashboard/crm/"
     | "/_dashboard/files/"
@@ -727,6 +752,20 @@ declare module "@tanstack/react-router" {
       preLoaderRoute: typeof DashboardAdminLogsRouteImport;
       parentRoute: typeof DashboardRoute;
     };
+    "/_dashboard/billing/": {
+      id: "/_dashboard/billing/";
+      path: "/billing";
+      fullPath: "/billing/";
+      preLoaderRoute: typeof DashboardBillingIndexRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
+    "/_dashboard/billing/$invoiceId": {
+      id: "/_dashboard/billing/$invoiceId";
+      path: "/billing/$invoiceId";
+      fullPath: "/billing/$invoiceId";
+      preLoaderRoute: typeof DashboardBillingInvoiceIdRouteImport;
+      parentRoute: typeof DashboardRoute;
+    };
     "/_dashboard/cms/": {
       id: "/_dashboard/cms/";
       path: "/cms";
@@ -871,11 +910,13 @@ interface DashboardRouteChildren {
   DashboardSettingsRoute: typeof DashboardSettingsRoute;
   DashboardIndexRoute: typeof DashboardIndexRoute;
   DashboardAdminLogsRoute: typeof DashboardAdminLogsRoute;
+  DashboardBillingInvoiceIdRoute: typeof DashboardBillingInvoiceIdRoute;
   DashboardCmsNewRoute: typeof DashboardCmsNewRoute;
   DashboardOrdersOrderIdRoute: typeof DashboardOrdersOrderIdRoute;
   DashboardProductsNewRoute: typeof DashboardProductsNewRoute;
   DashboardProjectsProjectIdRoute: typeof DashboardProjectsProjectIdRoute;
   DashboardUsersUserIdRoute: typeof DashboardUsersUserIdRoute;
+  DashboardBillingIndexRoute: typeof DashboardBillingIndexRoute;
   DashboardCmsIndexRoute: typeof DashboardCmsIndexRoute;
   DashboardCrmIndexRoute: typeof DashboardCrmIndexRoute;
   DashboardFilesIndexRoute: typeof DashboardFilesIndexRoute;
@@ -900,11 +941,13 @@ const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardSettingsRoute: DashboardSettingsRoute,
   DashboardIndexRoute: DashboardIndexRoute,
   DashboardAdminLogsRoute: DashboardAdminLogsRoute,
+  DashboardBillingInvoiceIdRoute: DashboardBillingInvoiceIdRoute,
   DashboardCmsNewRoute: DashboardCmsNewRoute,
   DashboardOrdersOrderIdRoute: DashboardOrdersOrderIdRoute,
   DashboardProductsNewRoute: DashboardProductsNewRoute,
   DashboardProjectsProjectIdRoute: DashboardProjectsProjectIdRoute,
   DashboardUsersUserIdRoute: DashboardUsersUserIdRoute,
+  DashboardBillingIndexRoute: DashboardBillingIndexRoute,
   DashboardCmsIndexRoute: DashboardCmsIndexRoute,
   DashboardCrmIndexRoute: DashboardCrmIndexRoute,
   DashboardFilesIndexRoute: DashboardFilesIndexRoute,

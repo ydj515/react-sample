@@ -19,7 +19,9 @@ export function BreadcrumbBar({ pathname }: { pathname: string }) {
             ? "주문 상세"
             : current?.to === "/products"
               ? "상품 상세"
-              : "프로젝트 상세";
+              : current?.to === "/billing"
+                ? "송장 상세"
+                : "프로젝트 상세";
   return (
     <nav
       aria-label="현재 위치"

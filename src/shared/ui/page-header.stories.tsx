@@ -27,3 +27,10 @@ export const WithActions: Story = {
     ),
   },
 };
+
+export const WithMetadataOverride: Story = {
+  args: {
+    metadataTitle: "송장 고객사 송장",
+    metadataDescription: "고객사 송장 상세 페이지",
+  },
+};
