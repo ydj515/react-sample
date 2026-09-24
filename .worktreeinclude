@@ -1,0 +1,9 @@
+# Ignored local setup files copied into Codex-managed worktrees.
+# Only matching Git-ignored files are copied; file contents stay untracked.
+
+# Local Vite environment overrides; dependencies are installed in each worktree.
+/.env
+/.env.*
+!/.env.example
+!/.env.sample
+!/.env.template
