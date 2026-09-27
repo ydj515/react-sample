@@ -26,7 +26,7 @@ importers:
         version: 3.2.2(react@19.3.0)
       '@hookform/resolvers':
         specifier: ^5.9.1
-        version: 5.9.1(@standard-schema/spec@1.1.0)(react-hook-form@7.88.0(react@19.3.0))(zod@4.5.4)
+        version: 5.9.1(@standard-schema/spec@1.1.0)(react-hook-form@7.89.0(@types/react@19.3.0)(react@19.3.0))(zod@4.6.5)
       '@radix-ui/react-dialog':
         specifier: ^1.1.23
         version: 1.1.23(@types/react-dom@19.3.0(@types/react@19.3.0))(@types/react@19.3.0)(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
@@ -62,13 +62,13 @@ importers:
         version: 19.3.0(react@19.3.0)
       react-hook-form:
         specifier: ^7.88.0
-        version: 7.88.0(react@19.3.0)
+        version: 7.89.0(@types/react@19.3.0)(react@19.3.0)
       tailwind-merge:
         specifier: ^3.7.0
         version: 3.7.0
       zod:
-        specifier: ^4.5.4
-        version: 4.5.4
+        specifier: ^4.6.5
+        version: 4.6.5
       zustand:
         specifier: ^5.0.15
         version: 5.0.15(@types/react@19.3.0)(react@19.3.0)(use-sync-external-store@1.6.0(react@19.3.0))
@@ -2836,11 +2836,15 @@ packages:
     peerDependencies:
       react: ^19.3.0
 
-  react-hook-form@7.88.0:
-    resolution: {integrity: sha512-QRaLOWhX93YCnMiRfnOFRSwWXZNt8qhm2JTZwypoDvKpSffTJHmpzMXt8U6PV5UThvL3IiiLDUWe2nHMtz6Mmw==}
+  react-hook-form@7.89.0:
+    resolution: {integrity: sha512-vKcoCfy8RKZDrhSdqsRFp0uEOdS1AhLjOL6hR7Wmfzg1akNxEhaPf5WORx8SgEQPVXakdDyDkqQp+KNxVnnPHg==}
     engines: {node: '>=18.0.0'}
     peerDependencies:
+      '@types/react': '*'
       react: ^16.8.0 || ^17 || ^18 || ^19
+    peerDependenciesMeta:
+      '@types/react':
+        optional: true
 
   react-is@17.0.2:
     resolution: {integrity: sha512-w2GsyukL62IJnlaff/nRegPQR94C/XXamvMWmSHRJ4y7Ts/4ocGRmTHvOs8PSE6pB3dWOrD/nueuU5sduBsQ4w==}
@@ -3392,8 +3396,8 @@ packages:
     peerDependencies:
       zod: ^3.25.0 || ^4.0.0
 
-  zod@4.5.4:
-    resolution: {integrity: sha512-sC95tT5iHHH9gtpj6A81kh+NEaRAUFN+qlUPDUbRfOMvNf5QCBqsb3WgvnpVtK5Y+4UfA6KqufotuTvMGiTlsA==}
+  zod@4.6.5:
+    resolution: {integrity: sha512-v5l/aFXZQeai4awLbOpSoHecE9UiMrnfx75tEXLjNonXVARxQ5mOeipTjROUchszUNCqnE+hqAMujRsRHsut2Q==}
 
   zustand@5.0.15:
     resolution: {integrity: sha512-MpSEjRiBkA9crSYeOUH32rJC7SVqAbm0Fqcqge/bUi2PPoLcBWKOsG+C8mevmpr8TwXHBVkChbbJiyvkE+i/3A==}
@@ -3744,13 +3748,13 @@ snapshots:
 
   '@exodus/bytes@1.15.1': {}
 
-  '@hookform/resolvers@5.9.1(@standard-schema/spec@1.1.0)(react-hook-form@7.88.0(react@19.3.0))(zod@4.5.4)':
+  '@hookform/resolvers@5.9.1(@standard-schema/spec@1.1.0)(react-hook-form@7.89.0(@types/react@19.3.0)(react@19.3.0))(zod@4.6.5)':
     dependencies:
       '@standard-schema/utils': 0.3.0
-      react-hook-form: 7.88.0(react@19.3.0)
+      react-hook-form: 7.89.0(@types/react@19.3.0)(react@19.3.0)
     optionalDependencies:
       '@standard-schema/spec': 1.1.0
-      zod: 4.5.4
+      zod: 4.6.5
 
   '@humanfs/core@0.19.2':
     dependencies:
@@ -4439,7 +4443,7 @@ snapshots:
       jiti: 2.7.0
       magic-string: 0.30.21
       prettier: 3.9.6
-      zod: 4.5.4
+      zod: 4.6.5
     transitivePeerDependencies:
       - supports-color
 
@@ -4453,7 +4457,7 @@ snapshots:
       '@tanstack/router-utils': 1.162.2(supports-color@7.2.0)
       chokidar: 5.0.0
       unplugin: 3.3.0(esbuild@0.25.12)(rolldown@1.2.5)(vite@8.2.2(@types/node@26.4.1)(esbuild@0.25.12)(jiti@2.7.0)(tsx@4.19.1))
-      zod: 4.5.4
+      zod: 4.6.5
     optionalDependencies:
       '@tanstack/react-router': 1.170.32(react-dom@19.3.0(react@19.3.0))(react@19.3.0)
       vite: 8.2.2(@types/node@26.4.1)(esbuild@0.25.12)(jiti@2.7.0)(tsx@4.19.1)
@@ -5069,8 +5073,8 @@ snapshots:
       '@babel/parser': 7.29.7
       eslint: 10.9.1(jiti@2.7.0)(supports-color@7.2.0)
       hermes-parser: 0.25.1
-      zod: 4.5.4
-      zod-validation-error: 4.0.2(zod@4.5.4)
+      zod: 4.6.5
+      zod-validation-error: 4.0.2(zod@4.6.5)
     transitivePeerDependencies:
       - supports-color
 
@@ -5747,9 +5751,11 @@ snapshots:
       react: 19.3.0
       scheduler: 0.28.0
 
-  react-hook-form@7.88.0(react@19.3.0):
+  react-hook-form@7.89.0(@types/react@19.3.0)(react@19.3.0):
     dependencies:
       react: 19.3.0
+    optionalDependencies:
+      '@types/react': 19.3.0
 
   react-is@17.0.2: {}
 
@@ -6187,11 +6193,11 @@ snapshots:
 
   yocto-queue@0.1.0: {}
 
-  zod-validation-error@4.0.2(zod@4.5.4):
+  zod-validation-error@4.0.2(zod@4.6.5):
     dependencies:
-      zod: 4.5.4
+      zod: 4.6.5
 
-  zod@4.5.4: {}
+  zod@4.6.5: {}
 
   zustand@5.0.15(@types/react@19.3.0)(react@19.3.0)(use-sync-external-store@1.6.0(react@19.3.0)):
     optionalDependencies:
