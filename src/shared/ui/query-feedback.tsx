@@ -11,7 +11,7 @@ export function QueryFeedback({
   retrying = false,
 }: {
   pending: boolean;
-  error: Error | null;
+  error: unknown;
   onRetry: () => void;
   errorMessage?: string;
   pendingLabel?: string;
@@ -28,7 +28,12 @@ export function QueryFeedback({
   if (error) {
     return (
       <Card role="alert" className="p-6">
-        <p className="text-negative text-sm">{errorMessage ?? error.message}</p>
+        <p className="text-negative text-sm">
+          {errorMessage ??
+            (error instanceof Error
+              ? error.message
+              : "알 수 없는 오류가 발생했습니다.")}
+        </p>
         <Button
           className="mt-4"
           variant="secondary"
