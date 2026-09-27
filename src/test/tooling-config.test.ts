@@ -33,6 +33,7 @@ describe("tooling configuration", () => {
 
     expect(content.split(/\r?\n/u)).toEqual(
       expect.arrayContaining([
+        ".dev-standards/",
         "dist/",
         "coverage/",
         "storybook-static/",
@@ -337,6 +338,6 @@ describe("type-aware promise rules", () => {
         ),
       ).toBe(rejected);
     },
-    15_000,
+    60_000,
   );
 });

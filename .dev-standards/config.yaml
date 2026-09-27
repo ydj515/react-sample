@@ -1,0 +1,22 @@
+version: 1
+
+base: true
+
+languages:
+  - typescript
+
+architectures:
+  - feature-sliced
+
+frameworks:
+  - react-ts
+
+tools:
+  - eslint
+  - frameworks/react-ts/eslint-plugin-react-hooks
+  - prettier
+  - frameworks/react-ts/vitest
+  - pnpm
+
+runtimes:
+  - mise
