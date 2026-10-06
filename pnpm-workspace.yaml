@@ -6,6 +6,18 @@ allowBuilds:
 # GHSA-rgw5-rvv9-x895 대응: 새 패치 버전만 최소 릴리스 경과 정책에서 제외한다.
 minimumReleaseAgeExclude:
   - brace-expansion@5.0.9
+  - "@vitejs/plugin-react@6.1.2"
+  - lefthook-darwin-arm64@2.1.17
+  - lefthook-darwin-x64@2.1.17
+  - lefthook-freebsd-arm64@2.1.17
+  - lefthook-freebsd-x64@2.1.17
+  - lefthook-linux-arm64@2.1.17
+  - lefthook-linux-x64@2.1.17
+  - lefthook-openbsd-arm64@2.1.17
+  - lefthook-openbsd-x64@2.1.17
+  - lefthook-windows-arm64@2.1.17
+  - lefthook-windows-x64@2.1.17
+  - lefthook@2.1.17
 
 # Dependabot 보안 경보 대응: 취약한 transitive 의존성의 최소 안전 버전을 강제한다.
 # major 점프를 피하려고 caret 범위로 고정한다.

@@ -13,7 +13,7 @@ type BootstrapOptions = {
 
 export async function enableMocking() {
   const { worker } = await import("@/mocks/browser");
-  await worker.start({ onUnhandledRequest: "bypass" });
+  await worker.start({ onUnhandledFrame: "bypass" });
 }
 
 export function renderApp(container: HTMLElement) {

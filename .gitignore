@@ -51,3 +51,11 @@ storybook-static/
 *.njsproj
 *.sln
 *.sw?
+
+# Personal mise environments and credentials
+mise.local.toml
+mise.*.local.toml
+mise.local.lock
+mise.*.local.lock
+.miserc.local.toml
+!.env.*.example
