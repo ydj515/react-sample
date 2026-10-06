@@ -1,13 +1,27 @@
+min_version = "2026.9.18"
+
+[settings]
+lockfile = true
+lockfile_platforms = ["macos-arm64", "linux-x64"]
+
+[vars]
+runtime_env = "local"
+vite_mode = "production"
+
+[env]
+APP_ENV = "{{ vars.runtime_env }}"
+
 [tools]
 node = "24.19.0"
 pnpm = "11.22.0"
 
-[tasks.install]
+[tasks."install"]
 description = "Install project dependencies with pnpm."
-run = "pnpm install"
+run = "pnpm install --frozen-lockfile --prod=false"
 
-[tasks.dev]
+[tasks."dev"]
 description = "Generate TanStack Router routes and start the Vite dev server."
+depends = ["guard:local"]
 run = "pnpm dev"
 
 [tasks."generate-routes"]
@@ -50,12 +64,13 @@ run = "pnpm test:watch"
 description = "Run Vitest with coverage reporting."
 run = "pnpm test:coverage"
 
-[tasks.build]
+[tasks."build"]
 description = "Generate routes, typecheck, and build the production bundle."
-run = "pnpm build"
+run = "pnpm build --mode {{ vars.vite_mode | quote }}"
 
-[tasks.storybook]
+[tasks."storybook"]
 description = "Start the Storybook dev server on port 6006."
+depends = ["guard:local"]
 run = "pnpm storybook"
 
 [tasks."build-storybook"]
@@ -73,3 +88,20 @@ run = "pnpm validate"
 [tasks.verify]
 description = "Run validate, build Storybook, and execute the Playwright end-to-end suite."
 run = "pnpm verify"
+
+[tasks."bootstrap"]
+description = "Install locked tools and project dependencies; do not start services"
+run = "mise install --locked node@24.19.0 pnpm@11.22.0\nmise run install"
+
+[tasks."config:check"]
+description = "Validate task references without starting applications"
+run = "mise tasks validate --errors-only"
+
+[tasks."ci"]
+description = "Run the repository quality gate"
+run = "mise run verify"
+
+[tasks."guard:local"]
+description = "Reject local services under a production environment"
+hide = true
+run = "case \"$APP_ENV\" in local|dev|development) ;; *) echo 'Local services require the default or dev environment' >&2; exit 1 ;; esac"

@@ -105,6 +105,7 @@ describe("product management", () => {
     await user.clear(screen.getByRole("spinbutton", { name: "재고 수량" }));
     await user.type(screen.getByRole("spinbutton", { name: "재고 수량" }), "9");
     await user.click(screen.getByRole("button", { name: "상품 저장" }));
+    await screen.findByRole("heading", { name: "관리 샘플 가방" });
     expect(await screen.findByText("9개")).toBeInTheDocument();
   });
   it("이미지를 미리보고 잘못된 업로드를 기본 이미지 선택으로 복구한다", async () => {
