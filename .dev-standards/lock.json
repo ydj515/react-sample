@@ -2,9 +2,9 @@
   "schemaVersion": 1,
   "source": {
     "repository": "ydj515/dev-standards",
-    "requestedRef": "latest-release",
-    "resolvedRef": "v1.3.0",
-    "commit": "549f49628fbd83e0d32ca4124025db74daa4e219"
+    "requestedRef": "v1.5.0",
+    "resolvedRef": "v1.5.0",
+    "commit": "52aa44ec3374d0d8d570fec9c26399f39406d5db"
   },
   "config": {
     "path": ".dev-standards/config.yaml",
@@ -116,11 +116,11 @@
     },
     ".dev-standards/standards/runtime/mise.md": {
       "ownership": "managed",
-      "sha256": "fd66a8ed4ffa1f28ef5537e90cb6c0fdc033e9890bc71935a2a27417eec164f9"
+      "sha256": "8de0bab13e5c043362e1b2f3053d0a6a049802b94108421121fc956fa8742701"
     },
     ".dev-standards/standards/tools/frameworks/react-ts/eslint-plugin-react-hooks.md": {
       "ownership": "managed",
-      "sha256": "c407f0c0bf55fef2898fb32d3dbd871f28155666d016e1fef54da921683ec8a0"
+      "sha256": "84bfa9c56036015989988b8d343c728c7804bd942832d77c80ca0883f48180aa"
     },
     ".dev-standards/standards/tools/frameworks/react-ts/vitest.md": {
       "ownership": "managed",
@@ -128,15 +128,15 @@
     },
     ".dev-standards/standards/tools/languages/typescript/eslint.md": {
       "ownership": "managed",
-      "sha256": "714fde02297fb66e7b1438f3176716e6146fe55ed9599b9ccec9156e22f92e98"
+      "sha256": "460e4428c6f67fb910c85a96308f64c1868b5376d879b75bbbba36b2a4c2df60"
     },
     ".dev-standards/standards/tools/languages/typescript/pnpm.md": {
       "ownership": "managed",
-      "sha256": "d8186c278dc9aa7f7dfa501ea5d16caeec175abed8ee64b930e055211f090d9d"
+      "sha256": "f9079e5f9c044c560b9535dc236674d90ad27550ec6832d2ab5736b96f1692ef"
     },
     ".dev-standards/standards/tools/languages/typescript/prettier.md": {
       "ownership": "managed",
-      "sha256": "e61c84843cdca1919198fdfe0b1ac9e020c1b515ac23ad45e44cb9048c806415"
+      "sha256": "e5845fc48eac0ff68d4b8ce3b3e82ff4f4ff6fef2c44dcbb0577ab23285eb825"
     },
     ".dev-standards/standards/workflows/branch.md": {
       "ownership": "managed",
@@ -156,7 +156,7 @@
     },
     ".dev-standards/styleguide.md": {
       "ownership": "managed",
-      "sha256": "86b7675e7431f94003dde360d62f483c36c6489b65b5dd1d7e09e3a47a21df47"
+      "sha256": "1095ca85be6f8fdd4ef1db7c2520ffc66d3f47bb6246e8ee506f27a9cea86941"
     },
     ".worktreeinclude": {
       "ownership": "project-owned"
