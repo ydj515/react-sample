@@ -1,5 +1,12 @@
 # React Sample
 
+[![CI](https://github.com/ydj515/react-sample/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ydj515/react-sample/actions/workflows/ci.yml)
+[![Deploy Storybook](https://github.com/ydj515/react-sample/actions/workflows/deploy-storybook.yml/badge.svg?branch=main)](https://github.com/ydj515/react-sample/actions/workflows/deploy-storybook.yml)
+![Node.js](https://img.shields.io/badge/Node.js-24.19-339933?logo=nodedotjs&logoColor=white)
+![pnpm](https://img.shields.io/badge/pnpm-11.22-F69220?logo=pnpm&logoColor=white)
+![React](https://img.shields.io/badge/React-19.3-61DAFB?logo=react&logoColor=black)
+![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?logo=typescript&logoColor=white)
+
 관리자 대시보드와 쇼핑 화면으로 React 애플리케이션의 구성 방법을 보여주는 프런트엔드 샘플입니다.
 라우팅·인증 흐름부터 데이터 조회·수정, 폼, 공통 UI, 테스트까지 기능 단위로 구성했습니다.
 개발 모드에서는 MSW mock API로 실행하므로 백엔드 없이 둘러볼 수 있습니다.
