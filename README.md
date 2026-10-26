@@ -7,6 +7,8 @@
 ![pnpm](https://img.shields.io/badge/pnpm-11.22-F69220?logo=pnpm&logoColor=white)
 ![React](https://img.shields.io/badge/React-19.3-61DAFB?logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-6.0-3178C6?logo=typescript&logoColor=white)
+![Vite](https://img.shields.io/badge/Vite-8.3-646CFF?logo=vite&logoColor=white)
+![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4.3-06B6D4?logo=tailwindcss&logoColor=white)
 
 관리자 대시보드와 쇼핑 화면으로 React 애플리케이션의 구성 방법을 보여주는 프런트엔드 샘플입니다.
 라우팅·인증 흐름부터 데이터 조회·수정, 폼, 공통 UI, 테스트까지 기능 단위로 구성했습니다.
