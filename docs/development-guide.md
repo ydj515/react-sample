@@ -31,6 +31,27 @@ pnpm validate         # typecheck + lint + format:check + coverage + build
 pnpm verify           # validate + Storybook build + E2E
 ```
 
+## mise 환경 구성
+
+`mise.toml`은 도구·공통 task, `mise.dev.toml`/`mise.prod.toml`은 공유 환경 선택을 담당합니다.
+
+```bash
+mise trust ./mise.toml   # task와 overlay를 검토한 뒤 신뢰
+mise run bootstrap       # 고정된 버전의 도구 설치 후 의존성 준비
+mise run config:check    # task 참조·순환 검사, 앱 실행 없음
+mise run verify          # 프로젝트 검증
+mise -E dev run verify
+```
+
+- 기본 실행은 `APP_ENV=local`, `-E dev`는 개발 overlay, `-E prod`는 운영 설정 선택입니다. 환경 선택 자체가 배포나 서비스 시작을 수행하지 않습니다.
+- 개인 개발 설정은 `mise.dev.local.toml.example`을 검토해 `mise.dev.local.toml`로 복사합니다. `.env.dev.local`을 만든 뒤 `env._.file`을 활성화하면 dev에서만 읽으며, 기존 개인 파일을 덮어쓰지 않습니다.
+- `mise.local.toml`은 **모든 환경**에서 로드됩니다. prod checkout에 개인 override나 개발 dotenv를 두지 않으며 `-E local`은 사용하지 않습니다.
+- `APP_ENV`는 공통 환경 식별자이며 애플리케이션의 기존 실행·배포 설정은 유지합니다.
+- Vite 앱의 `build`는 기본/prod에서 `production`, dev에서 `development` mode를 사용합니다. `NODE_ENV`를 전역 production으로 설정하지 않아 개발 의존성 설치가 누락되지 않습니다.
+- mise는 개발 도구의 정확한 버전 고정과 프로필 분리에 사용합니다. `[settings] lockfile = false`로 도구 lock 생성을 끄고 `mise.lock`은 관리하지 않습니다.
+- 도구 버전은 `mise.toml`의 `[tools]`에서 관리하며 dev/prod에서도 같은 버전을 사용합니다. `pnpm-lock.yaml` 등 애플리케이션 의존성 잠금과 검증 옵션은 유지합니다.
+- `mise run bootstrap`은 프로젝트 초기 설정이며, OS package·dotfile·서비스를 관리하는 `mise bootstrap`은 개인 머신 설정에서 별도로 채택합니다.
+
 ## 실행 예제
 
 Vite 개발 서버의 기본 포트는 `5173`입니다. 사용 중이면 다음 포트로 이동하므로
