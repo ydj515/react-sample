@@ -2,6 +2,7 @@
 
 [![CI](https://github.com/ydj515/react-sample/actions/workflows/ci.yml/badge.svg?branch=main)](https://github.com/ydj515/react-sample/actions/workflows/ci.yml)
 [![Deploy Storybook](https://github.com/ydj515/react-sample/actions/workflows/deploy-storybook.yml/badge.svg?branch=main)](https://github.com/ydj515/react-sample/actions/workflows/deploy-storybook.yml)
+[![Sync Development Standards](https://github.com/ydj515/react-sample/actions/workflows/sync-dev-standards.yml/badge.svg)](https://github.com/ydj515/react-sample/actions/workflows/sync-dev-standards.yml)
 ![Node.js](https://img.shields.io/badge/Node.js-24.19-339933?logo=nodedotjs&logoColor=white)
 ![pnpm](https://img.shields.io/badge/pnpm-11.22-F69220?logo=pnpm&logoColor=white)
 ![React](https://img.shields.io/badge/React-19.3-61DAFB?logo=react&logoColor=black)
