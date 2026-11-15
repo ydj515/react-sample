@@ -18,6 +18,8 @@ minimumReleaseAgeExclude:
   - lefthook-windows-arm64@2.1.17
   - lefthook-windows-x64@2.1.17
   - lefthook@2.1.17
+  - eslint-plugin-react-refresh@0.5.8
+  - msw@3.0.6
 
 # Dependabot 보안 경보 대응: 취약한 transitive 의존성의 최소 안전 버전을 강제한다.
 # minimatch 11의 matcher API와 호환되도록 glob도 함께 갱신한다.
